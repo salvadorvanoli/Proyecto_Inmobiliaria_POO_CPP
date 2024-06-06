@@ -1,19 +1,34 @@
 Salvador:
 
-
+-Usuario
+-Admin
+-Interesado
+-Inmobiliaria
 
 Jozami:
 
-
+-Conversación
+-Venta
+-Alquiler
+-DT
 
 Nadia:
 
-
+-Mensaje
+-DT
 
 Felipe:
 
-
+-Propiedad
 
 Valentin:
 
+-Departamento
+-Zona
+-Edificio
+-DT
 
+Primer sprint: 2 días
+
+TODOS LOS .H TERMINADOS
+NO .CPP
