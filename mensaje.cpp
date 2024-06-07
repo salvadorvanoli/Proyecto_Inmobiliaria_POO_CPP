@@ -1,6 +1,8 @@
 #include "mensaje.h"
 #include "dthora.h"
 #include "dthora.cpp"
+#include "dtmensaje.cpp"
+#include "dtmensaje.h"
 #include <iostream>
 using namespace std;
 
@@ -36,4 +38,9 @@ void Mensaje::setFecha(DTFecha fecha){
 
 void Mensaje::setTexto(string texto){
     this->texto = texto;
+}
+
+DTMensaje Mensaje::getDTMensaje(){
+    DTMensaje a(this->texto, this->fecha);
+    return a;
 }
