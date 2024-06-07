@@ -4,10 +4,10 @@
 #include "ICollection/interfaces/ICollectible.h"
 #include "edificio.h"
 #include "propiedad.h"
-#include "DTEdificio.h"
-#include "DTDireccion.h"
-#include "DTChatProp.h"
-#include "DTMensaje.h"
+#include "dtedificio.h"
+#include "dtdireccion.h"
+#include "dtchatProp.h"
+#include "dtmensaje.h"
 
 
 using namespace std;
