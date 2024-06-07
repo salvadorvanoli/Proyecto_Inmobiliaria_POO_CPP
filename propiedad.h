@@ -1,13 +1,14 @@
-#ifdef PROPIEDAD_H
+#ifndef PROPIEDAD_H
 #define PROPIEDAD_H
 #include <iostream>
 #include "dtmensaje.h"
 #include "alquiler.h"
 #include "venta.h"
+#include "conversacion.h"
 #include "propiedad.cpp"
 using namespace std;
 
-class Propiedad{
+class Propiedad : public ICollection{
     private:
         int codigo;
         int cantAmbiente;
@@ -16,6 +17,7 @@ class Propiedad{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
+        conversacion * conver;
     public:
         propiedad(int, int, int, int, int, int, bool);
         ~propiedad();
@@ -26,6 +28,7 @@ class Propiedad{
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
+        void setConver(conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
         int getCodigo();
@@ -33,6 +36,7 @@ class Propiedad{
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
+        conversacion * getConver();
         void asociarVenta(Venta);
         void asociarAlquier(Alquier);
         void desvincularZona();

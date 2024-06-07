@@ -1,4 +1,4 @@
-#ifdef CASA_H
+#ifndef CASA_H
 #define CASA_H
 #include <iostream>
 #include "propiedad.h"
