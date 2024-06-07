@@ -8,7 +8,7 @@
 #include "propiedad.cpp"
 using namespace std;
 
-class Propiedad : public ICollection{
+class Propiedad /*: public ICollection*/{
     private:
         int codigo;
         int cantAmbiente;
@@ -17,10 +17,11 @@ class Propiedad : public ICollection{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        conversacion * conver;
+        Conversacion * conver;
     public:
-        propiedad(int, int, int, int, int, int, bool);
-        ~propiedad();
+        Propiedad(int, int, int, int, int, int, bool, Conversacion *);
+        Propiedad(){};
+        ~Propiedad();
         void setM2Totales(int);
         void setM2Edificios(int);
         void setTieneGaraje(bool);
@@ -28,7 +29,7 @@ class Propiedad : public ICollection{
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
-        void setConver(conversacion *);
+        void setConver(Conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
         int getCodigo();
@@ -36,7 +37,7 @@ class Propiedad : public ICollection{
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
-        conversacion * getConver();
+        Conversacion * getConver();
         void asociarVenta(Venta);
         void asociarAlquier(Alquier);
         void desvincularZona();
