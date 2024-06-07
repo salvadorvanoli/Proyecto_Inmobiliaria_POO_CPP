@@ -15,12 +15,11 @@ class Mensaje: public ICollection{
         DTFecha fecha;
         string texto;
     public:
-        Mensaje();
         Mensaje(DTHora, DTFecha, string);
         ~Mensaje();
         DTMensaje getDTMensaje();
         DTHora getHora();
-        DTFecha getfecha();
+        DTFecha getFecha();
         string getTexto();
         void setHora(DTHora);
         void setFecha(DTFecha);
