@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-DTDepartamento::DTDepartamento(string letra, string nombre){
+DTDepartamento::DTDepartamento(char* letra, string nombre){
     this->letra = letra;
     this->nombre = nombre;
 }
@@ -11,7 +11,7 @@ DTDepartamento::~DTDepartamento(){
 
 }
 
-string DTDepartamento::getLetra(){
+char* DTDepartamento::getLetra(){
     return this->letra;
 }
 

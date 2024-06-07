@@ -6,12 +6,12 @@ using namespace std;
 
 class DTDepartamento{
     private:
-        string letra;
+        char* letra;
         string nombre;
     public:
-        DTDepartamento(string, string);
+        DTDepartamento(char*, string);
         ~DTDepartamento();
-        string getLetra();
+        char* getLetra();
         string getNombre();
 };
 

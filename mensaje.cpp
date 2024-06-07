@@ -1,4 +1,6 @@
 #include "mensaje.h"
+#include "dthora.h"
+#include "dthora.cpp"
 #include <iostream>
 using namespace std;
 
