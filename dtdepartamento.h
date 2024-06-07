@@ -9,6 +9,7 @@ class DTDepartamento{
         char* letra;
         string nombre;
     public:
+        DTDepartamento();
         DTDepartamento(char*, string);
         ~DTDepartamento();
         char* getLetra();

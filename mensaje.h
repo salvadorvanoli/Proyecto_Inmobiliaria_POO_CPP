@@ -15,6 +15,7 @@ class Mensaje: public ICollection{
         DTFecha fecha;
         string texto;
     public:
+        Mensaje();
         Mensaje(DTHora, DTFecha, string);
         ~Mensaje();
         DTMensaje getDTMensaje();
