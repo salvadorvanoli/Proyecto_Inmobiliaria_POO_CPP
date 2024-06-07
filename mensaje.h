@@ -9,7 +9,7 @@
 using namespace std;
 
 
-class Mensaje{
+class Mensaje: public ICollection{
     private:
         DTHora hora;
         DTFecha fecha;
