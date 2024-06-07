@@ -3,8 +3,8 @@
 #include <iostream>
 #include "ICollection/interfaces/ICollectible.h"
 #include "zona.h"
-#include "DTDepartamento.h"
-#include "DTZona"
+#include "dtdepartamento.h"
+#include "dtzona"
 
 using namespace std;
 
