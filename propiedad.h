@@ -6,6 +6,8 @@
 #include "venta.h"
 #include "conversacion.h"
 #include "propiedad.cpp"
+#include "zona.h"
+//#include "ICollection/interfaces/ICollectible.h"
 using namespace std;
 
 class Propiedad /*: public ICollection*/{
@@ -17,11 +19,13 @@ class Propiedad /*: public ICollection*/{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        Conversacion * conver;
+        Conversacion * conversacion;
+        Zona * zona;
     public:
         Propiedad(int, int, int, int, int, int, bool, Conversacion *);
         Propiedad(){};
         ~Propiedad();
+        void setZona(Zona *);
         void setM2Totales(int);
         void setM2Edificios(int);
         void setTieneGaraje(bool);
@@ -38,6 +42,7 @@ class Propiedad /*: public ICollection*/{
         int getCantBanios();
         int getM2Edificios();
         Conversacion * getConver();
+        Zona * getZona();
         void asociarVenta(Venta);
         void asociarAlquier(Alquier);
         void desvincularZona();

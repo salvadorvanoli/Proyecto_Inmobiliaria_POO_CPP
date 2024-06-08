@@ -45,7 +45,11 @@ void Propiedad :: setCodigo(int _codigo){
 }
 
 void Propiedad :: setConver(Conversacion * _conver){
-    this->conver = _conver;
+    this->conversacion = _conver;
+}
+
+void Propiedad :: setZona(Zona * _zona){
+    this->zona = _zona
 }
 
 bool Propiedad :: getTieneGaraje(){
@@ -77,11 +81,15 @@ int Propiedad :: getM2Edificios(){
 }
 
 Conversacion * Propiedad :: getConver(){
-    return this->conver;
+    return this->conversacion;
+}
+
+Zona * Propiedad :: getZona(){
+    return this->zona;
 }
 
 void Propiedad :: asociarVenta(Venta){
-
+    
 }
 
 void Propiedad :: asociarAlquier(Alquier){
@@ -89,19 +97,21 @@ void Propiedad :: asociarAlquier(Alquier){
 }
 
 void Propiedad :: desvincularZona(){
-    
+    this->zona->desvincularZona(this);
 }
 
-void Propiedad :: destruirConversacion(){
-
+void Propiedad :: destruirConversacion(){ //en eliminar propiedad
+    //seria hacer un next en la collecion(conversacion), destruir los mensajes 
+    //y luego la propia conversacion
+    //asi uno por uno
 }
 
-void Propiedad :: destruirVenta(){
-
+void Propiedad :: destruirVenta(){//en eliminar propiedad
+    //si la venta existe se le hace destroy
 }
 
-void Propiedad :: destruirAlquiler(){
-
+void Propiedad :: destruirAlquiler(){//en eliminar propiedad
+     //si el alquiler existe se le hace destroy
 }
 
 DTChatProp Propiedad :: getDTChatProp(string){
@@ -109,7 +119,7 @@ DTChatProp Propiedad :: getDTChatProp(string){
 }
 
 DTMensaje Propiedad :: getUltimosmensajes(){
-
+    
 }
 
 Conversacion Propiedad :: nuevoChat(){
