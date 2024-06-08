@@ -20,7 +20,7 @@ class Mensaje: public ICollection{
         ~Mensaje();
         DTMensaje getDTMensaje();
         DTHora getHora();
-        DTFecha getfecha();
+        DTFecha getFecha();
         string getTexto();
         void setHora(DTHora);
         void setFecha(DTFecha);

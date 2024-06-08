@@ -8,12 +8,12 @@ using namespace std;
 
 class DTInmobiliaria{
     private:
-        string nombre;
+        char* nombre;
         DTDir direccion;
     public:
-        DTInmobiliaria(string, DTDir);
+        DTInmobiliaria(char*, DTDir);
         ~DTInmobiliaria();
-        string getNombre();
+        char* getNombre();
         DTDir getDireccion();
 };
 

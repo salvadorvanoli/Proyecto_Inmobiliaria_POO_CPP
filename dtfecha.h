@@ -15,6 +15,7 @@ class DTFecha{
     public:
         DTFecha();
         DTFecha(string, string, string, DTHora);
+        ~DTFecha();
         string getDia();
         string getMes();
         string getAnio();

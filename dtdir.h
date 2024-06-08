@@ -11,6 +11,7 @@ class DTDir{
         int numero;
         string ciudad;
     public:
+        DTDir();
         DTDir(string, int, string);
         ~DTDir();
         string getCalle();

@@ -9,6 +9,7 @@ class DTHora{
         int minuto;
         int segundo;
     public:
+        DTHora();
         DTHora(int, int, int);
         ~DTHora();
         int getHora();
