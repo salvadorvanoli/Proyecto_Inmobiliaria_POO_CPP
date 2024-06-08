@@ -44,7 +44,7 @@ void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
 }
 
-void Propiedad :: setConver(Conversacion * _conver){
+void Propiedad :: setConversacion(Conversacion * _conver){
     this->conversacion = _conver;
 }
 
@@ -80,7 +80,7 @@ int Propiedad :: getM2Edificios(){
     return this->m2Edificios;
 }
 
-Conversacion * Propiedad :: getConver(){
+Conversacion * Propiedad :: getConversacion(){
     return this->conversacion;
 }
 

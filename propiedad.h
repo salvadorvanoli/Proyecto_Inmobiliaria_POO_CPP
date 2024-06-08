@@ -33,7 +33,7 @@ class Propiedad /*: public ICollection*/{
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
-        void setConver(Conversacion *);
+        void setConversacion(Conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
         int getCodigo();
@@ -41,7 +41,7 @@ class Propiedad /*: public ICollection*/{
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
-        Conversacion * getConver();
+        Conversacion * getConversacion();
         Zona * getZona();
         void asociarVenta(Venta);
         void asociarAlquier(Alquier);
