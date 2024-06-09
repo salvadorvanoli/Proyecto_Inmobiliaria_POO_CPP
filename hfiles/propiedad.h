@@ -10,7 +10,7 @@ using namespace std;
 #include "conversacion.h"
 #include "propiedad.cpp"
 #include "zona.h"
-//#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollectible.h"
 
 class DTMensaje;
 class Alquiler;

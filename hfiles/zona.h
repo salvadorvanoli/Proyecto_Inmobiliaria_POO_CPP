@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollectible.h"
 #include "edificio.h"
 #include "propiedad.h"
 #include "dtedificio.h"
