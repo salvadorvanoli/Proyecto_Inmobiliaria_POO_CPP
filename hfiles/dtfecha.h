@@ -2,9 +2,11 @@
 #define DTFECHA_H
 
 #include <iostream>
-#include "dthora.h"
 using namespace std;
 
+#include "dthora.h"
+
+class DTHora;
 
 class DTFecha{
     private:

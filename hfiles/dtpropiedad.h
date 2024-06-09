@@ -1,9 +1,16 @@
 #ifndef DTPROPIEDAD_H
 #define DTPROPIEDAD_H
+
 #include <iostream>
+using namespace std;
+
 #include "ICollection/interfaces/ICollectible.h"
 #include "dtdir.h"
 #include "dtestadoprop.h"
+
+class ICollectible;
+class DTDir;
+class enum DTEstadoProp;
 
 class DTPropiedad: public ICollectible {
     private:

@@ -1,6 +1,7 @@
 #ifndef DTHORA_H
 #define DTHORA_H
 
+#include <iostream>
 using namespace std;
 
 class DTHora{

@@ -2,7 +2,6 @@
 #define DTDIR_H
 
 #include <iostream>
-
 using namespace std;
 
 class DTDir{

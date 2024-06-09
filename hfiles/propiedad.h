@@ -1,6 +1,9 @@
 #ifndef PROPIEDAD_H
 #define PROPIEDAD_H
+
 #include <iostream>
+using namespace std;
+
 #include "dtmensaje.h"
 #include "alquiler.h"
 #include "venta.h"
@@ -8,7 +11,14 @@
 #include "propiedad.cpp"
 #include "zona.h"
 //#include "ICollection/interfaces/ICollectible.h"
-using namespace std;
+
+class DTMensaje;
+class Alquiler;
+class Venta;
+class Conversacion;
+class Propiedad;
+class Zona;
+class ICollectible;
 
 class Propiedad /*: public ICollection*/{
     private:

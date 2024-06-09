@@ -1,5 +1,5 @@
-#include "dtfecha.h"
-#include "dthora.h"
+#include "../hfiles/dtfecha.h"
+#include "../hfiles/dthora.h"
 #include "dthora.cpp"
 #include <iostream>
 using namespace std;
