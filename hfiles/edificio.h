@@ -1,5 +1,5 @@
-#ifndef DEPARTAMENTO_H
-#define DEPARTAMENTO_H
+#ifndef EDIFICIO_H
+#define EDIFICIO_H
 
 #include <iostream>
 using namespace std;
