@@ -4,12 +4,12 @@
 #include <iostream>
 using namespace std;
 
-// #include "/ICollection/interfaces/ICollectible.h"
-// #include "/ICollection/interfaces/ICollection.h"
-// #include "/ICollection/interfaces/OrderedKey.h"
-// #include "/ICollection/interfaces/IKey.h"
-// #include "/ICollection/interfaces/IDictionary.h"
-// #include "/ICollection/interfaces/IIterator.h"
+#include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/interfaces/IDictionary.h"
+#include "../ICollection/interfaces/IIterator.h"
 #include "usuario.h"
 #include "dtdir.h"
 #include "venta.h"
@@ -31,18 +31,26 @@ class Inmobiliaria : public Usuario {
     private:
         string nombre;
         DTDir direccion;
-        ICollection ventas;
-        ICollection alquileres;
-        ICollection propiedades;
+        ICollection * ventas;
+        ICollection * alquileres;
+        ICollection * propiedades;
     public:
-        Inmobiliaria(char*, string, string, string, int);
+        Inmobiliaria(char*, string, DTDir);
         ~Inmobiliaria();
+
+        //Setters
         void setNombre(string);
         void setDireccion(DTDir);
+        Venta ponerEnVenta(Propiedad, int);
+        Alquiler ponerEnAlquiler(Propiedad, int);
+        void agregarPropiedad(Propiedad);
+
+        //Getters
         string getNombre();
         DTDir getDireccion();
-        Venta ponerEnVenta(int);
-        int ponerEnAlquiler(int);
+        Venta** getVentas();
+        Alquiler** getAlquileres();
+        Propiedad** getPropiedades();
 };
 
 #endif
