@@ -1,12 +1,19 @@
 #ifndef DEPARTAMENTO_H
 #define DEPARTAMENTO_H
+
 #include <iostream>
+using namespace std;
+
 #include "ICollection/interfaces/ICollectible.h"
 #include "zona.h"
 #include "dtdepartamento.h"
 #include "dtzona"
 
-using namespace std;
+class ICollectible;
+class ICollection;
+class Zona;
+class DTZona;
+class DTDepartamento;
 
 class Departamento: public ICollectible {
     private:

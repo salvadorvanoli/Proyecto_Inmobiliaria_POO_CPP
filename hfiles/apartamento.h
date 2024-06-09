@@ -1,12 +1,16 @@
 #ifndef APARTAMENTO_H
 #define APARTAMENTO_H
+
 #include <iostream>
-#include "propiedad.h"
 using namespace std;
+
+#include "propiedad.h"
+
+class Propiedad;
 
 class Apartamento : public Propiedad{
 
-}
+};
 
 
 #endif

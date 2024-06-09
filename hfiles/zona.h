@@ -1,17 +1,26 @@
 #ifndef ZONA_H
 #define ZONA_H
-#include <iostream>
-//#include "ICollection/interfaces/ICollectible.h"
-//#include "edificio.h"
-#include "propiedad.h"
-//#include "dtedificio.h"
-//#include "dtdireccion.h"
-//#include "dtchatProp.h"
-#include "dtmensaje.h"
 
+#include <iostream>
 using namespace std;
 
-class Zona: /*public ICollectible */{
+#include "ICollection/interfaces/ICollectible.h"
+#include "edificio.h"
+#include "propiedad.h"
+#include "dtedificio.h"
+#include "dtdireccion.h"
+#include "dtchatProp.h"
+#include "dtmensaje.h"
+
+class ICollectible;
+class Edificio;
+class Propiedad;
+class DTEdificio;
+class DTDirección;
+class DTChatProp;
+class DTMensaje;
+
+class Zona : public ICollectible {
     private:
         int codigo;
         string nombre;

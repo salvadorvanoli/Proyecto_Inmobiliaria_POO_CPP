@@ -1,8 +1,14 @@
 #ifndef DTPROPIEDADDETALLADA_H
 #define DTPROPIEDADDETALLADA_H
+
 #include <iostream>
+using namespace std;
+
 #include "dtpropiedad.h"
 #include "dtinmobiliaria.h"
+
+class DTPropiedad;
+class DTInmobiliaria;
 
 class DTReporte: public DTPropiedad {
     private:

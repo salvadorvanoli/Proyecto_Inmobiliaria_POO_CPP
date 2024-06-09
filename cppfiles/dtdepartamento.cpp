@@ -1,4 +1,4 @@
-#include "dtdepartamento.h"
+#include "../hfiles/dtdepartamento.h"
 #include <iostream>
 using namespace std;
 

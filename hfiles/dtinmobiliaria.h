@@ -2,9 +2,11 @@
 #define DTINMOBILIARIA_H
 
 #include <iostream>
+using namespace std;
+
 #include "dtdir.h"
 
-using namespace std;
+class DTDir;
 
 class DTInmobiliaria{
     private:

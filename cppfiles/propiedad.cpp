@@ -1,5 +1,5 @@
+#include "../hfiles/propiedad.h"
 #include <iostream>
-#include "propiedad.h"
 using namespace std;
 
 Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver){

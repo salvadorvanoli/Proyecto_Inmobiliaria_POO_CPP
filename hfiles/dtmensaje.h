@@ -1,6 +1,12 @@
 #ifndef DTMENSAJE_H
 #define DTMENSAJE_H
+
+#include <iostream>
+using namespace std;
+
 #include "dtfecha.h"
+
+class DTFecha;
 
 class DTMensaje{
     private:

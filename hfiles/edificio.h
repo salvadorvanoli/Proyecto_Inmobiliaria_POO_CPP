@@ -1,11 +1,14 @@
 #ifndef DEPARTAMENTO_H
 #define DEPARTAMENTO_H
+
 #include <iostream>
+using namespace std;
+
 #include "ICollection/interfaces/ICollectible.h"
 #include "apartamento.h"
 
-
-using namespace std;
+class ICollectible;
+class Apartamento;
 
 class Zona: public ICollectible {
     private:

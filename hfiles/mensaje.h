@@ -1,13 +1,16 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 
+#include <iostream>
+using namespace std;
+
 #include "dtfecha.h"
 #include "dthora.h"
 #include "dtmensaje.h"
 
-//#include <iostream>
-using namespace std;
-
+class DTFecha;
+class DTHora;
+class DTMensaje;
 
 class Mensaje: public ICollection{
     private:
