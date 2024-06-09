@@ -20,11 +20,11 @@ class IIterator;
 class OrderedKey;
 
 class Usuario : public ICollectible {
-    private:
+    protected:
         char* correoElectronico;
         string contrasenia;
     public:
-        Usuario(char*, string);
+        Usuario(char*);
         virtual ~Usuario();
 
         // Métodos

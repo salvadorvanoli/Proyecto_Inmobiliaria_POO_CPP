@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Usuario::Usuario(char* email, string contrasenia){
+Usuario::Usuario(char* email){
     this->correoElectronico = email;
     this->contrasenia = "";
 }

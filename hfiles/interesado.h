@@ -27,11 +27,14 @@ class Interesado : public Usuario {
         string apellido;
         int edad;
     public:
-        Interesado(char*, string, string, string, int);
-        ~Interesado();
+        Interesado(char*, string, string, int);
+
+        //Setters
         void setNombre(string);
         void setApellido(string);
         void setEdad(int);
+
+        //Getters
         string getNombre();
         string getApellido();
         int getEdad();

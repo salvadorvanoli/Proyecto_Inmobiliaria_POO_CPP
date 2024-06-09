@@ -8,7 +8,7 @@ using namespace std;
 #include "edificio.h"
 #include "propiedad.h"
 #include "dtedificio.h"
-#include "dtdireccion.h"
+#include "dtdir.h"
 #include "dtchatProp.h"
 #include "dtmensaje.h"
 
@@ -16,7 +16,7 @@ class ICollectible;
 class Edificio;
 class Propiedad;
 class DTEdificio;
-class DTDirección;
+class DTDir;
 class DTChatProp;
 class DTMensaje;
 

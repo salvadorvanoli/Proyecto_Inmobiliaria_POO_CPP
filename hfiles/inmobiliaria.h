@@ -31,18 +31,26 @@ class Inmobiliaria : public Usuario {
     private:
         string nombre;
         DTDir direccion;
-        ICollection ventas;
-        ICollection alquileres;
-        ICollection propiedades;
+        ICollection * ventas;
+        ICollection * alquileres;
+        ICollection * propiedades;
     public:
-        Inmobiliaria(char*, string, string, string, int);
+        Inmobiliaria(char*, string, DTDir);
         ~Inmobiliaria();
+
+        //Setters
         void setNombre(string);
         void setDireccion(DTDir);
+        Venta ponerEnVenta(Propiedad, int);
+        Alquiler ponerEnAlquiler(Propiedad, int);
+        void agregarPropiedad(Propiedad);
+
+        //Getters
         string getNombre();
         DTDir getDireccion();
-        Venta ponerEnVenta(int);
-        int ponerEnAlquiler(int);
+        Venta** getVentas();
+        Alquiler** getAlquileres();
+        Propiedad** getPropiedades();
 };
 
 #endif
