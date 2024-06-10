@@ -7,7 +7,7 @@
 #include "DTMensaje.h"
 using namespace std;
 
-class Conversacion: public ICollectible {
+class Conversacion: public ICollection{
     private:
         string codigoConversacion;
         int cantMensajes;
