@@ -31,10 +31,14 @@ class Propiedad : public ICollection{
         bool tieneGaraje;
         Conversacion * conversacion;
         Zona * zona;
+        Venta * venta;
+        Alquiler * alquiler;
     public:
         Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
         Propiedad(){};
         ~Propiedad();
+        void setAlquiler(Alquiler *);
+        void setVenta(Venta *);
         void setZona(Zona *);
         void setM2Totales(int);
         void setM2Edificios(int);
@@ -53,15 +57,17 @@ class Propiedad : public ICollection{
         int getM2Edificios();
         Conversacion * getConversacion();
         Zona * getZona();
-        void asociarVenta(Venta);
-        void asociarAlquier(Alquiler);
+        Alquiler * getAlquiler();
+        Venta * getVenta();
+        void asociarVenta(Venta *);
+        void asociarAlquier(Alquiler *);
         void desvincularZona();
         void destruirConversacion();
         void destruirVenta();
         void destruirAlquiler();
-        DTChatProp getDTChatProp(string);
-        DTMensaje getUltimosmensajes();
-        Conversacion nuevoChat();
+        DTChatProp * getDTChatProp(string);
+        DTMensaje *getUltimosmensajes();
+        Conversacion * nuevoChat();
 };
 
 #endif

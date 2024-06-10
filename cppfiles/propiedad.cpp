@@ -17,6 +17,14 @@ Propiedad :: ~Propiedad(){
     
 }
 
+void Propiedad :: setVenta(Venta * v){
+    this->venta = v;
+}
+
+void Propiedad :: setAlquiler(Alquiler * a){
+    this->alquiler = a;
+}
+
 void Propiedad :: setM2Totales(int _m2Totales){
     this->m2Totales = _m2Totales;
 }
@@ -89,12 +97,20 @@ Zona * Propiedad :: getZona(){
     return this->zona;
 }
 
-void Propiedad :: asociarVenta(Venta){
-    
+Venta * Propiedad :: getVenta(){
+    return this->venta;
 }
 
-void Propiedad :: asociarAlquier(Alquiler){
+Alquiler * Propiedad :: getAlquiler(){
+    return this->alquiler;
+}
 
+void Propiedad :: asociarVenta(Venta * v){
+    this->venta = v;
+}
+
+void Propiedad :: asociarAlquier(Alquiler * a){
+    this->alquiler = a;
 }
 
 void Propiedad :: desvincularZona(){
@@ -107,26 +123,34 @@ void Propiedad :: destruirConversacion(){ //en eliminar propiedad
     //asi uno por uno
     Conversacion * aux;
     aux = this->conversacion;
-    if(aux == NULL && aux.)
+    /*while(){
+
+    }*/
 }
 
 void Propiedad :: destruirVenta(){//en eliminar propiedad
     //si la venta existe se le hace destroy
+    if(this->venta != NULL){
+        this->venta->~Venta();
+    }
 }
 
 void Propiedad :: destruirAlquiler(){//en eliminar propiedad
-     //si el alquiler existe se le hace destroy
+    //si el alquiler existe se le hace destroy
+    if(this->alquiler != NULL){
+        this->alquiler->~Alquiler();
+    }
 }
 
-DTChatProp Propiedad :: getDTChatProp(string){
+DTChatProp * Propiedad :: getDTChatProp(string aa){
 
 }
 
-DTMensaje Propiedad :: getUltimosmensajes(){
+DTMensaje * Propiedad :: getUltimosmensajes(){
     
 }
 
-Conversacion Propiedad :: nuevoChat(){
+Conversacion * Propiedad :: nuevoChat(){
 
 }
 
