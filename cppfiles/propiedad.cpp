@@ -151,6 +151,6 @@ DTMensaje * Propiedad :: getUltimosmensajes(){
 }
 
 Conversacion * Propiedad :: nuevoChat(){
-
+    
 }
 

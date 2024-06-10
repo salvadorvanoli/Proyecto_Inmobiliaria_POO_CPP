@@ -66,7 +66,7 @@ class Propiedad : public ICollection{
         void destruirVenta();
         void destruirAlquiler();
         DTChatProp * getDTChatProp(string);
-        DTMensaje *getUltimosmensajes();
+        DTMensaje * getUltimosmensajes();
         Conversacion * nuevoChat();
 };
 
