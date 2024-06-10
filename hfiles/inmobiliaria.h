@@ -41,8 +41,8 @@ class Inmobiliaria : public Usuario {
         //Setters
         void setNombre(string);
         void setDireccion(DTDir);
-        Venta ponerEnVenta(Propiedad, int);
-        Alquiler ponerEnAlquiler(Propiedad, int);
+        Venta* ponerEnVenta(Propiedad, int);
+        Alquiler* ponerEnAlquiler(Propiedad, int);
         void agregarPropiedad(Propiedad);
 
         //Getters

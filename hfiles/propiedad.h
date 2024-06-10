@@ -34,7 +34,7 @@ class Propiedad /*: public ICollection*/{
     public:
         Propiedad(int, int, int, int, int, int, bool, Conversacion *);
         Propiedad(){};
-        ~Propiedad();
+        virtual ~Propiedad();
         void setZona(Zona *);
         void setM2Totales(int);
         void setM2Edificios(int);
