@@ -29,16 +29,12 @@ class Propiedad : public ICollectible{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        Conversacion * conversacion;
-        Zona * zona;
-        Venta * venta;
-        Alquiler * alquiler;
+        ICollection * conversacion;
+        Zona * zona; //aca iria icollection??
     public:
         Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
-        void setAlquiler(Alquiler *);
-        void setVenta(Venta *);
         void setZona(Zona *);
         void setM2Totales(int);
         void setM2Edificios(int);
@@ -57,8 +53,6 @@ class Propiedad : public ICollectible{
         int getM2Edificios();
         Conversacion * getConversacion();
         Zona * getZona();
-        Alquiler * getAlquiler();
-        Venta * getVenta();
         void desvincularZona();
         void destruirConversacion();
         void destruirVenta();
