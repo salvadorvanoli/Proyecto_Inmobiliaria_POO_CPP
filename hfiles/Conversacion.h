@@ -1,7 +1,7 @@
 #ifndef CONVERSACION_H
 #define CONVERSACION_H
 #include <iostream>
-#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
 #include "Mensaje.h"
 #include "Interesado.h"
 #include "DTMensaje.h"

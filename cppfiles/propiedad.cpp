@@ -105,6 +105,9 @@ void Propiedad :: destruirConversacion(){ //en eliminar propiedad
     //seria hacer un next en la collecion(conversacion), destruir los mensajes 
     //y luego la propia conversacion
     //asi uno por uno
+    Conversacion * aux;
+    aux = this->conversacion;
+    if(aux == NULL && aux.)
 }
 
 void Propiedad :: destruirVenta(){//en eliminar propiedad

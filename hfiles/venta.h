@@ -1,7 +1,7 @@
 #ifndef VENTA_H
 #define VENTA_H
 #include <iostream>
-#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
 using namespace std;
 
 class Venta: public ICollectible {
