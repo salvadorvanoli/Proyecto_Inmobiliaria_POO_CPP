@@ -43,11 +43,11 @@ void Inmobiliaria::setDireccion(DTDir direccion){
     this->direccion = direccion;
 }
 
-Venta Inmobiliaria::ponerEnVenta(Propiedad prop, int precio){
+Venta* Inmobiliaria::ponerEnVenta(Propiedad prop, int precio){
     // QUE AGREGUE UNA PROPIEDAD A LA COLLECCIÓN "ventas" CON EL PRECIO "precio"
 }
 
-Alquiler Inmobiliaria::ponerEnAlquiler(Propiedad prop, int precio){
+Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad prop, int precio){
     // QUE AGREGUE UNA PROPIEDAD A LA COLLECCIÓN "alquileres" CON EL PRECIO "precio"
 }
 
