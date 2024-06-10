@@ -17,12 +17,12 @@ Propiedad :: ~Propiedad(){
     
 }
 
-void Propiedad :: setVenta(Venta * v){
-    this->venta = v;
+void Propiedad :: setVenta(Venta * _venta){
+    this->venta = _venta;
 }
 
-void Propiedad :: setAlquiler(Alquiler * a){
-    this->alquiler = a;
+void Propiedad :: setAlquiler(Alquiler * _alquiler){
+    this->alquiler = _alquiler;
 }
 
 void Propiedad :: setM2Totales(int _m2Totales){
@@ -117,27 +117,35 @@ void Propiedad :: desvincularZona(){
     this->zona->desvincularZona(this);
 }
 
-void Propiedad :: destruirConversacion(){ //en eliminar propiedad
-    //seria hacer un next en la collecion(conversacion), destruir los mensajes 
+void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
+    //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
     //y luego la propia conversacion
     //asi uno por uno
     Conversacion * aux;
     aux = this->conversacion;
-    /*while(){
+    if(aux->isEmpty()){
+        //se deberia hacer un next en la collecion conversacion en esta linea
+        aux->~Conversacion();
+        delete aux;
+        return;
+    }
+    while(){
 
-    }*/
+    }
+
+    delete aux;
 }
 
-void Propiedad :: destruirVenta(){//en eliminar propiedad
+void Propiedad :: destruirVenta(){//(en eliminar propiedad)
     //si la venta existe se le hace destroy
-    if(this->venta != NULL){
+    if(this->venta->existeVenta()){
         this->venta->~Venta();
     }
 }
 
-void Propiedad :: destruirAlquiler(){//en eliminar propiedad
+void Propiedad :: destruirAlquiler(){//(en eliminar propiedad)
     //si el alquiler existe se le hace destroy
-    if(this->alquiler != NULL){
+    if(this->alquiler->existeAlquiler()){
         this->alquiler->~Alquiler();
     }
 }
@@ -147,10 +155,10 @@ DTChatProp * Propiedad :: getDTChatProp(string aa){
 }
 
 DTMensaje * Propiedad :: getUltimosmensajes(){
-    
+    this->conversacion->getUltimosMensajes();
 }
 
 Conversacion * Propiedad :: nuevoChat(){
-    
+
 }
 
