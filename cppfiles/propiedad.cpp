@@ -93,7 +93,7 @@ void Propiedad :: asociarVenta(Venta){
     
 }
 
-void Propiedad :: asociarAlquier(Alquier){
+void Propiedad :: asociarAlquier(Alquiler){
 
 }
 
