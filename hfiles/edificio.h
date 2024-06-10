@@ -10,7 +10,7 @@ using namespace std;
 class ICollectible;
 class Apartamento;
 
-class Zona: public ICollectible {
+class Edificio: public ICollectible {
     private:
         int codigo;
         string nombre;
@@ -29,7 +29,7 @@ class Zona: public ICollectible {
         int getCantPisos();
         int getGastosComunes();
         int getCantApartamentos();
-        Apartamento ** getApartamentos();
+        ICollection * getApartamentos();
 
         // Setters
 

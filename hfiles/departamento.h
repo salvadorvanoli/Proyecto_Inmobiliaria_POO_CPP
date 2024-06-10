@@ -46,7 +46,7 @@ class Departamento: public ICollectible {
         // Métodos del Departamento (DCD)
 
         DTDepartamento * getDTDepartamento();
-        DTZona ** listarZonasDepartamento();
+        ICollection * listarZonasDepartamento();
         Zona * elegirZona(int);
 };
 
