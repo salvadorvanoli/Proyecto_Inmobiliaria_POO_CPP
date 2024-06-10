@@ -10,7 +10,7 @@ using namespace std;
 #include "conversacion.h"
 #include "../cppfiles/propiedad.cpp"
 #include "zona.h"
-#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/ICollectible.h"
 
 class DTMensaje;
 class Alquiler;
@@ -20,7 +20,7 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
-class Propiedad : public ICollection{
+class Propiedad : public ICollectible{
     private:
         int codigo;
         int cantAmbiente;
@@ -36,7 +36,7 @@ class Propiedad : public ICollection{
     public:
         Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
         Propiedad(){};
-        ~Propiedad();
+        virtual ~Propiedad();
         void setAlquiler(Alquiler *);
         void setVenta(Venta *);
         void setZona(Zona *);
@@ -59,8 +59,6 @@ class Propiedad : public ICollection{
         Zona * getZona();
         Alquiler * getAlquiler();
         Venta * getVenta();
-        void asociarVenta(Venta *);
-        void asociarAlquier(Alquiler *);
         void desvincularZona();
         void destruirConversacion();
         void destruirVenta();

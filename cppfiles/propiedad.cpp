@@ -105,14 +105,6 @@ Alquiler * Propiedad :: getAlquiler(){
     return this->alquiler;
 }
 
-void Propiedad :: asociarVenta(Venta * v){
-    this->venta = v;
-}
-
-void Propiedad :: asociarAlquier(Alquiler * a){
-    this->alquiler = a;
-}
-
 void Propiedad :: desvincularZona(){
     this->zona->desvincularZona(this);
 }
