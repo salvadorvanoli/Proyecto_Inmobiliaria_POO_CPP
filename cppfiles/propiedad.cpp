@@ -2,14 +2,15 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver, Zona * _zona){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
     this->m2Edificios = _m2Edificios;
     this->m2Totales = _m2Totales;
-    this->conver = _conver;
+    this->conversacion = _conver;
+    this->zona = _zona;
 }
 
 Propiedad :: ~Propiedad(){
@@ -49,7 +50,7 @@ void Propiedad :: setConversacion(Conversacion * _conver){
 }
 
 void Propiedad :: setZona(Zona * _zona){
-    this->zona = _zona
+    this->zona = _zona;
 }
 
 bool Propiedad :: getTieneGaraje(){

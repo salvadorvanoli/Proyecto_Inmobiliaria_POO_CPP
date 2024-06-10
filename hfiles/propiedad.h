@@ -8,9 +8,9 @@ using namespace std;
 #include "alquiler.h"
 #include "venta.h"
 #include "conversacion.h"
-#include "propiedad.cpp"
+#include "../cppfiles/propiedad.cpp"
 #include "zona.h"
-#include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
 
 class DTMensaje;
 class Alquiler;
@@ -20,7 +20,7 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
-class Propiedad /*: public ICollection*/{
+class Propiedad : public ICollection{
     private:
         int codigo;
         int cantAmbiente;
@@ -32,7 +32,7 @@ class Propiedad /*: public ICollection*/{
         Conversacion * conversacion;
         Zona * zona;
     public:
-        Propiedad(int, int, int, int, int, int, bool, Conversacion *);
+        Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
         Propiedad(){};
         ~Propiedad();
         void setZona(Zona *);
