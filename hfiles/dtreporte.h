@@ -24,7 +24,7 @@ class DTReporte {
         // Getters
 
         DTInmobiliaria * getInmo();
-        DTLineaReporte ** getLineas();
+        ICollection * getLineas();
 };
 
 

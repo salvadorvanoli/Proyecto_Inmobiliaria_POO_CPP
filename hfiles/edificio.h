@@ -19,7 +19,7 @@ class Edificio: public ICollectible {
         ICollection * apartamentos;
         int cantApartamentos;
     public:
-        Edificio(int, string);
+        Edificio(int, string, int, int);
         ~Edificio();
 
         // Getters
@@ -44,9 +44,9 @@ class Edificio: public ICollectible {
         void agregarApartamento(Apartamento *);
         void quitarApartamento(int);
 
-        // Métodos del Edificio (DCD)
+        // Métodos de Edificio (DCD)
 
-        Apartamento * crearApartamento(int, int, int, bool, DTDir, int);
+        Apartamento * crearApartamento(int, int, int, bool, DTDir *, int);
 };
 
 #endif

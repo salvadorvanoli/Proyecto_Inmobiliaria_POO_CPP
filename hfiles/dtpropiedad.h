@@ -10,7 +10,7 @@ using namespace std;
 
 class ICollectible;
 class DTDir;
-class enum DTEstadoProp;
+enum class DTEstadoProp;
 
 class DTPropiedad: public ICollectible {
     private:

@@ -7,7 +7,7 @@ using namespace std;
 #include "../ICollection/interfaces/ICollectible.h"
 #include "zona.h"
 #include "dtdepartamento.h"
-#include "dtzona"
+#include "dtzona.h"
 
 class ICollectible;
 class ICollection;
@@ -17,24 +17,24 @@ class DTDepartamento;
 
 class Departamento: public ICollectible {
     private:
-        string letra;
+        char * letra;
         string nombre;
         ICollection * zonas;
         int cantZonas;
     public:
-        Departamento(string, string);
+        Departamento(char *, string);
         ~Departamento();
 
         // Getters
 
-        string getLetra();
+        char * getLetra();
         string getNombre();
         int getCantZonas();
         ICollection * getZonas();
 
         // Setters
 
-        void setLetra(string);
+        void setLetra(char *);
         void setNombre(string);
         void setCantZonas(int);
 
@@ -43,7 +43,7 @@ class Departamento: public ICollectible {
         void agregarZona(Zona *);
         void quitarZona(int);
 
-        // Métodos del Departamento (DCD)
+        // Métodos de Departamento (DCD)
 
         DTDepartamento * getDTDepartamento();
         ICollection * listarZonasDepartamento();

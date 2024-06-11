@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+#include "../ICollection/interfaces/ICollection.h"
 #include "dtfecha.h"
 #include "dthora.h"
 #include "dtmensaje.h"

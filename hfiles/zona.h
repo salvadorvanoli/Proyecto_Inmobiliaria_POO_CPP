@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
 #include "edificio.h"
 #include "propiedad.h"
 #include "casa.h"
@@ -56,14 +57,14 @@ class Zona : public ICollectible {
         void agregarPropiedad(Propiedad *);
         void quitarPropiedad(int);
         
-        // Métodos de la Zona (DCD)
+        // Métodos de Zona (DCD)
 
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
         void enlazarZona(Propiedad *);
-        Casa * crearCasa(int, int, int, bool, DTDir, int, int);
+        Casa * crearCasa(int, int, int, bool, DTDir *, int, int);
         void desvincularZona(Propiedad *);
-        DTChatProp * listarChatPropiedad(string);
+        DTChatProp * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();
 };
