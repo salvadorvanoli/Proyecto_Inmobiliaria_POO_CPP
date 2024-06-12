@@ -18,7 +18,7 @@ class DTPropiedad: public ICollectible {
         DTDir * direccion;
         DTEstadoProp * estado;
     public:
-        DTPropiedad(int);
+        DTPropiedad(int, DTDir *, DTEstadoProp *);
         ~DTPropiedad();
         
         // Getters
