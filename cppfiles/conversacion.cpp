@@ -7,31 +7,29 @@
 
 // Getters
 int Conversacion::getCodigoConversacion()  {
-        return codigoConversacion;
-    }
+    return codigoConversacion;
+}
 
 int Conversacion::getCantidadMensajes()  {
-        return cantMensajes;
-    }
+    return cantMensajes;
+}
 
-interesado* Conversacion::getInteresado()  {
-        return interesado;
-    }
+Interesado* Conversacion::getInteresado()  {
+    return interesado;
+}
 
-
-
-    // Setters
-void Conversacion:: setCodigoConversacion(int codigo) {
-        codigoConversacion = codigo;
-    }
+// Setters
+void Conversacion::setCodigoConversacion(int codigo) {
+    codigoConversacion = codigo;
+}
 
 void Conversacion::setCantidadMensajes(int cantidad) {
-        cantMensajes = cantidad;
-    }
+    cantMensajes = cantidad;
+}
 
-void Conversacion::setInteresado(interesado* nuevoInteresado) {
-        interesado = nuevoInteresado;
-    }
+void Conversacion::setInteresado(Interesado* nuevoInteresado) {
+    interesado = nuevoInteresado;
+}
 
 //constructores y destructores
 Conversacion:: Conversacion(int nuevoCodigo) {
