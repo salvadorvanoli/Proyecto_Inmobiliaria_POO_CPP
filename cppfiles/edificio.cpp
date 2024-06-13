@@ -1,6 +1,7 @@
 #include "../hfiles/edificio.h"
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/Integer.h"
 #include <iostream>
 using namespace std;
 
@@ -68,13 +69,14 @@ void Edificio::setCantApartamentos(int cantApartamentos){
 
 void Edificio::agregarApartamento(Apartamento * apartamento){
 
-    IKey * nuevaKey = (IKey *) apartamento->getCodigo();
+    IKey * nuevaKey = new Integer (apartamento->getCodigo());
     if (!this->apartamentos->member(nuevaKey)){
         ICollectible * nuevoApartamento = (ICollectible *) apartamento;
         this->apartamentos->add(nuevaKey, nuevoApartamento);
         this->cantApartamentos++;
         cout << "El apartamento fue agregado exitosamente!" << endl;
     } else {
+        delete nuevaKey;
         cout << "El apartamento ya fue agregada con anterioridad" << endl;
     }
     // ES CON ICOLLECTION
@@ -82,11 +84,13 @@ void Edificio::agregarApartamento(Apartamento * apartamento){
 
 void Edificio::quitarApartamento(int codigoApartamento){
 
-    IKey * clave = (IKey *) codigoApartamento;
+    IKey * clave = new Integer (codigoApartamento);
     if (this->apartamentos->member(clave)){
         this->apartamentos->remove(clave);
+        delete clave;
         cout << "El apartamento fue removido de manera exitosa!" << endl;
     } else {
+        delete clave;
         cout << "El apartamento especificado no se encuentra en el edificio actual" << endl;
     }
     // ES CON ICOLLECTION

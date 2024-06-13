@@ -1,6 +1,7 @@
 #include "../hfiles/zona.h"
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/Integer.h"
 #include <iostream>
 using namespace std;
 
@@ -64,13 +65,14 @@ void Zona::setCantPropiedades(int cantPropiedades){
 
 void Zona::agregarEdificio(Edificio * edificio){
     
-    IKey * nuevaKey = (IKey *) edificio->getCodigo();
+    IKey * nuevaKey = new Integer (edificio->getCodigo());
     if (!this->edificios->member(nuevaKey)){
         ICollectible * nuevoEdificio = (ICollectible *) edificio;
         this->edificios->add(nuevaKey, nuevoEdificio);
         this->cantEdificios++;
         cout << "El edificio fue agregado exitosamente!" << endl;
     } else {
+        delete nuevaKey;
         cout << "El edificio ya fue agregado con anterioridad" << endl;
     }
 
@@ -79,12 +81,14 @@ void Zona::agregarEdificio(Edificio * edificio){
 
 void Zona::quitarEdificio(int codigoEdificio){
 
-    IKey * clave = (IKey *) codigoEdificio;
+    IKey * clave = new Integer (codigoEdificio);
     if (this->edificios->member(clave)){
         this->edificios->remove(clave);
         this->cantEdificios--;
+        delete clave;
         cout << "El edificio fue removido de manera exitosa!" << endl;
     } else {
+        delete clave;
         cout << "El edificio especificado no se encuentra en la zona actual" << endl;
     }
     // ES CON ICOLLECTION
@@ -92,13 +96,14 @@ void Zona::quitarEdificio(int codigoEdificio){
 
 void Zona::agregarPropiedad(Propiedad * propiedad){
 
-    IKey * nuevaKey = (IKey *) propiedad->getCodigo();
+    IKey * nuevaKey = new Integer (propiedad->getCodigo());
     if (!this->edificios->member(nuevaKey)){
         ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
         this->propiedades->add(nuevaKey, nuevaPropiedad);
         this->cantPropiedades++;
         cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
+        delete nuevaKey;
         cout << "La propiedad ya fue agregado con anterioridad" << endl;
     }
     // ES CON ICOLLECTION
@@ -106,12 +111,14 @@ void Zona::agregarPropiedad(Propiedad * propiedad){
 
 void Zona::quitarPropiedad(int codigoProp){
 
-    IKey * clave = (IKey *) codigoProp;
+    IKey * clave = new Integer (codigoProp);
     if (this->propiedades->member(clave)){
         this->propiedades->remove(clave);
         this->cantPropiedades--;
+        delete clave;
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
+        delete clave;
         cout << "La propiedad especificada no se encuentra en la zona actual" << endl;
     }
     // ES CON ICOLLECTION
@@ -125,8 +132,9 @@ ICollection * Zona::listarEdificios(){
 
 Edificio * Zona::seleccionarEdificio(int codigoEdificio){
 
-    IKey * clave = (IKey *) codigoEdificio;
+    IKey * clave = new Integer (codigoEdificio);
     Edificio * edificio = (Edificio *) this->edificios->find(clave);
+    delete clave;
     if (edificio != NULL){
         return edificio;
     } else {
@@ -148,11 +156,13 @@ Casa * Zona::crearCasa(int cantAmbientes, int cantBanios, int cantDormitorios, b
 // NO ES ASI
 void Zona::desvincularZona(Propiedad * propiedad){
 
-    IKey * codigoProp = (IKey *) propiedad->getCodigo();
-    if (this->propiedades->member(codigoProp)){
-        this->propiedades->remove(codigoProp);
+    IKey * clave = new Integer (propiedad->getCodigo());
+    if (this->propiedades->member(clave)){
+        this->propiedades->remove(clave);
+        delete clave;
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
+        delete clave;
         cout << "La propiedad especificada no se encuentra en la zona actual" << endl;
     }
     // ES CON ICOLLECTION
@@ -164,8 +174,9 @@ DTChatProp * Zona::listarChatPropiedad(char * email){
 
 Propiedad * Zona::seleccionarPropiedad(int codigoProp){
 
-    IKey * clave = (IKey *) codigoProp;
+    IKey * clave = new Integer (codigoProp);
     Propiedad * propiedad = (Propiedad *) this->propiedades->find(clave);
+    delete clave;
     if (propiedad != NULL){
         return propiedad;
     } else {

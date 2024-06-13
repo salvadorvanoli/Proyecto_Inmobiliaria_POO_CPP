@@ -3,6 +3,7 @@
 #include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/Integer.h"
 #include <iostream>
 using namespace std;
 
@@ -51,13 +52,14 @@ void Departamento::setCantZonas(int cantZonas){
 
 void Departamento::agregarZona(Zona * zona){
 
-    IKey * nuevaKey = (IKey *) zona->getCodigo();
+    IKey * nuevaKey = new Integer (zona->getCodigo());
     if (!this->zonas->member(nuevaKey)){
         ICollectible * nuevaZona = (ICollectible *) zona;
         this->zonas->add(nuevaKey, nuevaZona);
         this->cantZonas++;
         cout << "La zona fue agregada exitosamente!" << endl;
     } else {
+        delete nuevaKey;
         cout << "La zona ya fue agregada con anterioridad" << endl;
     }
 
@@ -65,11 +67,13 @@ void Departamento::agregarZona(Zona * zona){
 }
 
 void Departamento::quitarZona(int codigoZona){
-    IKey * clave = (IKey *) codigoZona;
+    IKey * clave = new Integer (codigoZona);
     if (this->zonas->member(clave)){
         this->zonas->remove(clave);
+        delete clave;
         cout << "La zona fue removida de manera exitosa!" << endl;
     } else {
+        delete clave;
         cout << "La zona especificada no se encuentra en el departamento actual" << endl;
     }
     // ES CON ICOLLECTION
@@ -86,8 +90,9 @@ IDictionary * Departamento::listarZonasDepartamento(){
 }
 
 Zona * Departamento::elegirZona(int codigoZona){
-    IKey * clave = (IKey *) codigoZona;
+    IKey * clave = new Integer (codigoZona);
     Zona * zona = (Zona *) this->zonas->find(clave);
+    delete clave;
     if (zona != NULL){
         return zona;
     } else {
