@@ -6,12 +6,13 @@ using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/IDictionary.h"
 #include "edificio.h"
 #include "propiedad.h"
 #include "casa.h"
 #include "dtedificio.h"
 #include "dtdir.h"
-#include "dtchatProp.h"
+#include "dtchatprop.h"
 #include "dtmensaje.h"
 
 class ICollectible;
@@ -26,9 +27,9 @@ class Zona : public ICollectible {
     private:
         int codigo;
         string nombre;
-        ICollection * edificios;
+        IDictionary * edificios;
         int cantEdificios;
-        ICollection * propiedades;
+        IDictionary * propiedades;
         int cantPropiedades;
     public:
         Zona(int, string);
@@ -40,8 +41,8 @@ class Zona : public ICollectible {
         string getNombre();
         int getCantEdificios();
         int getCantPropiedades();
-        ICollection * getEdificios();
-        ICollection * getPropiedades();
+        IDictionary * getEdificios();
+        IDictionary * getPropiedades();
 
         // Setters
 

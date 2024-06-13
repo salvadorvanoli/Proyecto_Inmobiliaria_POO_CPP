@@ -1,12 +1,16 @@
 #include "../hfiles/departamento.h"
 #include "../hfiles/dtdepartamento.h"
+#include "../ICollection/collections/List.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/collections/OrderedDictionary.h"
 #include <iostream>
 using namespace std;
 
 Departamento::Departamento(char * letra, string nombre){
     this->letra = letra;
     this->nombre = nombre;
-    // Falta especificar el ICollection
+    this->zonas = new OrderedDictionary();
+    this->cantZonas = 0;
 }
 
 Departamento::~Departamento(){}
@@ -25,7 +29,7 @@ int Departamento::getCantZonas(){
     return this->cantZonas;
 }
 
-ICollection * Departamento::getZonas(){
+IDictionary * Departamento::getZonas(){
     return this->zonas; // Capaz no es asi
 }
 
@@ -45,11 +49,29 @@ void Departamento::setCantZonas(int cantZonas){
 
 // Agregar-Quitar
 
-void Departamento::agregarZona(Zona *){
+void Departamento::agregarZona(Zona * zona){
+
+    IKey * nuevaKey = (IKey *) zona->getCodigo();
+    if (!this->zonas->member(nuevaKey)){
+        ICollectible * nuevaZona = (ICollectible *) zona;
+        this->zonas->add(nuevaKey, nuevaZona);
+        this->cantZonas++;
+        cout << "La zona fue agregada exitosamente!" << endl;
+    } else {
+        cout << "La zona ya fue agregada con anterioridad" << endl;
+    }
+
     // ES CON ICOLLECTION
 }
 
-void Departamento::quitarZona(int){
+void Departamento::quitarZona(int codigoZona){
+    IKey * clave = (IKey *) codigoZona;
+    if (this->zonas->member(clave)){
+        this->zonas->remove(clave);
+        cout << "La zona fue removida de manera exitosa!" << endl;
+    } else {
+        cout << "La zona especificada no se encuentra en el departamento actual" << endl;
+    }
     // ES CON ICOLLECTION
 }
 
@@ -59,10 +81,17 @@ DTDepartamento * Departamento::getDTDepartamento(){
     return new DTDepartamento(this->letra, this->nombre);
 }
 
-ICollection * Departamento::listarZonasDepartamento(){
+IDictionary * Departamento::listarZonasDepartamento(){
     // ES CON ICOLLECTION
 }
 
-Zona * Departamento::elegirZona(int){
+Zona * Departamento::elegirZona(int codigoZona){
+    IKey * clave = (IKey *) codigoZona;
+    Zona * zona = (Zona *) this->zonas->find(clave);
+    if (zona != NULL){
+        return zona;
+    } else {
+        cout << "La zona especificada no se encuentra en el departamento actual" << endl;
+    }
     // ES CON ICOLLECTION
 }
