@@ -1,5 +1,3 @@
-#ifndef VENTA_H
-#define VENTA_H
 #include <iostream>
 #include "ICollection/interfaces/ICollectible.h"
 using namespace std;
@@ -19,5 +17,5 @@ void Venta:: setprecioTotal(int precioTotal) {
     this->precioTotal = precioTotal;
 };
 
-#endif
+
 

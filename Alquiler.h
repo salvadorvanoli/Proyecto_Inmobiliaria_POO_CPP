@@ -7,9 +7,9 @@ using namespace std;
 class Alquiler: public ICollectible {
     private:
         float precioAlquiler;
+        propiedad* prop;
     public:
         Alquiler(float);
-        bool existeAlquiler();
         virtual ~Alquiler();
 
         //getters y setters

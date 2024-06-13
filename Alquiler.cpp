@@ -1,5 +1,3 @@
-#ifndef ALQUILER_H
-#define ALQUILER_H
 #include <iostream>
 #include "ICollection/interfaces/ICollectible.h"
 using namespace std;
@@ -19,4 +17,3 @@ void Alquiler:: setprecioAlquiler(float precioAlquiler) {
     this->precioAlquiler = precioAlquiler;
 };
 
-#endif
