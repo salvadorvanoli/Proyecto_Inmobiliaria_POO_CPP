@@ -1,4 +1,5 @@
-#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollectible.h"
+#include "../hfiles/conversacion.h"
 #include "mensaje.h"
 #include "interesado.h"
 #include "Conversacion.h"

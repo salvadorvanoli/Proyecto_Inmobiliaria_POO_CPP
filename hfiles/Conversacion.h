@@ -1,6 +1,6 @@
 #ifndef CONVERSACION_H
 #define CONVERSACION_H
-#include "ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollectible.h"
 #include "mensaje.h"
 #include "interesado.h"
 #include <iostream>
@@ -10,7 +10,7 @@ class Conversacion{
     private:
     int codigoConversacion;
     int cantMensajes;
-    interesado* interesado;
+    Interesado* interesado;
     ICollectible* mensajes;
 
     public:
