@@ -4,7 +4,7 @@
 #include "ICollection/interfaces/ICollectible.h"
 #include "zona.h"
 #include "dtdepartamento.h"
-#include "dtzona"
+#include "dtzona.h"
 
 using namespace std;
 
