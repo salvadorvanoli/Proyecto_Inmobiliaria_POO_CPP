@@ -10,7 +10,7 @@ using namespace std;
 class ICollectible;
 class Apartamento;
 
-class Zona: public ICollectible {
+class Zona : public ICollectible {
     private:
         int codigo;
         string nombre;

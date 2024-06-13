@@ -53,10 +53,8 @@ class Propiedad : public ICollectible{
         int getM2Edificios();
         Conversacion * getConversacion();
         Zona * getZona();
-        void desvincularZona();
+        void desvincularDeZona();
         void destruirConversacion();
-        void destruirVenta();
-        void destruirAlquiler();
         DTChatProp * getDTChatProp(string);
         DTMensaje * getUltimosmensajes();
         Conversacion * nuevoChat();

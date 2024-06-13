@@ -82,7 +82,7 @@ int Propiedad :: getM2Edificios(){
 }
 
 Conversacion * Propiedad :: getConversacion(){
-    return this->nodoconversacion;
+    return (Conversacion *) this->conversacion; //no se si es un bolaso
 }
 
 Zona * Propiedad :: getZona(){
@@ -90,7 +90,7 @@ Zona * Propiedad :: getZona(){
 }
 
 
-void Propiedad :: desvincularZona(){
+void Propiedad :: desvincularDeZona(){
     this->zona->desvincularZona(this);
 }
 
@@ -112,17 +112,6 @@ void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
     delete aux;
 }
 
-void Propiedad :: destruirVenta(){//(en eliminar propiedad)
-    //si la venta existe se le hace destroy
-    if(this->venta->existeVenta()){
-        this->venta->~Venta();
-    }
-}
-
-void Propiedad :: destruirAlquiler(){//(en eliminar propiedad)
-    //si el alquiler existe se le hace destroy
-}
-
 DTChatProp * Propiedad :: getDTChatProp(string aa){
     //no la he encontrado
 }
@@ -132,6 +121,6 @@ DTMensaje * Propiedad :: getUltimosmensajes(){
 }
 
 Conversacion * Propiedad :: nuevoChat(){
-    //crea una conversacion y la añade a la collecion
+    //crea una conversacion y la añade a la coleccion
 }
 
