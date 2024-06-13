@@ -1,4 +1,6 @@
 #include "../hfiles/edificio.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/collections/OrderedDictionary.h"
 #include <iostream>
 using namespace std;
 
@@ -7,6 +9,7 @@ Edificio::Edificio(int codigo, string nombre, int cantPisos, int gastosComunes){
     this->nombre = nombre;
     this->cantPisos = cantPisos;
     this->gastosComunes = gastosComunes;
+    this->apartamentos = new OrderedDictionary();
     this->cantApartamentos = 0;
     // Falta especificar el ICollection
 }
@@ -35,7 +38,7 @@ int Edificio::getCantApartamentos(){
     return this->cantApartamentos;
 }
 
-ICollection * Edificio::getApartamentos(){
+IDictionary * Edificio::getApartamentos(){
     return this->apartamentos; // Capaz no es asi
 }
 
@@ -63,11 +66,29 @@ void Edificio::setCantApartamentos(int cantApartamentos){
 
 // Agregar-Quitar
 
-void Edificio::agregarApartamento(Apartamento *){
+void Edificio::agregarApartamento(Apartamento * apartamento){
+
+    IKey * nuevaKey = (IKey *) apartamento->getCodigo();
+    if (!this->apartamentos->member(nuevaKey)){
+        ICollectible * nuevoApartamento = (ICollectible *) apartamento;
+        this->apartamentos->add(nuevaKey, nuevoApartamento);
+        this->cantApartamentos++;
+        cout << "El apartamento fue agregado exitosamente!" << endl;
+    } else {
+        cout << "El apartamento ya fue agregada con anterioridad" << endl;
+    }
     // ES CON ICOLLECTION
 }
 
-void Edificio::quitarApartamento(int){
+void Edificio::quitarApartamento(int codigoApartamento){
+
+    IKey * clave = (IKey *) codigoApartamento;
+    if (this->apartamentos->member(clave)){
+        this->apartamentos->remove(clave);
+        cout << "El apartamento fue removido de manera exitosa!" << endl;
+    } else {
+        cout << "El apartamento especificado no se encuentra en el edificio actual" << endl;
+    }
     // ES CON ICOLLECTION
 }
 

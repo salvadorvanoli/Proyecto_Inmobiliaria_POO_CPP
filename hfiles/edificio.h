@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/IDictionary.h"
 #include "apartamento.h"
 
 class ICollectible;
@@ -16,7 +17,7 @@ class Edificio: public ICollectible {
         string nombre;
         int cantPisos;
         int gastosComunes;
-        ICollection * apartamentos;
+        IDictionary * apartamentos;
         int cantApartamentos;
     public:
         Edificio(int, string, int, int);
@@ -29,7 +30,7 @@ class Edificio: public ICollectible {
         int getCantPisos();
         int getGastosComunes();
         int getCantApartamentos();
-        ICollection * getApartamentos();
+        IDictionary * getApartamentos();
 
         // Setters
 
