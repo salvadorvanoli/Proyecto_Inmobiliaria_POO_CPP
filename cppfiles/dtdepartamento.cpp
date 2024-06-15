@@ -18,3 +18,8 @@ char* DTDepartamento::getLetra(){
 string DTDepartamento::getNombre(){
     return this->nombre;
 }
+
+ostream& operator << (ostream & o, DTDepartamento * dep){
+    o << "Letra: " << dep->getLetra() << endl << "Nombre: " << dep->getNombre() << endl;
+    return o;
+}

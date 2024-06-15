@@ -28,3 +28,8 @@ int DTLineaReporte::getCantApartamentos(){
 int DTLineaReporte::getCantCasas(){
     return this->cantCasas;
 }
+
+ostream& operator << (ostream & o, DTLineaReporte * linea){
+    o << "    Letra Departamento: " << linea->getLetraDep() << endl << "    Codigo Zona: " << linea->getCodigoZona() << endl << "    Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << "    Cantidad de casas: " << linea->getCantCasas() << endl;
+    return o;
+}

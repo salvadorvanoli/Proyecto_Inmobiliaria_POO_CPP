@@ -25,6 +25,8 @@ class DTReporte {
 
         DTInmobiliaria * getInmo();
         ICollection * getLineas();
+
+        friend ostream& operator << (ostream &, DTReporte *);
 };
 
 
