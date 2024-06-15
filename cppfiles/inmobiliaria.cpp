@@ -6,14 +6,16 @@ Inmobiliaria::Inmobiliaria(char* email, string nombre, DTDir direccion) : Usuari
     this->contrasenia = "";
     this->nombre = nombre;
     this->direccion = direccion;
-    this->ventas = new List();
-    this->alquileres = new List();
-    this->propiedades = new List();
+    this->ventas = new OrderedDictionary();
+    this->alquileres = new OrderedDictionary();
+    this->propiedades = new OrderedDictionary();
     this->cantAlquileres = this->cantVentas = this->cantPropiedades = 0;
 }
 
 Inmobiliaria::~Inmobiliaria(){
-    // ELIMINAR TODAS LAS COLECCIONES SI EXISTEN
+    this->alquileres->~IDictionary();
+    this->ventas->~IDictionary();
+    this->propiedades->~IDictionary(); // Ni idea si esto es así
 }
 
 string Inmobiliaria::getNombre(){
@@ -24,16 +26,16 @@ DTDir Inmobiliaria::getDireccion(){
     return this->direccion;
 }
 
-Venta** Inmobiliaria::getVentas(){
-    // QUE DEVUELVA TODAS LAS VENTAS
+IDictionary* Inmobiliaria::getVentas(){
+    return this->ventas;
 }
 
-Alquiler** Inmobiliaria::getAlquileres(){
-    // QUE DEVUELVA TODOS LOS ALQUILERES
+IDictionary* Inmobiliaria::getAlquileres(){
+    return this->alquileres;
 }
 
-Propiedad** Inmobiliaria::getPropiedades(){
-    // QUE DEVUELVA TODAS LAS PROPIEDADES
+IDictionary* Inmobiliaria::getPropiedades(){
+    return this->propiedades;    
 }
 
 void Inmobiliaria::setNombre(string nombre){
@@ -46,28 +48,64 @@ void Inmobiliaria::setDireccion(DTDir direccion){
 
 Venta* Inmobiliaria::ponerEnVenta(Propiedad * prop, int precio){
     Venta * nuevaVenta = new Venta(prop, precio);
-    if(this->ventas->member(nuevaVenta) == true){
+    IKey * nuevaKey = new Integer (prop->getCodigo());
+    if(this->ventas->member(nuevaKey) == true){
         throw invalid_argument("La venta ya estaba registrada");
         return NULL;
     }
-    this->ventas->add(nuevaVenta);
+    this->ventas->add(nuevaKey, nuevaVenta);
+    this->cantVentas++;
     return nuevaVenta;
 }
 
 Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad * prop, int precio){
     Alquiler * nuevoAlquiler = new Alquiler(prop, precio);
-    if(this->alquileres->member(nuevoAlquiler) == true){
+    IKey * nuevaKey = new Integer (prop->getCodigo());
+    if(this->alquileres->member(nuevaKey)){
         throw invalid_argument("El alquiler ya estaba registrado");
         return NULL;
     }
-    this->alquileres->add(nuevoAlquiler);
+    this->alquileres->add(nuevaKey, nuevoAlquiler);
+    this->cantAlquileres++;
     return nuevoAlquiler;
 }
 
 void Inmobiliaria::agregarPropiedad(Propiedad * prop){
-    if(this->propiedades->member(prop) == true){
+    IKey * nuevaKey = new Integer (prop->getCodigo());
+    if(this->propiedades->member(nuevaKey)){
         throw invalid_argument("La propiedad ya estaba registrada");
         return;
     }
-    this->propiedades->add(prop);
+    this->propiedades->add(nuevaKey, prop);
+    this->cantPropiedades++;
+}
+
+void Inmobiliaria::destruirAlquiler(Propiedad * prop){
+    IKey * key = new Integer (prop->getCodigo());
+    if (this->alquileres->member(key)){
+        Alquiler * alquiler = (Alquiler*) this->alquileres->find(key);
+        this->alquileres->remove(key);
+        delete alquiler;
+        this->cantAlquileres--;
+        delete key;
+        cout << "El alquiler fue destruido satisfactoriamente" << endl;
+    } else {
+        delete key;
+        throw invalid_argument("El alquiler proporcionado no existe");
+    }
+}
+
+void Inmobiliaria::destruirVenta(Propiedad * prop){
+    IKey * key = new Integer (prop->getCodigo());
+    if (this->ventas->member(key)){
+        Venta * venta = (Venta*) this->ventas->find(key);
+        this->ventas->remove(key);
+        delete venta;
+        this->cantVentas--;
+        delete key;
+        cout << "La venta fue destruida satisfactoriamente" << endl;
+    } else {
+        delete key;
+        throw invalid_argument("La venta proporcionada no existe");
+    }
 }

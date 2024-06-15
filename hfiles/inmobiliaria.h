@@ -11,6 +11,9 @@ using namespace std;
 #include "../ICollection/interfaces/IDictionary.h"
 #include "../ICollection/interfaces/IIterator.h"
 #include "../ICollection/collections/List.h"
+#include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/Integer.h"
 #include "usuario.h"
 #include "dtdir.h"
 #include "venta.h"
@@ -32,9 +35,9 @@ class Inmobiliaria : public Usuario {
     private:
         string nombre;
         DTDir direccion;
-        ICollection * ventas;
-        ICollection * alquileres;
-        ICollection * propiedades;
+        IDictionary * ventas;
+        IDictionary * alquileres;
+        IDictionary * propiedades;
         int cantVentas;
         int cantAlquileres;
         int cantPropiedades;
@@ -52,9 +55,13 @@ class Inmobiliaria : public Usuario {
         //Getters
         string getNombre();
         DTDir getDireccion();
-        Venta** getVentas();
-        Alquiler** getAlquileres();
-        Propiedad** getPropiedades();
+        IDictionary* getVentas();
+        IDictionary* getAlquileres();
+        IDictionary* getPropiedades();
+
+        //Métodos
+        void destruirVenta(Propiedad*);
+        void destruirAlquiler(Propiedad*);
 };
 
 #endif
