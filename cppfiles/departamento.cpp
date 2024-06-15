@@ -60,7 +60,7 @@ void Departamento::agregarZona(Zona * zona){
         cout << "La zona fue agregada exitosamente!" << endl;
     } else {
         delete nuevaKey;
-        cout << "La zona ya fue agregada con anterioridad" << endl;
+        throw invalid_argument("La zona ya fue agregada con anterioridad");
     }
 
     // ES CON ICOLLECTION
@@ -74,7 +74,7 @@ void Departamento::quitarZona(int codigoZona){
         cout << "La zona fue removida de manera exitosa!" << endl;
     } else {
         delete clave;
-        cout << "La zona especificada no se encuentra en el departamento actual" << endl;
+        throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
     }
     // ES CON ICOLLECTION
 }
@@ -85,7 +85,19 @@ DTDepartamento * Departamento::getDTDepartamento(){
     return new DTDepartamento(this->letra, this->nombre);
 }
 
-IDictionary * Departamento::listarZonasDepartamento(){
+ICollection * Departamento::listarZonasDepartamento(){
+    ICollection * zonas = new List();
+    IIterator * it = this->zonas->getIterator();
+    Zona * zona;
+    ICollectible * item;
+    while (it->hasCurrent()){
+        zona = (Zona *) it->getCurrent();
+        item = (ICollectible *) zona->getDTZona();
+        zonas->add(item);
+        it->next();
+    }
+    delete it;
+    return zonas;
     // ES CON ICOLLECTION
 }
 
@@ -96,7 +108,7 @@ Zona * Departamento::elegirZona(int codigoZona){
     if (zona != NULL){
         return zona;
     } else {
-        cout << "La zona especificada no se encuentra en el departamento actual" << endl;
+        throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
     }
     // ES CON ICOLLECTION
 }

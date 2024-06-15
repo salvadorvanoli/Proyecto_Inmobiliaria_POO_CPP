@@ -7,9 +7,9 @@ DTDepartamento::DTDepartamento(char* letra, string nombre){
     this->nombre = nombre;
 }
 
-DTDepartamento::~DTDepartamento(){
+DTDepartamento::~DTDepartamento(){}
 
-}
+// Getters
 
 char* DTDepartamento::getLetra(){
     return this->letra;

@@ -2,6 +2,7 @@
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
+#include "../hfiles/dtedificio.h"
 #include <iostream>
 using namespace std;
 
@@ -77,7 +78,7 @@ void Edificio::agregarApartamento(Apartamento * apartamento){
         cout << "El apartamento fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
-        cout << "El apartamento ya fue agregada con anterioridad" << endl;
+        throw invalid_argument("El apartamento ya fue agregada con anterioridad");
     }
     // ES CON ICOLLECTION
 }
@@ -91,12 +92,16 @@ void Edificio::quitarApartamento(int codigoApartamento){
         cout << "El apartamento fue removido de manera exitosa!" << endl;
     } else {
         delete clave;
-        cout << "El apartamento especificado no se encuentra en el edificio actual" << endl;
+        throw invalid_argument("El apartamento especificado no se encuentra en el edificio actual");
     }
     // ES CON ICOLLECTION
 }
 
 // Métodos de Edificio (DCD)
+
+DTEdificio * Edificio::getDTEdifico(){
+    return new DTEdificio(this->getNombre(), this->getCantPisos(), this->getGastosComunes());
+}
 
 Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantBanios, int cantDormitorios, bool tieneGarage, DTDir * direccion, int m2Edificados){
     return new Apartamento(cantAmbientes, cantBanios, cantDormitorios, tieneGarage, direccion, m2Edificados);

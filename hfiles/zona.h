@@ -14,6 +14,7 @@ using namespace std;
 #include "dtdir.h"
 #include "dtchatprop.h"
 #include "dtmensaje.h"
+#include "dtzona.h"
 
 class ICollectible;
 class Edificio;
@@ -60,11 +61,12 @@ class Zona : public ICollectible {
         
         // Métodos de Zona (DCD)
 
+        DTZona * getDTZona();
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
-        void enlazarZona(Propiedad *);
+        void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
         Casa * crearCasa(int, int, int, bool, DTDir *, int, int);
-        void desvincularZona(Propiedad *);
+        void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
         DTChatProp * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();

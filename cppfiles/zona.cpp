@@ -1,6 +1,7 @@
 #include "../hfiles/zona.h"
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/collections/List.h"
 #include "../ICollection/Integer.h"
 #include <iostream>
 using namespace std;
@@ -73,7 +74,7 @@ void Zona::agregarEdificio(Edificio * edificio){
         cout << "El edificio fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
-        cout << "El edificio ya fue agregado con anterioridad" << endl;
+        throw invalid_argument("El edificio ya fue agregado con anterioridad");
     }
 
     // ES CON ICOLLECTION
@@ -89,7 +90,7 @@ void Zona::quitarEdificio(int codigoEdificio){
         cout << "El edificio fue removido de manera exitosa!" << endl;
     } else {
         delete clave;
-        cout << "El edificio especificado no se encuentra en la zona actual" << endl;
+        throw invalid_argument("El edificio especificado no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }
@@ -104,7 +105,7 @@ void Zona::agregarPropiedad(Propiedad * propiedad){
         cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
-        cout << "La propiedad ya fue agregado con anterioridad" << endl;
+        throw invalid_argument("La propiedad ya fue agregado con anterioridad");
     }
     // ES CON ICOLLECTION
 }
@@ -119,7 +120,7 @@ void Zona::quitarPropiedad(int codigoProp){
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
         delete clave;
-        cout << "La propiedad especificada no se encuentra en la zona actual" << endl;
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }
@@ -127,6 +128,18 @@ void Zona::quitarPropiedad(int codigoProp){
 // Métodos de Zona (DCD)
 
 ICollection * Zona::listarEdificios(){
+    ICollection * edificios = new List();
+    IIterator * it = this->edificios->getIterator();
+    Edificio * edificio;
+    ICollectible * item;
+    while (it->hasCurrent()){
+        edificio = (Edificio *) it->getCurrent();
+        item = (ICollectible *) edificio->getDTEdifico();
+        edificios->add(item);
+        it->next();
+    }
+    delete it;
+    return edificios;
     // ES CON ICOLLECTION
 }
 
@@ -138,13 +151,24 @@ Edificio * Zona::seleccionarEdificio(int codigoEdificio){
     if (edificio != NULL){
         return edificio;
     } else {
-        cout << "El edificio especificado no se encuentra en la zona actual" << endl;
-        return NULL;
+        throw invalid_argument("El edificio especificado no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }
 
-void Zona::enlazarZona(Propiedad *){
+// ES LO MISMO QUE AGREGAR PROPIEDAD
+void Zona::enlazarPropiedad(Propiedad * propiedad){
+    
+    IKey * nuevaKey = new Integer (propiedad->getCodigo());
+    if (!this->edificios->member(nuevaKey)){
+        ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
+        this->propiedades->add(nuevaKey, nuevaPropiedad);
+        this->cantPropiedades++;
+        cout << "La propiedad fue agregado exitosamente!" << endl;
+    } else {
+        delete nuevaKey;
+        throw invalid_argument("La propiedad ya fue agregado con anterioridad");
+    }
     // ES CON ICOLLECTION
 }
 
@@ -153,8 +177,8 @@ Casa * Zona::crearCasa(int cantAmbientes, int cantBanios, int cantDormitorios, b
     return new Casa(cantAmbientes, cantBanios, cantDormitorios, tieneGaraje, direccion, m2Edificados, m2Verdes);
 }
 
-// NO ES ASI
-void Zona::desvincularZona(Propiedad * propiedad){
+// ES LO MISMO QUE QUITAR PROPIEDAD
+void Zona::desvincularPropiedad(Propiedad * propiedad){
 
     IKey * clave = new Integer (propiedad->getCodigo());
     if (this->propiedades->member(clave)){
@@ -163,7 +187,7 @@ void Zona::desvincularZona(Propiedad * propiedad){
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
         delete clave;
-        cout << "La propiedad especificada no se encuentra en la zona actual" << endl;
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }
@@ -180,8 +204,7 @@ Propiedad * Zona::seleccionarPropiedad(int codigoProp){
     if (propiedad != NULL){
         return propiedad;
     } else {
-        cout << "La propiedad especificada no se encuentra en la zona actual" << endl;
-        return NULL;
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }

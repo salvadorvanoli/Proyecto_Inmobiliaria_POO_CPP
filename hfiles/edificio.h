@@ -7,6 +7,7 @@ using namespace std;
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/IDictionary.h"
 #include "apartamento.h"
+#include "dtedificio.h"
 
 class ICollectible;
 class Apartamento;
@@ -47,7 +48,9 @@ class Edificio: public ICollectible {
 
         // Métodos de Edificio (DCD)
 
+        DTEdificio * getDTEdifico();
         Apartamento * crearApartamento(int, int, int, bool, DTDir *, int);
+        void desvincularPropiedad(Apartamento *);
 };
 
 #endif
