@@ -10,13 +10,13 @@ class DTFecha;
 
 class DTMensaje{
     private:
-     string contenido;
-     DTFecha fecha; 
+        string contenido;
+        DTFecha * fecha; 
     public:
-        DTMensaje(string, DTFecha);
+        DTMensaje(string, DTFecha *);
         ~DTMensaje();
         string getContenido();
-        DTFecha getFecha();
+        DTFecha * getFecha();
 };
 
 #endif

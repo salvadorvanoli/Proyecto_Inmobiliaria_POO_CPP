@@ -10,7 +10,7 @@ using namespace std;
 
 class ICollectible;
 class DTDir;
-class enum DTEstadoProp;
+enum class DTEstadoProp;
 
 class DTPropiedad: public ICollectible {
     private:
@@ -18,7 +18,7 @@ class DTPropiedad: public ICollectible {
         DTDir * direccion;
         DTEstadoProp * estado;
     public:
-        DTPropiedad(int);
+        DTPropiedad(int, DTDir *, DTEstadoProp *);
         ~DTPropiedad();
         
         // Getters
@@ -26,6 +26,8 @@ class DTPropiedad: public ICollectible {
         int getCodigoProp();
         DTDir * getDireccion();
         DTEstadoProp * getEstado();
+        
+        friend ostream& operator << (ostream &, DTPropiedad *);
 };
 
 

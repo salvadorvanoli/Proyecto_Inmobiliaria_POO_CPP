@@ -11,12 +11,13 @@ class DTDir;
 class DTInmobiliaria{
     private:
         char* nombre;
-        DTDir direccion;
+        DTDir * direccion;
     public:
-        DTInmobiliaria(char*, DTDir);
+        DTInmobiliaria(char*, DTDir *);
         ~DTInmobiliaria();
         char* getNombre();
-        DTDir getDireccion();
+        DTDir * getDireccion();
+        friend ostream& operator << (ostream &, DTInmobiliaria *);
 };
 
 #endif

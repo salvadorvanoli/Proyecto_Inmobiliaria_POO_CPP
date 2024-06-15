@@ -10,7 +10,7 @@ using namespace std;
 class DTPropiedad;
 class DTInmobiliaria;
 
-class DTReporte: public DTPropiedad {
+class DTPropiedadDetallada: public DTPropiedad {
     private:
         int cantAmbientes;
         int cantDormitorios;
@@ -19,7 +19,7 @@ class DTReporte: public DTPropiedad {
         float m2Totales;
         DTInmobiliaria * inmo;
     public:
-        DTPropiedadDetallada(int, int, int, int, bool, float);
+        DTPropiedadDetallada(int, DTDir *, DTEstadoProp *, int, int, int, bool, float, DTInmobiliaria *);
         ~DTPropiedadDetallada();
         
         // Getters
@@ -30,6 +30,8 @@ class DTReporte: public DTPropiedad {
         bool getTieneGaraje();
         float getM2Totales();
         DTInmobiliaria * getInmo();
+
+        friend ostream& operator << (ostream &, DTPropiedadDetallada *);
 };
 
 

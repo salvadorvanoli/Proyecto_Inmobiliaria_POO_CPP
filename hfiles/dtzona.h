@@ -11,7 +11,11 @@ class DTZona{
     public:
         DTZona(int, string);
         ~DTZona();
-        int getCodigozona();
+
+        // Getters
+        int getCodigoZona();
         string getNombre();
+
+        friend ostream& operator << (ostream &, DTZona *);
 };
 #endif

@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
 #include "dtinmobiliaria.h"
 #include "dtlineareporte.h"
 
@@ -23,7 +24,9 @@ class DTReporte {
         // Getters
 
         DTInmobiliaria * getInmo();
-        DTLineaReporte ** getLineas();
+        ICollection * getLineas();
+
+        friend ostream& operator << (ostream &, DTReporte *);
 };
 
 

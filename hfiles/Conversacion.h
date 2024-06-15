@@ -1,31 +1,36 @@
 #ifndef CONVERSACION_H
 #define CONVERSACION_H
-#include <iostream>
-#include "../ICollection/interfaces/ICollection.h"
-#include "Mensaje.h"
-#include "Interesado.h"
+#include "../ICollection/interfaces/ICollectible.h"
+#include "mensaje.h"
+#include "interesado.h"
 #include "DTMensaje.h"
+#include <iostream>
+
 using namespace std;
-
-class Conversacion: public ICollection{
+class Conversacion{
     private:
-        string codigoConversacion;
+        int codigoConversacion;
         int cantMensajes;
-        Interesado* Interesado; //??
-        ICollectible* Mensaje; //??
+        Interesado* interesado;
+        ICollectible* mensajes;
+
     public:
-        Conversacion(string);
-        void destruirMensajes();
-        void nuevoMensaje(string);
+        Conversacion(int);
         virtual ~Conversacion();
-        ICollectible* getUltimosMensajes(); //??
 
-        //getters y setters
-        void setcantMensajes(int);
-        int getcantMensajes();
-        void setcodigoConversacion(string);
-        string getcodigoConversacion();
+        // Getters
+        int getCodigoConversacion();
+        int getCantidadMensajes();
+        Interesado * getInteresado();
 
+        // Setters
+        void setCodigoConversacion(int);
+        void setCantidadMensajes(int);
+        void setInteresado(Interesado*);
+
+        void destruirMensajes();
+        ICollectible* getUltimosMensajes();
+        void nuevoMensaje(string);
 };
 
 #endif

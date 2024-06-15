@@ -5,12 +5,16 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/IDictionary.h"
 #include "edificio.h"
 #include "propiedad.h"
+#include "casa.h"
 #include "dtedificio.h"
 #include "dtdir.h"
-#include "dtchatProp.h"
+#include "dtchatprop.h"
 #include "dtmensaje.h"
+#include "dtzona.h"
 
 class ICollectible;
 class Edificio;
@@ -24,9 +28,9 @@ class Zona : public ICollectible {
     private:
         int codigo;
         string nombre;
-        //ICollection * edificios;
+        IDictionary * edificios;
         int cantEdificios;
-        //ICollection * propiedades;
+        IDictionary * propiedades;
         int cantPropiedades;
     public:
         Zona(int, string);
@@ -38,8 +42,8 @@ class Zona : public ICollectible {
         string getNombre();
         int getCantEdificios();
         int getCantPropiedades();
-        Edificio ** getEdificios();
-        Propiedad ** getPropiedades();
+        IDictionary * getEdificios();
+        IDictionary * getPropiedades();
 
         // Setters
 
@@ -55,16 +59,17 @@ class Zona : public ICollectible {
         void agregarPropiedad(Propiedad *);
         void quitarPropiedad(int);
         
-        // Métodos de la Zona (DCD)
+        // Métodos de Zona (DCD)
 
-        DTEdificio ** listarEdificios();
+        DTZona * getDTZona();
+        ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
-        void enlazarZona(Propiedad *);
-        Casa * crearCasa(int, int, int, bool, DTDir, int, int);
-        void desvincularZona(Propiedad *);
-        DTChatProp * listarChatPropiedad(string);
+        void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
+        Casa * crearCasa(int, int, int, bool, DTDir *, int, int);
+        void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
+        DTChatProp * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
-        DTMensaje ** getUltimosMensajes();
+        ICollection * getUltimosMensajes();
 };
 
 #endif

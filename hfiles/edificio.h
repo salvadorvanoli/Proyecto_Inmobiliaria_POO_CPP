@@ -5,21 +5,23 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/IDictionary.h"
 #include "apartamento.h"
+#include "dtedificio.h"
 
 class ICollectible;
 class Apartamento;
 
-class Zona : public ICollectible {
+class Edificio: public ICollectible {
     private:
         int codigo;
         string nombre;
         int cantPisos;
         int gastosComunes;
-        ICollection * apartamentos;
+        IDictionary * apartamentos;
         int cantApartamentos;
     public:
-        Edificio(int, string);
+        Edificio(int, string, int, int);
         ~Edificio();
 
         // Getters
@@ -29,7 +31,7 @@ class Zona : public ICollectible {
         int getCantPisos();
         int getGastosComunes();
         int getCantApartamentos();
-        Apartamento ** getApartamentos();
+        IDictionary * getApartamentos();
 
         // Setters
 
@@ -44,9 +46,11 @@ class Zona : public ICollectible {
         void agregarApartamento(Apartamento *);
         void quitarApartamento(int);
 
-        // Métodos del Edificio (DCD)
+        // Métodos de Edificio (DCD)
 
-        Apartamento * crearApartamento(int, int, int, bool, DTDir, int);
+        DTEdificio * getDTEdifico();
+        Apartamento * crearApartamento(int, int, int, bool, DTDir *, int);
+        void desvincularPropiedad(Apartamento *);
 };
 
 #endif

@@ -1,20 +1,22 @@
 #ifndef ALQUILER_H
 #define ALQUILER_H
 #include <iostream>
-#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/ICollectible.h"
+#include "propiedad.h"
 using namespace std;
 
 class Alquiler: public ICollectible {
     private:
         float precioAlquiler;
+        Propiedad * prop;
     public:
         Alquiler(float);
         bool existeAlquiler();
-        virtual ~Alquiler();
+        ~Alquiler();
 
         //getters y setters
-        float getprecioAlquiler();
-        void setprecioAlquiler(float);
+        float getPrecioAlquiler();
+        void setPrecioAlquiler(float);
 };
 
 #endif

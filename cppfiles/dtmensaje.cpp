@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-DTMensaje::DTMensaje(string contenido, DTFecha fecha){
+DTMensaje::DTMensaje(string contenido, DTFecha * fecha){
     this->contenido = contenido;
     this->fecha = fecha;
 }
@@ -17,6 +17,6 @@ string DTMensaje::getContenido(){
     return this->contenido;
 }
 
-DTFecha DTMensaje::getFecha(){
+DTFecha * DTMensaje::getFecha(){
     return this->fecha;
 }
