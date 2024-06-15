@@ -1,8 +1,7 @@
 #include "../ICollection/interfaces/ICollectible.h"
-#include "../hfiles/conversacion.h"
-#include "mensaje.h"
-#include "interesado.h"
-#include "Conversacion.h"
+#include "../hfiles/mensaje.h"
+#include "../hfiles/interesado.h"
+#include "../hfiles/Conversacion.h"
 #include <iostream>
 
 // Getters
@@ -18,25 +17,45 @@ Interesado* Conversacion::getInteresado()  {
     return interesado;
 }
 
-// Setters
-void Conversacion::setCodigoConversacion(int codigo) {
+    // Setters
+void Conversacion:: setCodigoConversacion(int codigo) {
     codigoConversacion = codigo;
-}
+}   
 
 void Conversacion::setCantidadMensajes(int cantidad) {
     cantMensajes = cantidad;
 }
 
-void Conversacion::setInteresado(Interesado* nuevoInteresado) {
+void Conversacion::setInteresado(interesado* nuevoInteresado) {
     interesado = nuevoInteresado;
 }
 
 //constructores y destructores
-Conversacion:: Conversacion(int nuevoCodigo) {
+Conversacion::Conversacion(int nuevoCodigo) {
     codigoConversacion = nuevoCodigo;
 }
 
-Conversacion:: ~Conversacion() {
+Conversacion::~Conversacion() {
 }
    
+ICollectible* Conversacion::getUltimosMensajes() {
+    IIterator* it = mensajes->getIterator();
+    ICollectible* ultimosMensajes= new ICollectible();
+    for(int i = 0; it->hasCurrent() && i<5; i++) {
+        ultimosMensajes->add(it->getCurrent());
+        it->next();
+    }
+    delete it;
+    return ultimosMensajes;
+}
 
+void Conversacion::destruirMensajes() {
+    IIterator* it = mensajes->getIterator();
+    while(it->hasCurrent()) {
+        ICollectible* eliminar = it->getCurrent();
+        it->next();
+        mensajes->remove(eliminar);
+        delete eliminar;
+    }
+    delete it;
+}
