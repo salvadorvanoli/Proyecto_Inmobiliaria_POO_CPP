@@ -105,11 +105,10 @@ void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
     //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
     //y luego la propia conversacion
     //asi uno por uno
-    ICollection * aux;
-    aux = this->conversaciones;
-    if(aux->isEmpty()){
+    IIterator * aux;
+    aux = this->conversaciones->getIterator();
+    if(!aux->hasCurrent()){
         //se deberia hacer un next en la collecion conversacion en esta linea
-        //aux->~Conversacion();
         delete aux;
         return;
     }
