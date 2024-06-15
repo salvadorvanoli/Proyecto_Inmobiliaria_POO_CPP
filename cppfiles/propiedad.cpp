@@ -1,15 +1,16 @@
 #include "../hfiles/propiedad.h"
+#include "../hfiles/zona.h"
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver, Zona * _zona){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Zona * _zona){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
     this->m2Edificios = _m2Edificios;
     this->m2Totales = _m2Totales;
-    this->conversacion = _conver;
+    this->conversaciones = new OrderedDictionary();
     this->zona = _zona;
 }
 
@@ -45,8 +46,14 @@ void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
 }
 
-void Propiedad :: setConversacion(Conversacion * _conver){
-    this->conversacion = _conver;
+void Propiedad :: agregarConversacion(Conversacion * _conver){
+    IKey * key = new Integer(_conver->getCodigoConversacion());
+    if(this->conversaciones->member(key)){
+        delete key;
+        throw invalid_argument("La conversación ya existe");
+    }
+    ICollectible * conversacion = (ICollectible*) _conver;
+    this->conversaciones->add(key, conversacion);
 }
 
 void Propiedad :: setZona(Zona * _zona){
@@ -81,8 +88,8 @@ int Propiedad :: getM2Edificios(){
     return this->m2Edificios;
 }
 
-Conversacion * Propiedad :: getConversacion(){
-    return (Conversacion *) this->conversacion; //no se si es un bolaso
+IDictionary * Propiedad :: getConversaciones(){
+    return this->conversaciones;
 }
 
 Zona * Propiedad :: getZona(){
@@ -91,7 +98,7 @@ Zona * Propiedad :: getZona(){
 
 
 void Propiedad :: desvincularDeZona(){
-    this->zona->desvincularZona(this);
+    this->zona->desvincularPropiedad(this);
 }
 
 void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
@@ -99,7 +106,7 @@ void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
     //y luego la propia conversacion
     //asi uno por uno
     ICollection * aux;
-    aux = this->conversacion;
+    aux = this->conversaciones;
     if(aux->isEmpty()){
         //se deberia hacer un next en la collecion conversacion en esta linea
         //aux->~Conversacion();
@@ -116,7 +123,7 @@ DTChatProp * Propiedad :: getDTChatProp(string aa){
     //no la he encontrado
 }
 
-DTMensaje * Propiedad :: getUltimosmensajes(){
+ICollection * Propiedad :: getUltimosMensajes(){
     //esta operacion se pasa a conversacion(?
 }
 

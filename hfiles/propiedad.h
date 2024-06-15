@@ -11,6 +11,14 @@ using namespace std;
 #include "../cppfiles/propiedad.cpp"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/Integer.h"
+#include "../ICollection/interfaces/IDictionary.h"
+#include "../ICollection/interfaces/IIterator.h"
+#include "../ICollection/collections/List.h"
+#include "../ICollection/collections/OrderedDictionary.h"
 
 class DTMensaje;
 class Alquiler;
@@ -29,10 +37,10 @@ class Propiedad : public ICollectible{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        ICollection * conversacion;
-        Zona * zona; //aca iria icollection??
+        IDictionary * conversaciones;
+        Zona * zona;
     public:
-        Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
+        Propiedad(int, int, int, int, int, int, bool, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
         void setZona(Zona *);
@@ -43,7 +51,7 @@ class Propiedad : public ICollectible{
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
-        void setConversacion(Conversacion *);
+        void agregarConversacion(Conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
         int getCodigo();
@@ -51,12 +59,12 @@ class Propiedad : public ICollectible{
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
-        Conversacion * getConversacion();
+        IDictionary * getConversaciones();
         Zona * getZona();
         void desvincularDeZona();
         void destruirConversacion();
         DTChatProp * getDTChatProp(string);
-        DTMensaje * getUltimosmensajes();
+        ICollection * getUltimosMensajes();
         Conversacion * nuevoChat();
 };
 

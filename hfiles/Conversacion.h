@@ -4,10 +4,11 @@
 #include "mensaje.h"
 #include "interesado.h"
 #include "DTMensaje.h"
-#include <iostream>
 
+#include <iostream>
 using namespace std;
-class Conversacion{
+
+class Conversacion : public ICollectible{
     private:
         int codigoConversacion;
         int cantMensajes;
