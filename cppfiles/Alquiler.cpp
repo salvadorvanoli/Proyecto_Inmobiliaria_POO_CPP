@@ -10,11 +10,11 @@ Alquiler:: Alquiler(float precioAlquiler) {
 Alquiler:: ~Alquiler(){
 };
 
-float Alquiler:: getprecioAlquiler(){
+float Alquiler:: getPrecioAlquiler(){
     return precioAlquiler;
 };
 
-void Alquiler:: setprecioAlquiler(float precioAlquiler) {
+void Alquiler:: setPrecioAlquiler(float precioAlquiler) {
     this->precioAlquiler = precioAlquiler;
 };
 
