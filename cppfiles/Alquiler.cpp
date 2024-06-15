@@ -3,8 +3,9 @@
 #include "../hfiles/alquiler.h"
 using namespace std;
 
-Alquiler:: Alquiler(float precioAlquiler) {
+Alquiler:: Alquiler(Propiedad * prop, float precioAlquiler) {
     this->precioAlquiler = precioAlquiler;
+    this->prop = prop;
 };
 
 Alquiler:: ~Alquiler(){

@@ -3,8 +3,9 @@
 #include "../hfiles/venta.h"
 using namespace std;
 
-Venta:: Venta(float precioTotal) {
+Venta:: Venta(Propiedad * prop, float precioTotal) {
     this->precioTotal= precioTotal;
+    this->prop = prop;
 };
 
 Venta:: ~Venta() {

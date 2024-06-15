@@ -10,7 +10,7 @@ class Venta: public ICollectible {
         float precioTotal;
         Propiedad* prop;
     public:
-        Venta(float);
+        Venta(Propiedad*, float);
         virtual ~Venta();
 
         //getters y setters

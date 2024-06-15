@@ -20,7 +20,7 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
-class Propiedad /*: public ICollection*/{
+class Propiedad : public ICollectible {
     private:
         int codigo;
         int cantAmbiente;

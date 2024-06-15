@@ -6,9 +6,10 @@ Inmobiliaria::Inmobiliaria(char* email, string nombre, DTDir direccion) : Usuari
     this->contrasenia = "";
     this->nombre = nombre;
     this->direccion = direccion;
-    this->ventas = NULL;
-    this->alquileres = NULL;
-    this->propiedades = NULL;
+    this->ventas = new List();
+    this->alquileres = new List();
+    this->propiedades = new List();
+    this->cantAlquileres = this->cantVentas = this->cantPropiedades = 0;
 }
 
 Inmobiliaria::~Inmobiliaria(){
@@ -43,14 +44,30 @@ void Inmobiliaria::setDireccion(DTDir direccion){
     this->direccion = direccion;
 }
 
-Venta* Inmobiliaria::ponerEnVenta(Propiedad prop, int precio){
-    // QUE AGREGUE UNA PROPIEDAD A LA COLLECCIÓN "ventas" CON EL PRECIO "precio"
+Venta* Inmobiliaria::ponerEnVenta(Propiedad * prop, int precio){
+    Venta * nuevaVenta = new Venta(prop, precio);
+    if(this->ventas->member(nuevaVenta) == true){
+        throw invalid_argument("La venta ya estaba registrada");
+        return NULL;
+    }
+    this->ventas->add(nuevaVenta);
+    return nuevaVenta;
 }
 
-Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad prop, int precio){
-    // QUE AGREGUE UNA PROPIEDAD A LA COLLECCIÓN "alquileres" CON EL PRECIO "precio"
+Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad * prop, int precio){
+    Alquiler * nuevoAlquiler = new Alquiler(prop, precio);
+    if(this->alquileres->member(nuevoAlquiler) == true){
+        throw invalid_argument("El alquiler ya estaba registrado");
+        return NULL;
+    }
+    this->alquileres->add(nuevoAlquiler);
+    return nuevoAlquiler;
 }
 
-void Inmobiliaria::agregarPropiedad(Propiedad prop){
-    // QUE AGREGUE UNA PROPIEDAD A LA COLLECCIÓN "propiedades"
+void Inmobiliaria::agregarPropiedad(Propiedad * prop){
+    if(this->propiedades->member(prop) == true){
+        throw invalid_argument("La propiedad ya estaba registrada");
+        return;
+    }
+    this->propiedades->add(prop);
 }
