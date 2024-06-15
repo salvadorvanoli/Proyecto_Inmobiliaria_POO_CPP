@@ -2,14 +2,15 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, int _m2Totales, bool _tieneGaraje, Conversacion * _conver, Zona * _zona){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
     this->m2Edificios = _m2Edificios;
     this->m2Totales = _m2Totales;
-    this->conver = _conver;
+    this->conversacion = _conver;
+    this->zona = _zona;
 }
 
 Propiedad :: ~Propiedad(){
@@ -49,7 +50,7 @@ void Propiedad :: setConversacion(Conversacion * _conver){
 }
 
 void Propiedad :: setZona(Zona * _zona){
-    this->zona = _zona
+    this->zona = _zona;
 }
 
 bool Propiedad :: getTieneGaraje(){
@@ -81,48 +82,45 @@ int Propiedad :: getM2Edificios(){
 }
 
 Conversacion * Propiedad :: getConversacion(){
-    return this->conversacion;
+    return (Conversacion *) this->conversacion; //no se si es un bolaso
 }
 
 Zona * Propiedad :: getZona(){
     return this->zona;
 }
 
-void Propiedad :: asociarVenta(Venta){
-    
-}
 
-void Propiedad :: asociarAlquier(Alquier){
-
-}
-
-void Propiedad :: desvincularZona(){
+void Propiedad :: desvincularDeZona(){
     this->zona->desvincularZona(this);
 }
 
-void Propiedad :: destruirConversacion(){ //en eliminar propiedad
-    //seria hacer un next en la collecion(conversacion), destruir los mensajes 
+void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
+    //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
     //y luego la propia conversacion
     //asi uno por uno
+    ICollection * aux;
+    aux = this->conversacion;
+    if(aux->isEmpty()){
+        //se deberia hacer un next en la collecion conversacion en esta linea
+        //aux->~Conversacion();
+        delete aux;
+        return;
+    }
+    /*while(){
+
+    }*/
+    delete aux;
 }
 
-void Propiedad :: destruirVenta(){//en eliminar propiedad
-    //si la venta existe se le hace destroy
+DTChatProp * Propiedad :: getDTChatProp(string aa){
+    //no la he encontrado
 }
 
-void Propiedad :: destruirAlquiler(){//en eliminar propiedad
-     //si el alquiler existe se le hace destroy
+DTMensaje * Propiedad :: getUltimosmensajes(){
+    //esta operacion se pasa a conversacion(?
 }
 
-DTChatProp Propiedad :: getDTChatProp(string){
-
-}
-
-DTMensaje Propiedad :: getUltimosmensajes(){
-    
-}
-
-Conversacion Propiedad :: nuevoChat(){
-
+Conversacion * Propiedad :: nuevoChat(){
+    //crea una conversacion y la añade a la coleccion
 }
 

@@ -1,8 +1,9 @@
 #ifndef VENTA_H
-#define ALQUILERVENTA_H
+#define VENTA_H
 #include <iostream>
 #include "../ICollection/interfaces/ICollectible.h"
 #include "propiedad.h"
+
 using namespace std;
 
 class Venta: public ICollectible {
@@ -11,7 +12,8 @@ class Venta: public ICollectible {
         Propiedad* prop;
     public:
         Venta(float);
-        virtual ~Venta();
+        bool existeVenta();
+        ~Venta();
 
         //getters y setters
         float getprecioTotal();

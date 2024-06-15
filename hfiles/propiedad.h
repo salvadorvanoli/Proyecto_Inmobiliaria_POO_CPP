@@ -8,7 +8,7 @@ using namespace std;
 #include "alquiler.h"
 #include "venta.h"
 #include "conversacion.h"
-#include "propiedad.cpp"
+#include "../cppfiles/propiedad.cpp"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
 
@@ -20,7 +20,7 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
-class Propiedad /*: public ICollection*/{
+class Propiedad : public ICollectible{
     private:
         int codigo;
         int cantAmbiente;
@@ -29,10 +29,10 @@ class Propiedad /*: public ICollection*/{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        Conversacion * conversacion;
-        Zona * zona;
+        ICollection * conversacion;
+        Zona * zona; //aca iria icollection??
     public:
-        Propiedad(int, int, int, int, int, int, bool, Conversacion *);
+        Propiedad(int, int, int, int, int, int, bool, Conversacion *, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
         void setZona(Zona *);
@@ -53,15 +53,11 @@ class Propiedad /*: public ICollection*/{
         int getM2Edificios();
         Conversacion * getConversacion();
         Zona * getZona();
-        void asociarVenta(Venta);
-        void asociarAlquier(Alquier);
-        void desvincularZona();
+        void desvincularDeZona();
         void destruirConversacion();
-        void destruirVenta();
-        void destruirAlquiler();
-        DTChatProp getDTChatProp(string);
-        DTMensaje getUltimosmensajes();
-        Conversacion nuevoChat();
+        DTChatProp * getDTChatProp(string);
+        DTMensaje * getUltimosmensajes();
+        Conversacion * nuevoChat();
 };
 
 #endif
