@@ -11,6 +11,10 @@ class Propiedad;
 class Casa : public Propiedad{
     private:
         int m2Verdes;
+    public:
+        Casa(int);
+        void setM2Verdes(int);
+        int getM2Verdes();
 };
 
 

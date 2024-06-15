@@ -11,11 +11,12 @@ class Alquiler: public ICollectible {
         Propiedad * prop;
     public:
         Alquiler(Propiedad*, float);
-        virtual ~Alquiler();
+        bool existeAlquiler();
+        ~Alquiler();
 
         //getters y setters
-        float getprecioAlquiler();
-        void setprecioAlquiler(float);
+        float getPrecioAlquiler();
+        void setPrecioAlquiler(float);
 };
 
 #endif

@@ -3,10 +3,12 @@
 #include "../ICollection/interfaces/ICollectible.h"
 #include "mensaje.h"
 #include "interesado.h"
-#include <iostream>
+#include "DTMensaje.h"
 
+#include <iostream>
 using namespace std;
-class Conversacion{
+
+class Conversacion : public ICollectible{
     private:
         int codigoConversacion;
         int cantMensajes;
@@ -30,7 +32,9 @@ class Conversacion{
         void destruirMensajes();
         ICollectible* getUltimosMensajes();
         void nuevoMensaje(string);
-
 };
 
 #endif
+
+
+        

@@ -13,7 +13,8 @@ Mensaje::Mensaje(DTHora * hora, DTFecha * fecha, string texto){
 }
 
 Mensaje::~Mensaje(){
-
+    delete this->hora;
+    delete this->fecha;
 }
 
 DTHora * Mensaje::getHora(){

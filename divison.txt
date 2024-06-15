@@ -1,33 +1,32 @@
+SPRINT 2
+
 Salvador:
 
--Usuario
--Admin
--Interesado
--Inmobiliaria
+-Iniciar sesión
+-Cerrar sesión
+-Alta Inmobiliaria
+-Alta Interesado
+-Alta edificio
+-Obtener reporte
 
-Jozami:
+Joaquin:
 
--Conversación
--Venta
--Alquiler
--DT
+-Alta prop
 
 Nadia:
 
--Mensaje
--DT
+-Mensaje interesado
 
 Felipe:
 
--Propiedad
+-Modificar propiedad
+-Mensaje inmobiliaria
 
 Valentin:
 
--Departamento
--Zona
--Edificio
--DT
+-Consultar Propiedad
+-Eliminar propiedad
 
-TODOS LOS .H TERMINADOS
-NO .CPP
-LOS NOMBRES DE LOS .H TIENEN QUE SER IGUAL AL DIAGRAMA DE CLASES SIN MAYÚSCULAS SI HAY UN ESPACIO QUE SEA _
+ENTRE TODA LA PANDILLA:
+
+-Obtener reporte

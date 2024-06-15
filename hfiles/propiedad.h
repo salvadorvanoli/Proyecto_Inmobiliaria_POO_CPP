@@ -8,9 +8,17 @@ using namespace std;
 #include "alquiler.h"
 #include "venta.h"
 #include "conversacion.h"
-#include "propiedad.cpp"
+#include "../cppfiles/propiedad.cpp"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/Integer.h"
+#include "../ICollection/interfaces/IDictionary.h"
+#include "../ICollection/interfaces/IIterator.h"
+#include "../ICollection/collections/List.h"
+#include "../ICollection/collections/OrderedDictionary.h"
 
 class DTMensaje;
 class Alquiler;
@@ -20,7 +28,8 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
-class Propiedad : public ICollectible {
+
+class Propiedad : public ICollectible{
     private:
         int codigo;
         int cantAmbiente;
@@ -29,10 +38,10 @@ class Propiedad : public ICollectible {
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
-        Conversacion * conversacion;
+        IDictionary * conversaciones;
         Zona * zona;
     public:
-        Propiedad(int, int, int, int, int, int, bool, Conversacion *);
+        Propiedad(int, int, int, int, int, int, bool, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
         void setZona(Zona *);
@@ -43,7 +52,7 @@ class Propiedad : public ICollectible {
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
-        void setConversacion(Conversacion *);
+        void agregarConversacion(Conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
         int getCodigo();
@@ -51,17 +60,13 @@ class Propiedad : public ICollectible {
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
-        Conversacion * getConversacion();
+        IDictionary * getConversaciones();
         Zona * getZona();
-        void asociarVenta(Venta);
-        void asociarAlquier(Alquiler);
-        void desvincularZona();
+        void desvincularDeZona();
         void destruirConversacion();
-        void destruirVenta();
-        void destruirAlquiler();
-        DTChatProp getDTChatProp(string);
-        DTMensaje getUltimosmensajes();
-        Conversacion nuevoChat();
+        DTChatProp * getDTChatProp(string);
+        ICollection * getUltimosMensajes();
+        Conversacion * nuevoChat();
 };
 
 #endif

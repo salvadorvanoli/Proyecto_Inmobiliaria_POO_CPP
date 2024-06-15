@@ -99,6 +99,7 @@
     "xstring": "cpp",
     "xtr1common": "cpp",
     "xutility": "cpp",
-    "list": "cpp"
+    "list": "cpp",
+    "numbers": "cpp"
   }
 }
