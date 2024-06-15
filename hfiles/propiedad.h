@@ -54,7 +54,7 @@ class Propiedad : public ICollectible {
         Conversacion * getConversacion();
         Zona * getZona();
         void asociarVenta(Venta);
-        void asociarAlquier(Alquier);
+        void asociarAlquier(Alquiler);
         void desvincularZona();
         void destruirConversacion();
         void destruirVenta();
