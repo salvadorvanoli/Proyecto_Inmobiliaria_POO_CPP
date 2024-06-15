@@ -30,6 +30,8 @@ class DTPropiedadDetallada: public DTPropiedad {
         bool getTieneGaraje();
         float getM2Totales();
         DTInmobiliaria * getInmo();
+
+        friend ostream& operator << (ostream &, DTPropiedadDetallada *);
 };
 
 

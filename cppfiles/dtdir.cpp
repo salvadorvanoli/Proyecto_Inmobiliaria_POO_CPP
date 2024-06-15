@@ -23,3 +23,8 @@ int DTDir::getNumero(){
 string DTDir::getCiudad(){
     return this->ciudad;
 }
+
+ostream& operator << (ostream & o, DTDir * dir){
+    o << "    Ciudad: " << dir->getCiudad() << endl << "    Calle: " << dir->getCalle() << endl << "    Numero: " << dir->getNumero() << endl;
+    return o;
+}

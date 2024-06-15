@@ -16,6 +16,7 @@ class DTDir{
         string getCalle();
         int getNumero();
         string getCiudad();
+        friend ostream& operator << (ostream &, DTDir *);
 };
 
 #endif

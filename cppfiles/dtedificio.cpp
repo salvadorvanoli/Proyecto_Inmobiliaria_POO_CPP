@@ -22,3 +22,8 @@ int DTEdificio::getCantPisos(){
 int DTEdificio::getGastosComunes(){
     return this->gastosComunes;
 }
+
+ostream& operator << (ostream & o, DTEdificio * edi){
+    o << "Nombre: " << edi->getNombre() << endl << "Cantidad de pisos: " << edi->getCantPisos() << endl << "Gastos comunes: " << edi->getGastosComunes() << endl;
+    return o;
+}

@@ -38,3 +38,14 @@ float DTPropiedadDetallada::getM2Totales(){
 DTInmobiliaria * DTPropiedadDetallada::getInmo(){
     return this->inmo;
 }
+
+ostream& operator << (ostream & o, DTPropiedadDetallada * prop){
+    string garaje;
+    if (prop->getTieneGaraje()){
+        garaje = "Si";
+    } else {
+        garaje = "No";
+    }
+    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << prop->getEstado() << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
+    return o;
+}

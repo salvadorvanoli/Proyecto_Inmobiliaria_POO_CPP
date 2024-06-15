@@ -18,6 +18,8 @@ class DTEdificio: public ICollectible {
         string getNombre();
         int getCantPisos();
         int getGastosComunes();
+        
+        friend ostream& operator << (ostream &, DTEdificio *);
 };
 
 #endif

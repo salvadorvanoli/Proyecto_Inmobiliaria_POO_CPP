@@ -26,6 +26,8 @@ class DTPropiedad: public ICollectible {
         int getCodigoProp();
         DTDir * getDireccion();
         DTEstadoProp * getEstado();
+        
+        friend ostream& operator << (ostream &, DTPropiedad *);
 };
 
 

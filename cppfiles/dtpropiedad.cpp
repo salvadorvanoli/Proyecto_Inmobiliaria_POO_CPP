@@ -23,3 +23,8 @@ DTDir * DTPropiedad::getDireccion(){
 DTEstadoProp * DTPropiedad::getEstado(){
     return this->estado;
 }
+
+ostream& operator << (ostream & o, DTPropiedad * prop){
+    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << prop->getEstado() << endl << "Direccion: " << prop->getDireccion() << endl;
+    return o;
+}
