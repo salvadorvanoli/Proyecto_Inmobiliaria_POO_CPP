@@ -23,7 +23,7 @@ class Conversacion : public ICollectible{
         int codigoConversacion;
         int cantMensajes;
         Interesado* interesado;
-        ICollectible* mensajes;
+        ICollection* mensajes;
 
     public:
         Conversacion(int);
@@ -40,7 +40,7 @@ class Conversacion : public ICollectible{
         void setInteresado(Interesado*);
 
         void destruirMensajes();
-        ICollectible* getUltimosMensajes();
+        ICollection* getUltimosMensajes();
         void nuevoMensaje(string);
 };
 

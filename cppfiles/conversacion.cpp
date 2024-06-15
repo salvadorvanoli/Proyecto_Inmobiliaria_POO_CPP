@@ -26,7 +26,7 @@ void Conversacion::setCantidadMensajes(int cantidad) {
     cantMensajes = cantidad;
 }
 
-void Conversacion::setInteresado(interesado* nuevoInteresado) {
+void Conversacion::setInteresado(Interesado* nuevoInteresado) {
     interesado = nuevoInteresado;
 }
 
@@ -38,11 +38,15 @@ Conversacion::Conversacion(int nuevoCodigo) {
 Conversacion::~Conversacion() {
 }
    
-ICollectible* Conversacion::getUltimosMensajes() {
+ICollection* Conversacion::getUltimosMensajes() {
     IIterator* it = mensajes->getIterator();
-    ICollectible* ultimosMensajes= new ICollectible();
+    ICollection* ultimosMensajes = new List();
+    Mensaje * mens;
+    ICollectible * item;
     for(int i = 0; it->hasCurrent() && i<5; i++) {
-        ultimosMensajes->add(it->getCurrent());
+        mens = (Mensaje*) it->getCurrent();
+        item = (ICollectible *) mens->getDTMensaje();
+        ultimosMensajes->add(item);
         it->next();
     }
     delete it;
