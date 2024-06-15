@@ -16,6 +16,7 @@ class DTHora{
         int getHora();
         int getMinuto();
         int getSegundo();
+        friend ostream& operator << (ostream &, DTHora *);
 };
 
 #endif

@@ -13,15 +13,16 @@ class DTFecha{
       string dia;
       string mes;
       string anio;
-      DTHora hora;
+      DTHora * hora;
     public:
-        DTFecha();
-        DTFecha(string, string, string, DTHora);
-        ~DTFecha();
-        string getDia();
-        string getMes();
-        string getAnio();
-        DTHora getHora();
+      DTFecha();
+      DTFecha(string, string, string, DTHora *);
+      ~DTFecha();
+      string getDia();
+      string getMes();
+      string getAnio();
+      DTHora * getHora();
+      friend ostream& operator << (ostream &, DTFecha *);
 };
 
 #endif

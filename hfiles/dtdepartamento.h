@@ -14,6 +14,7 @@ class DTDepartamento{
         ~DTDepartamento();
         char* getLetra();
         string getNombre();
+        friend ostream& operator << (ostream &, DTDepartamento *);
 };
 
 #endif

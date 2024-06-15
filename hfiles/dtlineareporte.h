@@ -24,10 +24,8 @@ class DTLineaReporte: public ICollectible {
         char * getLetraDep();
         int getCantApartamentos();
         int getCantCasas();
+
+        friend ostream& operator << (ostream &, DTLineaReporte *);
 };
-
-
-
-
 
 #endif

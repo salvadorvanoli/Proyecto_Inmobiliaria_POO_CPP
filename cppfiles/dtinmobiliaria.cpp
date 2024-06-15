@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-DTInmobiliaria::DTInmobiliaria(char* nombre, DTDir direccion){
+DTInmobiliaria::DTInmobiliaria(char* nombre, DTDir * direccion){
     this->nombre = nombre;
     this->direccion = direccion;
 }
@@ -17,8 +17,11 @@ char* DTInmobiliaria::getNombre(){
     return this->nombre;
 }
 
-DTDir DTInmobiliaria::getDireccion(){
+DTDir * DTInmobiliaria::getDireccion(){
     return this->direccion;
 }
 
-
+ostream& operator << (ostream & o, DTInmobiliaria * inmo){
+    o << "Nombre: " << inmo->getNombre() << endl << "Direccion: " << endl << inmo->getDireccion();
+    return o;
+}

@@ -23,3 +23,8 @@ int DTHora::getMinuto(){
 int DTHora::getSegundo(){
     return this->segundo;
 }
+
+ostream& operator << (ostream & o, DTHora * hora){
+    o << "Hora: " << hora->getHora() << ':' << hora->getMinuto() << ':' << hora->getSegundo() << endl;
+    return o;
+}
