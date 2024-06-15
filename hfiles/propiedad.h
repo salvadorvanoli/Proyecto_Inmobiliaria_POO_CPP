@@ -28,6 +28,7 @@ class Propiedad;
 class Zona;
 class ICollectible;
 
+
 class Propiedad : public ICollectible{
     private:
         int codigo;

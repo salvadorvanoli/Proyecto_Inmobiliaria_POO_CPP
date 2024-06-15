@@ -10,7 +10,7 @@ class Alquiler: public ICollectible {
         float precioAlquiler;
         Propiedad * prop;
     public:
-        Alquiler(float);
+        Alquiler(Propiedad*, float);
         bool existeAlquiler();
         ~Alquiler();
 

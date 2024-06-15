@@ -11,9 +11,9 @@ class Venta: public ICollectible {
         float precioTotal;
         Propiedad* prop;
     public:
-        Venta(float);
-        bool existeVenta();
+        Venta(Propiedad*, float);
         ~Venta();
+        bool existeVenta();
 
         //getters y setters
         float getprecioTotal();

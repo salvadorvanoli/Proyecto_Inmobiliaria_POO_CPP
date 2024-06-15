@@ -10,6 +10,10 @@ using namespace std;
 #include "../ICollection/interfaces/IKey.h"
 #include "../ICollection/interfaces/IDictionary.h"
 #include "../ICollection/interfaces/IIterator.h"
+#include "../ICollection/collections/List.h"
+#include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/Integer.h"
 #include "usuario.h"
 #include "dtdir.h"
 #include "venta.h"
@@ -31,9 +35,12 @@ class Inmobiliaria : public Usuario {
     private:
         string nombre;
         DTDir direccion;
-        ICollection * ventas;
-        ICollection * alquileres;
-        ICollection * propiedades;
+        IDictionary * ventas;
+        IDictionary * alquileres;
+        IDictionary * propiedades;
+        int cantVentas;
+        int cantAlquileres;
+        int cantPropiedades;
     public:
         Inmobiliaria(char*, string, DTDir);
         ~Inmobiliaria();
@@ -41,16 +48,20 @@ class Inmobiliaria : public Usuario {
         //Setters
         void setNombre(string);
         void setDireccion(DTDir);
-        Venta* ponerEnVenta(Propiedad, int);
-        Alquiler* ponerEnAlquiler(Propiedad, int);
-        void agregarPropiedad(Propiedad);
+        Venta* ponerEnVenta(Propiedad*, int);
+        Alquiler* ponerEnAlquiler(Propiedad*, int);
+        void agregarPropiedad(Propiedad*);
 
         //Getters
         string getNombre();
         DTDir getDireccion();
-        Venta** getVentas();
-        Alquiler** getAlquileres();
-        Propiedad** getPropiedades();
+        IDictionary* getVentas();
+        IDictionary* getAlquileres();
+        IDictionary* getPropiedades();
+
+        //Métodos
+        void destruirVenta(Propiedad*);
+        void destruirAlquiler(Propiedad*);
 };
 
 #endif
