@@ -40,4 +40,24 @@ Conversacion:: Conversacion(int nuevoCodigo) {
 Conversacion:: ~Conversacion() {
 }
    
+Conversacion:: ICollectible* getUltimosMensajes() {
+    ITerator* it = mensajes->getIterator();
+    ICollectible* ultimosMensajes= new ICollectible();
+    for(int i = 0; it->hasCurrent() && i<5; i++) {
+        ultimosMensajes->add(it->getCurrent());
+        it->next();
+    }
+    delete it;
+    return ultimosMensajes;
+}
 
+Conversacion:: void destruirMensajes() {
+    ITerator* it = mensajes->getIterator();
+    while(it->hasCurrent()) {
+        ICollectible* eliminar = it->getCurrent();
+        it->next();
+        mensajes->remove(eliminar);
+        delete eliminar;
+    }
+    delete it;
+}
