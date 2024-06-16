@@ -4,6 +4,7 @@
 #include "mensaje.h"
 #include "interesado.h"
 #include "DTMensaje.h"
+#include "dtfecha.h"
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/OrderedKey.h"
@@ -40,7 +41,7 @@ class Conversacion : public ICollectible{
 
         void destruirMensajes();
         ICollection* getUltimosMensajes();
-        void nuevoMensaje(string);
+        void nuevoMensaje(DTFecha *, string);
 };
 
 #endif
