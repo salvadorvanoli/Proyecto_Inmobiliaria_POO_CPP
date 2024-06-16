@@ -65,11 +65,14 @@ class Zona : public ICollectible {
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
         void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
-        Casa * crearCasa(int, int, int, bool, DTDir *, int, int);
+        Casa * crearCasa(int, int, int, int, DTDir*, bool, int);
         void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
         ICollection * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();
+
+        // Otras funciones
+        int crearClavePropiedad();
 };
 
 #endif

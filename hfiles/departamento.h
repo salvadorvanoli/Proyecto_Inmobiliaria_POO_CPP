@@ -49,6 +49,9 @@ class Departamento: public ICollectible {
         DTDepartamento * getDTDepartamento();
         ICollection * listarZonasDepartamento();
         Zona * elegirZona(int);
+
+        // Otras funciones
+        int crearClaveZona();
 };
 
 #endif

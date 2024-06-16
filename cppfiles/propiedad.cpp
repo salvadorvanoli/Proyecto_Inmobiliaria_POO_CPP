@@ -2,17 +2,18 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, bool _tieneGaraje, Zona * _zona){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
     this->m2Edificios = _m2Edificios;
+    this->direccion = dir;
+    this->tieneGaraje = _tieneGaraje;
     this->conversaciones = new OrderedDictionary();
     this->zona = _zona;
 }
 
-//quemeimporta
 int Propiedad::crearClaveConversacion(){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con = NULL;
@@ -53,6 +54,10 @@ void Propiedad :: setCantDormitorios(int _cantDormitorios){
 
 void Propiedad :: setCantAmbiente(int _cantAmbiente){
     this->cantAmbiente = _cantAmbiente;
+}
+
+void Propiedad::setDireccion(DTDir * dir){
+    this->direccion = dir;
 }
 
 void Propiedad :: setCodigo(int _codigo){
@@ -97,6 +102,10 @@ int Propiedad :: getCantBanios(){
     return this->cantBanios;
 }
 
+DTDir * Propiedad::getDireccion(){
+    return this->direccion;
+}
+
 int Propiedad :: getM2Edificios(){
     return this->m2Edificios;
 }
@@ -138,10 +147,14 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
     Conversacion * con;
     while(it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
-        con->getCantidadMensajes();
+        if (con->getInteresado()->getCorreoEletronico() == email){
+            delete it;
+            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
+        }
         it->next();
     }
     delete it;
+    // throw
 }
 
 ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){

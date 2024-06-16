@@ -172,9 +172,9 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-// REVISAR ESTO !!!!!!!!!!!!!!!!!!!!!!!!!!! (el feli lo hizo mal)
-Casa * Zona::crearCasa(int cantAmbientes, int cantBanios, int cantDormitorios, bool tieneGaraje, DTDir * direccion,int m2Edificados, int m2Verdes){
-    return new Casa(cantAmbientes, cantBanios, cantDormitorios, tieneGaraje, direccion, m2Edificados, m2Verdes);
+Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, int m2Edificados, DTDir * dir, bool tieneGaraje, int m2Verdes){
+    int codigo = crearClavePropiedad();
+    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes);
 }
 
 // ES LO MISMO QUE QUITAR PROPIEDAD
@@ -221,6 +221,35 @@ Propiedad * Zona::seleccionarPropiedad(int codigoProp){
     // ES CON ICOLLECTION
 }
 
+// Esta mal
 ICollection * Zona::getUltimosMensajes(){
+    ICollection * lista = new List();
+    IIterator * it = this->propiedades->getIterator();
+    Mensaje * mensaje;
+    ICollectible * item;
+    int count = 0;
+    while(it->hasCurrent() && count < 5){
+        mensaje = (Mensaje *) it->getCurrent();
+        item = (ICollectible *) mensaje->getDTMensaje();
+        lista->add(item);
+        it->next();
+        count++;
+    }
+    delete it;
+    return lista;
     // ES CON ICOLLECTION
+}
+
+int Zona::crearClavePropiedad(){
+    IIterator * it = this->propiedades->getIterator();
+    Propiedad * prop = NULL;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        it->next();
+    }
+    delete it;
+    if (prop != NULL){
+        return prop->getCodigo()+1;
+    }
+    return 1;
 }

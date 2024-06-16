@@ -3,24 +3,14 @@
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../hfiles/dtchatprop.h"
 
-DTChatProp::DTChatProp(int codigo) {
+DTChatProp::DTChatProp(int codigo, int cantMensajes, DTDir* direccion) {
     this->codigo = codigo;
+    this->cantMensajes = cantMensajes;
+    this->direccion = direccion;
 };
 
 DTChatProp::~DTChatProp() {
 }
-
-void DTChatProp::setCodigo(int codigo) {
-    this->codigo = codigo;
-};
-
-void DTChatProp::setcantMensajes(int cantMensajes) {
-    this->cantMensajes = cantMensajes;
-};
-
-void DTChatProp::setDir(DTDir* direccion) {
-    this->direccion = direccion;
-};
 
 int DTChatProp::getcantMensajes() {
     return cantMensajes;

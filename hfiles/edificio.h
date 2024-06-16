@@ -49,7 +49,7 @@ class Edificio: public ICollectible {
         // Métodos de Edificio (DCD)
 
         DTEdificio * getDTEdifico();
-        Apartamento * crearApartamento(int, int, int, bool, DTDir *, int);
+        Apartamento * crearApartamento(int, int, int, int, DTDir *, bool);
         void desvincularPropiedad(Apartamento *);
 };
 

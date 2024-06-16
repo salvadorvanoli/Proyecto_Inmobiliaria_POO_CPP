@@ -37,10 +37,11 @@ class Propiedad : public ICollectible{
         int m2Edificios;
         int m2Totales;
         bool tieneGaraje;
+        DTDir * direccion;
         IDictionary * conversaciones;
         Zona * zona;
     public:
-        Propiedad(int, int, int, int, int, bool, Zona *);
+        Propiedad(int, int, int, int, int, DTDir*, bool, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
         void setZona(Zona *);
@@ -51,6 +52,7 @@ class Propiedad : public ICollectible{
         void setCantDormitorios(int);
         void setCantAmbiente(int);
         void setCodigo(int);
+        void setDireccion(DTDir *);
         void agregarConversacion(Conversacion *);
         bool getTieneGaraje();
         int getm2Totales();
@@ -59,11 +61,12 @@ class Propiedad : public ICollectible{
         int getCantDormitorios();
         int getCantBanios();
         int getM2Edificios();
+        DTDir * getDireccion();
         IDictionary * getConversaciones();
         Zona * getZona();
         void desvincularDeZona();
         void destruirConversaciones();
-        DTChatProp * getDTChatProp(char * );
+        DTChatProp * getDTChatProp(char *);
         ICollection * getUltimosMensajes(Conversacion *);
         Conversacion * nuevoChat();
 

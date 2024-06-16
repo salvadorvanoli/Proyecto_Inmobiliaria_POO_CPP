@@ -10,14 +10,10 @@ class DTChatProp: public ICollectible {
         int codigo;
         int cantMensajes;
         DTDir* direccion;
-        ICollectible* mensajes;
 
     public:
-        DTChatProp(int);
+        DTChatProp(int, int, DTDir *);
         virtual ~DTChatProp();
-        void setCodigo(int);
-        void setcantMensajes(int);
-        void setDir(DTDir*);
         int getCodigo();
         int getcantMensajes();
         DTDir* getDir();
