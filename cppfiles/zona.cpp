@@ -192,7 +192,19 @@ void Zona::desvincularPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-DTChatProp * Zona::listarChatPropiedad(char * email){
+ICollection * Zona::listarChatPropiedad(char * email){
+    IIterator * it = this->propiedades->getIterator();
+    ICollection * lista = new List();
+    Propiedad * prop;
+    ICollectible * item;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        item = (ICollectible *) prop->getDTChatProp(email);
+        lista->add(item);
+        it->next();
+    }
+    delete it;
+    return lista;
     // ES CON ICOLLECTION
 }
 

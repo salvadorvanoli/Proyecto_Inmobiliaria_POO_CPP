@@ -67,7 +67,7 @@ class Zona : public ICollectible {
         void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
         Casa * crearCasa(int, int, int, bool, DTDir *, int, int);
         void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
-        DTChatProp * listarChatPropiedad(char *);
+        ICollection * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();
 };
