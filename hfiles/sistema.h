@@ -3,7 +3,6 @@
 
 #include <iostream>
 using namespace std;
-
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/OrderedKey.h"
@@ -14,6 +13,8 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
+
+
 
 class Sistema{
     private:
@@ -33,6 +34,59 @@ class Sistema{
         void mensajeInmobiliaria();
         void consultarPropiedad();
         void eliminarPropiedad();
+        ICollection*  listarDepartamentos();
+
 };
+
+
+void Sistema::altaPropiedad(){
+    this->listarDepartamentos();
+    
+    string letra;
+    cout << "Ingrese la identificación del departamento:" << endl;
+    cin >> letra;
+    departamento* departamentoElegido = this->elegirDepartamento(letra);
+    
+    if (departamentoElegido == nullptr) {
+        cout << "Departamento no encontrado." << endl;
+        return;
+    }
+
+    departamentoElegido->listarZonas();
+    
+    int codigoZ;
+    cout << "Ingrese la identificación de la zona:" << endl;
+    cin >> codigoZ;
+    zona* zonaElegida = departamentoElegido->elegirZona(codigoZ);
+    
+    if (zonaElegida == nullptr) {
+        cout << "Zona no encontrada." << endl;
+        return;
+    }
+
+    cout << "Elija el tipo de propiedad a ingresar:" << endl;
+    cout << "1. Casa" << endl;
+    cout << "2. Apartamento" << endl;
+    
+    int eleccion;
+    cin >> eleccion; 
+    
+    if (eleccion == 2) {
+        cout << "Presione 1 si desea agregar un edificio" << endl;
+        cout << "Ingrese la identificación del edificio " << endl;
+        
+        int codigoE;
+        cin >> codigoE;
+
+        if (codigoE == 0) {
+            edificioElegido = zonaElegida->AltaEdificio();
+         else {
+            edificioElegido = zonaElegida->elegirEdificio(codigoE);
+        }
+
+
+        
+}
+
 
 #endif
