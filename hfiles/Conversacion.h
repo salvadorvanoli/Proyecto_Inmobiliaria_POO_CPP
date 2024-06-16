@@ -14,6 +14,7 @@
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
+#include "../cppfiles/conversacion.cpp"
 
 #include <iostream>
 using namespace std;

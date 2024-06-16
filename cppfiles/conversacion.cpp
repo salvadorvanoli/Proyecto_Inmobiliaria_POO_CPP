@@ -1,7 +1,7 @@
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../hfiles/mensaje.h"
 #include "../hfiles/interesado.h"
-#include "../hfiles/Conversacion.h"
+#include "../hfiles/conversacion.h"
 #include <iostream>
 
 // Getters
@@ -13,7 +13,7 @@ int Conversacion::getCantidadMensajes()  {
     return cantMensajes;
 }
 
-Interesado* Conversacion::getInteresado()  {
+Interesado * Conversacion::getInteresado()  {
     return interesado;
 }
 

@@ -109,8 +109,9 @@ void Propiedad :: destruirConversaciones(){
     Conversacion * con;
     while(aux->hasCurrent()){
         con = (Conversacion *) aux->getCurrent();
+        //iria remove
         con->destruirMensajes();
-        
+        con->~Conversacion();
         aux->next();
     }
     delete aux;
@@ -126,6 +127,7 @@ ICollection * Propiedad :: getUltimosMensajes(){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    
+    Conversacion * c = new Conversacion();
+    this->agregarConversacion(c);
 }
 
