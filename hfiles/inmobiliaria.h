@@ -19,6 +19,8 @@ using namespace std;
 #include "venta.h"
 #include "alquiler.h"
 #include "propiedad.h"
+#include "dtlineareporte.h"
+#include "dtreporte.h"
 
 class DTDir;
 class ICollectible;
@@ -33,8 +35,8 @@ class Propiedad;
 
 class Inmobiliaria : public Usuario {
     private:
-        string nombre;
-        DTDir direccion;
+        char* nombre;
+        DTDir * direccion;
         IDictionary * ventas;
         IDictionary * alquileres;
         IDictionary * propiedades;
@@ -42,26 +44,30 @@ class Inmobiliaria : public Usuario {
         int cantAlquileres;
         int cantPropiedades;
     public:
-        Inmobiliaria(char*, string, DTDir);
+        Inmobiliaria(char*, char*, DTDir*);
         ~Inmobiliaria();
 
         //Setters
-        void setNombre(string);
-        void setDireccion(DTDir);
-        Venta* ponerEnVenta(Propiedad*, int);
-        Alquiler* ponerEnAlquiler(Propiedad*, int);
+        void setNombre(char*);
+        void setDireccion(DTDir*);
+        Venta* ponerEnVenta(Propiedad*, float);
+        Alquiler* ponerEnAlquiler(Propiedad*, float);
         void agregarPropiedad(Propiedad*);
 
         //Getters
         string getNombre();
-        DTDir getDireccion();
+        DTDir* getDireccion();
         IDictionary* getVentas();
         IDictionary* getAlquileres();
         IDictionary* getPropiedades();
+        int getCantVentas();
+        int getCantAlquileres();
+        int getCantPropiedades();
 
         //Métodos
         void destruirVenta(Propiedad*);
         void destruirAlquiler(Propiedad*);
+        DTReporte* obtenerReporteInmobiliaria();
 };
 
 #endif

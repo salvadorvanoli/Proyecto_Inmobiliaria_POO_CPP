@@ -5,6 +5,7 @@ using namespace std;
 Usuario::Usuario(char* email){
     this->correoElectronico = email;
     this->contrasenia = "";
+    this->primeraVez = true;
 }
 
 Usuario::~Usuario(){}
@@ -22,7 +23,7 @@ void Usuario::setCorreoElectronico(char* email){
 }
 
 void Usuario::setContrasenia(string contrasenia){
-    if(this->getContrasenia() == ""){
+    if(this->primeraVez){
         throw runtime_error("El usuario no ha establecido su primera contraseña");
     } else {
         if(contrasenia.length() >= 8){
@@ -38,7 +39,7 @@ bool Usuario::esContraseniaCorrecta(string contrasenia){
 }
 
 void Usuario::agregarContrasenia(string contrasenia){
-    if(this->getContrasenia() == ""){
+    if(this->primeraVez){
         if(contrasenia.length() >= 8){
             this->contrasenia = contrasenia;
         } else {

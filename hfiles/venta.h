@@ -16,8 +16,9 @@ class Venta: public ICollectible {
         bool existeVenta();
 
         //getters y setters
-        float getprecioTotal();
-        void setprecioTotal(float);
+        float getPrecioTotal();
+        void setPrecioTotal(float);
+        Propiedad* getPropiedad();
 };
 
 #endif

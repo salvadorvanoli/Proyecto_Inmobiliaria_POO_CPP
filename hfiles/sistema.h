@@ -15,18 +15,27 @@ using namespace std;
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
 #include "../hfiles/inmobiliaria.h"
+#include "../hfiles/usuario.h"
+#include "../hfiles/administrador.h"
+#include "../hfiles/interesado.h"
 
 class Sistema{
     private:
         IDictionary * usuarios;
         IDictionary * departamentos;
         IDictionary * propiedades;
+        Usuario * loggeado;
+        string tipoUsr;
+        
     public:
-        void iniciarSesion();
+        void iniciarSesion(char*);
+        bool crearContrasenia(string, string);
+        bool ingresarContrasenia(string);
         void cerrarSesion();
-        void altaInmobiliaria();
-        void altaInteresado();
-        void altaEdificio();
+        ICollection * listarDepartamentos();
+        void altaInmobiliaria(char*, char*, DTDir);
+        void altaInteresado(char*, string, string, int);
+        bool altaEdificio(string, int, int, Zona*);
         void obtenerReporte();
         void altaPropiedad();
         void mensajeInteresado();

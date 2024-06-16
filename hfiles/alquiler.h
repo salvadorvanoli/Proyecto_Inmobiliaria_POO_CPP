@@ -5,7 +5,7 @@
 #include "propiedad.h"
 using namespace std;
 
-class Alquiler: public ICollectible {
+class Alquiler : public ICollectible {
     private:
         float precioAlquiler;
         Propiedad * prop;
