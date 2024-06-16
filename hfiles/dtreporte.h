@@ -14,7 +14,7 @@ class ICollectible;
 class DTInmobiliaria;
 class DTLineaReporte;
 
-class DTReporte {
+class DTReporte : ICollectible{
     private:
         DTInmobiliaria * inmo;
         ICollection * lineas;

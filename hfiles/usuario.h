@@ -23,6 +23,7 @@ class Usuario : public ICollectible {
     protected:
         char* correoElectronico;
         string contrasenia;
+        bool primeraVez;
     public:
         Usuario(char*);
         virtual ~Usuario();

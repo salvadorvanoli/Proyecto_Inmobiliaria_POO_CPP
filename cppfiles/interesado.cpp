@@ -7,6 +7,7 @@ Interesado::Interesado(char* email, string nombre, string apellido, int edad) : 
     this->nombre = nombre;
     this->apellido = apellido;
     this->edad = edad;
+    this->primeraVez = true;
 }
 
 string Interesado::getNombre(){

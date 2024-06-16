@@ -18,6 +18,7 @@ class Venta: public ICollectible {
         //getters y setters
         float getPrecioTotal();
         void setPrecioTotal(float);
+        Propiedad* getPropiedad();
 };
 
 #endif

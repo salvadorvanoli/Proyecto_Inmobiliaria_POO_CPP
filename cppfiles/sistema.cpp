@@ -11,12 +11,13 @@ using namespace std;
 #include "../ICollection/collections/List.h"
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
+#include "../ICollection/collections/List.h"
 #include "../ICollection/Integer.h"
+#include "../ICollection/String.h"
 #include "../hfiles/sistema.h"
 #include "../hfiles/departamento.h"
 #include "../hfiles/inmobiliaria.h"
 #include "../cppfiles/departamento.cpp"
-
 
 ICollection * Sistema::listarDepartamentos(){
     ICollection * departamentos = new List();
@@ -24,7 +25,8 @@ ICollection * Sistema::listarDepartamentos(){
     Departamento * depa;
     ICollectible * item;
     while(it->hasCurrent()){
-        depa = (Departamento *) depa->getDTDepartamento();
+        depa = (Departamento *) it->getCurrent();
+        item = (ICollectible *) depa->getDTDepartamento();
         departamentos->add(item);
         it->next();
     }
@@ -52,3 +54,184 @@ void Sistema::mensajeInmobiliaria(char * contenido, DTFecha fecha, Inmobiliaria 
 ICollection * axlrose = (Mensaje *) ;//falta la fecha
 c->getUltimosMensajes()->add(axlrose);
 }
+
+/* FUNCIONES PARA INICIAR SESIÓN */
+
+void Sistema::iniciarSesion(char* email){
+    IKey * key = new String(email);
+    Usuario * user = (Usuario*) this->usuarios->find(key);
+    delete key;
+    if(user != NULL){
+        Administrador * esAdmin = (Administrador*) user;
+        Interesado * esInteresado = (Interesado*) user;
+        Inmobiliaria * esInmobiliaria = (Inmobiliaria*) user;
+        if(esAdmin != NULL){
+            this->tipoUsr = "Admin";
+            this->loggeado = esAdmin;
+        } else if(esInteresado != NULL) {
+            this->tipoUsr = "Interesado";
+            this->loggeado = esInteresado;
+        } else if(esInmobiliaria != NULL) {
+            this->tipoUsr = "Inmobiliaria";
+            this->loggeado = esInmobiliaria;
+        } else {
+            this->loggeado = NULL;
+            this->tipoUsr = "";
+            system("clear");
+            throw runtime_error("No se encuentra el tipo de usuario");
+            return;
+        }
+        return;
+    } else {
+        system("clear");
+        throw runtime_error("No existe el usuario");
+    }
+}
+
+bool Sistema::crearContrasenia(string pwd, string pwd2){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr == "Admin"){
+        system("clear");
+        throw runtime_error("El usuario administrador ya tiene una contraseña establecida, consulte con el encargado");
+    }
+    if(pwd == pwd2){
+        this->loggeado->agregarContrasenia(pwd);
+        return true;
+    } else {
+        system("clear");
+        cout << "Las contraseñas no coinciden" << endl << endl;
+        return false;
+    }
+}
+
+bool Sistema::ingresarContrasenia(string pwd){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->loggeado->esContraseniaCorrecta(pwd)){
+        system("clear");
+        cout << "Sesión iniciada con éxito" << endl << endl;
+        return true;
+    } else {
+        system("clear");
+        cout << "Contraseña incorrecta" << endl << endl;
+        return false;
+    }
+}
+
+/* FIN DE LAS FUNCIONES PARA INICIAR SESIÓN */
+
+/* FUNCIONES PARA CERRAR SESIÓN */
+
+void Sistema::cerrarSesion(){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    } else {
+        this->loggeado = NULL;
+        this->tipoUsr = "";
+    }
+    return;
+}
+
+/* FIN DE LAS FUNCIONES PARA CERRAR SESIÓN */
+
+/* FUNCIONES PARA DAR ALTA UNA INMOBILIARIA */
+
+void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir dir){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr != "Admin"){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    IKey * key = new String(email); // No sé cómo hacer que el nombre también sea una key
+    if(this->usuarios->member(key)){
+        delete key;
+        throw invalid_argument("Ya existe un usuario con ese correo");
+    }
+    Inmobiliaria * nuevaInmo = new Inmobiliaria(email, nombre, dir);
+    this->usuarios->add(key, nuevaInmo);
+    system("clear");
+    cout << "Usuario creado con éxito" << endl << endl;
+    return;
+}
+
+/* FIN DE LAS FUNCIONES PARA DAR ALTA UNA INMOBILIARIA */
+
+/* FUNCIONES PARA DAR ALTA UN INTERESADO */
+
+void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr != "Admin"){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    IKey * key = new String(email);
+    if(this->usuarios->member(key)){
+        delete key;
+        system("clear");
+        throw invalid_argument("Ya existe un usuario con ese correo");
+    }
+    Interesado * nuevoInteresado = new Interesado(email, nom, ape, edad);
+    this->usuarios->add(key, nuevoInteresado);
+    system("clear");
+    cout << "Usuario creado con éxito" << endl << endl;
+    return;
+}
+
+/* FIN DE LAS FUNCIONES PARA DAR ALTA UN INTERESADO */
+
+/* FUNCIONES PARA DAR ALTA UN EDIFICIO */
+
+bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona * zona){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr != "Inmobiliaria"){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
+    zona->agregarEdificio(ed);
+    return true;
+}
+
+/* FIN DE LAS FUNCIONES PARA DAR ALTA UN EDIFICIO */
+
+/* FUNCIONES PARA DAR UN REPORTE*/
+
+void Sistema::obtenerReporte(){
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr != "Admin"){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    IIterator * it = this->usuarios->getIterator();
+    Inmobiliaria * user;
+    ICollection * reportes = new List();
+    while(it->hasCurrent()){
+        user = (Inmobiliaria *) it->getCurrent();
+        if(user != NULL){
+            ICollectible * reporte = (ICollectible*) user->obtenerReporteInmobiliaria();
+            reportes->add(reporte);
+        }
+        it->next();
+    }
+    delete it;
+}
+
+/* FIN DE LAS FUNCIONES PARA DAR UN REPORTE*/
