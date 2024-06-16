@@ -129,3 +129,16 @@ Conversacion * Propiedad :: nuevoChat(){
     
 }
 
+int Propiedad::crearClaveConversacion(){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con = NULL;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        it->next();
+    }
+    delete it;
+    if (con != NULL){
+        return con->getCodigoConversacion()+1;
+    }
+    return 1;
+}

@@ -67,6 +67,10 @@ class Propiedad : public ICollectible{
         DTChatProp * getDTChatProp(string);
         ICollection * getUltimosMensajes();
         Conversacion * nuevoChat();
+
+        // Funciones aparte
+
+        int crearClaveConversacion();
 };
 
 #endif
