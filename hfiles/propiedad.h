@@ -5,8 +5,6 @@
 using namespace std;
 
 #include "dtmensaje.h"
-#include "alquiler.h"
-#include "venta.h"
 #include "conversacion.h"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -20,8 +18,6 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 
 class DTMensaje;
-class Alquiler;
-class Venta;
 class Conversacion;
 class Propiedad;
 class Zona;

@@ -1,5 +1,4 @@
 #include "../hfiles/dtreporte.h"
-#include "../ICollection/interfaces/IIterator.h"
 #include <iostream>
 using namespace std;
 

@@ -2,9 +2,10 @@
 #define DTDEPARTAMENTO_H
 
 #include <iostream>
+#include "../ICollection/interfaces/ICollectible.h"
 using namespace std;
 
-class DTDepartamento{
+class DTDepartamento: public ICollectible{
     private:
         char* letra;
         string nombre;

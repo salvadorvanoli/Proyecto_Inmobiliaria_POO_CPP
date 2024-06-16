@@ -6,19 +6,13 @@
 #include <iostream>
 using namespace std;
 
-Mensaje::Mensaje(DTHora * hora, DTFecha * fecha, string texto){
-    this->hora = hora;
+Mensaje::Mensaje(DTFecha * fecha, string texto){
     this->fecha = fecha;
     this->texto = texto;
 }
 
 Mensaje::~Mensaje(){
-    delete this->hora;
     delete this->fecha;
-}
-
-DTHora * Mensaje::getHora(){
-    return this->hora;
 }
 
 DTFecha * Mensaje::getFecha(){
@@ -27,10 +21,6 @@ DTFecha * Mensaje::getFecha(){
 
 string Mensaje::getTexto(){
     return this->texto;
-}
-
-void Mensaje::setHora(DTHora * hora){
-    this->hora = hora;
 }
 
 void Mensaje::setFecha(DTFecha * fecha){

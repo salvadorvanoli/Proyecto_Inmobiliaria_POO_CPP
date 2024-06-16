@@ -1,6 +1,4 @@
 #include "../hfiles/dtinmobiliaria.h"
-#include "dtdir.cpp"
-#include "../hfiles/dtdir.h"
 #include <iostream>
 using namespace std;
 
