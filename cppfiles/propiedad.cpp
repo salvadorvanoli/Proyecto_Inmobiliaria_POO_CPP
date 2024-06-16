@@ -128,12 +128,8 @@ ICollection * Propiedad :: getUltimosMensajes(){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    Conversacion * c = new Conversacion(1);
+    IKey * key = Integer();
+    Conversacion * c = new Conversacion(key);
     this->agregarConversacion(c);
-    
 }
 
-
-/* 
-dudas en nuevochat() y en destruirconversacion()
-*/
