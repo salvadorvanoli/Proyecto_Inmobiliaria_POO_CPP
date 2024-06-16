@@ -8,7 +8,6 @@ using namespace std;
 #include "alquiler.h"
 #include "venta.h"
 #include "conversacion.h"
-#include "../cppfiles/propiedad.cpp"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
@@ -64,8 +63,8 @@ class Propiedad : public ICollectible{
         Zona * getZona();
         void desvincularDeZona();
         void destruirConversaciones();
-        DTChatProp * getDTChatProp(string);
-        ICollection * getUltimosMensajes();
+        DTChatProp * getDTChatProp(char * );
+        ICollection * getUltimosMensajes(Conversacion *);
         Conversacion * nuevoChat();
 
         // Funciones aparte
