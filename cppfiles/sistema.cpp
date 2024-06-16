@@ -75,7 +75,7 @@ bool Sistema::elegirZona(Departamento * depa, int codigo){
         return false;
 }
 
-void Sistema::mensajeInteresado(Departamento * depa, Interesado * user){
+void Sistema::mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
     ICollection * depar = listarDepartamentos(); 
     ///
     char * letraDepa;
@@ -94,7 +94,7 @@ void Sistema::mensajeInteresado(Departamento * depa, Interesado * user){
                 if (((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->getUltimosMensajes()) == NULL){// si la funcion getUltimosMensajes da null, o sea q no tiene mensajes, 
                                                                                                                 //entonces no existe una conversacion y se tiene q crear una
                     (depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat();
-                    ((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat())->nuevoMensaje(mensaje);
+                    ((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat())->nuevoMensaje(fecha, mensaje);
                 }
                 else{
                     

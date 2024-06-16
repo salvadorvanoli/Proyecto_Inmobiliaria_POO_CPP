@@ -38,12 +38,11 @@ class Sistema{
         bool altaEdificio(string, int, int, Zona*);
         void obtenerReporte();
         void altaPropiedad();
-        void mensajeInteresado();
+        void mensajeInteresado(Departamento *, Interesado *, DTFecha *);
         DTTipoProp modificarPropiedad(int, Inmobiliaria *);
-        void mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c);
+        void mensajeInmobiliaria(string, DTFecha *, Inmobiliaria *, Conversacion *);
         void consultarPropiedad();
         void eliminarPropiedad();
-        void mensajeInteresado(Departamento *, Interesado *);
         bool elegirDepartamento(char *);
         bool elegirZona(Departamento *, int);
         ICollection * listarZonasDepartamento(Departamento *);
