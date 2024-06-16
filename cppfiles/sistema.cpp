@@ -142,7 +142,7 @@ void Sistema::cerrarSesion(){
 
 /* FUNCIONES PARA DAR ALTA UNA INMOBILIARIA */
 
-void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir dir){
+void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
     if(this->loggeado == NULL){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");

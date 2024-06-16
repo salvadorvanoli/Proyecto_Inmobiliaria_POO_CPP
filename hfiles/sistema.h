@@ -33,7 +33,7 @@ class Sistema{
         bool ingresarContrasenia(string);
         void cerrarSesion();
         ICollection * listarDepartamentos();
-        void altaInmobiliaria(char*, char*, DTDir);
+        void altaInmobiliaria(char*, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int, Zona*);
         void obtenerReporte();
