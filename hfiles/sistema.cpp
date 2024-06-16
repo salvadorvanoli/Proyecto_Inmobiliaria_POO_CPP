@@ -21,41 +21,58 @@ using namespace std;
 #include "../hfiles/alquiler.h"
 #include "../hfiles/edificio.h"
 
-
-void Sistema::ponerEnVenta(float valor, Propiedad* p) {
-    
+//ok
+//ventas, alquileres
+void Sistema::ponerEnVenta(float valor) {
+    this->loggeado->ponerEnVenta(Propiedad* p, valor);
+    this->loggeado->agregarPropiedad(Propiedad*);
 }
-void Sistema::ponerEnAlquiler(float valor, Propiedad* p){
 
+void Sistema::ponerEnAlquiler(float valor) {
+    this->loggeado->ponerEnAlquiler(Propiedad* p, valor);
+    this->loggeado->agregarPropiedad(Propiedad*);
 }
+crearApartamento(int, int, int, bool, DTDir *, int);
 
 void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
-    propiedad = edificio->crearApartamento(cantAmb, cantBanos, cantDorm, garage, dir, m2e);
+    //de donde saco la clave
+    edificio->(edificio->crearApartamento(cantAmb, cantBanos, cantDorm, garage, dir, m2e));
     edificio->agregarApartamento(propiedad);
     zona->agregarPropiedad(propiedad);
     //propiedad->vincularZona(zona) ??
 }
 
-void Sistema::especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDr* dir, int m2e, int m2v) {
-    propiedad = zona->crearPropiedad(cantAmb, cantBanos,cantDorm, garage,dir, m2e, m2v);
-    zona->agregarPropiedad(propiedad);
+void Sistema::especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v, Zona* zona) {
+    zona->agregarPropiedad(zona->crearCasa(cantAmb, cantBanos,cantDorm, garage,dir, m2e, m2v));
     //propiedad->vincularZona(zona) ??
 }
 
 
 ICollection* Sistema::listarEdificio(Zona * zona) {
-   
     return zona->listarEdificios();
 }
 
-bool Sistema::elegirEdificio(int numEdificio) {
-    if (zona->elegirEdificio(numEdificio) != NULL){
-        edificio = zona->elegirEdificio();
+bool Sistema::seleccionarEdificio(int numEdificio, Zona* zona) {
+    if (zona->seleccionarEdificio(numEdificio) != NULL) {
         return true;
     }
     else
         return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Sistema:: AltaPropiedad() {
     ICollection* listaDeps = this->listarDepartamentos();

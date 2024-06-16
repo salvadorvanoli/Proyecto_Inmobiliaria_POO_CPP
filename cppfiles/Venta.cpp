@@ -15,7 +15,7 @@ float Venta::getprecioTotal() {
     return precioTotal;
 };
 
-void Venta:: setprecioTotal(int precioTotal) {
+void Venta:: setprecioTotal(float precioTotal) {
     this->precioTotal = precioTotal;
 };
 

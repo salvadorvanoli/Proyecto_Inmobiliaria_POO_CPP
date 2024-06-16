@@ -63,3 +63,7 @@ void Conversacion::destruirMensajes() {
     }
     delete it;
 }
+
+void Conversacion::nuevoMensaje(string){
+    this->mensajes->add(string);
+}
