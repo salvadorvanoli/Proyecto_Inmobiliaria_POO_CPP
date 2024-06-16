@@ -99,22 +99,23 @@ void Propiedad :: desvincularDeZona(){
     this->zona->desvincularPropiedad(this);
 }
 
-
 //(en eliminar propiedad)
 //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
 //y luego la propia conversacion
 //asi uno por uno
 void Propiedad :: destruirConversaciones(){ 
-    IIterator * aux = this->conversaciones->getIterator();
+    IIterator * it = this->conversaciones->getIterator();
     Conversacion * con;
-    while(aux->hasCurrent()){
-        con = (Conversacion *) aux->getCurrent();
-        //iria remove
+    IKey * key;
+    while(it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        key = new Integer(con->getCodigoConversacion());
+        it->next();
+        this->conversaciones->remove(key);
         con->destruirMensajes();
-        con->~Conversacion();
-        aux->next();
+        delete con;
     }
-    delete aux;
+    delete it;
 }
 
 DTChatProp * Propiedad :: getDTChatProp(string aa){
@@ -127,7 +128,12 @@ ICollection * Propiedad :: getUltimosMensajes(){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    Conversacion * c = new Conversacion();
+    Conversacion * c = new Conversacion(1);
     this->agregarConversacion(c);
+    
 }
 
+
+/* 
+dudas en nuevochat() y en destruirconversacion()
+*/

@@ -8,7 +8,6 @@ using namespace std;
 #include "alquiler.h"
 #include "venta.h"
 #include "conversacion.h"
-#include "../cppfiles/propiedad.cpp"
 #include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
