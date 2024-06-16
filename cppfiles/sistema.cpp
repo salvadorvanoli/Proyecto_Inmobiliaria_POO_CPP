@@ -202,7 +202,7 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    Edificio * ed = new Edificio(1, nombre, cantPisos, gastosComunes); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
+    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
     zona->agregarEdificio(ed);
     return true;
 }
