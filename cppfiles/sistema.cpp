@@ -34,16 +34,6 @@ ICollection * Sistema::listarDepartamentos(){
     return departamentos;
 }
 
-/*
-Zona * Departamento::elegirZona(int codigoZona){
-    IKey * clave = new Integer (codigoZona);
-    Zona * zona = (Zona *) this->zonas->find(clave);
-    delete clave;
-    if (zona != NULL){
-        return zona;
-    } else {
-        throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
-    }*/
 ICollection * Sistema::seleccionarPropiedad(int codProp, Zona * zona){
     
     if(zona->seleccionarPropiedad(codProp) != NULL){
@@ -56,8 +46,8 @@ void Sistema::nuevoChat(Propiedad * prop){
     prop->nuevoChat();
 }
 
-void Sistema::nuevoMensaje(Conversacion * conver, string mensaje){
-    conver->nuevoMensaje(mensaje);
+void Sistema::nuevoMensaje(Conversacion * conver, string mensaje, DTFecha * fecha){
+    conver->nuevoMensaje(fecha, mensaje);
 }
 
 bool Sistema::elegirDepartamento(char * letraDepartamento){

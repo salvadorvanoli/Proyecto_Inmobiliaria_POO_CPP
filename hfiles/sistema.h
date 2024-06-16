@@ -50,7 +50,7 @@ class Sistema{
         ICollection * listarChatProp(Zona *, char *);
         ICollection * seleccionarPropiedad(int, Zona *);
         void nuevoChat(Propiedad *);
-        void nuevoMensaje(Conversacion *, string);
+        void nuevoMensaje(Conversacion *, string, DTFecha *);
 };
 
 #endif
