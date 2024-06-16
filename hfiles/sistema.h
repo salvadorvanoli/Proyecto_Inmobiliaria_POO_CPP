@@ -13,7 +13,7 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
-
+#include "../hfiles/propiedad.h"
 
 
 class Sistema{
@@ -34,59 +34,13 @@ class Sistema{
         void mensajeInmobiliaria();
         void consultarPropiedad();
         void eliminarPropiedad();
-        ICollection*  listarDepartamentos();
-
+        void ponerEnVenta(float, Propiedad*);
+        void ponerEnAlquiler(float, Propiedad*);
+        void especificacionesApartamento(int, int, int, int, bool, DTDir*);
+        void especificacionesCasa(int, int, int, bool, DTDir* , int, int);
+        ICollection* listarEdificio(Zona * zona);
+        bool elegirEdificio(int numEdificio);
 };
-
-
-void Sistema::altaPropiedad(){
-    this->listarDepartamentos();
-    
-    string letra;
-    cout << "Ingrese la identificación del departamento:" << endl;
-    cin >> letra;
-    departamento* departamentoElegido = this->elegirDepartamento(letra);
-    
-    if (departamentoElegido == nullptr) {
-        cout << "Departamento no encontrado." << endl;
-        return;
-    }
-
-    departamentoElegido->listarZonas();
-    
-    int codigoZ;
-    cout << "Ingrese la identificación de la zona:" << endl;
-    cin >> codigoZ;
-    zona* zonaElegida = departamentoElegido->elegirZona(codigoZ);
-    
-    if (zonaElegida == nullptr) {
-        cout << "Zona no encontrada." << endl;
-        return;
-    }
-
-    cout << "Elija el tipo de propiedad a ingresar:" << endl;
-    cout << "1. Casa" << endl;
-    cout << "2. Apartamento" << endl;
-    
-    int eleccion;
-    cin >> eleccion; 
-    
-    if (eleccion == 2) {
-        cout << "Presione 1 si desea agregar un edificio" << endl;
-        cout << "Ingrese la identificación del edificio " << endl;
-        
-        int codigoE;
-        cin >> codigoE;
-
-        if (codigoE == 0) {
-            edificioElegido = zonaElegida->AltaEdificio();
-         else {
-            edificioElegido = zonaElegida->elegirEdificio(codigoE);
-        }
-
-
-        
-}
 
 
 #endif
