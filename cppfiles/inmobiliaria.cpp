@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Inmobiliaria::Inmobiliaria(char* email, string nombre, DTDir direccion) : Usuario(email){
+Inmobiliaria::Inmobiliaria(char* email, string nombre, DTDir * direccion) : Usuario(email){
     this->contrasenia = "";
     this->nombre = nombre;
     this->direccion = direccion;
@@ -16,13 +16,16 @@ Inmobiliaria::~Inmobiliaria(){
     this->alquileres->~IDictionary();
     this->ventas->~IDictionary();
     this->propiedades->~IDictionary(); // Ni idea si esto es así
+
+    // HAY QUE HACER FUNCIONES PARA DESTRUIR CADA UNA DE LAS COLECCIONES
+
 }
 
 string Inmobiliaria::getNombre(){
     return this->nombre;
 }
 
-DTDir Inmobiliaria::getDireccion(){
+DTDir * Inmobiliaria::getDireccion(){
     return this->direccion;
 }
 
@@ -42,7 +45,7 @@ void Inmobiliaria::setNombre(string nombre){
     this->nombre = nombre;
 }
 
-void Inmobiliaria::setDireccion(DTDir direccion){
+void Inmobiliaria::setDireccion(DTDir * direccion){
     this->direccion = direccion;
 }
 

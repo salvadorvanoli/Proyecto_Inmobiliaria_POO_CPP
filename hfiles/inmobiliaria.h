@@ -34,7 +34,7 @@ class Propiedad;
 class Inmobiliaria : public Usuario {
     private:
         string nombre;
-        DTDir direccion;
+        DTDir * direccion;
         IDictionary * ventas;
         IDictionary * alquileres;
         IDictionary * propiedades;
@@ -42,19 +42,19 @@ class Inmobiliaria : public Usuario {
         int cantAlquileres;
         int cantPropiedades;
     public:
-        Inmobiliaria(char*, string, DTDir);
+        Inmobiliaria(char*, string, DTDir *);
         ~Inmobiliaria();
 
         //Setters
         void setNombre(string);
-        void setDireccion(DTDir);
+        void setDireccion(DTDir *);
         Venta* ponerEnVenta(Propiedad*, int);
         Alquiler* ponerEnAlquiler(Propiedad*, int);
         void agregarPropiedad(Propiedad*);
 
         //Getters
         string getNombre();
-        DTDir getDireccion();
+        DTDir * getDireccion();
         IDictionary* getVentas();
         IDictionary* getAlquileres();
         IDictionary* getPropiedades();

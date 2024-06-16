@@ -8,6 +8,7 @@ using namespace std;
 #include "edificio.h"
 
 class Propiedad;
+class Edificio;
 
 class Apartamento : public Propiedad{
     private:

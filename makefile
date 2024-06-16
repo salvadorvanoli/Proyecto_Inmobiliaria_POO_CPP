@@ -93,7 +93,7 @@ Interesado.o: Usuario.o
 Mensaje.o: ICollectible.o DTFecha.o DTMensaje.o
 	g++ -c cppfiles/Mensaje.cpp
 
-Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje Mensaje.o Interesado.o
+Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje.o Mensaje.o Interesado.o
 	g++ -c cppfiles/Conversacion.cpp
 
 Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o
@@ -105,25 +105,25 @@ Venta.o: ICollectible.o Propiedad.o
 Alquiler.o: ICollectible.o Propiedad.o
 	g++ -c cppfiles/Alquiler.cpp
 
-# ME QUEDE ACA
-
-Inmobiliaria.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Inmobiliaria.o: Integer.o IKey.o IDictionary.o OrderedDictionary.o DTDir.o Usuario.o Propiedad.o Venta.o Alquiler.o
 	g++ -c cppfiles/Inmobiliaria.cpp
 
-Casa.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Casa.o: Propiedad.o
 	g++ -c cppfiles/Casa.cpp
 
-Apartamento.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Apartamento.o: Propiedad.o
 	g++ -c cppfiles/Apartamento.cpp
 
-Edificio.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Edificio.o: Integer.o ICollectible.o IDictionary.o OrderedDictionary.o DTEdificio.o Propiedad.o Apartamento.o
 	g++ -c cppfiles/Edificio.cpp
 
-Zona.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Zona.o: Integer.o ICollectible.o IDictionary.o List.o OrderedDictionary.o DTZona.o Propiedad.o Edificio.o
 	g++ -c cppfiles/Zona.cpp
 
-Departamento.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Departamento.o: Integer.o ICollectible.o IKey.o ICollection.o IDictionary.o DTDepartamento.o Zona.o
 	g++ -c cppfiles/Departamento.cpp
+
+# FALTA SISTEMA
 
 Sistema.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
 	g++ -c cppfiles/Sistema.cpp
