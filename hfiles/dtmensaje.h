@@ -4,11 +4,12 @@
 #include <iostream>
 using namespace std;
 
+#include "../ICollection/interfaces/ICollectible.h"
 #include "dtfecha.h"
 
 class DTFecha;
 
-class DTMensaje{
+class DTMensaje: public ICollectible{
     private:
         string contenido;
         DTFecha * fecha; 

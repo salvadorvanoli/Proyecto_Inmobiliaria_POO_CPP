@@ -5,10 +5,11 @@
 using namespace std;
 
 #include "dtdir.h"
+#include "../ICollection/interfaces/ICollectible.h"
 
 class DTDir;
 
-class DTInmobiliaria{
+class DTInmobiliaria: public ICollectible{
     private:
         char* nombre;
         DTDir * direccion;

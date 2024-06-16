@@ -1,6 +1,3 @@
-#include "../ICollection/interfaces/ICollectible.h"
-#include "../hfiles/mensaje.h"
-#include "../hfiles/interesado.h"
 #include "../hfiles/conversacion.h"
 #include <iostream>
 

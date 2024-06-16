@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../ICollection/interfaces/ICollectible.h"
 #include "../hfiles/alquiler.h"
 using namespace std;
 

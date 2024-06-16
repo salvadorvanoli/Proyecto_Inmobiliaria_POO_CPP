@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../ICollection/interfaces/ICollectible.h"
 #include "../hfiles/venta.h"
 using namespace std;
 
@@ -11,11 +10,11 @@ Venta:: Venta(Propiedad * prop, float precioTotal) {
 Venta:: ~Venta() {
 };
 
-float Venta::getprecioTotal() {
+float Venta::getPrecioTotal() {
     return precioTotal;
 };
 
-void Venta:: setprecioTotal(int precioTotal) {
+void Venta:: setPrecioTotal(float precioTotal) {
     this->precioTotal = precioTotal;
 };
 
