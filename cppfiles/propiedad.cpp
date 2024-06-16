@@ -78,6 +78,10 @@ void Propiedad :: setZona(Zona * _zona){
     this->zona = _zona;
 }
 
+void Propiedad :: setDTTipoProp(DTTipoProp dt){
+    this->tipoProp = dt;
+}
+
 bool Propiedad :: getTieneGaraje(){
     return this->tieneGaraje;
 }
@@ -116,6 +120,10 @@ IDictionary * Propiedad :: getConversaciones(){
 
 Zona * Propiedad :: getZona(){
     return this->zona;
+}
+
+DTTipoProp Propiedad :: getDTTipoProp(){
+    return this->tipoProp;
 }
 
 

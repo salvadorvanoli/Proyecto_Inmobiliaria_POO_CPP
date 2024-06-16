@@ -18,6 +18,7 @@ using namespace std;
 #include "../ICollection/interfaces/IIterator.h"
 #include "../ICollection/collections/List.h"
 #include "../ICollection/collections/OrderedDictionary.h"
+#include "dttipoprop.h"
 
 class DTMensaje;
 class Alquiler;
@@ -62,6 +63,7 @@ class Propiedad : public ICollectible{
         int getCantBanios();
         int getM2Edificios();
         DTDir * getDireccion();
+        DTTipoProp getDTTipoProp(); // Capaz es virtual
         IDictionary * getConversaciones();
         Zona * getZona();
         void desvincularDeZona();
@@ -69,6 +71,7 @@ class Propiedad : public ICollectible{
         DTChatProp * getDTChatProp(char *);
         ICollection * getUltimosMensajes(Conversacion *);
         Conversacion * nuevoChat();
+        
 
         // Funciones aparte
 

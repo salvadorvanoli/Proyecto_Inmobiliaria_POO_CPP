@@ -24,7 +24,6 @@ class Conversacion : public ICollectible{
         int cantMensajes;
         Interesado* interesado;
         ICollection* mensajes;
-
     public:
         Conversacion(int);
         virtual ~Conversacion();
