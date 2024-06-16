@@ -12,7 +12,7 @@ class Casa : public Propiedad{
     private:
         int m2Verdes;
     public:
-        Casa(int);
+        Casa(int, int, int, int, int, bool, Zona *, int);
         void setM2Verdes(int);
         int getM2Verdes();
 };

@@ -13,7 +13,7 @@ class Apartamento : public Propiedad{
     private:
         Edificio * edificio;
     public:
-        Apartamento(Edificio *);
+        Apartamento(int, int, int, int, int, bool, Zona *, Edificio *);
         void setEdificio(Edificio *);
         Edificio * getEdificio();
         void desvincularDeEdificio();

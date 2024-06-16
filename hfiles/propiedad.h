@@ -30,7 +30,7 @@ class ICollectible;
 
 
 class Propiedad : public ICollectible{
-    private:
+    protected:
         int codigo;
         int cantAmbiente;
         int cantDormitorios;
@@ -41,7 +41,7 @@ class Propiedad : public ICollectible{
         IDictionary * conversaciones;
         Zona * zona;
     public:
-        Propiedad(int, int, int, int, int, int, bool, Zona *);
+        Propiedad(int, int, int, int, int, bool, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
         void setZona(Zona *);
