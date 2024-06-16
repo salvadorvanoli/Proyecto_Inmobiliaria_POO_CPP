@@ -34,6 +34,87 @@ ICollection * Sistema::listarDepartamentos(){
     return departamentos;
 }
 
+/*
+Zona * Departamento::elegirZona(int codigoZona){
+    IKey * clave = new Integer (codigoZona);
+    Zona * zona = (Zona *) this->zonas->find(clave);
+    delete clave;
+    if (zona != NULL){
+        return zona;
+    } else {
+        throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
+    }*/
+ICollection * Sistema::seleccionarPropiedad(int codProp, Zona * zona){
+    
+    if(zona->seleccionarPropiedad(codProp) != NULL){
+        Propiedad * prop = zona->seleccionarPropiedad(codProp);
+        return zona->getUltimosMensajes();
+    }
+}
+
+void Sistema::nuevoChat(Propiedad * prop){
+    prop->nuevoChat();
+}
+
+void Sistema::nuevoMensaje(Conversacion * conver, string mensaje){
+    conver->nuevoMensaje(mensaje);
+}
+
+bool Sistema::elegirDepartamento(char * letraDepartamento){
+    IKey * clave = new String (letraDepartamento);
+    Departamento * depa = (Departamento *) this->departamentos->find(clave);
+    delete clave;
+    if(depa != NULL)
+        return true;
+    else   
+        throw invalid_argument("El Departamento especificado no se encuentra en el Sistema.");
+}
+
+ICollection * Sistema::listarZonasDepartamento(Departamento * depa){
+    return depa->listarZonasDepartamento();
+}
+
+ICollection * Sistema::listarChatProp(Zona * zona, char * email){
+    return zona->listarChatPropiedad(email);
+}
+
+bool Sistema::elegirZona(Departamento * depa, int codigo){
+    if (depa->elegirZona(codigo) != NULL)
+        return true;
+    else
+        return false;
+}
+
+void Sistema::mensajeInteresado(Departamento * depa, Interesado * user){
+    ICollection * depar = listarDepartamentos(); 
+    ///
+    char * letraDepa;
+    cin >> letraDepa;
+    if (elegirDepartamento(letraDepa) == true){
+        ICollection * zona = listarZonasDepartamento(depa);
+        int numZona;
+        cin >> numZona;
+        if(elegirZona(depa, numZona) == true){
+            ICollection * chatProp = listarChatProp(depa->elegirZona(numZona), user->getCorreoEletronico());
+            int codProp;
+            cin >> codProp;
+            if (seleccionarPropiedad(codProp, depa->elegirZona(numZona)) != NULL){ //si la propiedad existe
+                string mensaje;
+                cin >> mensaje;
+                if (((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->getUltimosMensajes()) == NULL){// si la funcion getUltimosMensajes da null, o sea q no tiene mensajes, 
+                                                                                                                //entonces no existe una conversacion y se tiene q crear una
+                    (depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat();
+                    ((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat())->nuevoMensaje(mensaje);
+                }
+                else{
+                    
+                }  
+            }
+        }
+    }
+
+}
+
 void Sistema::mensajeInteresado(){
     
 }
