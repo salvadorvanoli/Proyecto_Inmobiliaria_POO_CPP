@@ -14,6 +14,7 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
+#include "../hfiles/inmobiliaria.h"
 
 class Sistema{
     private:
@@ -29,8 +30,8 @@ class Sistema{
         void obtenerReporte();
         void altaPropiedad();
         void mensajeInteresado();
-        void modificarPropiedad();
-        void mensajeInmobiliaria();
+        DTTipoProp modificarPropiedad(int, Inmobiliaria *);
+        void mensajeInmobiliaria(char * contenido, DTFecha fecha, Inmobiliaria * inmo, Conversacion * c);
         void consultarPropiedad();
         void eliminarPropiedad();
 };
