@@ -49,10 +49,8 @@ return DTTipoProp::casa;
 }
 
 //no anda ni a palo
-void Sistema::mensajeInmobiliaria(char * contenido, DTFecha fecha, Inmobiliaria * inmo, Conversacion * c){
-//feli
-ICollection * axlrose = (Mensaje *) ;//falta la fecha
-c->getUltimosMensajes()->add(axlrose);
+void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
+Mensaje * m = new Mensaje(fecha, contenido);
 }
 
 /* FUNCIONES PARA INICIAR SESIÓN */
@@ -235,3 +233,4 @@ void Sistema::obtenerReporte(){
 }
 
 /* FIN DE LAS FUNCIONES PARA DAR UN REPORTE*/
+
