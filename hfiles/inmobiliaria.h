@@ -56,7 +56,7 @@ class Inmobiliaria : public Usuario {
 
         //Getters
         string getNombre();
-        DTDir* getDireccion();
+        DTDir * getDireccion();
         IDictionary* getVentas();
         IDictionary* getAlquileres();
         IDictionary* getPropiedades();

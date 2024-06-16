@@ -17,13 +17,16 @@ Inmobiliaria::~Inmobiliaria(){
     this->alquileres->~IDictionary();
     this->ventas->~IDictionary();
     this->propiedades->~IDictionary(); // Ni idea si esto es así
+
+    // HAY QUE HACER FUNCIONES PARA DESTRUIR CADA UNA DE LAS COLECCIONES
+
 }
 
 string Inmobiliaria::getNombre(){
     return this->nombre;
 }
 
-DTDir* Inmobiliaria::getDireccion(){
+DTDir * Inmobiliaria::getDireccion(){
     return this->direccion;
 }
 
@@ -43,7 +46,7 @@ void Inmobiliaria::setNombre(char* nombre){
     this->nombre = nombre;
 }
 
-void Inmobiliaria::setDireccion(DTDir *direccion){
+void Inmobiliaria::setDireccion(DTDir * direccion){
     this->direccion = direccion;
 }
 

@@ -1,9 +1,4 @@
 #include "../hfiles/departamento.h"
-#include "../hfiles/dtdepartamento.h"
-#include "../ICollection/collections/List.h"
-#include "../ICollection/interfaces/IKey.h"
-#include "../ICollection/collections/OrderedDictionary.h"
-#include "../ICollection/Integer.h"
 #include <iostream>
 using namespace std;
 
