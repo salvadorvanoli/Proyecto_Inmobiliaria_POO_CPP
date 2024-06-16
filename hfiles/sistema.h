@@ -43,6 +43,14 @@ class Sistema{
         void mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c);
         void consultarPropiedad();
         void eliminarPropiedad();
+        void mensajeInteresado(Departamento *, Interesado *);
+        bool elegirDepartamento(char *);
+        bool elegirZona(Departamento *, int);
+        ICollection * listarZonasDepartamento(Departamento *);
+        ICollection * listarChatProp(Zona *, char *);
+        ICollection * seleccionarPropiedad(int, Zona *);
+        void nuevoChat(Propiedad *);
+        void nuevoMensaje(Conversacion *, string);
 };
 
 #endif
