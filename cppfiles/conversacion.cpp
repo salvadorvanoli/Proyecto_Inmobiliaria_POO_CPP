@@ -60,3 +60,8 @@ void Conversacion::destruirMensajes() {
     }
     delete it;
 }
+
+void Conversacion::nuevoMensaje(DTFecha * fecha, string contenido){
+    Mensaje * mensaje = new Mensaje(fecha, contenido);
+    this->mensajes->add(mensaje);
+}

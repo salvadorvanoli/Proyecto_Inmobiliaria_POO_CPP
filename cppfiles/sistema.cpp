@@ -121,17 +121,17 @@ void Sistema::mensajeInteresado(){
 
 DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
 //feli
-IKey * key = new Integer(codigoProp);
-Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
-if(p->getDTTipoProp() == DTTipoProp::apartamento){
+    IKey * key = new Integer(codigoProp);
+    Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
+    if(p->getDTTipoProp() == DTTipoProp::apartamento){
     return DTTipoProp::apartamento;
-}
-return DTTipoProp::casa;
+    }
+    return DTTipoProp::casa;
 }
 
 //no anda ni a palo
 void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
-Mensaje * m = new Mensaje(fecha, contenido);
+    c->nuevoMensaje(fecha, contenido);
 }
 
 /* FUNCIONES PARA INICIAR SESIÓN */
