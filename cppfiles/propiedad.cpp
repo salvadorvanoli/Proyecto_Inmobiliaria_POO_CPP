@@ -1,5 +1,4 @@
 #include "../hfiles/propiedad.h"
-#include "../hfiles/zona.h"
 #include <iostream>
 using namespace std;
 
@@ -101,20 +100,20 @@ void Propiedad :: desvincularDeZona(){
     this->zona->desvincularPropiedad(this);
 }
 
-void Propiedad :: destruirConversacion(){ //(en eliminar propiedad)
-    //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
-    //y luego la propia conversacion
-    //asi uno por uno
-    IIterator * aux;
-    aux = this->conversaciones->getIterator();
-    if(!aux->hasCurrent()){
-        //se deberia hacer un next en la collecion conversacion en esta linea
-        delete aux;
-        return;
-    }
-    /*while(){
 
-    }*/
+//(en eliminar propiedad)
+//seria hacer un next en la colleccion(conversacion), destruir los mensajes 
+//y luego la propia conversacion
+//asi uno por uno
+void Propiedad :: destruirConversaciones(){ 
+    IIterator * aux = this->conversaciones->getIterator();
+    Conversacion * con;
+    while(aux->hasCurrent()){
+        con = (Conversacion *) aux->getCurrent();
+        con->destruirMensajes();
+        
+        aux->next();
+    }
     delete aux;
 }
 
@@ -126,7 +125,8 @@ ICollection * Propiedad :: getUltimosMensajes(){
     //esta operacion se pasa a conversacion(?
 }
 
+//crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    //crea una conversacion y la añade a la coleccion
+    
 }
 

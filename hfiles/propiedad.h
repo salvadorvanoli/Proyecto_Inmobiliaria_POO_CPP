@@ -63,7 +63,7 @@ class Propiedad : public ICollectible{
         IDictionary * getConversaciones();
         Zona * getZona();
         void desvincularDeZona();
-        void destruirConversacion();
+        void destruirConversaciones();
         DTChatProp * getDTChatProp(string);
         ICollection * getUltimosMensajes();
         Conversacion * nuevoChat();
