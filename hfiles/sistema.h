@@ -31,7 +31,7 @@ class Sistema{
         void altaPropiedad();
         void mensajeInteresado();
         DTTipoProp modificarPropiedad(int, Inmobiliaria *);
-        void mensajeInmobiliaria(char * contenido, DTFecha fecha, Inmobiliaria * inmo, Conversacion * c);
+        void mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c);
         void consultarPropiedad();
         void eliminarPropiedad();
 };
