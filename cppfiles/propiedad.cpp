@@ -12,6 +12,21 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->zona = _zona;
 }
 
+//quemeimporta
+int Propiedad::crearClaveConversacion(){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con = NULL;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        it->next();
+    }
+    delete it;
+    if (con != NULL){
+        return con->getCodigoConversacion()+1;
+    }
+    return 1;
+}
+
 Propiedad :: ~Propiedad(){
     
 }
@@ -118,18 +133,32 @@ void Propiedad :: destruirConversaciones(){
     delete it;
 }
 
-DTChatProp * Propiedad :: getDTChatProp(string aa){
-    //no la he encontrado
+DTChatProp * Propiedad :: getDTChatProp(char * email){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con;
+    while(it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        con->getCantidadMensajes();
+        it->next();
+    }
+    delete it;
 }
 
-ICollection * Propiedad :: getUltimosMensajes(){
-    //esta operacion se pasa a conversacion(?
+ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
+    return chat->getUltimosMensajes();
 }
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    IKey * key = Integer();
-    Conversacion * c = new Conversacion(key);
-    this->agregarConversacion(c);
+    int clave = this->crearClaveConversacion();
+    IKey * key = new Integer(clave);
+    Conversacion * c = new Conversacion(clave);
+    if(!this->conversaciones->member(key)){
+        ICollectible * nuevoChat = (ICollectible *) c;
+        this->conversaciones->add(key, nuevoChat);
+    }else{
+        delete key;
+        throw invalid_argument("La conversacion ya fue agregado con anterioridad");
+    }
 }
 
