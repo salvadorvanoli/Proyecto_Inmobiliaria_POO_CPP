@@ -120,12 +120,10 @@ Edificio.o: Integer.o ICollectible.o IDictionary.o OrderedDictionary.o DTEdifici
 Zona.o: Integer.o ICollectible.o IDictionary.o List.o OrderedDictionary.o DTZona.o Propiedad.o Edificio.o
 	g++ -c cppfiles/Zona.cpp
 
-Departamento.o: Integer.o ICollectible.o IKey.o ICollection.o IDictionary.o DTDepartamento.o Zona.o
+Departamento.o: Integer.o ICollectible.o IKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDepartamento.o Zona.o
 	g++ -c cppfiles/Departamento.cpp
 
-# FALTA SISTEMA
-
-Sistema.o: Direccion.o Fecha.o Empresa.o Extranjera.o Nacional.o RelacionLaboral.o
+Sistema.o: String.o Integer.o ICollectible.o IKey.o IIterator.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o
 	g++ -c cppfiles/Sistema.cpp
 
 main.o:
