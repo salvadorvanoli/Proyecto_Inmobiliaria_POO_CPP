@@ -1,9 +1,8 @@
 #include "../hfiles/zona.h"
-#include "../ICollection/interfaces/IKey.h"
-#include "../ICollection/collections/OrderedDictionary.h"
-#include "../ICollection/collections/List.h"
-#include "../ICollection/Integer.h"
 #include <iostream>
+#include "../hfiles/edificio.h"
+#include "../hfiles/propiedad.h"
+#include "../hfiles/casa.h"
 using namespace std;
 
 Zona::Zona(int codigo, string nombre){

@@ -21,6 +21,10 @@ using namespace std;
 #include "propiedad.h"
 #include "dtlineareporte.h"
 #include "dtreporte.h"
+// los incluyo el vale
+#include "apartamento.h"
+#include "edificio.h"
+#include "mensaje.h"
 
 class DTDir;
 class ICollectible;

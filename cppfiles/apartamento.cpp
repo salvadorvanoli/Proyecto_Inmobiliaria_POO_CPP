@@ -18,3 +18,7 @@ Edificio * Apartamento::getEdificio(){
 void Apartamento::desvincularDeEdificio(){
     //this->edificio->desvincularPropiedad(this);
 }
+
+DTTipoProp Apartamento::getDTTipoProp(){
+    return DTTipoProp::apartamento;
+}
