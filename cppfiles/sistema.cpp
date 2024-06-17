@@ -105,7 +105,7 @@ void Sistema::mensajeInteresado(Departamento * depa, Interesado * user, DTFecha 
 
 }
 
-void Sistema::mensajeInteresado(){
+void Sistema::mensajeInteresado(Departamento *, Interesado *, DTFecha *){
     
 }
 
@@ -113,14 +113,15 @@ DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
 //feli
     IKey * key = new Integer(codigoProp);
     Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
-    if(p->getDTTipoProp() == DTTipoProp::apartamento){
+    if(p->getDTTipoProp() == (DTTipoProp *) DTTipoProp::apartamento){
     return DTTipoProp::apartamento;
     }
     return DTTipoProp::casa;
 }
 
-//no anda ni a palo
+
 void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
+    //feli
     c->nuevoMensaje(fecha, contenido);
 }
 
