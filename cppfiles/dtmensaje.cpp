@@ -1,6 +1,4 @@
 #include "../hfiles/dtmensaje.h"
-#include "../hfiles/dtfecha.h"
-#include "dtfecha.cpp"
 #include <iostream>
 using namespace std;
 

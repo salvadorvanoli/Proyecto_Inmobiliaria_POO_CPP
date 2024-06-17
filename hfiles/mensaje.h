@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
+#include "dthora.h"
 #include "dtfecha.h"
 #include "dtmensaje.h"
 

@@ -1,18 +1,15 @@
 #include "../hfiles/edificio.h"
-#include "../ICollection/interfaces/IKey.h"
-#include "../ICollection/collections/OrderedDictionary.h"
-#include "../ICollection/Integer.h"
-#include "../hfiles/dtedificio.h"
 #include <iostream>
 using namespace std;
 
-Edificio::Edificio(int codigo, string nombre, int cantPisos, int gastosComunes){
+Edificio::Edificio(int codigo, string nombre, int cantPisos, int gastosComunes, Zona* zona){
     this->codigo = codigo;
     this->nombre = nombre;
     this->cantPisos = cantPisos;
     this->gastosComunes = gastosComunes;
     this->apartamentos = new OrderedDictionary();
     this->cantApartamentos = 0;
+    this->zona = zona;
     // Falta especificar el ICollection
 }
 
@@ -44,6 +41,10 @@ IDictionary * Edificio::getApartamentos(){
     return this->apartamentos; // Capaz no es asi
 }
 
+Zona * Edificio::getZona(){
+    return this->zona;
+}
+
 // Setters
 
 void Edificio::setCodigo(int codigo){
@@ -64,6 +65,10 @@ void Edificio::setGastosComunes(int gastosComunes){
 
 void Edificio::setCantApartamentos(int cantApartamentos){
     this->cantApartamentos = cantApartamentos;
+}
+
+void Edificio::setZona(Zona * zona){
+    this->zona = zona;
 }
 
 // Agregar-Quitar
@@ -104,6 +109,6 @@ DTEdificio * Edificio::getDTEdifico(){
 }
 
 Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, int m2Edificados, DTDir * dir, bool tieneGaraje){
-    // int codigo = this->zona->crearClavePropiedad();
-    // return new Apartamento(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, tieneGarage, this->zona, this);
+    int codigo = this->zona->crearClavePropiedad();
+    return new Apartamento(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this->zona, this);
 }

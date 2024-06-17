@@ -126,6 +126,10 @@ void Zona::quitarPropiedad(int codigoProp){
 
 // Métodos de Zona (DCD)
 
+DTZona * Zona::getDTZona(){
+    return new DTZona(this->codigo, this->nombre);
+}
+
 ICollection * Zona::listarEdificios(){
     ICollection * edificios = new List();
     IIterator * it = this->edificios->getIterator();
