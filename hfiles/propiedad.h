@@ -17,6 +17,7 @@ using namespace std;
 #include "../ICollection/collections/List.h"
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "dttipoprop.h"
+#include "dtchatprop.h"
 
 class DTMensaje;
 class Conversacion;

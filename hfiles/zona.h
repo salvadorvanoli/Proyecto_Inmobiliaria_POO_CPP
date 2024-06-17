@@ -7,22 +7,23 @@ using namespace std;
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/IDictionary.h"
-#include "edificio.h"
-#include "propiedad.h"
-#include "casa.h"
+#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/collections/List.h"
+#include "../ICollection/Integer.h"
+// #include "edificio.h"
+// #include "propiedad.h"
+// #include "casa.h"
 #include "dtedificio.h"
 #include "dtdir.h"
 #include "dtchatprop.h"
 #include "dtmensaje.h"
 #include "dtzona.h"
+#include "mensaje.h"
 
-class ICollectible;
 class Edificio;
 class Propiedad;
-class DTEdificio;
-class DTDir;
-class DTChatProp;
-class DTMensaje;
+class Casa;
 
 class Zona : public ICollectible {
     private:

@@ -153,6 +153,7 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
         it->next();
     }
     delete it;
+    return NULL;
     // throw
 }
 
@@ -172,5 +173,6 @@ Conversacion * Propiedad :: nuevoChat(){
         delete key;
         throw invalid_argument("La conversacion ya fue agregado con anterioridad");
     }
+    return NULL;
 }
 

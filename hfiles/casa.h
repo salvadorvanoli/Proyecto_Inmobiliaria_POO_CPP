@@ -6,7 +6,7 @@ using namespace std;
 
 #include "propiedad.h"
 
-class Propiedad;
+class Zona;
 
 class Casa : public Propiedad{
     private:

@@ -7,8 +7,8 @@ using namespace std;
 #include "propiedad.h"
 #include "edificio.h"
 
-class Propiedad;
 class Edificio;
+class Zona;
 
 class Apartamento : public Propiedad{
     private:
