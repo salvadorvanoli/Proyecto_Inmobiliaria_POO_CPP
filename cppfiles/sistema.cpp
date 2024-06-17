@@ -79,34 +79,41 @@ void Sistema::mensajeInteresado(Departamento * depa, Interesado * user, DTFecha 
     ICollection * depar = listarDepartamentos(); 
     ///
     char * letraDepa;
+    cout<<"Ingrese la letra del Departamento"<<endl;
     cin >> letraDepa;
     if (elegirDepartamento(letraDepa) == true){
         ICollection * zona = listarZonasDepartamento(depa);
         int numZona;
+        cout<<"Ingrese el numero de la Zona"<<endl;
         cin >> numZona;
         if(elegirZona(depa, numZona) == true){
             ICollection * chatProp = listarChatProp(depa->elegirZona(numZona), user->getCorreoEletronico());
             int codProp;
+            cout<<"Ingrese el codigo de la Propiedad"<<endl;
             cin >> codProp;
-            if (seleccionarPropiedad(codProp, depa->elegirZona(numZona)) != NULL){ //si la propiedad existe
+            if (!seleccionarPropiedad(codProp, depa->elegirZona(numZona))->isEmpty()){ //si la propiedad existe
                 string mensaje;
+                cout<<"Ingrese el Mensaje"<<endl;
                 cin >> mensaje;
-                if (((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->getUltimosMensajes()) == NULL){// si la funcion getUltimosMensajes da null, o sea q no tiene mensajes, 
-                                                                                                                //entonces no existe una conversacion y se tiene q crear una
-                    (depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat();
-                    ((depa->elegirZona(numZona)->seleccionarPropiedad(codProp))->nuevoChat())->nuevoMensaje(fecha, mensaje);
+                Conversacion * conver;
+                IIterator *  it = depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->getConversaciones()->getIterator();
+                bool encontro = false;
+                while(it->hasCurrent()){
+                    conver = (Conversacion *) it->getCurrent();
+                    if(conver->getInteresado() == user){
+                        conver->nuevoMensaje(fecha, mensaje);
+                        encontro = true;
+                        break;
+                    }
+                    it->next();
                 }
-                else{
-                    
-                }  
+                if(!encontro){
+                    depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->nuevoChat()->nuevoMensaje(fecha, mensaje);
+                }
             }
         }
     }
 
-}
-
-void Sistema::mensajeInteresado(Departamento *, Interesado *, DTFecha *){
-    
 }
 
 DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
