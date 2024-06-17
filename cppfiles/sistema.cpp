@@ -113,12 +113,8 @@ DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
 //feli
     IKey * key = new Integer(codigoProp);
     Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
-    if(p->getDTTipoProp() == (DTTipoProp *) DTTipoProp::apartamento){
-    return DTTipoProp::apartamento;
-    }
-    return DTTipoProp::casa;
+    return p->getDTTipoProp();
 }
-
 
 void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
     //feli
