@@ -69,6 +69,7 @@ class Inmobiliaria : public Usuario {
         int getCantPropiedades();
 
         //Métodos
+        DTInmobiliaria * getDTInmobiliaria();
         void destruirVenta(Propiedad*);
         void destruirAlquiler(Propiedad*);
         DTReporte* obtenerReporteInmobiliaria();

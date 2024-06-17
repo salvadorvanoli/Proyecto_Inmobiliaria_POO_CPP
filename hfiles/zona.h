@@ -20,6 +20,7 @@ using namespace std;
 #include "dtmensaje.h"
 #include "dtzona.h"
 #include "mensaje.h"
+#include "dtpropiedaddetallada.h"
 
 class Edificio;
 class Propiedad;
@@ -66,14 +67,17 @@ class Zona : public ICollectible {
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
         void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
-        Casa * crearCasa(int, int, int, int, DTDir*, bool, int);
+        Casa * crearCasa(int, int, int, float, DTDir*, bool, float);
         void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
         ICollection * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();
+        ICollection * listarPropiedades();
+        DTPropiedadDetallada * verDetallesPropiedad(int);
 
         // Otras funciones
-        int crearClavePropiedad();
+        int generarCodigoPropiedad();
+        int generarCodigoEdificio();
 };
 
 #endif

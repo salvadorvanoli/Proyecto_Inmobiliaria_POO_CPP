@@ -19,7 +19,7 @@ class DTPropiedadDetallada: public DTPropiedad {
         float m2Totales;
         DTInmobiliaria * inmo;
     public:
-        DTPropiedadDetallada(int, DTDir *, DTEstadoProp *, int, int, int, bool, float, DTInmobiliaria *);
+        DTPropiedadDetallada(int, DTDir *, DTEstadoProp, int, int, int, bool, float, DTInmobiliaria *);
         ~DTPropiedadDetallada();
         
         // Getters

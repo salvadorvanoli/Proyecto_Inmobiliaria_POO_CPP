@@ -14,7 +14,7 @@ class Apartamento : public Propiedad{
     private:
         Edificio * edificio;
     public:
-        Apartamento(int, int, int, int, int, DTDir*, bool, Zona *, Edificio *);
+        Apartamento(int, int, int, int, float, DTDir*, bool, Zona *, Edificio *);
         void setEdificio(Edificio *);
         Edificio * getEdificio();
         DTTipoProp getDTTipoProp();

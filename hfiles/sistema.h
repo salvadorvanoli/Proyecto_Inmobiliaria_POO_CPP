@@ -18,6 +18,7 @@ using namespace std;
 #include "../hfiles/usuario.h"
 #include "../hfiles/administrador.h"
 #include "../hfiles/interesado.h"
+#include "../hfiles/dtpropiedaddetallada.h"
 
 class Sistema{
     private:
@@ -33,6 +34,9 @@ class Sistema{
         bool ingresarContrasenia(string);
         void cerrarSesion();
         ICollection * listarDepartamentos();
+        bool elegirDepartamento(char *);
+        ICollection * listarZonasDepartamento(Departamento *);
+        bool elegirZona(Departamento *, int);
         void altaInmobiliaria(char*, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int, Zona*);
@@ -41,11 +45,9 @@ class Sistema{
         void mensajeInteresado(Departamento *, Interesado *, DTFecha *);
         DTTipoProp modificarPropiedad(int, Inmobiliaria *);
         void mensajeInmobiliaria(string, DTFecha *, Inmobiliaria *, Conversacion *);
-        void consultarPropiedad();
-        void eliminarPropiedad();
-        bool elegirDepartamento(char *);
-        bool elegirZona(Departamento *, int);
-        ICollection * listarZonasDepartamento(Departamento *);
+        void eliminarPropiedad(int);
+        ICollection * listarPropiedades(Zona *);
+        DTPropiedadDetallada * verDetallesPropiedad(Zona *, int);
         ICollection * listarChatProp(Zona *, char *);
         ICollection * seleccionarPropiedad(int, Zona *);
         void nuevoChat(Propiedad *);

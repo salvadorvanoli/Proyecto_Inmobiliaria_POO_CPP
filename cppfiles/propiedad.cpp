@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, int _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
@@ -14,7 +14,7 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->zona = _zona;
 }
 
-int Propiedad::crearClaveConversacion(){
+int Propiedad::generarCodigoConversacion(){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con = NULL;
     while (it->hasCurrent()){
@@ -32,11 +32,11 @@ Propiedad :: ~Propiedad(){
     
 }
 
-void Propiedad :: setM2Totales(int _m2Totales){
+void Propiedad :: setM2Totales(float _m2Totales){
     this->m2Totales = _m2Totales;
 }
 
-void Propiedad :: setM2Edificios(int _m2Edificios){
+void Propiedad :: setM2Edificios(float _m2Edificios){
     this->m2Edificios = _m2Edificios;
 }
 
@@ -78,11 +78,19 @@ void Propiedad :: setZona(Zona * _zona){
     this->zona = _zona;
 }
 
+void Propiedad::setEstadoProp(DTEstadoProp estado){
+    if ((this->estado == DTEstadoProp::venta && estado == DTEstadoProp::alquiler) || (this->estado == DTEstadoProp::alquiler && estado == DTEstadoProp::venta)){
+        this->estado = DTEstadoProp::venta_y_alquiler;
+    } else {
+        this->estado = estado;
+    }
+}
+
 bool Propiedad :: getTieneGaraje(){
     return this->tieneGaraje;
 }
 
-int Propiedad :: getm2Totales(){
+float Propiedad :: getm2Totales(){
     return this->m2Totales;
 }
 
@@ -106,7 +114,7 @@ DTDir * Propiedad::getDireccion(){
     return this->direccion;
 }
 
-int Propiedad :: getM2Edificios(){
+float Propiedad :: getM2Edificios(){
     return this->m2Edificios;
 }
 
@@ -116,6 +124,14 @@ IDictionary * Propiedad :: getConversaciones(){
 
 Zona * Propiedad :: getZona(){
     return this->zona;
+}
+
+DTEstadoProp Propiedad::getEstadoProp(){
+    return this->estado;
+}
+
+Inmobiliaria * Propiedad::getInmobiliaria(){
+    return this->inmo;
 }
 
 void Propiedad :: desvincularDeZona(){
@@ -141,6 +157,14 @@ void Propiedad :: destruirConversaciones(){
     delete it;
 }
 
+DTPropiedad * Propiedad::getDTPropiedad(){
+    return new DTPropiedad(this->codigo, this->direccion, this->estado);
+}
+
+DTPropiedadDetallada * Propiedad::getDTPropiedadDetallada(){
+    return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->inmo->getDTInmobiliaria());
+}
+
 DTChatProp * Propiedad :: getDTChatProp(char * email){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con;
@@ -163,7 +187,7 @@ ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(){
-    int clave = this->crearClaveConversacion();
+    int clave = this->generarCodigoConversacion();
     IKey * key = new Integer(clave);
     Conversacion * c = new Conversacion(clave);
     if(!this->conversaciones->member(key)){

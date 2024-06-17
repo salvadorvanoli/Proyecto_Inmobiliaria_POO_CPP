@@ -18,6 +18,8 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "dttipoprop.h"
 #include "dtchatprop.h"
+#include "dtpropiedad.h"
+#include "inmobiliaria.h"
 
 class DTMensaje;
 class Conversacion;
@@ -32,19 +34,24 @@ class Propiedad : public ICollectible{
         int cantAmbiente;
         int cantDormitorios;
         int cantBanios;
-        int m2Edificios;
-        int m2Totales;
+        float m2Edificios;
+        float m2Totales;
         bool tieneGaraje;
         DTDir * direccion;
         IDictionary * conversaciones;
         Zona * zona;
+        DTEstadoProp estado;
+        Inmobiliaria * inmo;
     public:
-        Propiedad(int, int, int, int, int, DTDir*, bool, Zona *);
+        Propiedad(int, int, int, int, float, DTDir*, bool, Zona *);
         Propiedad(){};
         virtual ~Propiedad();
+
+        // Setters
+
         void setZona(Zona *);
-        void setM2Totales(int);
-        void setM2Edificios(int);
+        void setM2Totales(float);
+        void setM2Edificios(float);
         void setTieneGaraje(bool);
         void setCantBanios(int);
         void setCantDormitorios(int);
@@ -52,17 +59,28 @@ class Propiedad : public ICollectible{
         void setCodigo(int);
         void setDireccion(DTDir *);
         void agregarConversacion(Conversacion *);
+        void setEstadoProp(DTEstadoProp);
+        void setInmobiliaria(Inmobiliaria *);
+
+        // Getters
+
         bool getTieneGaraje();
-        int getm2Totales();
+        float getm2Totales();
         int getCodigo();
         int getCantAmbiente();
         int getCantDormitorios();
         int getCantBanios();
-        int getM2Edificios();
+        float getM2Edificios();
         DTDir * getDireccion();
+        Zona * getZona();
+        DTEstadoProp getEstadoProp();
+        Inmobiliaria * getInmobiliaria();
+
+        DTInmobiliaria * getDTInmobiliaria();
+        DTPropiedad * getDTPropiedad();
+        DTPropiedadDetallada * getDTPropiedadDetallada();
         virtual DTTipoProp getDTTipoProp() = 0;
         IDictionary * getConversaciones();
-        Zona * getZona();
         void desvincularDeZona();
         void destruirConversaciones();
         DTChatProp * getDTChatProp(char *);
@@ -72,7 +90,7 @@ class Propiedad : public ICollectible{
 
         // Funciones aparte
 
-        int crearClaveConversacion();
+        int generarCodigoConversacion();
 };
 
 #endif

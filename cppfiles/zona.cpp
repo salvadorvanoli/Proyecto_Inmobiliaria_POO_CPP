@@ -94,36 +94,6 @@ void Zona::quitarEdificio(int codigoEdificio){
     // ES CON ICOLLECTION
 }
 
-void Zona::agregarPropiedad(Propiedad * propiedad){
-
-    IKey * nuevaKey = new Integer (propiedad->getCodigo());
-    if (!this->edificios->member(nuevaKey)){
-        ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
-        this->propiedades->add(nuevaKey, nuevaPropiedad);
-        this->cantPropiedades++;
-        cout << "La propiedad fue agregado exitosamente!" << endl;
-    } else {
-        delete nuevaKey;
-        throw invalid_argument("La propiedad ya fue agregado con anterioridad");
-    }
-    // ES CON ICOLLECTION
-}
-
-void Zona::quitarPropiedad(int codigoProp){
-
-    IKey * clave = new Integer (codigoProp);
-    if (this->propiedades->member(clave)){
-        this->propiedades->remove(clave);
-        this->cantPropiedades--;
-        delete clave;
-        cout << "La propiedad fue removida de manera exitosa!" << endl;
-    } else {
-        delete clave;
-        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
-    }
-    // ES CON ICOLLECTION
-}
-
 // Métodos de Zona (DCD)
 
 DTZona * Zona::getDTZona(){
@@ -175,8 +145,8 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, int m2Edificados, DTDir * dir, bool tieneGaraje, int m2Verdes){
-    int codigo = crearClavePropiedad();
+Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes){
+    int codigo = generarCodigoPropiedad();
     return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes);
 }
 
@@ -186,6 +156,7 @@ void Zona::desvincularPropiedad(Propiedad * propiedad){
     IKey * clave = new Integer (propiedad->getCodigo());
     if (this->propiedades->member(clave)){
         this->propiedades->remove(clave);
+        this->cantPropiedades--;
         delete clave;
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
@@ -199,11 +170,15 @@ ICollection * Zona::listarChatPropiedad(char * email){
     IIterator * it = this->propiedades->getIterator();
     ICollection * lista = new List();
     Propiedad * prop;
+    DTChatProp * dt;
     ICollectible * item;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
-        item = (ICollectible *) prop->getDTChatProp(email);
-        lista->add(item);
+        dt = prop->getDTChatProp(email);
+        if (dt != NULL){
+            item = (ICollectible *) dt;
+            lista->add(item);
+        }
         it->next();
     }
     delete it;
@@ -243,7 +218,37 @@ ICollection * Zona::getUltimosMensajes(){
     // ES CON ICOLLECTION
 }
 
-int Zona::crearClavePropiedad(){
+ICollection * Zona::listarPropiedades(){
+    ICollection * lista = new List();
+    IIterator * it = this->propiedades->getIterator();
+    Propiedad * prop;
+    ICollectible * item;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        item = (ICollectible *) prop->getDTPropiedad();
+        lista->add(item);
+        it->next();
+    }
+    delete it;
+    return lista;
+}
+
+DTPropiedadDetallada * Zona::verDetallesPropiedad(int codigoProp){
+    IKey * key = new Integer(codigoProp);
+    Propiedad * prop;
+    if (this->propiedades->member(key)){
+        prop = (Propiedad *) this->propiedades->find(key);
+        delete key;
+        return prop->getDTPropiedadDetallada();
+    } else {
+        delete key;
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
+    }
+}
+
+// Generar codigo
+
+int Zona::generarCodigoPropiedad(){
     IIterator * it = this->propiedades->getIterator();
     Propiedad * prop = NULL;
     while (it->hasCurrent()){
@@ -253,6 +258,19 @@ int Zona::crearClavePropiedad(){
     delete it;
     if (prop != NULL){
         return prop->getCodigo()+1;
+    }
+    return 1;
+}
+
+int Zona::generarCodigoEdificio(){
+    IIterator * it = this->edificios->getIterator();
+    Edificio * edi = NULL;
+    while (it->hasCurrent()){
+        edi = (Edificio *) it->getCurrent();
+        it->next();
+    }
+    if (edi != NULL){
+        return edi->getCodigo()+1;
     }
     return 1;
 }

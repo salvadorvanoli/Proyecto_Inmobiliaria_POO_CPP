@@ -268,7 +268,7 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
+    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, zona); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
     zona->agregarEdificio(ed);
     return true;
 }
@@ -523,3 +523,45 @@ void Sistema:: AltaPropiedad() { //sería para el main?
 }
 
         
+/* FUNCION ELIMINAR PROPIEDAD */
+
+void Sistema::eliminarPropiedad(int codigoProp){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    if (inmo == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    IKey * key = new Integer(codigoProp);
+    if (inmo->getPropiedades()->member(key)){
+        Propiedad * prop = (Propiedad * ) inmo->getPropiedades()->find(key);
+        delete key;
+        prop->desvincularDeZona();
+        Apartamento * ap = (Apartamento *) prop;
+        if (ap != NULL){
+            ap->desvincularDeEdificio();
+        }
+        prop->destruirConversaciones();
+        inmo->destruirAlquiler(prop); // DEVUELVE ERROR SI NO TIENE ALQUILER
+        inmo->destruirVenta(prop); // DEVUELVE ERROR SI NO TIENE VENTA
+        delete prop;
+    } else {
+        delete key;
+        throw invalid_argument("No tienes una propiedad registrada con dicho código");
+    }
+}
+
+/* FIN DE ELIMINAR PROPIEDAD */
+
+/* FUNCIONES PARA CONSULTAR PROPIEDAD */
+
+ICollection * Sistema::listarPropiedades(Zona * zona){
+    return zona->listarPropiedades();
+}
+
+DTPropiedadDetallada * Sistema::verDetallesPropiedad(Zona * zona, int codigoProp){
+    return zona->verDetallesPropiedad(codigoProp);
+}
+
+/* FIN DE FUNCIONES PARA CONSULTAR PROPIEDAD */
