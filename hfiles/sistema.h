@@ -50,6 +50,13 @@ class Sistema{
         ICollection * seleccionarPropiedad(int, Zona *);
         void nuevoChat(Propiedad *);
         void nuevoMensaje(Conversacion *, string, DTFecha *);
+        int ponerEnVenta(float valor, Propiedad* p);
+        int ponerEnAlquiler(float valor, Propiedad* p);
+        void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
+        void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
+        ICollection* listarEdificio(Zona * zona);
+        bool seleccionarEdificio(int numEdificio, Zona* zona, Edificio* edificio);
+        void AltaPropiedad();
 };
 
 #endif

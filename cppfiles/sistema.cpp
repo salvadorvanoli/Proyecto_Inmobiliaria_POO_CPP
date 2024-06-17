@@ -302,3 +302,224 @@ void Sistema::obtenerReporte(){
 
 /* FIN DE LAS FUNCIONES PARA DAR UN REPORTE*/
 
+/*funciones de Alta propiedad*/
+
+int Sistema::ponerEnVenta(float valor, Propiedad* p) {
+    Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
+    user->ponerEnVenta(p, valor);
+    return p->getCodigo();
+}
+
+int Sistema::ponerEnAlquiler(float valor, Propiedad* p) {
+    Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
+    user->ponerEnAlquiler(p, valor);
+    return p->getCodigo();
+}
+
+
+
+void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
+    Apartamento* apartamento = (Apartamento*) propiedad;
+    apartamento = edificio->crearApartamento(cantAmb, cantBanos, cantDorm, garage, dir, m2e);
+    edificio->agregarApartamento(apartamento);
+    zona->agregarPropiedad(apartamento);
+    return;
+    //propiedad->vincularZona(zona); ??
+    //propiedad->vincularEdificio(edificio); ??
+}
+
+void Sistema::especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v, Propiedad* propiedad, Zona* zona) {
+    Casa* casa = (Casa*) propiedad;
+    casa = zona->crearCasa(cantAmb, cantBanos,cantDorm, garage,dir, m2e, m2v);
+    zona->agregarPropiedad(casa);
+    return;
+    //propiedad->vincularZona(zona) ??
+}
+
+
+ICollection* Sistema::listarEdificio(Zona * zona) {
+    return zona->listarEdificios();
+}
+
+bool Sistema::seleccionarEdificio(int numEdificio, Zona* zona, Edificio* edificio) {
+    if (zona->seleccionarEdificio(numEdificio) != NULL) {
+        edificio = zona->seleccionarEdificio(numEdificio);
+        return true;
+    }
+    else
+        return false;
+}
+
+
+void Sistema:: AltaPropiedad() { //sería para el main?
+    system("clear");
+
+    Departamento* departamento = nullptr;
+    Zona* zona = nullptr;
+    Edificio* edificio = nullptr;
+    Propiedad* propiedad = nullptr;
+
+    if(this->loggeado == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if(this->tipoUsr != "Inmobiliaria"){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+
+    ICollection* listaDeps = this->listarDepartamentos();
+    char * letraDepa;
+    cout << "Ingresar identificación del departamento:" << endl;
+    cin >> letraDepa;
+    system("clear");
+    if (elegirDepartamento(letraDepa, departamento)){ //devuelve true si letraDepa existe y en ese caso incializa departamento
+        ICollection * listaZonas = listarZonasDepartamento(departamento); //departamento lista sus zonas
+        cout << "Ingresar identificación de la zona:" << endl;
+        int numZona;
+        cin >> numZona;
+        system("clear");
+        if(this->elegirZona(numZona, departamento, zona)){ //devuelve true si numZona existe en las zonas de departamento e inicializa zona
+            cout << "Ingrese tipo de propiedad" << endl;
+            cout << "1. Casa" << endl;
+            cout << "2. Apartamento" << endl;
+            int opcion;
+            cin >> opcion;
+            system("clear");
+            if (opcion == 2) {
+                ICollection* listaEdificios = listarEdificio(zona); //la zona devuelve sus edificios
+                cout << "¿Desea seleccionar un nuevo edificio?" << endl;
+                cout << "1. Si" << endl;
+                cout << "2. No" << endl;
+                int opcion;
+                cin >> opcion;
+                system("clear");
+                if (opcion == 1) {
+                    string nombre;
+                    int pisos, gastosC;
+                    cout << "Ingrese nombre del edificio" << endl;
+                    cin >> nombre;
+                    system("clear");
+                    cout << "Ingrese la cantidad de pisos" << endl;
+                    cin >> nombre;
+                    system("clear");
+                    cout << "Ingrese los gastos comunes" << endl;
+                    cin >> nombre;
+                    system("clear");
+                    altaEdificio(nombre, pisos, gastosC, zona);
+                }
+
+                int numEdificio;
+                cout << "Ingresar identificación del edificio:" << endl;
+                cin >> numEdificio;
+                system("clear");
+                if (seleccionarEdificio(numEdificio, zona, edificio)) { //devuelve true si el edificio existe e inicializa edificio
+                    int cantAmb, cantBanos, cantDorm, m2t, numero;
+                    string calle, ciudad;
+                    bool garage = false;
+                    int opcion;
+                    cout << "Ingresar calle:" << endl;
+                    cin >> calle; 
+                    system("clear");
+                    cout << "Ingresar numero:" << endl;
+                    cin >> numero;
+                    system("clear");
+                    cout << "Ingresar ciudad:" << endl;
+                    cin >> ciudad;
+                    system("clear");
+                    DTDir* dir = new DTDir(calle, numero, ciudad);
+                    cout << "Ingresar cantidad de ambientes:" << endl;
+                    cin >> cantAmb;
+                    system("clear");
+                    cout << "Ingresar cantidad de banos:" << endl;
+                    cin >> cantBanos;
+                    system("clear");
+                    cout << "Ingresar cantidad de dormitorios:" << endl;
+                    cin >> cantDorm;
+                    system("clear");
+                    cout << "Ingresar si tiene garage:" << endl;
+                    cout << "1. Si" << endl;
+                    cout << "2. No";
+                    cin >> opcion;
+                    system("clear");
+                    if (opcion == 1) 
+                        garage = true;
+                    cout << "Ingresar metros cuadrados edificados:" << endl;
+                    cin >> m2t;
+                    system("clear");
+                    especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, edificio, zona);
+                }
+            }
+            else if (opcion == 1) {
+                int cantAmb, cantBanos, cantDorm, m2e, numero, m2v;
+                string ciudad, calle;
+                bool garage = false;
+                int opcion;
+                cout << "Ingresar calle:" << endl;
+                cin >> calle;
+                system("clear");
+                cout << "Ingresar numero:" << endl;
+                cin >> numero;
+                system("clear");
+                cout << "Ingresar ciudad:" << endl;
+                cin >> ciudad;
+                system("clear");
+                DTDir* dir = new DTDir(calle, numero, ciudad);
+                cout << "Ingresar cantidad de ambientes:" << endl;
+                cin >> cantAmb;
+                system("clear");
+                cout << "Ingresar cantidad de banos:" << endl;
+                cin >> cantBanos;
+                system("clear");
+                cout << "Ingresar cantidad de dormitorios:" << endl;
+                cin >> cantDorm;
+                system("clear");
+                cout << "Ingresar si tiene garage:" << endl;
+                cout << "1. Si" << endl;
+                cout << "2. No";
+                cin >> opcion;
+                system("clear");
+                if (opcion == 1) 
+                    garage = true;
+                cout << "Ingresar metros cuadrados edificados:" << endl;
+                cin >> m2e;
+                system("clear");
+                cout << "Ingresar metros cuadrados verdes:" << endl;
+                cin >> m2v;
+                system("clear");
+                especificacionesCasa(cantAmb, cantBanos, cantDorm, garage, dir, m2e, m2v, propiedad, zona);
+            }
+            cout << "1. Poner en venta" << endl;
+            cout << "2. Poner en alquiler" << endl;
+            int option;
+            cin >> option;
+            system("clear");
+            if (option == 1) {
+                float valor;
+                cout << "Ingrese valor" << endl;
+                cin >> valor;
+                system("clear");
+                int codigo = ponerEnVenta(valor, propiedad);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
+                return;
+            }
+             if (option == 2) {
+                float valor;
+                cout << "Ingrese valor" << endl;
+                cin >> valor;
+                system("clear");
+                int codigo = ponerEnAlquiler(valor, propiedad);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
+                return;
+            }
+        }
+
+    }
+    Departamento* departamento = nullptr;
+    Zona* zona = nullptr;
+    Edificio* edificio = nullptr;
+    Propiedad* propiedad = nullptr;
+
+}
+
+        
