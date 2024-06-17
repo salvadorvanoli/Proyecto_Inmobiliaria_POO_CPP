@@ -373,13 +373,13 @@ void Sistema:: AltaPropiedad() { //sería para el main?
     cout << "Ingresar identificación del departamento:" << endl;
     cin >> letraDepa;
     system("clear");
-    if (elegirDepartamento(letraDepa, departamento)){ //devuelve true si letraDepa existe y en ese caso incializa departamento
+    if (elegirDepartamento(letraDepa, departamento)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
         ICollection * listaZonas = listarZonasDepartamento(departamento); //departamento lista sus zonas
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
         system("clear");
-        if(this->elegirZona(numZona, departamento, zona)){ //devuelve true si numZona existe en las zonas de departamento e inicializa zona
+        if(this->elegirZona(numZona, departamento, zona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
             cout << "Ingrese tipo de propiedad" << endl;
             cout << "1. Casa" << endl;
             cout << "2. Apartamento" << endl;
