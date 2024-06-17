@@ -15,6 +15,7 @@ class Casa : public Propiedad{
         Casa(int, int, int, int, int, DTDir*, bool, Zona *, int);
         void setM2Verdes(int);
         int getM2Verdes();
+        DTTipoProp getDTTipoProp();
 };
 
 
