@@ -1,12 +1,14 @@
-all: String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o Sistema.o main.o
-	g++ String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o Sistema.o main.o -o programa.exe
+all: String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Edificio.o Inmobiliaria.o Zona.o Departamento.o main.o
+	g++ String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Edificio.o Inmobiliaria.o Zona.o Departamento.o main.o -o programa.exe
+
+# falta Sistema.o arriba
 
 # No puse el archivo DTTipoProp ni DTEstadoProp
 
 String.o:
 	g++ -c ICollection/String.cpp
 
-Ingeger.o:
+Integer.o:
 	g++ -c ICollection/Integer.cpp
 
 ICollectible.o:
@@ -96,17 +98,8 @@ Mensaje.o: ICollectible.o DTFecha.o DTMensaje.o
 Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje.o Mensaje.o Interesado.o
 	g++ -c cppfiles/Conversacion.cpp
 
-Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o
+Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o Conversacion.o
 	g++ -c cppfiles/Propiedad.cpp
-
-Venta.o: ICollectible.o Propiedad.o
-	g++ -c cppfiles/Venta.cpp
-
-Alquiler.o: ICollectible.o Propiedad.o
-	g++ -c cppfiles/Alquiler.cpp
-
-Inmobiliaria.o: Integer.o IKey.o IDictionary.o OrderedDictionary.o DTDir.o Usuario.o Propiedad.o Venta.o Alquiler.o
-	g++ -c cppfiles/Inmobiliaria.cpp
 
 Casa.o: Propiedad.o
 	g++ -c cppfiles/Casa.cpp
@@ -114,8 +107,17 @@ Casa.o: Propiedad.o
 Apartamento.o: Propiedad.o
 	g++ -c cppfiles/Apartamento.cpp
 
+Venta.o: ICollectible.o Propiedad.o
+	g++ -c cppfiles/Venta.cpp
+
+Alquiler.o: ICollectible.o Propiedad.o
+	g++ -c cppfiles/Alquiler.cpp
+
 Edificio.o: Integer.o ICollectible.o IDictionary.o OrderedDictionary.o DTEdificio.o Propiedad.o Apartamento.o
 	g++ -c cppfiles/Edificio.cpp
+
+Inmobiliaria.o: Integer.o IKey.o IDictionary.o OrderedDictionary.o DTDir.o Usuario.o Propiedad.o Apartamento.o Venta.o Alquiler.o Edificio.o
+	g++ -c cppfiles/Inmobiliaria.cpp
 
 Zona.o: Integer.o ICollectible.o IDictionary.o List.o OrderedDictionary.o DTZona.o Propiedad.o Edificio.o
 	g++ -c cppfiles/Zona.cpp
@@ -123,14 +125,14 @@ Zona.o: Integer.o ICollectible.o IDictionary.o List.o OrderedDictionary.o DTZona
 Departamento.o: Integer.o ICollectible.o IKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDepartamento.o Zona.o
 	g++ -c cppfiles/Departamento.cpp
 
-Sistema.o: String.o Integer.o ICollectible.o IKey.o IIterator.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o
-	g++ -c cppfiles/Sistema.cpp
+# Sistema.o: String.o Integer.o ICollectible.o IKey.o IIterator.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o
+# 	g++ -c cppfiles/Sistema.cpp
 
 main.o:
 	g++ -c main.cpp
 
 clean:
-	del /Q String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o Sistema.o main.o programa.exe
+	del /Q String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Inmobiliaria.o Edificio.o Zona.o Departamento.o Sistema.o main.o programa.exe
 
 run:
 	make clean

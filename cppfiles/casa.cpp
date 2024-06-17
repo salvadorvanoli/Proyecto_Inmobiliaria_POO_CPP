@@ -14,3 +14,7 @@ void Casa::setM2Verdes(int _m2Verdes){
 int Casa::getM2Verdes(){
     return this->m2Verdes;
 }
+
+DTTipoProp Casa::getDTTipoProp(){
+    return DTTipoProp::casa;
+}

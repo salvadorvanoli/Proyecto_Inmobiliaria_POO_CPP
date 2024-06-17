@@ -17,6 +17,7 @@ using namespace std;
 #include "../ICollection/collections/List.h"
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "dttipoprop.h"
+#include "dtchatprop.h"
 
 class DTMensaje;
 class Conversacion;
@@ -59,7 +60,7 @@ class Propiedad : public ICollectible{
         int getCantBanios();
         int getM2Edificios();
         DTDir * getDireccion();
-        DTTipoProp * getDTTipoProp(); // Capaz es virtual
+        virtual DTTipoProp getDTTipoProp() = 0;
         IDictionary * getConversaciones();
         Zona * getZona();
         void desvincularDeZona();

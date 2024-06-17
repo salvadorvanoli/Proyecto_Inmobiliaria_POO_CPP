@@ -7,8 +7,8 @@ using namespace std;
 #include "propiedad.h"
 #include "edificio.h"
 
-class Propiedad;
 class Edificio;
+class Zona;
 
 class Apartamento : public Propiedad{
     private:
@@ -17,6 +17,7 @@ class Apartamento : public Propiedad{
         Apartamento(int, int, int, int, int, DTDir*, bool, Zona *, Edificio *);
         void setEdificio(Edificio *);
         Edificio * getEdificio();
+        DTTipoProp getDTTipoProp();
         void desvincularDeEdificio();
 };
 
