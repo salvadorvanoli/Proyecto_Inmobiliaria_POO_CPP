@@ -1,8 +1,4 @@
 #include "../hfiles/mensaje.h"
-#include "../hfiles/dthora.h"
-#include "dthora.cpp"
-#include "dtmensaje.cpp"
-#include "../hfiles/dtmensaje.h"
 #include <iostream>
 using namespace std;
 

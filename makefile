@@ -132,7 +132,9 @@ main.o:
 	g++ -c main.cpp
 
 clean:
-	del /Q String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Inmobiliaria.o Edificio.o Zona.o Departamento.o Sistema.o main.o programa.exe
+	del /Q String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Inmobiliaria.o Edificio.o Zona.o Departamento.o main.o programa.exe
+
+# falta Sistema.o
 
 run:
 	make clean
