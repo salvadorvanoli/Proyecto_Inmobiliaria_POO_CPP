@@ -16,16 +16,16 @@ class DTPropiedad: public ICollectible {
     private:
         int codigoProp;
         DTDir * direccion;
-        DTEstadoProp * estado;
+        DTEstadoProp estado;
     public:
-        DTPropiedad(int, DTDir *, DTEstadoProp *);
+        DTPropiedad(int, DTDir *, DTEstadoProp);
         ~DTPropiedad();
         
         // Getters
 
         int getCodigoProp();
         DTDir * getDireccion();
-        DTEstadoProp * getEstado();
+        DTEstadoProp getEstado();
         
         friend ostream& operator << (ostream &, DTPropiedad *);
 };

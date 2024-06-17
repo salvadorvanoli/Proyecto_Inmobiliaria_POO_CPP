@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-DTPropiedadDetallada::DTPropiedadDetallada(int codigo, DTDir * direccion, DTEstadoProp * estado, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, float m2Totales, DTInmobiliaria * inmo): DTPropiedad(codigo, direccion, estado){
+DTPropiedadDetallada::DTPropiedadDetallada(int codigo, DTDir * direccion, DTEstadoProp estado, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, float m2Totales, DTInmobiliaria * inmo): DTPropiedad(codigo, direccion, estado){
     this->cantAmbientes = cantAmbientes;
     this->cantDormitorios = cantDormitorios;
     this->cantBanios = cantBanios;
@@ -46,6 +46,14 @@ ostream& operator << (ostream & o, DTPropiedadDetallada * prop){
     } else {
         garaje = "No";
     }
-    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << prop->getEstado() << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
+    string estado;
+    if (prop->getEstado() == DTEstadoProp::alquiler){
+        estado = "En alquiler";
+    } else if(prop->getEstado() == DTEstadoProp::venta) {
+        estado = "En venta";
+    } else {
+        estado = "En alquiler y en venta";
+    }
+    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
     return o;
 }

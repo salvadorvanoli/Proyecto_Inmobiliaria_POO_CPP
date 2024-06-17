@@ -59,6 +59,7 @@ Venta* Inmobiliaria::ponerEnVenta(Propiedad * prop, float precio){
     }
     this->ventas->add(nuevaKey, nuevaVenta);
     this->cantVentas++;
+    prop->setEstadoProp(DTEstadoProp::venta);
     return nuevaVenta;
 }
 
@@ -71,6 +72,7 @@ Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad * prop, float precio){
     }
     this->alquileres->add(nuevaKey, nuevoAlquiler);
     this->cantAlquileres++;
+    prop->setEstadoProp(DTEstadoProp::alquiler);
     return nuevoAlquiler;
 }
 
@@ -82,6 +84,10 @@ void Inmobiliaria::agregarPropiedad(Propiedad * prop){
     }
     this->propiedades->add(nuevaKey, prop);
     this->cantPropiedades++;
+}
+
+DTInmobiliaria * Inmobiliaria::getDTInmobiliaria(){
+    return new DTInmobiliaria(this->nombre, this->direccion);
 }
 
 void Inmobiliaria::destruirAlquiler(Propiedad * prop){
