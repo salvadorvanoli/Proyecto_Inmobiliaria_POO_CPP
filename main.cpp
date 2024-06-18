@@ -414,7 +414,7 @@ void manejarReporte(Sistema * sistema){
         IIterator * it2 = reporte->getLineas()->getIterator();
         while(it2->hasCurrent()){
             DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
-            cout << "Departamento: " << endl; // No he implementado que el reporte guarde la letra del departamento
+            cout << "Departamento: " << linea->getLetraDep() << endl;
             cout << "Código de la zona: " << linea->getCodigoZona() << endl;
             cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
             cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;

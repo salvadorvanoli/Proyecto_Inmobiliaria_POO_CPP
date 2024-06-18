@@ -141,7 +141,7 @@ int Inmobiliaria::getCantPropiedades(){
 DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     IIterator * it = this->propiedades->getIterator();
     Venta * venta;
-    char* departamentos[99] = {"null"}; // No puedo obtener los departamentos desde la zona, entonces por ahora son null todos
+    char* departamentos[99]; // No puedo obtener los departamentos desde la zona, entonces por ahora son null todos
     int zonas[99] = {0};
     int apartamentos[99] = {0};
     int casas[99] = {0};
@@ -158,6 +158,7 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
                 if(ca != NULL){
                     casas[i]++;
                 }
+                departamentos[i] = zona->getLetraDepa();
             } else if(zonas[i] == 0){
                 zonas[i] = zona->getCodigo();
                 Apartamento * ap = (Apartamento*) prop;

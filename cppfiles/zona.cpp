@@ -5,13 +5,14 @@
 #include "../hfiles/casa.h"
 using namespace std;
 
-Zona::Zona(int codigo, string nombre){
+Zona::Zona(int codigo, string nombre, char* letradepa){
     this->codigo = codigo;
     this->nombre = nombre;
     this->edificios = new OrderedDictionary();
     this->propiedades = new OrderedDictionary();
     this->cantEdificios = 0;
     this->cantPropiedades = 0;
+    this->letradepa = letradepa;
     // Falta especificar el ICollection
 }
 
@@ -273,4 +274,12 @@ int Zona::generarCodigoEdificio(){
         return edi->getCodigo()+1;
     }
     return 1;
+}
+
+char* Zona::getLetraDepa(){
+    return this->letraDepa;
+}
+
+void Zona::setLetraDepa(char* letra){
+    this->letraDepa = letra;
 }
