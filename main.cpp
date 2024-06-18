@@ -398,13 +398,14 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
             int codProp;
             cout<<"Ingrese el codigo de la Propiedad"<<endl;
             cin >> codProp;
-            }
             if (sistema->seleccionarPropiedad(codProp) != NULL){ //si la propiedad existe
                 string mensaje;
                 cout<<"Ingrese el Mensaje"<<endl;
                 getline(cin, mensaje);
                 Conversacion * conver;
     }
+            }
+            
 /*system("clear");
     ICollection * depar = sistema->listarDepartamentos(); 
     char * letraDepa;
