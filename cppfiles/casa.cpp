@@ -18,3 +18,14 @@ float Casa::getM2Verdes(){
 DTTipoProp Casa::getDTTipoProp(){
     return DTTipoProp::casa;
 }
+
+void Casa::modificarCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir* dir, bool tieneGaraje, float m2Verdes){
+    this->cantAmbiente = cantAmbientes;
+    this->cantDormitorios = cantDormitorios;
+    this->cantBanios = cantBanios;
+    this->m2Edificios = m2Edificados;
+    this->direccion = dir;
+    this->tieneGaraje = tieneGaraje;
+    this->m2Verdes = m2Verdes;
+    this->m2Totales = m2Edificados + m2Verdes;
+}

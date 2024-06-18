@@ -17,7 +17,7 @@ ICollection * Sistema::listarDepartamentos(){
     return departamentos;
 }
 
-ICollection * Sistema::seleccionarPropiedad(int codProp, Zona * zona){
+ICollection * Sistema::seleccionarPropiedadMensajes(int codProp, Zona * zona){
     
     if(zona->seleccionarPropiedad(codProp) != NULL){
         Propiedad * prop = zona->seleccionarPropiedad(codProp);
@@ -59,7 +59,7 @@ bool Sistema::elegirZona(Departamento * depa, int codigo){
 }
 
 
-DTTipoProp Sistema::modificarPropiedad(int codigoProp){
+Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -68,7 +68,11 @@ DTTipoProp Sistema::modificarPropiedad(int codigoProp){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     Propiedad * prop = inmo->seleccionarPropiedad(codigoProp);
-    
+    return prop;
+}
+
+DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
+    return this->seleccionarPropiedadInmobiliaria(codigoProp)->getDTTipoProp();
 }
 
 // DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
@@ -77,6 +81,28 @@ DTTipoProp Sistema::modificarPropiedad(int codigoProp){
 //     Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
 //     return p->getDTTipoProp();
 // }
+
+void Sistema::modificarCasa(Casa * casa, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Edificados, float m2Verdes){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    if (inmo == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    casa->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, m2Verdes);
+}
+
+void Sistema::modificarApartamento(Apartamento * apartamento, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Totales){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    if (inmo == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    apartamento->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, m2Totales, dir, tieneGaraje);
+}
 
 void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
     //feli
