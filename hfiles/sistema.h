@@ -75,7 +75,11 @@ class Sistema{
         ICollection * listarPropiedades(Zona *);
         DTPropiedadDetallada * verDetallesPropiedad(Zona *, int);
         ICollection * listarChatProp(Zona *, char *);
-        ICollection * seleccionarPropiedad(int, Zona *);
+        ICollection * seleccionarPropiedadMensajes(int, Zona *);
+        Propiedad * seleccionarPropiedadInmobiliaria(int);
+        DTTipoProp getDTTipoPropInmo(int);
+        void modificarCasa(Casa *, int, int, int, bool, DTDir *, float, float);
+        void modificarApartamento(Apartamento *, int, int, int, bool, DTDir *, float);
         void nuevoChat(Propiedad *);
         void nuevoMensaje(Conversacion *, string, DTFecha *);
         int ponerEnVenta(float valor, Propiedad* p);
