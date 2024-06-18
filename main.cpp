@@ -322,8 +322,137 @@ void manejarConsultarPropiedad(){
 
 }
 
-void modificarPropiedad(){
-
+void manejarmodificarPropiedad(Sistema sistema){
+    //feli
+    system("clear");
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema.getLoggeado();
+    if(inmo == NULL){
+        throw invalid_argument("El usuario logeado no es Inmobiliaria");
+    }
+    cout<<"Ingrese el codigo de la Propiedad"<<endl;
+    string linea;
+    getline(cin, linea);
+    int cod;
+    try{
+        cod = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("El codigo ingresado no es un numero");
+    }
+    system("clear");
+    IKey * key = new Integer(cod);
+    if(inmo->getPropiedades()->isEmpty()){
+        throw invalid_argument("El usuario logeado no tiene Propiedades");
+    }
+    Propiedad * prop = (Propiedad *) inmo->getPropiedades()->find(key);
+    if(prop == NULL){
+        throw invalid_argument("No existe una Propiedad con ese codigo");
+    }
+    delete key;
+    sistema.setPropiedadActual(prop);
+    prop->getDTTipoProp(); //no  se si para que xd
+    Apartamento * apto = (Apartamento *) prop;
+    int cantAmbiente, cantDormitorio, cantBanios;
+    float m2Edificios;
+    bool tieneGaraje;
+    DTDir * direccion;
+    cout<<"Ingrese la cantidad Ambiente"<<endl;
+    getline(cin, linea);
+    try{
+        cantAmbiente = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    system("clear");
+    cout<<"Ingrese la cantidad de Dormitorios"<<endl;
+    getline(cin, linea);
+    try{
+        cantDormitorio = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    system("clear");
+    cout<<"Ingrese la cantidad de Banios"<<endl;
+    getline(cin, linea);
+    try{
+        cantBanios = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    system("clear");
+    cout<<"Ingrese los m2 de Edificio"<<endl;
+    getline(cin, linea);
+    try{
+        m2Edificios = stof(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    system("clear");
+    cout<<"¿La propiedad tiene garaje?"<<endl;
+    cout<<"1)Si        2)No"<<endl;
+    int respuesta;
+    getline(cin, linea);
+    try{
+        respuesta = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("El codigo ingresado no es un numero");
+    }
+    switch(respuesta){
+        case 1:
+            tieneGaraje = true;
+            break;
+        case 2:
+            tieneGaraje = false;
+            break;
+        default:
+            throw invalid_argument("El numero ingresado no es una opcion");
+    }
+    system("clear");
+    int numero;
+    string calle, ciudad;
+    cout<<"ingresa el numero de direccion"<<endl;
+    getline(cin, linea);
+    try{
+        respuesta = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("El numero ingresado no es un numero");
+    }
+    system("clear");
+    cout<<"ingresa la calle de la direccion"<<endl;
+    getline(cin, linea);
+    calle = linea;
+    system("clear");
+    cout<<"ingresa el ciudad de la direccion"<<endl;
+    getline(cin, linea);
+    ciudad = linea;
+    system("clear");
+    DTDir * dir = new DTDir(calle, numero, calle);
+    prop->setCantAmbiente(cantAmbiente);
+    prop->setCantDormitorios(cantDormitorio);
+    prop->setCantBanios(cantBanios);
+    prop->setM2Edificios(m2Edificios);
+    prop->setTieneGaraje(tieneGaraje);
+    prop->setDireccion(dir);
+    if(apto == NULL){
+        delete apto;
+        int m2Verdes;
+        cout<<"Ingrese los m2 Verdes"<<endl;
+        getline(cin, linea);
+        try{
+            m2Verdes = stof(linea);
+        }
+        catch(const exception& e){
+            throw invalid_argument("La cantidad ingresada no es un numero");
+        }
+        system("clear");
+        return;
+    }
 }
 
 void eliminarPropiedad(int){
@@ -335,7 +464,8 @@ void manejarEnviarMensajeInteresado(){
 }
 
 void manejarEnviarMensajeInmobiliaria(){
-
+    //feli
+    system("clear");
 }
 
 void manejarReporte(Sistema * sistema){
