@@ -363,7 +363,7 @@ void manejarAltaEdificio(Sistema * sistema){
     } while(gastosComunes <= 0);
 
     try{
-        sistema->altaEdificio(nombre, cantPisos, gastosComunes, sistema->getZonaActual());
+        sistema->altaEdificio(nombre, cantPisos, gastosComunes);
         sistema->setDepartamentoActual(NULL);
         sistema->setZonaActual(NULL);
 

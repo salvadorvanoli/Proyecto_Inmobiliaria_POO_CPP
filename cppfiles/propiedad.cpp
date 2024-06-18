@@ -198,11 +198,6 @@ Conversacion * Propiedad::getConversacion(char * email){
     throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
 }
 
-ICollection * Propiedad::getUltimosMensajes(char * email){
-    IIterator * it = this->conversaciones->getIterator();
-    
-}
-
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
     int clave = this->inmo->generarCodigoConversacion();

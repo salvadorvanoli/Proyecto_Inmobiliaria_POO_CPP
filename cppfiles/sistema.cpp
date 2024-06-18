@@ -177,7 +177,8 @@ bool Sistema::elegirZona(int codigo){
     try {
         this->zonaActual = this->departamentoActual->elegirZona(codigo);
         // this->departamentoActual = NULL;
-        return this->zonaActual;
+        // return this->zonaActual;
+        return true;
     } catch(const exception& e) {
         throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
     }
