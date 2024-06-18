@@ -355,9 +355,23 @@ void manejarmodificarPropiedad(Sistema sistema){
     system("clear");
     Inmobiliaria * inmo = (Inmobiliaria *) sistema.getLoggeado();
     if(inmo == NULL){
-        throw invalid_argument("El usuario no es inmobiliaria");
+        throw invalid_argument("El usuario no es Inmobiliaria");
     }
-    
+    cout<<"Ingrese el codigo de la Propiedad"<<endl;
+    string linea;
+    getline(cin, linea);
+    int cod;
+    try{
+        cod = stoi(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("El codigo no es un numero");
+    }
+    IKey * key = new Integer(cod);
+    if(inmo->getPropiedades()->isEmpty()){
+        throw invalid_argument("El usuario no tiene Propiedades");
+    }
+    inmo->getPropiedades()->find(key);
 }
 
 void eliminarPropiedad(int){
