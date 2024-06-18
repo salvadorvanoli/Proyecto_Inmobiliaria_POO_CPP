@@ -56,7 +56,6 @@ class Sistema{
         Edificio * edificioActual;
         Propiedad * propiedadActual;
         Conversacion * conversacionActual;
-        
     public:
 
         Sistema();
