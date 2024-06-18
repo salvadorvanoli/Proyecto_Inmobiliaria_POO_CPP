@@ -52,6 +52,7 @@ class Inmobiliaria : public Usuario {
         int cantVentas;
         int cantAlquileres;
         int cantPropiedades;
+        int cantConversaciones;
     public:
         Inmobiliaria(char*, char*, DTDir*);
         ~Inmobiliaria();
@@ -81,6 +82,10 @@ class Inmobiliaria : public Usuario {
         Propiedad * seleccionarPropiedad(int);
         ICollection * listarConversaciones();
         Conversacion * seleccionarConversacion(int);
+
+        // Funciones aparte
+
+        int generarCodigoConversacion();
 };
 
 #endif

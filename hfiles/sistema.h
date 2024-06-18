@@ -73,10 +73,10 @@ class Sistema{
         void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
         DTTipoProp modificarPropiedad(int);
-        void mensajeInmobiliaria(string, DTFecha *);
+        // void mensajeInmobiliaria(string, DTFecha *);
         void eliminarPropiedad(int);
-        ICollection * listarPropiedades(Zona *);
-        DTPropiedadDetallada * verDetallesPropiedad(Zona *, int);
+        ICollection * listarPropiedades();
+        DTPropiedadDetallada * verDetallesPropiedad(int);
         ICollection * listarChatProp();
         ICollection * listarChatsInmo();
         Conversacion * seleccionarConversacionInmo(int);
@@ -90,8 +90,8 @@ class Sistema{
         void modificarApartamento(int, int, int, bool, DTDir *, float);
         Conversacion * nuevoChat();
         void nuevoMensaje(string, DTFecha *);
-        int ponerEnVenta(float valor, Propiedad* p);
-        int ponerEnAlquiler(float valor, Propiedad* p);
+        int ponerEnVenta(float valor);
+        int ponerEnAlquiler(float valor);
         // void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
         // void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
         void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*);

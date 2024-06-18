@@ -16,6 +16,7 @@ Inmobiliaria::Inmobiliaria(char* email, char* nombre, DTDir* direccion) : Usuari
     this->alquileres = new OrderedDictionary();
     this->propiedades = new OrderedDictionary();
     this->cantAlquileres = this->cantVentas = this->cantPropiedades = 0;
+    this->cantConversaciones = 0;
 }
 
 Inmobiliaria::~Inmobiliaria(){
@@ -240,4 +241,9 @@ Conversacion * Inmobiliaria::seleccionarConversacion(int codigoCon){
     delete it;
     delete clave;
     throw invalid_argument("No existe una conversación con ese código vinculada a la Inmobiliaria actual");
+}
+
+int Inmobiliaria::generarCodigoConversacion(){
+    this->cantConversaciones++;
+    return this->cantConversaciones;
 }

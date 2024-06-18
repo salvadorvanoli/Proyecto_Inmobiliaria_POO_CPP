@@ -245,10 +245,10 @@ void Sistema::modificarApartamento(int cantAmbientes, int cantDormitorios, int c
     apartamento->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
-void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha){
-    //feli // HAY QUE SEGUIR ACAAAAAA
-    this->conversacionActual->nuevoMensaje(fecha, contenido);
-}
+// void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha){
+//     //feli // HAY QUE SEGUIR ACAAAAAA
+//     this->conversacionActual->nuevoMensaje(fecha, contenido);
+// }
 
 /* FUNCIONES PARA INICIAR SESIÓN */
 
@@ -422,16 +422,34 @@ void Sistema::obtenerReporte(){
 
 /*funciones de Alta propiedad*/
 
-int Sistema::ponerEnVenta(float valor, Propiedad* p) {
+int Sistema::ponerEnVenta(float valor) {
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
-    user->ponerEnVenta(p, valor);
-    return p->getCodigo();
+    if (user == NULL){
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    user->ponerEnVenta(this->propiedadActual, valor);
+    return this->propiedadActual->getCodigo();
 }
 
-int Sistema::ponerEnAlquiler(float valor, Propiedad* p) {
+int Sistema::ponerEnAlquiler(float valor) {
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
-    user->ponerEnAlquiler(p, valor);
-    return p->getCodigo();
+    if (user == NULL){
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    user->ponerEnAlquiler(this->propiedadActual, valor);
+    return this->propiedadActual->getCodigo();
 }
 
 void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona){
@@ -509,13 +527,13 @@ void Sistema:: AltaPropiedad() { //sería para el main?
     system("clear");
     // if (elegirDepartamento(letraDepa, departamento)){
     if (elegirDepartamento(letraDepa)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
-        ICollection * listaZonas = listarZonasDepartamento(departamento); //departamento lista sus zonas
+        ICollection * listaZonas = listarZonasDepartamento(); //departamento lista sus zonas
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
         system("clear");
         // if(this->elegirZona(numZona, departamento, zona)){ asi estaba antes
-        if(this->elegirZona(departamento, numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
+        if(this->elegirZona(numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
             cout << "Ingrese tipo de propiedad" << endl;
             cout << "1. Casa" << endl;
             cout << "2. Apartamento" << endl;
@@ -637,19 +655,20 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
                 system("clear");
-                int codigo = ponerEnVenta(valor, propiedad);
+                int codigo = ponerEnVenta(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
                 return;
             }
-             if (option == 2) {
+            if (option == 2) {
                 float valor;
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
                 system("clear");
-                int codigo = ponerEnAlquiler(valor, propiedad);
+                int codigo = ponerEnAlquiler(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
                 return;
             }
+            this->propiedadActual = NULL;
         }
 
     }
@@ -694,12 +713,12 @@ void Sistema::eliminarPropiedad(int codigoProp){
 
 /* FUNCIONES PARA CONSULTAR PROPIEDAD */
 
-ICollection * Sistema::listarPropiedades(Zona * zona){
-    return zona->listarPropiedades();
+ICollection * Sistema::listarPropiedades(){
+    return this->zonaActual->listarPropiedades();
 }
 
-DTPropiedadDetallada * Sistema::verDetallesPropiedad(Zona * zona, int codigoProp){
-    return zona->verDetallesPropiedad(codigoProp);
+DTPropiedadDetallada * Sistema::verDetallesPropiedad(int codigoProp){
+    return this->zonaActual->verDetallesPropiedad(codigoProp);
 }
 
 /* FIN DE FUNCIONES PARA CONSULTAR PROPIEDAD */

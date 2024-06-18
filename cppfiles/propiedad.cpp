@@ -14,20 +14,6 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->zona = _zona;
 }
 
-int Propiedad::generarCodigoConversacion(){
-    IIterator * it = this->conversaciones->getIterator();
-    Conversacion * con = NULL;
-    while (it->hasCurrent()){
-        con = (Conversacion *) it->getCurrent();
-        it->next();
-    }
-    delete it;
-    if (con != NULL){
-        return con->getCodigoConversacion()+1;
-    }
-    return 1;
-}
-
 Propiedad :: ~Propiedad(){
     this->desvincularDeZona();
     this->destruirConversaciones();
@@ -219,7 +205,7 @@ ICollection * Propiedad::getUltimosMensajes(char * email){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
-    int clave = this->generarCodigoConversacion();
+    int clave = this->inmo->generarCodigoConversacion();
     IKey * key = new Integer(clave);
     Conversacion * c = new Conversacion(clave, interesado);
     if(!this->conversaciones->member(key)){

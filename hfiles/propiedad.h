@@ -91,11 +91,6 @@ class Propiedad : public ICollectible{
         ICollection * getUltimosMensajes(char *);
         Conversacion * nuevoChat(Interesado *);
         ICollection * listarConversaciones();
-        
-
-        // Funciones aparte
-
-        int generarCodigoConversacion();
 };
 
 #endif
