@@ -12,7 +12,7 @@ Zona::Zona(int codigo, string nombre, char* letradepa){
     this->propiedades = new OrderedDictionary();
     this->cantEdificios = 0;
     this->cantPropiedades = 0;
-    this->letradepa = letradepa;
+    this->letraDepa = letradepa;
     // Falta especificar el ICollection
 }
 
