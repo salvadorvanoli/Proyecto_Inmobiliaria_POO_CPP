@@ -294,10 +294,12 @@ void manejarAltaInteresado(Sistema * sistema){
     cout << "Ingrese un apellido" << endl << endl;
     cin >> apellido;
 
-    system("clear");
+    do {
+        system("clear");
+        cout << "Ingrese la edad" << endl << endl;
+        cin >> edad;
+    } while(edad <= 0);
 
-    cout << "Ingrese la edad" << endl << endl;
-    cin >> edad;
     try{
         sistema->altaInteresado(email, nombre, apellido, edad);
     } catch (const exception& e){
@@ -348,18 +350,20 @@ void manejarAltaEdificio(Sistema * sistema){
     cout << "Ingrese ahora un nombre para el edificio" << endl << endl;
     cin >> nombre;
 
-    system("clear");
+    do {
+        system("clear");
+        cout << "Ingrese la cantidad de pisos" << endl << endl;
+        cin >> cantPisos;
+    } while(cantPisos <= 0);
 
-    cout << "Ingrese la cantidad de pisos" << endl << endl;
-    cin >> cantPisos;
-
-    system("clear");
-
-    cout << "Ingrese los gastos comunes" << endl << endl;
-    cin >> gastosComunes;
+    do {
+        system("clear");
+        cout << "Ingrese los gastos comunes" << endl << endl;
+        cin >> gastosComunes;
+    } while(gastosComunes <= 0);
 
     try{
-        sistema->altaEdificio(nombre, cantPisos, gastosComunes, sistema->getZonaActual());
+        sistema->altaEdificio(nombre, cantPisos, gastosComunes);
         sistema->setDepartamentoActual(NULL);
         sistema->setZonaActual(NULL);
 
@@ -540,7 +544,7 @@ void manejarReporte(Sistema * sistema){
         IIterator * it2 = reporte->getLineas()->getIterator();
         while(it2->hasCurrent()){
             DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
-            cout << "Departamento: " << endl; // No he implementado que el reporte guarde la letra del departamento
+            cout << "Departamento: " << linea->getLetraDep() << endl;
             cout << "Código de la zona: " << linea->getCodigoZona() << endl;
             cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
             cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;

@@ -67,7 +67,7 @@ class Sistema{
         bool elegirZona(int);
         void altaInmobiliaria(char*, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
-        bool altaEdificio(string, int, int, Zona*);
+        bool altaEdificio(string, int, int);
         ICollection* obtenerReporte();
         void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
@@ -95,8 +95,8 @@ class Sistema{
         // void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
         void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*);
         void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float);
-        ICollection* listarEdificio(Zona * zona);
-        bool seleccionarEdificio(int numEdificio, Zona* zona, Edificio* edificio);
+        ICollection* listarEdificio();
+        bool seleccionarEdificio(int);
         void AltaPropiedad();
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
