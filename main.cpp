@@ -382,8 +382,60 @@ void eliminarPropiedad(int){
 
 }
 
-void manejarEnviarMensajeInteresado(){
-
+void manejarEnviarMensajeInteresado(Sistema * sistema){
+    system("clear");
+    ICollection * depar = sistema->listarDepartamentos();
+    char * letraDepa;
+    cout<<"Ingrese la letra del Departamento"<<endl;
+    cin >> letraDepa;
+    if (sistema->elegirDepartamento(letraDepa) != NULL){
+        ICollection * zona = sistema->listarZonasDepartamento();
+        int numZona;
+        cout<<"Ingrese el numero de la Zona"<<endl;
+        cin >> numZona;
+        if(sistema->elegirZona(numZona) != NULL){
+            ICollection * chatProp = sistema->listarChatProp(depa->elegirZona(numZona));
+            int codProp;
+            cout<<"Ingrese el codigo de la Propiedad"<<endl;
+            cin >> codProp;}
+    }
+/*system("clear");
+    ICollection * depar = sistema->listarDepartamentos(); 
+    char * letraDepa;
+    cout<<"Ingrese la letra del Departamento"<<endl;
+    cin >> letraDepa;
+    if (sistema->elegirDepartamento(letraDepa) != NULL){
+        ICollection * zona = sistema->listarZonasDepartamento(depa);
+        int numZona;
+        cout<<"Ingrese el numero de la Zona"<<endl;
+        cin >> numZona;
+        if(sistema->elegirZona(depa, numZona) != NULL){
+            ICollection * chatProp = sistema->listarChatProp(depa->elegirZona(numZona));
+            int codProp;
+            cout<<"Ingrese el codigo de la Propiedad"<<endl;
+            cin >> codProp;
+            if (sistema->seleccionarPropiedad(codProp, depa->elegirZona(numZona)) != NULL){ //si la propiedad existe
+                string mensaje;
+                cout<<"Ingrese el Mensaje"<<endl;
+                getline(cin, mensaje);
+                Conversacion * conver;
+                IIterator *  it = depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->getConversaciones()->getIterator();
+                bool encontro = false;
+                while(it->hasCurrent()){
+                    conver = (Conversacion *) it->getCurrent();
+                    if(conver->getInteresado() == user){
+                        conver->nuevoMensaje(fecha, mensaje);
+                        encontro = true;
+                        break;
+                    }
+                    it->next();
+                }
+                if(!encontro){
+                    depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->nuevoChat()->nuevoMensaje(fecha, mensaje);
+                }
+            }
+        }
+    }*/
 }
 
 void manejarEnviarMensajeInmobiliaria(){
