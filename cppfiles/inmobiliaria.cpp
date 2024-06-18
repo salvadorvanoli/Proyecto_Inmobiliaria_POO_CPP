@@ -63,7 +63,8 @@ Venta* Inmobiliaria::ponerEnVenta(Propiedad * prop, float precio){
         throw invalid_argument("La venta ya estaba registrada");
         return NULL;
     }
-    this->ventas->add(nuevaKey, nuevaVenta);
+    ICollectible * ventaCasteada = (ICollectible*) nuevaVenta;
+    this->ventas->add(nuevaKey, ventaCasteada);
     this->cantVentas++;
     prop->setEstadoProp(DTEstadoProp::venta);
     return nuevaVenta;
@@ -76,7 +77,8 @@ Alquiler* Inmobiliaria::ponerEnAlquiler(Propiedad * prop, float precio){
         throw invalid_argument("El alquiler ya estaba registrado");
         return NULL;
     }
-    this->alquileres->add(nuevaKey, nuevoAlquiler);
+    ICollectible * alquilerCasteado = (ICollectible*) nuevoAlquiler;
+    this->alquileres->add(nuevaKey, alquilerCasteado);
     this->cantAlquileres++;
     prop->setEstadoProp(DTEstadoProp::alquiler);
     return nuevoAlquiler;
@@ -88,7 +90,8 @@ void Inmobiliaria::agregarPropiedad(Propiedad * prop){
         throw invalid_argument("La propiedad ya estaba registrada");
         return;
     }
-    this->propiedades->add(nuevaKey, prop);
+    ICollectible * propCasteada = (ICollectible*) prop;
+    this->propiedades->add(nuevaKey, propCasteada);
     this->cantPropiedades++;
 }
 
