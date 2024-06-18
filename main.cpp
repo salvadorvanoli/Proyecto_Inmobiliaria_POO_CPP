@@ -19,6 +19,7 @@ using namespace std;
 #include "hfiles/departamento.h"
 #include "hfiles/zona.h"
 #include "hfiles/sistema.h"
+#include <string>
 
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
@@ -125,7 +126,7 @@ void imprimirDepto(ICollection * col){
 
 void manejarIniciarSesion(Sistema * sistema){
     system("clear");
-    char* email;
+    char* email = new char[100];
     cout << "Inicie sesión con una cuenta" << endl << endl;
     cout << "Ingrese email" << endl << endl;
     cin >> email;
@@ -135,6 +136,8 @@ void manejarIniciarSesion(Sistema * sistema){
         system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
     }
+    cout << "pinga";
+    system("pause");
     if(sistema->getLoggeado()->getPrimeraVez() == true){
         try{
             system("clear");
@@ -166,8 +169,8 @@ void manejarIniciarSesion(Sistema * sistema){
 
 void manejarAltaInmobiliaria(Sistema * sistema){
     system("clear");
-    char* email;
-    char* nombre;
+    char* email = new char[100];
+    char* nombre = new char[100];
     DTDir* dir;
     string calle;
     int numero;
@@ -211,7 +214,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
 
 void manejarAltaInteresado(Sistema * sistema){
     system("clear");
-    char* email;
+    char* email = new char[100];
     string nombre;
     string apellido;
     int edad;
@@ -253,7 +256,7 @@ void manejarAltaEdificio(Sistema * sistema){
     int gastosComunes;
     Zona* zona;
 
-    char* opt;
+    char* opt = new char[100];
 
     cout << "Elija uno de los departamentos listados debabajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
@@ -366,9 +369,9 @@ void menu(Sistema * sistema){
     string opt;
     do{
         system("clear");
-        string opt;
         cout << "Necesita iniciar sesión en el sistema" << endl << endl;
         cout << "1-Iniciar sesión" << endl << endl;
+        cin >> opt;
     } while (opt != "1");
 
     manejarIniciarSesion(sistema);
@@ -423,6 +426,40 @@ void menu(Sistema * sistema){
 
 
 int main() {
+
+    system("pause");
+
+    Sistema * sistema = new Sistema();
+
+    char* email = "s";
+
+    Administrador * nuevoAdmin = new Administrador(email, "abc");
+    ICollectible * nuevo = (ICollectible*) nuevoAdmin;
+
+    cout << nuevoAdmin->getCorreoEletronico() << endl;
+    cout << nuevoAdmin->getContrasenia() << endl;
+
+    IKey * key = new String(nuevoAdmin->getCorreoEletronico());
+
+    sistema->getUsuarios()->add(key, nuevo);
+
+    system("pause");
+
+    menu(sistema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     // Obtener la hora actual del sistema
     std::time_t t = std::time(nullptr);
     std::tm* now = std::localtime(&t);
@@ -478,6 +515,8 @@ int main() {
     delete zona2;
     delete zona3;
     delete dep1;
+
+    */
 
     cout << "hola mundo" << endl;
     system("pause");

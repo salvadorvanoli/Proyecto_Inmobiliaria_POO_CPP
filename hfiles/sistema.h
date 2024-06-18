@@ -58,6 +58,10 @@ class Sistema{
         Conversacion * conversacionActual;
         
     public:
+
+        Sistema();
+        ~Sistema();
+
         void iniciarSesion(char*);
         bool crearContrasenia(string, string);
         bool ingresarContrasenia(string);

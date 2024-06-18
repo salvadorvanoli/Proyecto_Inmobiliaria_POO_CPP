@@ -100,6 +100,7 @@
     "xtr1common": "cpp",
     "xutility": "cpp",
     "list": "cpp",
-    "numbers": "cpp"
+    "numbers": "cpp",
+    "string": "cpp"
   }
 }

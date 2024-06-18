@@ -2,6 +2,19 @@
 #include <iostream>
 using namespace std;
 
+Sistema::Sistema(){
+    this->usuarios = new OrderedDictionary();
+    this->departamentos = new OrderedDictionary();
+    this->propiedades = new OrderedDictionary();
+    this->loggeado = NULL;
+    this->departamentoActual = NULL;
+    this->zonaActual = NULL;
+    this->propiedadActual = NULL;
+    this->edificioActual = NULL;
+    this->conversacionActual = NULL;
+
+}
+
 ICollection * Sistema::listarDepartamentos(){
     ICollection * departamentos = new List();
     IIterator * it = this->departamentos->getIterator();
