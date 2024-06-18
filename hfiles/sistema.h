@@ -42,7 +42,6 @@ class Sistema{
         bool altaEdificio(string, int, int, Zona*);
         void obtenerReporte();
         void altaPropiedad();
-        void mensajeInteresado(Departamento *, Interesado *, DTFecha *);
         DTTipoProp modificarPropiedad(int, Inmobiliaria *);
         void mensajeInmobiliaria(string, DTFecha *, Inmobiliaria *, Conversacion *);
         void eliminarPropiedad(int);
