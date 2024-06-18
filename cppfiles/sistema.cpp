@@ -470,14 +470,7 @@ int Sistema::ponerEnAlquiler(float valor) {
     return this->propiedadActual->getCodigo();
 }
 
-void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona){
-    Apartamento * apartamento = NULL;
-    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
-    edificio->enlazarPropiedad(apartamento);
-    zona->enlazarPropiedad(apartamento);
-    this->enlazarPropiedad(apartamento);
-    //return apartamento
-}
+
 
 // void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
 //     // Apartamento* apartamento = (Apartamento*) propiedad;
@@ -489,8 +482,23 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
 //     //propiedad->vincularEdificio(edificio); ??
 // }
 
-void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v){
-    Casa * casa = NULL;
+void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona) {
+    if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0) {
+        throw std::runtime_error("Los valores no pueden ser negativos");
+    }
+    Apartamento *apartamento = NULL;
+    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
+    edificio->enlazarPropiedad(apartamento);
+    zona->enlazarPropiedad(apartamento);
+    this->enlazarPropiedad(apartamento);
+    //return apartamento
+}
+
+void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v) {
+    if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0 || m2v < 0) {
+        throw std::runtime_error("Los valores no pueden ser negativos");
+    }
+    Casa *casa = NULL;
     casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
     zona->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
@@ -528,14 +536,12 @@ bool Sistema::seleccionarEdificio(int numEdificio) {
 }
 
 
-void Sistema:: AltaPropiedad() { //sería para el main?
+
+
+void Sistema:: AltaPropiedad() { 
     system("clear");
 
-    Departamento* departamento = nullptr;
-    Zona* zona = nullptr;
-    Edificio* edificio = nullptr;
-    Propiedad* propiedad = nullptr;
-
+   //chequear usuario
     if(this->loggeado == NULL){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
@@ -546,26 +552,30 @@ void Sistema:: AltaPropiedad() { //sería para el main?
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
 
+    //elegir departamento
     ICollection* listaDeps = this->listarDepartamentos();
     char * letraDepa;
     cout << "Ingresar identificación del departamento:" << endl;
     cin >> letraDepa;
     system("clear");
-    // if (elegirDepartamento(letraDepa, departamento)){
-    if (elegirDepartamento(letraDepa)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
-        ICollection * listaZonas = listarZonasDepartamento(); //departamento lista sus zonas
+   
+    if (elegirDepartamento(letraDepa)){ 
+        //elegir zona
+        ICollection * listaZonas = listarZonasDepartamento(); 
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
         system("clear");
-        // if(this->elegirZona(numZona, departamento, zona)){ asi estaba antes
-        if(this->elegirZona(numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
+        
+        if(this->elegirZona(numZona)){ 
             cout << "Ingrese tipo de propiedad" << endl;
             cout << "1. Casa" << endl;
             cout << "2. Apartamento" << endl;
             int opcion;
             cin >> opcion;
             system("clear");
+
+            //si es apartamento
             if (opcion == 2) {
                 ICollection* listaEdificios = listarEdificio(); //la zona devuelve sus edificios
                 cout << "¿Desea seleccionar un nuevo edificio?" << endl;
@@ -574,6 +584,8 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 int opcion;
                 cin >> opcion;
                 system("clear");
+
+                //agrega edificio
                 if (opcion == 1) {
                     string nombre;
                     int pisos, gastosC;
@@ -586,14 +598,15 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                     cout << "Ingrese los gastos comunes" << endl;
                     cin >> nombre;
                     system("clear");
-                    altaEdificio(nombre, pisos, gastosC);
+                    bool res = altaEdificio(nombre, pisos, gastosC); //Como es un bool no se que hacer
                 }
 
+                //seleccionar edificio
                 int numEdificio;
                 cout << "Ingresar identificación del edificio:" << endl;
                 cin >> numEdificio;
                 system("clear");
-                if (seleccionarEdificio(numEdificio)) { //devuelve true si el edificio existe e inicializa edificio
+                if (seleccionarEdificio(numEdificio)) { 
                     int cantAmb, cantBanos, cantDorm, numero;
                     float m2t;
                     string calle, ciudad;
@@ -628,7 +641,7 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                     cout << "Ingresar metros cuadrados edificados:" << endl;
                     cin >> m2t;
                     system("clear");
-                    especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, edificio, zona);
+                    especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, this->edificioActual, this->zonaActual);
                 }
             }
             else if (opcion == 1) {
@@ -669,7 +682,7 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "Ingresar metros cuadrados verdes:" << endl;
                 cin >> m2v;
                 system("clear");
-                especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, zona, m2v);
+                especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, this->zonaActual, m2v);
             }
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
@@ -694,14 +707,14 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
                 return;
             }
+            this->propiedadActual = NULL;
         }
 
     }
-    departamento = nullptr;
-    zona = nullptr;
-    edificio = nullptr;
-    propiedad = nullptr;
-
+    Departamento* departamento = nullptr;
+    Zona* zona = nullptr;
+    Edificio* edificio = nullptr;
+    Propiedad* propiedad = nullptr;
 }
 
         
