@@ -348,15 +348,28 @@ void manejarEnviarMensajeInmobiliaria(){
 }
 
 void manejarReporte(Sistema * sistema){
-    ICollection * reporte;
+    system("clear");
+    ICollection * reportes;
     try {
-        reporte = sistema->obtenerReporte();
+        reportes = sistema->obtenerReporte();
     } catch (const exception& e){
         cout << "Error de ejecución: " << e.what() << endl;
     }
-    IIterator * it = reporte->getIterator();
+    int i = 1;
+    IIterator * it = reportes->getIterator();
     while(it->hasCurrent()){
-        
+        DTReporte * reporte = (DTReporte*) it->getCurrent();
+        cout << "Reporte: " << i << endl;
+        cout << "Inmobiliaria: " << reporte->getInmo()->getNombre() << endl << endl;
+        IIterator * it2 = reporte->getLineas()->getIterator();
+        while(it2->hasCurrent()){
+            DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
+            cout << "Departamento: " << endl; // No he implementado que el reporte guarde la letra del departamento
+            cout << "Código de la zona: " << linea->getCodigoZona() << endl;
+            cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
+            cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
+        }
+        i++;
         it->next();
     }
 }
@@ -389,11 +402,11 @@ void menu(Sistema * sistema){
         if(opt == "1"){
             sistema->cerrarSesion();
         } else if(opt == "2"){
-            manejarAltaInmobiliaria();
+            manejarAltaInmobiliaria(sistema);
         } else if (opt == "3"){
-
+            manejarAltaInteresado(sistema);
         } else if (opt == "4"){
-
+            manejarReporte(sistema);
         } else {
             throw invalid_argument("No se encontró una opción válida");
         }
