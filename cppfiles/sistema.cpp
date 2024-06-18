@@ -780,22 +780,22 @@ void Sistema::setConversacionActual(Conversacion* conversacion){
     this->conversacionActual = conversacion;
 }
 
-Departamento* Sistema::setDepartamentoActual(){
+Departamento* Sistema::getDepartamentoActual(){
     return this->departamentoActual;
 }
 
-Zona* Sistema::setZonaActual(){
+Zona* Sistema::getZonaActual(){
     return this->zonaActual;
 }
 
-Edificio* Sistema::setEdificioActual(){
+Edificio* Sistema::getEdificioActual(){
     return this->edificioActual;
 }
 
-Propiedad* Sistema::setPropiedadActual(){
+Propiedad* Sistema::getPropiedadActual(){
     return this->propiedadActual;
 }
 
-Conversacion* Sistema::setConversacionActual(){
+Conversacion* Sistema::getConversacionActual(){
     return this->conversacionActual;
 }
