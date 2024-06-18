@@ -16,14 +16,14 @@ using namespace std;
 #include "../ICollection/Integer.h"
 #include "usuario.h"
 #include "dtdir.h"
-#include "venta.h"
-#include "alquiler.h"
-#include "propiedad.h"
+// #include "venta.h"
+// #include "alquiler.h"
+// #include "propiedad.h"
 #include "dtlineareporte.h"
 #include "dtreporte.h"
 // los incluyo el vale
-#include "apartamento.h"
-#include "edificio.h"
+// #include "apartamento.h"
+// #include "edificio.h"
 #include "mensaje.h"
 
 class DTDir;
@@ -33,6 +33,11 @@ class IKey;
 class IDictionary;
 class IIterator;
 class OrderedKey;
+class Venta;
+class Alquiler;
+class Propiedad;
+class Apartamento;
+class Edificio;
 class Venta;
 class Alquiler;
 class Propiedad;

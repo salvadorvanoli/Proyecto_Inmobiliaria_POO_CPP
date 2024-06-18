@@ -544,12 +544,12 @@ void Sistema::eliminarPropiedad(int codigoProp){
     if (inmo->getPropiedades()->member(key)){
         Propiedad * prop = (Propiedad * ) inmo->getPropiedades()->find(key);
         delete key;
-        prop->desvincularDeZona();
-        Apartamento * ap = (Apartamento *) prop;
-        if (ap != NULL){
-            ap->desvincularDeEdificio();
-        }
-        prop->destruirConversaciones();
+        // prop->desvincularDeZona();
+        // Apartamento * ap = (Apartamento *) prop;
+        // if (ap != NULL){
+        //     ap->desvincularDeEdificio();
+        // }
+        // prop->destruirConversaciones();
         inmo->destruirAlquiler(prop); // DEVUELVE ERROR SI NO TIENE ALQUILER
         inmo->destruirVenta(prop); // DEVUELVE ERROR SI NO TIENE VENTA
         delete prop;

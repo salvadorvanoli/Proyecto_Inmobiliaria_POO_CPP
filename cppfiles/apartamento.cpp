@@ -7,6 +7,10 @@ Apartamento::Apartamento(int _codigo, int _cantAmbiente, int _cantDormitorios, i
     this->m2Totales = _m2Edificios;
 }
 
+Apartamento::~Apartamento(){
+    this->desvincularDeEdificio();
+}
+
 void Apartamento::setEdificio(Edificio * _edificio){
     this->edificio = _edificio;
 }

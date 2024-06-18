@@ -29,7 +29,8 @@ int Propiedad::generarCodigoConversacion(){
 }
 
 Propiedad :: ~Propiedad(){
-    
+    this->desvincularDeZona();
+    this->destruirConversaciones();
 }
 
 void Propiedad :: setM2Totales(float _m2Totales){
