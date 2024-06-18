@@ -123,68 +123,6 @@ void imprimirDepto(ICollection * col){
     delete it;
 }
 
-int main() {
-    // Obtener la hora actual del sistema
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
-
-    // Obtener el día, mes y año actuales
-    int dia = now->tm_mday;
-    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
-    int año = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
-
-    // Obtener la hora, minuto y segundo actuales
-    int hora = now->tm_hour;
-    int minuto = now->tm_min;
-    int segundo = now->tm_sec;
-
-    // Imprimir los resultados
-    std::cout << "Fecha actual: " << dia << "/" << mes << "/" << año << std::endl;
-    std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
-
-    Departamento * dep1 = new Departamento("A", "Canelones");
-    Zona * zona1 = new Zona(1, "SantaLu", "A");
-    Zona * zona2 = new Zona(2, "SanJo", "A");
-    Zona * zona3 = new Zona(3, "CaneLondon", "A");
-
-    cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
-    cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;
-    cout << "Zona 3 es: " << endl << zona3->getDTZona() << endl;
-
-    dep1->agregarZona(zona1);
-
-    cout << "Probamos listar zonas con una zona" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona2);
-    
-    cout << "Probamos listar zonas con dos zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona3);
-
-    cout << "Probamos listar zonas con tres zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->quitarZona(2);
-
-    cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    delete zona1;
-    delete zona2;
-    delete zona3;
-    delete dep1;
-
-    cout << "hola mundo" << endl;
-    system("pause");
-    return 0;
-}
-
 void manejarIniciarSesion(Sistema * sistema){
     system("clear");
     char* email;
@@ -481,4 +419,67 @@ void menu(Sistema * sistema){
             cout << "3-Enviar mensaje interesado" << endl << endl;
         } while(opt != "1" && opt != "2" && opt != "3");
     }
+}
+
+
+int main() {
+    // Obtener la hora actual del sistema
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+
+    // Obtener el día, mes y año actuales
+    int dia = now->tm_mday;
+    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
+    int año = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+
+    // Obtener la hora, minuto y segundo actuales
+    int hora = now->tm_hour;
+    int minuto = now->tm_min;
+    int segundo = now->tm_sec;
+
+    // Imprimir los resultados
+    std::cout << "Fecha actual: " << dia << "/" << mes << "/" << año << std::endl;
+    std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
+
+    Departamento * dep1 = new Departamento("A", "Canelones");
+    Zona * zona1 = new Zona(1, "SantaLu", "A");
+    Zona * zona2 = new Zona(2, "SanJo", "A");
+    Zona * zona3 = new Zona(3, "CaneLondon", "A");
+
+    cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
+    cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;
+    cout << "Zona 3 es: " << endl << zona3->getDTZona() << endl;
+
+    dep1->agregarZona(zona1);
+
+    cout << "Probamos listar zonas con una zona" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->agregarZona(zona2);
+    
+    cout << "Probamos listar zonas con dos zonas" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->agregarZona(zona3);
+
+    cout << "Probamos listar zonas con tres zonas" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->quitarZona(2);
+
+    cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    delete zona1;
+    delete zona2;
+    delete zona3;
+    delete dep1;
+
+    cout << "hola mundo" << endl;
+    system("pause");
+    return 0;
 }
