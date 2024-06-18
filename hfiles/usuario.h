@@ -35,10 +35,12 @@ class Usuario : public ICollectible {
         // Setters
         void setCorreoElectronico(char*);
         void setContrasenia(string);
+        void setPrimeraVez(bool);
 
         // Getters
         char* getCorreoEletronico();
         string getContrasenia();
+        bool getPrimeraVez();
 };
 
 #endif

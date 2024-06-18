@@ -18,6 +18,7 @@ using namespace std;
 #include "hfiles/interesado.h"
 #include "hfiles/departamento.h"
 #include "hfiles/zona.h"
+#include "hfiles/sistema.h"
 
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
@@ -171,4 +172,185 @@ int main() {
     cout << "hola mundo" << endl;
     system("pause");
     return 0;
+}
+
+void manejarIniciarSesion(Sistema * sistema){
+    system("clear");
+    char* email;
+    cout << "Inicie sesión con una cuenta" << endl << endl;
+    cout << "Ingrese email" << endl << endl;
+    cin >> email;
+    try {
+        iniciarSesion(email);
+    } catch (const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+    }
+    if(sistema->loggeado->getPrimeraVez() == true){
+        try{
+            system("clear");
+            string pwd1;
+            string pwd2;
+            cout << "Es su primera vez iniciando sesión" << endl;
+            cout << "Establezca una contraseña segura de más de 8 caracteres" << endl << endl;
+            cin << pwd1;
+            cout << "Repita la contraseña" << endl << endl;
+            cin << pwd2;
+            sistema->loggeado->agregarContrasenia(pwd1, pwd2);
+        } catch (const exception& e){
+            system("clear");
+            cout << "Error de ejecución: " << e.what() << endl;
+        }
+    }
+    system("clear");
+    string pwd;
+    cout << "Inicie sesión con su contraseña" << endl << endl;
+    cin >> pwd;
+    try{
+        this->loggeado->ingresarContrasenia(pwd);
+        cout << "Sesión iniciada con éxito";
+    } catch (const exception& edad) {
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+    }
+}
+
+void manejarAltaInmobiliaria(){
+    system("clear");
+    char* email;
+    char* nombre;
+    DTDir* dir;
+    string calle;
+    int numero;
+    string ciudad;
+    cout << "Va a ingresar un usuario inmobiliaria en el sistema" << endl << endl;
+    cout << "Ingrese el email " << endl << endl;
+    IKey * key = new String(email);
+    if(this->usuarios->member(key)){
+        cout << "Ya existe un usuario con ese correo" << endl;
+        return;
+    }
+    system("clear");
+
+    cout << "Ingrese ahora un nombre para la inmobiliaria" << endl << endl;
+    cin >> nombre;
+
+    system("clear");
+
+    cout << "Ingrese calle" << endl << endl;
+    cin >> calle;
+
+    system("clear");
+
+    cout << "Ingrese numero" << endl << endl;
+    cin >> numero;
+
+    system("clear");
+
+    cout << "Ingrese ciudad" << endl << endl;
+    cin >> ciudad;
+
+    dir = new DTDir(calle, numero, ciudad);
+
+    try{
+        altaInmobiliaria(email, nombre, dir);
+    } catch (const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+    }
+}
+
+void manejarAltaInteresado(char*, string, string, int){
+
+}
+
+void manejarAltaEdificio(string, int, int, Zona*){
+
+}
+
+void manejarAltaPropiedad(){
+
+}
+
+void manejarConsultarPropiedad(){
+
+}
+
+void modificarPropiedad(){
+
+}
+
+void eliminarPropiedad(int){
+
+}
+
+void manejarEnviarMensajeInteresado(){
+
+}
+
+void manejarEnviarMensajeInmobiliaria(){
+
+}
+
+void manejarReporte(){
+
+}
+
+void menu(Sistema * sistema){
+    string opt;
+    do{
+        system("clear");
+        string opt;
+        cout << "Necesita iniciar sesión en el sistema" << endl << endl;
+        cout << "1-Iniciar sesión" << endl << endl;
+    } while (opt != "1");
+
+    manejarIniciarSesion(sistema);
+
+    Administrador* admin = (Administrador*) sistema->getLoggeado();
+    Inmobiliaria* inmo = (Inmobiliaria*) sistema->getLoggeado();
+    Interesado* interesado = (Interesado*) sistema->getLoggeado();
+
+    if(admin != NULL){
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Alta inmobiliaria" << endl;
+            cout << "3-Alta interesado" << endl;
+            cout << "4-Obtener reporte de inmobiliaria" << endl << endl;
+            cin >> opt;
+        } while(opt != "1" && opt != "2" && opt != "3"  && opt != "4");
+        if(opt == "1"){
+            sistema->cerrarSesion();
+        } else if(opt == "2"){
+            manejarAltaInmobiliaria();
+        } else if (opt == "3"){
+
+        } else if (opt == "4"){
+
+        } else {
+            throw invalid_argument("No se encontró una opción válida");
+        }
+    } else if(inmo != NULL) {
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Alta edificio" << endl;
+            cout << "3-Alta propiedad" << endl;
+            cout << "4-Consultar propiedad" << endl;
+            cout << "5-Modificar propiedad" << endl;
+            cout << "6-Eliminar propiedad" << endl;
+            cout << "7-Enviar mensaje inmobiliaria" << endl << endl;
+        } while(opt != "1" && opt != "2" && opt != "3" && opt != "4" && opt != "5" && opt != "6" && opt != "7");
+    } else if (interesado != NULL){
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Consultar propiedad" << endl;
+            cout << "3-Enviar mensaje interesado" << endl << endl;
+        } while(opt != "1" && opt != "2" && opt != "3");
+    }
 }

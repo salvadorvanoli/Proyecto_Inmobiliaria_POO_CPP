@@ -243,8 +243,12 @@ bool Sistema::crearContrasenia(string pwd, string pwd2){
         throw runtime_error("El usuario administrador ya tiene una contraseña establecida, consulte con el encargado");
     }
     if(pwd == pwd2){
-        this->loggeado->agregarContrasenia(pwd);
-        return true;
+        try {
+            this->loggeado->agregarContrasenia(pwd);
+            return true;
+        } catch (const exception& e){
+            throw runtime_error("No se pudo agregar la contraseña correctamente");   
+        }
     } else {
         system("clear");
         cout << "Las contraseñas no coinciden" << endl << endl;
@@ -263,8 +267,7 @@ bool Sistema::ingresarContrasenia(string pwd){
         return true;
     } else {
         system("clear");
-        cout << "Contraseña incorrecta" << endl << endl;
-        return false;
+        throw runtime_error("La contraseña introducida no es correcta");
     }
 }
 
@@ -694,4 +697,8 @@ void Sistema::desvincularPropiedad(int codigoProp){
         delete clave;
         throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
+}
+
+Usuario * Sistema::getLoggeado(){
+    return this->loggeado;
 }
