@@ -101,7 +101,7 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
 
 #include <ctime>
 
-void imprimirZonasDepto(ICollection * col){
+void imprimirZonasDepto(IDictionary * col){
     IIterator * it = col->getIterator();
     DTZona * zona;
     while (it->hasCurrent()){
@@ -155,25 +155,25 @@ int main() {
 
     cout << "Probamos listar zonas con una zona" << endl;
 
-    imprimirZonasDepto(dep1->listarZonasDepartamento());
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
 
     dep1->agregarZona(zona2);
     
     cout << "Probamos listar zonas con dos zonas" << endl;
 
-    imprimirZonasDepto(dep1->listarZonasDepartamento());
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
 
     dep1->agregarZona(zona3);
 
     cout << "Probamos listar zonas con tres zonas" << endl;
 
-    imprimirZonasDepto(dep1->listarZonasDepartamento());
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
 
     dep1->quitarZona(2);
 
     cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
 
-    imprimirZonasDepto(dep1->listarZonasDepartamento());
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
 
     delete zona1;
     delete zona2;
@@ -315,10 +315,23 @@ void manejarAltaEdificio(Sistema * sistema){
 
     char* opt;
 
+    cout << "Elija uno de los departamentos listados debabajo" << endl;
+    imprimirDepto(sistema->listarDepartamentos());
+    cin >> opt;
+    try{
+        sistema->elegirDepartamento(opt);
+    } catch(const exception& e){
+        cout << "Error de ejecución: " << e.what() << endl;
+        return;
+    }
+   
+    cout << "Elija una de las zonas listadas debajo" << endl;
+    imprimirZonasDepto(sistema->->getZonas());
+
     cout << "Elija uno de los departamentos listados abajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
     cin >> opt;
-    Departamento * depto = sistema->elegirDepartamento(opt);
+    sistema->elegirDepartamento(opt);
 
     cout << "Va a ingresar un edificio en el sistema" << endl << endl;
     cout << "Ingrese ahora un nombre para el edificio" << endl << endl;

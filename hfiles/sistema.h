@@ -105,6 +105,18 @@ class Sistema{
         void desvincularPropiedad(int);
         Usuario * getLoggeado();
         IDictionary * getUsuarios();
+        
+        void setDepartamentoActual(Departamento*);
+        void setZonaActual(Zona*);
+        void setEdificioActual(Edificio*);
+        void setPropiedadActual(Propiedad*);
+        void setConversacionActual(Conversacion*);
+
+        Departamento* setDepartamentoActual();
+        Zona* setZonaActual();
+        Edificio* setEdificioActual();
+        Propiedad* setPropiedadActual();
+        Conversacion* setConversacionActual();
 };
 
 #endif

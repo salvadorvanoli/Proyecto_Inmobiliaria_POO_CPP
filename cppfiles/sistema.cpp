@@ -759,3 +759,43 @@ Usuario * Sistema::getLoggeado(){
 IDictionary * Sistema::getUsuarios(){
     return this->usuarios;
 }
+
+void Sistema::setDepartamentoActual(Departamento* depa){
+    this->departamentoActual = depa;
+}
+
+void Sistema::setZonaActual(Zona* zona){
+    this->zonaActual = zona;
+}
+
+void Sistema::setEdificioActual(Edificio* edificio){
+    this->edificioActual = edificio;
+}
+
+void Sistema::setPropiedadActual(Propiedad* prop){
+    this->propiedadActual = prop;
+}
+
+void Sistema::setConversacionActual(Conversacion* conversacion){
+    this->conversacionActual = conversacion;
+}
+
+Departamento* Sistema::setDepartamentoActual(){
+    return this->departamentoActual;
+}
+
+Zona* Sistema::setZonaActual(){
+    return this->zonaActual;
+}
+
+Edificio* Sistema::setEdificioActual(){
+    return this->edificioActual;
+}
+
+Propiedad* Sistema::setPropiedadActual(){
+    return this->propiedadActual;
+}
+
+Conversacion* Sistema::setConversacionActual(){
+    return this->conversacionActual;
+}
