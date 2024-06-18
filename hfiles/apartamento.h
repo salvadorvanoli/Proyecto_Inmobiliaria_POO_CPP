@@ -20,6 +20,7 @@ class Apartamento : public Propiedad{
         Edificio * getEdificio();
         DTTipoProp getDTTipoProp();
         void desvincularDeEdificio();
+        void modificarApartamento(int, int, int, float, DTDir*, bool);
 };
 
 

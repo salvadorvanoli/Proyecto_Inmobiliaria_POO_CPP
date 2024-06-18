@@ -26,3 +26,13 @@ void Apartamento::desvincularDeEdificio(){
 DTTipoProp Apartamento::getDTTipoProp(){
     return DTTipoProp::apartamento;
 }
+
+void Apartamento::modificarApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Totales, DTDir* dir, bool tieneGaraje){
+    this->cantAmbiente = cantAmbientes;
+    this->cantDormitorios = cantDormitorios;
+    this->cantBanios = cantBanios;
+    this->m2Totales = m2Totales;
+    this->m2Edificios = m2Totales;
+    this->direccion = dir;
+    this->tieneGaraje = tieneGaraje;
+}
