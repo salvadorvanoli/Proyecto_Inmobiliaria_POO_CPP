@@ -34,8 +34,9 @@ class Zona : public ICollectible {
         int cantEdificios;
         IDictionary * propiedades;
         int cantPropiedades;
+        char* letraDepa;
     public:
-        Zona(int, string);
+        Zona(int, string, char*);
         ~Zona();
 
         // Getters
@@ -46,6 +47,7 @@ class Zona : public ICollectible {
         int getCantPropiedades();
         IDictionary * getEdificios();
         IDictionary * getPropiedades();
+        char* getLetraDepa();
 
         // Setters
 
@@ -53,6 +55,7 @@ class Zona : public ICollectible {
         void setNombre(string);
         void setCantEdificios(int);
         void setCantPropiedades(int);
+        void setLetraDepa(char*);
 
         // Agregar-Quitar (Creo que esta mal)
 
