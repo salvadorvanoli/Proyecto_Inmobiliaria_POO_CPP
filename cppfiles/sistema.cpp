@@ -31,7 +31,7 @@ Propiedad * Sistema::seleccionarPropiedad(int codigoProp){
     }
     try {
         this->propiedadActual = this->zonaActual->seleccionarPropiedad(codigoProp);
-        this->zonaActual = NULL;
+        // this->zonaActual = NULL;
         return this->propiedadActual;
     } catch(const std::exception& e) {
         throw invalid_argument("No se eligió una zona previamente");
@@ -51,7 +51,7 @@ Conversacion * Sistema::getConversacionInteresado(){
     }
     try {
         this->conversacionActual = this->propiedadActual->getConversacion(this->loggeado->getCorreoEletronico());
-        this->propiedadActual = NULL;
+        // this->propiedadActual = NULL;
         return this->conversacionActual;
     } catch(const std::exception& e) {
         throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
@@ -85,7 +85,7 @@ Conversacion * Sistema::nuevoChat(){
     }
     try {
         this->conversacionActual = this->propiedadActual->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
-        this->propiedadActual = NULL;
+        // this->propiedadActual = NULL;
         return this->conversacionActual;
     } catch(const std::exception& e) {
         throw runtime_error("La conversacion ya fue agregado con anterioridad");
@@ -100,7 +100,7 @@ void Sistema::nuevoMensaje(string mensaje, DTFecha * fecha){
         throw runtime_error("No se eligió una conversación previamente");
     }
     this->conversacionActual->nuevoMensaje(fecha, mensaje);
-    this->conversacionActual = NULL;
+    // this->conversacionActual = NULL;
 }
 
 ICollection * Sistema::listarChatsInmo(){
@@ -176,8 +176,9 @@ bool Sistema::elegirZona(int codigo){
     }
     try {
         this->zonaActual = this->departamentoActual->elegirZona(codigo);
-        this->departamentoActual = NULL;
-        return this->zonaActual;
+        // this->departamentoActual = NULL;
+        // return this->zonaActual;
+        return true;
     } catch(const exception& e) {
         throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
     }
@@ -225,7 +226,7 @@ void Sistema::modificarCasa(int cantAmbientes, int cantDormitorios, int cantBani
         throw runtime_error("No se eligió una propiedad previamente");
     }
     Casa * casa = (Casa *) this->propiedadActual;
-    this->propiedadActual = NULL;
+    // this->propiedadActual = NULL;
     casa->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, m2Verdes);
 }
 
@@ -241,7 +242,7 @@ void Sistema::modificarApartamento(int cantAmbientes, int cantDormitorios, int c
         throw runtime_error("No se eligió una propiedad previamente");
     }
     Apartamento * apartamento = (Apartamento *) this->propiedadActual;
-    this->propiedadActual = NULL;
+    // this->propiedadActual = NULL;
     apartamento->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
@@ -375,7 +376,7 @@ void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
 
 /* FUNCIONES PARA DAR ALTA UN EDIFICIO */
 
-bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona * zona){
+bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes){
     if(this->loggeado == NULL){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
@@ -385,8 +386,11 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, zona);
-    zona->agregarEdificio(ed);
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
+    this->edificioActual = new Edificio(this->zonaActual->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, this->zonaActual);
+    this->zonaActual->agregarEdificio(this->edificioActual);
     return true;
 }
 
@@ -489,17 +493,25 @@ void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, boo
 // }
 
 
-ICollection* Sistema::listarEdificio(Zona * zona) {
-    return zona->listarEdificios();
+ICollection* Sistema::listarEdificio() {
+    return this->zonaActual->listarEdificios();
 }
 
-bool Sistema::seleccionarEdificio(int numEdificio, Zona* zona, Edificio* edificio) {
-    if (zona->seleccionarEdificio(numEdificio) != NULL) {
-        edificio = zona->seleccionarEdificio(numEdificio);
-        return true;
+bool Sistema::seleccionarEdificio(int numEdificio) {
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
     }
-    else
-        return false;
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
+    try {
+        this->zonaActual->seleccionarEdificio(numEdificio);
+        this->edificioActual = this->zonaActual->seleccionarEdificio(numEdificio);
+        // this->zonaActual = NULL;
+        return true;
+    } catch(const std::exception& e) {
+        throw invalid_argument("El edificio especificado no se encuentra en la zona actual");
+    }
 }
 
 
@@ -542,7 +554,7 @@ void Sistema:: AltaPropiedad() { //sería para el main?
             cin >> opcion;
             system("clear");
             if (opcion == 2) {
-                ICollection* listaEdificios = listarEdificio(zona); //la zona devuelve sus edificios
+                ICollection* listaEdificios = listarEdificio(); //la zona devuelve sus edificios
                 cout << "¿Desea seleccionar un nuevo edificio?" << endl;
                 cout << "1. Si" << endl;
                 cout << "2. No" << endl;
@@ -561,14 +573,14 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                     cout << "Ingrese los gastos comunes" << endl;
                     cin >> nombre;
                     system("clear");
-                    altaEdificio(nombre, pisos, gastosC, zona);
+                    altaEdificio(nombre, pisos, gastosC);
                 }
 
                 int numEdificio;
                 cout << "Ingresar identificación del edificio:" << endl;
                 cin >> numEdificio;
                 system("clear");
-                if (seleccionarEdificio(numEdificio, zona, edificio)) { //devuelve true si el edificio existe e inicializa edificio
+                if (seleccionarEdificio(numEdificio)) { //devuelve true si el edificio existe e inicializa edificio
                     int cantAmb, cantBanos, cantDorm, numero;
                     float m2t;
                     string calle, ciudad;
@@ -669,14 +681,13 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
                 return;
             }
-            this->propiedadActual = NULL;
         }
 
     }
-    Departamento* departamento = nullptr;
-    Zona* zona = nullptr;
-    Edificio* edificio = nullptr;
-    Propiedad* propiedad = nullptr;
+    departamento = nullptr;
+    zona = nullptr;
+    edificio = nullptr;
+    propiedad = nullptr;
 
 }
 
