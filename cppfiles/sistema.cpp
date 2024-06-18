@@ -25,11 +25,20 @@ ICollection * Sistema::listarDepartamentos(){
 //     }
 // }
 
-Propiedad * Sistema::seleccionarPropiedad(int codigoProp, Zona * zona){
-    return zona->seleccionarPropiedad(codigoProp);
+Propiedad * Sistema::seleccionarPropiedad(int codigoProp){
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
+    try {
+        this->propiedadActual = this->zonaActual->seleccionarPropiedad(codigoProp);
+        this->zonaActual = NULL;
+        return this->propiedadActual;
+    } catch(const std::exception& e) {
+        throw invalid_argument("No se eligió una zona previamente");
+    }
 }
 
-Conversacion * Sistema::getConversacion(Propiedad * prop){
+Conversacion * Sistema::getConversacionInteresado(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -37,11 +46,19 @@ Conversacion * Sistema::getConversacion(Propiedad * prop){
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
-    Conversacion * con = prop->getConversacion(this->loggeado->getCorreoEletronico());
-    return con;
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    try {
+        this->conversacionActual = this->propiedadActual->getConversacion(this->loggeado->getCorreoEletronico());
+        this->propiedadActual = NULL;
+        return this->conversacionActual;
+    } catch(const std::exception& e) {
+        throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
+    }
 }
 
-ICollection * Sistema::getUltimosMensajes(Conversacion * conversacion){
+ICollection * Sistema::getUltimosMensajes(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -49,33 +66,87 @@ ICollection * Sistema::getUltimosMensajes(Conversacion * conversacion){
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
-    return conversacion->getUltimosMensajes();
+    if (this->conversacionActual == NULL){
+        throw runtime_error("No se eligió una conversación previamente");
+    }
+    return this->conversacionActual->getUltimosMensajes();
 }
 
-Conversacion * Sistema::nuevoChat(Propiedad * prop){
+Conversacion * Sistema::nuevoChat(){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     Interesado * usuario = (Interesado *) this->loggeado;
-    return prop->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
+    if (usuario == NULL){
+        throw runtime_error("El usuario ingresado no es Interesado");
+    }
+    if (this->conversacionActual == NULL){
+        throw runtime_error("No se eligió una conversación previamente");
+    }
+    try {
+        this->conversacionActual = this->propiedadActual->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
+        this->propiedadActual = NULL;
+        return this->conversacionActual;
+    } catch(const std::exception& e) {
+        throw runtime_error("La conversacion ya fue agregado con anterioridad");
+    }
 }
 
-void Sistema::nuevoMensaje(Conversacion * conver, string mensaje, DTFecha * fecha){
-    conver->nuevoMensaje(fecha, mensaje);
+void Sistema::nuevoMensaje(string mensaje, DTFecha * fecha){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if (this->conversacionActual == NULL){
+        throw runtime_error("No se eligió una conversación previamente");
+    }
+    this->conversacionActual->nuevoMensaje(fecha, mensaje);
+    this->conversacionActual = NULL;
+}
+
+ICollection * Sistema::listarChatsInmo(){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    if (usuario == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    // Podemos lanzar un error en caso de que la lista este vacía
+    return usuario->listarConversaciones();
+}
+
+Conversacion * Sistema::seleccionarConversacionInmo(int codigoCon){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    if (usuario == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    try {
+        return usuario->seleccionarConversacion(codigoCon);
+    } catch(const exception& e) {
+        throw invalid_argument("No existe una conversación con ese código vinculada a la Inmobiliaria actual");
+    }
 }
 
 bool Sistema::elegirDepartamento(char * letraDepartamento){
     IKey * clave = new String (letraDepartamento);
     Departamento * depa = (Departamento *) this->departamentos->find(clave);
     delete clave;
-    if(depa != NULL)
+    if(depa != NULL){
+        this->departamentoActual = depa;
         return true;
-    else   
+    } else {
         throw invalid_argument("El Departamento especificado no se encuentra en el Sistema.");
+    }
 }
 
-ICollection * Sistema::listarZonasDepartamento(Departamento * depa){
-    return depa->listarZonasDepartamento();
+ICollection * Sistema::listarZonasDepartamento(){
+    return this->departamentoActual->listarZonasDepartamento();
 }
 
-ICollection * Sistema::listarChatProp(Zona * zona){
+ICollection * Sistema::listarChatProp(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -83,18 +154,33 @@ ICollection * Sistema::listarChatProp(Zona * zona){
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
-    ICollection * lista = zona->listarChatPropiedad(this->loggeado->getCorreoEletronico());
+    ICollection * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
     if (lista->isEmpty()){
         throw runtime_error("El usuario especificado no tiene conversaciones");
     }
     return lista;
 }
 
+/*
 bool Sistema::elegirZona(Departamento * depa, int codigo){
     if (depa->elegirZona(codigo) != NULL)
         return true;
     else
         return false;
+}
+*/
+
+bool Sistema::elegirZona(int codigo){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    try {
+        this->zonaActual = this->departamentoActual->elegirZona(codigo);
+        this->departamentoActual = NULL;
+        return this->zonaActual;
+    } catch(const exception& e) {
+        throw invalid_argument("La zona especificada no se encuentra en el departamento actual");
+    }
 }
 
 
@@ -106,12 +192,18 @@ Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    Propiedad * prop = inmo->seleccionarPropiedad(codigoProp);
-    return prop;
+    this->propiedadActual = inmo->seleccionarPropiedad(codigoProp);
+    return this->propiedadActual;
 }
 
 DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
-    return this->seleccionarPropiedadInmobiliaria(codigoProp)->getDTTipoProp();
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    return this->propiedadActual->getDTTipoProp();
 }
 
 // DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
@@ -121,7 +213,7 @@ DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
 //     return p->getDTTipoProp();
 // }
 
-void Sistema::modificarCasa(Casa * casa, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Edificados, float m2Verdes){
+void Sistema::modificarCasa(int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Edificados, float m2Verdes){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -129,10 +221,15 @@ void Sistema::modificarCasa(Casa * casa, int cantAmbientes, int cantDormitorios,
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    Casa * casa = (Casa *) this->propiedadActual;
+    this->propiedadActual = NULL;
     casa->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, m2Verdes);
 }
 
-void Sistema::modificarApartamento(Apartamento * apartamento, int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Totales){
+void Sistema::modificarApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, bool tieneGaraje, DTDir * dir, float m2Totales){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -140,13 +237,18 @@ void Sistema::modificarApartamento(Apartamento * apartamento, int cantAmbientes,
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    Apartamento * apartamento = (Apartamento *) this->propiedadActual;
+    this->propiedadActual = NULL;
     apartamento->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
-void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
-    //feli
-    c->nuevoMensaje(fecha, contenido);
-}
+// void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha){
+//     //feli // HAY QUE SEGUIR ACAAAAAA
+//     this->conversacionActual->nuevoMensaje(fecha, contenido);
+// }
 
 /* FUNCIONES PARA INICIAR SESIÓN */
 
@@ -321,16 +423,34 @@ ICollection * Sistema::obtenerReporte(){
 
 /*funciones de Alta propiedad*/
 
-int Sistema::ponerEnVenta(float valor, Propiedad* p) {
+int Sistema::ponerEnVenta(float valor) {
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
-    user->ponerEnVenta(p, valor);
-    return p->getCodigo();
+    if (user == NULL){
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    user->ponerEnVenta(this->propiedadActual, valor);
+    return this->propiedadActual->getCodigo();
 }
 
-int Sistema::ponerEnAlquiler(float valor, Propiedad* p) {
+int Sistema::ponerEnAlquiler(float valor) {
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
-    user->ponerEnAlquiler(p, valor);
-    return p->getCodigo();
+    if (user == NULL){
+        throw runtime_error("El usuario ingresado no es Administrador");
+    }
+    if (this->propiedadActual == NULL){
+        throw runtime_error("No se eligió una propiedad previamente");
+    }
+    user->ponerEnAlquiler(this->propiedadActual, valor);
+    return this->propiedadActual->getCodigo();
 }
 
 void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona){
@@ -408,13 +528,13 @@ void Sistema:: AltaPropiedad() { //sería para el main?
     system("clear");
     // if (elegirDepartamento(letraDepa, departamento)){
     if (elegirDepartamento(letraDepa)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
-        ICollection * listaZonas = listarZonasDepartamento(departamento); //departamento lista sus zonas
+        ICollection * listaZonas = listarZonasDepartamento(); //departamento lista sus zonas
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
         system("clear");
         // if(this->elegirZona(numZona, departamento, zona)){ asi estaba antes
-        if(this->elegirZona(departamento, numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
+        if(this->elegirZona(numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
             cout << "Ingrese tipo de propiedad" << endl;
             cout << "1. Casa" << endl;
             cout << "2. Apartamento" << endl;
@@ -536,19 +656,20 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
                 system("clear");
-                int codigo = ponerEnVenta(valor, propiedad);
+                int codigo = ponerEnVenta(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
                 return;
             }
-             if (option == 2) {
+            if (option == 2) {
                 float valor;
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
                 system("clear");
-                int codigo = ponerEnAlquiler(valor, propiedad);
+                int codigo = ponerEnAlquiler(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
                 return;
             }
+            this->propiedadActual = NULL;
         }
 
     }
@@ -593,12 +714,12 @@ void Sistema::eliminarPropiedad(int codigoProp){
 
 /* FUNCIONES PARA CONSULTAR PROPIEDAD */
 
-ICollection * Sistema::listarPropiedades(Zona * zona){
-    return zona->listarPropiedades();
+ICollection * Sistema::listarPropiedades(){
+    return this->zonaActual->listarPropiedades();
 }
 
-DTPropiedadDetallada * Sistema::verDetallesPropiedad(Zona * zona, int codigoProp){
-    return zona->verDetallesPropiedad(codigoProp);
+DTPropiedadDetallada * Sistema::verDetallesPropiedad(int codigoProp){
+    return this->zonaActual->verDetallesPropiedad(codigoProp);
 }
 
 /* FIN DE FUNCIONES PARA CONSULTAR PROPIEDAD */
