@@ -561,3 +561,7 @@ void Sistema::desvincularPropiedad(int codigoProp){
         throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
 }
+
+Usuario * Sistema::getLoggeado(){
+    return this->loggeado;
+}

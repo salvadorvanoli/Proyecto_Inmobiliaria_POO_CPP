@@ -89,7 +89,7 @@ class Sistema{
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         void enlazarPropiedad(Propiedad *);
         void desvincularPropiedad(int);
-
+        Usuario * getLoggeado();
 };
 
 #endif

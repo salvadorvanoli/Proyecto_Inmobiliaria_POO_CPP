@@ -18,6 +18,7 @@ using namespace std;
 #include "hfiles/interesado.h"
 #include "hfiles/departamento.h"
 #include "hfiles/zona.h"
+#include "hfiles/sistema.h"
 
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
@@ -171,4 +172,25 @@ int main() {
     cout << "hola mundo" << endl;
     system("pause");
     return 0;
+}
+
+void menu(Sistema * sistema){
+    string opt;
+    do{
+        system("clear");
+        string opt;
+        cout << "Elija una función del sistema" << endl << endl;
+        cout << "1-Iniciar sesión" << endl << endl;
+    } while (opt != "1" && sistema->loggeado != NULL);
+    cout << "2-Cerrar sesión" << endl << endl;
+    cout << "3-Alta inmobiliaria" << endl << endl;
+    cout << "4-Alta interesado" << endl << endl;
+    cout << "5-Alta edificio" << endl << endl;
+    cout << "6-Alta propiedad" << endl << endl;
+    cout << "7-Consultar propiedad" << endl << endl;
+    cout << "8-Modificar propiedad" << endl << endl;
+    cout << "9-Eliminar propiedad" << endl << endl;
+    cout << "10-Enviar mensaje interesado" << endl << endl;
+    cout << "11-Enviar mensaje inmobiliaria" << endl << endl;
+    cout << "12-Obtener reporte de inmobiliaria" << endl << endl;
 }
