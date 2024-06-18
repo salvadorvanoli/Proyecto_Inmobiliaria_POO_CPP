@@ -457,14 +457,7 @@ int Sistema::ponerEnAlquiler(float valor) {
     return this->propiedadActual->getCodigo();
 }
 
-void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona){
-    Apartamento * apartamento = NULL;
-    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
-    edificio->enlazarPropiedad(apartamento);
-    zona->enlazarPropiedad(apartamento);
-    this->enlazarPropiedad(apartamento);
-    //return apartamento
-}
+
 
 // void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
 //     // Apartamento* apartamento = (Apartamento*) propiedad;
@@ -476,8 +469,23 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
 //     //propiedad->vincularEdificio(edificio); ??
 // }
 
-void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v){
-    Casa * casa = NULL;
+void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona) {
+    if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0) {
+        throw std::runtime_error("Los valores no pueden ser negativos");
+    }
+    Apartamento *apartamento = NULL;
+    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
+    edificio->enlazarPropiedad(apartamento);
+    zona->enlazarPropiedad(apartamento);
+    this->enlazarPropiedad(apartamento);
+    //return apartamento
+}
+
+void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v) {
+    if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0 || m2v < 0) {
+        throw std::runtime_error("Los valores no pueden ser negativos");
+    }
+    Casa *casa = NULL;
     casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
     zona->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
