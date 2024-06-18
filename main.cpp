@@ -143,9 +143,9 @@ int main() {
     std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
 
     Departamento * dep1 = new Departamento("A", "Canelones");
-    Zona * zona1 = new Zona(1, "SantaLu");
-    Zona * zona2 = new Zona(2, "SanJo");
-    Zona * zona3 = new Zona(3, "CaneLondon");
+    Zona * zona1 = new Zona(1, "SantaLu", "A");
+    Zona * zona2 = new Zona(2, "SanJo", "A");
+    Zona * zona3 = new Zona(3, "CaneLondon", "A");
 
     cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
     cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;

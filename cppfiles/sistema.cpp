@@ -684,10 +684,10 @@ void Sistema:: AltaPropiedad() { //sería para el main?
         }
 
     }
-    Departamento* departamento = nullptr;
-    Zona* zona = nullptr;
-    Edificio* edificio = nullptr;
-    Propiedad* propiedad = nullptr;
+    departamento = nullptr;
+    zona = nullptr;
+    edificio = nullptr;
+    propiedad = nullptr;
 
 }
 
