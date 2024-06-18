@@ -394,10 +394,16 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
         cout<<"Ingrese el numero de la Zona"<<endl;
         cin >> numZona;
         if(sistema->elegirZona(numZona) != NULL){
-            ICollection * chatProp = sistema->listarChatProp(depa->elegirZona(numZona));
+            ICollection * chatProp = sistema->listarChatProp();
             int codProp;
             cout<<"Ingrese el codigo de la Propiedad"<<endl;
-            cin >> codProp;}
+            cin >> codProp;
+            }
+            if (sistema->seleccionarPropiedad(codProp) != NULL){ //si la propiedad existe
+                string mensaje;
+                cout<<"Ingrese el Mensaje"<<endl;
+                getline(cin, mensaje);
+                Conversacion * conver;
     }
 /*system("clear");
     ICollection * depar = sistema->listarDepartamentos(); 
