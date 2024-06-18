@@ -136,7 +136,7 @@ Inmobiliaria * Propiedad::getInmobiliaria(){
 }
 
 void Propiedad :: desvincularDeZona(){
-    this->zona->desvincularPropiedad(this);
+    this->zona->desvincularPropiedad(this->getCodigo());
 }
 
 //(en eliminar propiedad)
@@ -182,18 +182,39 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
     // throw
 }
 
-ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
-    return chat->getUltimosMensajes();
+// ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
+//     return chat->getUltimosMensajes();
+// }
+
+Conversacion * Propiedad::getConversacion(char * email){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con = NULL;
+    while(it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        if (con->getInteresado()->getCorreoEletronico() == email){
+            delete it;
+            return con;
+        }
+        it->next();
+    }
+    delete it;
+    throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
+}
+
+ICollection * Propiedad::getUltimosMensajes(char * email){
+    IIterator * it = this->conversaciones->getIterator();
+    
 }
 
 //crea una conversacion y la añade a la coleccion
-Conversacion * Propiedad :: nuevoChat(){
+Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
     int clave = this->generarCodigoConversacion();
     IKey * key = new Integer(clave);
-    Conversacion * c = new Conversacion(clave);
+    Conversacion * c = new Conversacion(clave, interesado);
     if(!this->conversaciones->member(key)){
         ICollectible * nuevoChat = (ICollectible *) c;
         this->conversaciones->add(key, nuevoChat);
+        return c;
     }else{
         delete key;
         throw invalid_argument("La conversacion ya fue agregado con anterioridad");

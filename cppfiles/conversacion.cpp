@@ -28,8 +28,9 @@ void Conversacion::setInteresado(Interesado* nuevoInteresado) {
 }
 
 //constructores y destructores
-Conversacion::Conversacion(int nuevoCodigo) {
-    codigoConversacion = nuevoCodigo;
+Conversacion::Conversacion(int nuevoCodigo, Interesado * interesado) {
+    this->codigoConversacion = nuevoCodigo;
+    this->interesado = interesado;
 }
 
 Conversacion::~Conversacion() {
