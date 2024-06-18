@@ -38,7 +38,7 @@ Propiedad * Sistema::seleccionarPropiedad(int codigoProp){
     }
 }
 
-Conversacion * Sistema::getConversacion(){
+Conversacion * Sistema::getConversacionInteresado(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -77,7 +77,7 @@ Conversacion * Sistema::nuevoChat(){
         throw runtime_error("No hay un usuario en el sistema");
     }
     Interesado * usuario = (Interesado *) this->loggeado;
-    if (interesado == NULL){
+    if (usuario == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
     if (this->conversacionActual == NULL){
@@ -101,6 +101,33 @@ void Sistema::nuevoMensaje(string mensaje, DTFecha * fecha){
     }
     this->conversacionActual->nuevoMensaje(fecha, mensaje);
     this->conversacionActual = NULL;
+}
+
+ICollection * Sistema::listarChatsInmo(){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    if (usuario == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    // Podemos lanzar un error en caso de que la lista este vacía
+    return usuario->listarConversaciones();
+}
+
+Conversacion * Sistema::seleccionarConversacionInmo(int codigoCon){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    if (usuario == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    try {
+        return usuario->seleccionarConversacion(codigoCon);
+    } catch(const exception& e) {
+        throw invalid_argument("No existe una conversación con ese código vinculada a la Inmobiliaria actual");
+    }
 }
 
 bool Sistema::elegirDepartamento(char * letraDepartamento){
@@ -144,6 +171,9 @@ bool Sistema::elegirZona(Departamento * depa, int codigo){
 */
 
 bool Sistema::elegirZona(int codigo){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     try {
         this->zonaActual = this->departamentoActual->elegirZona(codigo);
         this->departamentoActual = NULL;
@@ -167,6 +197,9 @@ Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
 }
 
 DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
     if (this->propiedadActual == NULL){
         throw runtime_error("No se eligió una propiedad previamente");
     }

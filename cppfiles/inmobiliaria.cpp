@@ -197,3 +197,47 @@ Propiedad * Inmobiliaria::seleccionarPropiedad(int codigoProp){
         throw invalid_argument("La propiedad especificada no se encuentra en la inmobiliaria actual");
     }
 }
+
+// Devuelve un ICollection que contiene un DTChatProp por cada conversación de cada propiedad relacionada
+ICollection * Inmobiliaria::listarConversaciones(){
+    ICollection * lista = new List();
+    IIterator * it = this->propiedades->getIterator();
+    Propiedad * prop = NULL;
+    ICollection * col = NULL;
+    ICollectible * item = NULL;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        col = prop->listarConversaciones();
+        IIterator * aux = col->getIterator();
+        while (aux->hasCurrent()){
+            item = aux->getCurrent();
+            lista->add(item);
+            aux->next();
+        }
+        delete aux;
+        it->next();
+    }
+    delete it;
+    return lista;
+}
+
+Conversacion * Inmobiliaria::seleccionarConversacion(int codigoCon){
+    IIterator * it = this->propiedades->getIterator();
+    IKey * clave = new Integer(codigoCon);
+    Propiedad * prop = NULL;
+    Conversacion * con = NULL;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        IDictionary * aux = prop->getConversaciones();
+        con = (Conversacion *) aux->find(clave);
+        if (con != NULL){
+            delete it;
+            delete clave;
+            return con;
+        }
+        it->next();
+    }
+    delete it;
+    delete clave;
+    throw invalid_argument("No existe una conversación con ese código vinculada a la Inmobiliaria actual");
+}

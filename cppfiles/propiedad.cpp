@@ -182,9 +182,20 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
     // throw
 }
 
-// ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
-//     return chat->getUltimosMensajes();
-// }
+ICollection * Propiedad :: getUltimosMensajes(char * email){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        if (con->getInteresado()->getCorreoEletronico() == email){
+            delete it;
+            return con->getUltimosMensajes();
+        }
+        it->next();
+    }
+    delete it;
+    throw invalid_argument("No hay ninguna conversación registrada con ese Interesado en la Propiedad actual");
+}
 
 Conversacion * Propiedad::getConversacion(char * email){
     IIterator * it = this->conversaciones->getIterator();
@@ -222,3 +233,17 @@ Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
     return NULL;
 }
 
+// Devuelve un ICollection que contiene un DTChatProp por cada conversación de la propiedad
+ICollection * Propiedad::listarConversaciones(){
+    ICollection * lista = new List();
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con = NULL;
+    ICollectible * item = NULL;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
+        lista->add(item);
+    }
+    delete it;
+    return lista;
+}

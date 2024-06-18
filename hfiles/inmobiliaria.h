@@ -79,6 +79,8 @@ class Inmobiliaria : public Usuario {
         void destruirAlquiler(Propiedad*);
         DTReporte* obtenerReporteInmobiliaria();
         Propiedad * seleccionarPropiedad(int);
+        ICollection * listarConversaciones();
+        Conversacion * seleccionarConversacion(int);
 };
 
 #endif
