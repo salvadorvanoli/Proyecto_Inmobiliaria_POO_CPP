@@ -58,46 +58,6 @@ bool Sistema::elegirZona(Departamento * depa, int codigo){
         return false;
 }
 
-void Sistema::mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
-    ICollection * depar = listarDepartamentos(); 
-    ///
-    char * letraDepa;
-    cout<<"Ingrese la letra del Departamento"<<endl;
-    cin >> letraDepa;
-    if (elegirDepartamento(letraDepa) == true){
-        ICollection * zona = listarZonasDepartamento(depa);
-        int numZona;
-        cout<<"Ingrese el numero de la Zona"<<endl;
-        cin >> numZona;
-        if(elegirZona(depa, numZona) == true){
-            ICollection * chatProp = listarChatProp(depa->elegirZona(numZona), user->getCorreoEletronico());
-            int codProp;
-            cout<<"Ingrese el codigo de la Propiedad"<<endl;
-            cin >> codProp;
-            if (!seleccionarPropiedad(codProp, depa->elegirZona(numZona))->isEmpty()){ //si la propiedad existe
-                string mensaje;
-                cout<<"Ingrese el Mensaje"<<endl;
-                cin >> mensaje;
-                Conversacion * conver;
-                IIterator *  it = depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->getConversaciones()->getIterator();
-                bool encontro = false;
-                while(it->hasCurrent()){
-                    conver = (Conversacion *) it->getCurrent();
-                    if(conver->getInteresado() == user){
-                        conver->nuevoMensaje(fecha, mensaje);
-                        encontro = true;
-                        break;
-                    }
-                    it->next();
-                }
-                if(!encontro){
-                    depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->nuevoChat()->nuevoMensaje(fecha, mensaje);
-                }
-            }
-        }
-    }
-
-}
 
 DTTipoProp Sistema::modificarPropiedad(int codigoProp){
     if (this->loggeado == NULL){

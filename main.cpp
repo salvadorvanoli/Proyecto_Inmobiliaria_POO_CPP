@@ -54,6 +54,50 @@ using namespace std;
 //     }
 // }
 
+/*
+
+SUPONGO QUE sistema SE LLAMA LA GLOBAL SISTEMA
+
+void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
+    ICollection * depar = sistema->listarDepartamentos(); 
+    char * letraDepa;
+    cout<<"Ingrese la letra del Departamento"<<endl;
+    cin >> letraDepa;
+    if (sistema->elegirDepartamento(letraDepa) != NULL){
+        ICollection * zona = sistema->listarZonasDepartamento(depa);
+        int numZona;
+        cout<<"Ingrese el numero de la Zona"<<endl;
+        cin >> numZona;
+        if(sistema->elegirZona(depa, numZona) != NULL){
+            ICollection * chatProp = sistema->listarChatProp(depa->elegirZona(numZona), sistema->user->getCorreoEletronico());
+            int codProp;
+            cout<<"Ingrese el codigo de la Propiedad"<<endl;
+            cin >> codProp;
+            if (!sistema->seleccionarPropiedad(codProp, sistema->depa->elegirZona(numZona))->isEmpty()){ //si la propiedad existe
+                string mensaje;
+                cout<<"Ingrese el Mensaje"<<endl;
+                cin >> mensaje;
+                Conversacion * conver;
+                IIterator *  it = sistema->depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->getConversaciones()->getIterator();
+                bool encontro = false;
+                while(it->hasCurrent()){
+                    conver = (Conversacion *) it->getCurrent();
+                    if(conver->getInteresado() == user){
+                        conver->nuevoMensaje(fecha, mensaje);
+                        encontro = true;
+                        break;
+                    }
+                    it->next();
+                }
+                if(!encontro){
+                    sistema->depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->nuevoChat()->nuevoMensaje(fecha, mensaje);
+                }
+            }
+        }
+    }
+
+}*/
+
 #include <ctime>
 
 void imprimirZonasDepto(ICollection * col){
