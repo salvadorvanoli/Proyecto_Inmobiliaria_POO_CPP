@@ -174,6 +174,46 @@ int main() {
     return 0;
 }
 
+void manejarAltaInmobiliaria(char*, char*, DTDir){
+
+}
+
+void manejarAltaInteresado(char*, string, string, int){
+
+}
+
+void manejarAltaEdificio(string, int, int, Zona*){
+
+}
+
+void manejarAltaPropiedad(){
+
+}
+
+void manejarConsultarPropiedad(){
+
+}
+
+void modificarPropiedad(){
+
+}
+
+void eliminarPropiedad(int){
+
+}
+
+void manejarEnviarMensajeInteresado(){
+
+}
+
+void manejarEnviarMensajeInmobiliaria(){
+
+}
+
+void manejarReporte(){
+
+}
+
 void menu(Sistema * sistema){
     string opt;
     do{
@@ -181,16 +221,52 @@ void menu(Sistema * sistema){
         string opt;
         cout << "Elija una función del sistema" << endl << endl;
         cout << "1-Iniciar sesión" << endl << endl;
-    } while (opt != "1" && sistema->loggeado != NULL);
-    cout << "2-Cerrar sesión" << endl << endl;
-    cout << "3-Alta inmobiliaria" << endl << endl;
-    cout << "4-Alta interesado" << endl << endl;
-    cout << "5-Alta edificio" << endl << endl;
-    cout << "6-Alta propiedad" << endl << endl;
-    cout << "7-Consultar propiedad" << endl << endl;
-    cout << "8-Modificar propiedad" << endl << endl;
-    cout << "9-Eliminar propiedad" << endl << endl;
-    cout << "10-Enviar mensaje interesado" << endl << endl;
-    cout << "11-Enviar mensaje inmobiliaria" << endl << endl;
-    cout << "12-Obtener reporte de inmobiliaria" << endl << endl;
+    } while (opt != "1" && sistema->getLoggeado() != NULL);
+
+    Administrador* admin = (Administrador*) sistema->getLoggeado();
+    Inmobiliaria* inmo = (Inmobiliaria*) sistema->getLoggeado();
+    Interesado* interesado = (Interesado*) sistema->getLoggeado();
+
+    if(admin != NULL){
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Alta inmobiliaria" << endl;
+            cout << "3-Alta interesado" << endl;
+            cout << "4-Obtener reporte de inmobiliaria" << endl << endl;
+            cin >> opt;
+        } while(opt != "1" && opt != "2" && opt != "3"  && opt != "4");
+        if(opt == "1"){
+            sistema->cerrarSesion();
+        } else if(opt == "2"){
+      
+        } else if (opt == "3"){
+
+        } else if (opt == "4"){
+
+        } else {
+            throw invalid_argument("No se encontró una opción válida");
+        }
+    } else if(inmo != NULL) {
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Alta edificio" << endl;
+            cout << "3-Alta propiedad" << endl;
+            cout << "4-Consultar propiedad" << endl;
+            cout << "5-Modificar propiedad" << endl;
+            cout << "6-Eliminar propiedad" << endl;
+            cout << "7-Enviar mensaje inmobiliaria" << endl << endl;
+        } while(opt != "1" && opt != "2" && opt != "3" && opt != "4" && opt != "5" && opt != "6" && opt != "7");
+    } else if (interesado != NULL){
+        do{
+            system("clear");
+            cout << "Elija una función del sistema" << endl << endl;
+            cout << "1-Cerrar sesión" << endl;
+            cout << "2-Consultar propiedad" << endl;
+            cout << "3-Enviar mensaje interesado" << endl << endl;
+        } while(opt != "1" && opt != "2" && opt != "3");
+    }
 }
