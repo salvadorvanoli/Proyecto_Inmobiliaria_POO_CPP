@@ -112,6 +112,17 @@ void imprimirZonasDepto(ICollection * col){
     delete it;
 }
 
+void imprimirDepto(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTDepartamento * departamento;
+    while (it->hasCurrent()){
+        departamento = (DTDepartamento *) it->getCurrent();
+        cout << departamento << endl;
+        it->next();
+    }
+    delete it;
+}
+
 int main() {
     // Obtener la hora actual del sistema
     std::time_t t = std::time(nullptr);
@@ -301,6 +312,14 @@ void manejarAltaEdificio(Sistema * sistema){
     int cantPisos;
     int gastosComunes;
     Zona* zona;
+
+    char* opt;
+
+    cout << "Elija uno de los departamentos listados abajo" << endl;
+    imprimirDepto(sistema->listarDepartamentos());
+    cin >> opt;
+    Departamento * depto = sistema->elegirDepartamento(opt);
+
     cout << "Va a ingresar un edificio en el sistema" << endl << endl;
     cout << "Ingrese ahora un nombre para el edificio" << endl << endl;
     cin >> nombre;

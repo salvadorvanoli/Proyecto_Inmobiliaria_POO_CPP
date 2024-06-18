@@ -14,20 +14,6 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->zona = _zona;
 }
 
-int Propiedad::generarCodigoConversacion(){
-    IIterator * it = this->conversaciones->getIterator();
-    Conversacion * con = NULL;
-    while (it->hasCurrent()){
-        con = (Conversacion *) it->getCurrent();
-        it->next();
-    }
-    delete it;
-    if (con != NULL){
-        return con->getCodigoConversacion()+1;
-    }
-    return 1;
-}
-
 Propiedad :: ~Propiedad(){
     this->desvincularDeZona();
     this->destruirConversaciones();
@@ -182,9 +168,20 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
     // throw
 }
 
-// ICollection * Propiedad :: getUltimosMensajes(Conversacion * chat){
-//     return chat->getUltimosMensajes();
-// }
+ICollection * Propiedad :: getUltimosMensajes(char * email){
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        if (con->getInteresado()->getCorreoEletronico() == email){
+            delete it;
+            return con->getUltimosMensajes();
+        }
+        it->next();
+    }
+    delete it;
+    throw invalid_argument("No hay ninguna conversación registrada con ese Interesado en la Propiedad actual");
+}
 
 Conversacion * Propiedad::getConversacion(char * email){
     IIterator * it = this->conversaciones->getIterator();
@@ -208,7 +205,7 @@ ICollection * Propiedad::getUltimosMensajes(char * email){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
-    int clave = this->generarCodigoConversacion();
+    int clave = this->inmo->generarCodigoConversacion();
     IKey * key = new Integer(clave);
     Conversacion * c = new Conversacion(clave, interesado);
     if(!this->conversaciones->member(key)){
@@ -222,3 +219,17 @@ Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
     return NULL;
 }
 
+// Devuelve un ICollection que contiene un DTChatProp por cada conversación de la propiedad
+ICollection * Propiedad::listarConversaciones(){
+    ICollection * lista = new List();
+    IIterator * it = this->conversaciones->getIterator();
+    Conversacion * con = NULL;
+    ICollectible * item = NULL;
+    while (it->hasCurrent()){
+        con = (Conversacion *) it->getCurrent();
+        item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
+        lista->add(item);
+    }
+    delete it;
+    return lista;
+}

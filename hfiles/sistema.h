@@ -15,35 +15,35 @@ using namespace std;
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
-#include "../hfiles/administrador.h"
-#include "../hfiles/alquiler.h"
-#include "../hfiles/apartamento.h"
-#include "../hfiles/casa.h"
-#include "../hfiles/conversacion.h"
-#include "../hfiles/departamento.h"
-#include "../hfiles/dtchatprop.h"
-#include "../hfiles/dtdepartamento.h"
-#include "../hfiles/dtdir.h"
-#include "../hfiles/dtedificio.h"
-#include "../hfiles/dtestadoprop.h"
-#include "../hfiles/dtfecha.h"
-#include "../hfiles/dthora.h"
-#include "../hfiles/dtinmobiliaria.h"
-#include "../hfiles/dtlineareporte.h"
-#include "../hfiles/dtmensaje.h"
-#include "../hfiles/dtpropiedad.h"
-#include "../hfiles/dtpropiedaddetallada.h"
-#include "../hfiles/dtreporte.h"
-#include "../hfiles/dttipoprop.h"
-#include "../hfiles/dtzona.h"
-#include "../hfiles/edificio.h"
-#include "../hfiles/inmobiliaria.h"
-#include "../hfiles/interesado.h"
-#include "../hfiles/mensaje.h"
-#include "../hfiles/propiedad.h"
-#include "../hfiles/usuario.h"
-#include "../hfiles/venta.h"
-#include "../hfiles/zona.h"
+#include "administrador.h"
+#include "alquiler.h"
+#include "apartamento.h"
+#include "casa.h"
+#include "conversacion.h"
+#include "departamento.h"
+#include "dtchatprop.h"
+#include "dtdepartamento.h"
+#include "dtdir.h"
+#include "dtedificio.h"
+#include "dtestadoprop.h"
+#include "dtfecha.h"
+#include "dthora.h"
+#include "dtinmobiliaria.h"
+#include "dtlineareporte.h"
+#include "dtmensaje.h"
+#include "dtpropiedad.h"
+#include "dtpropiedaddetallada.h"
+#include "dtreporte.h"
+#include "dttipoprop.h"
+#include "dtzona.h"
+#include "edificio.h"
+#include "inmobiliaria.h"
+#include "interesado.h"
+#include "mensaje.h"
+#include "propiedad.h"
+#include "usuario.h"
+#include "venta.h"
+#include "zona.h"
 
 class Sistema{
     private:
@@ -51,6 +51,11 @@ class Sistema{
         IDictionary * departamentos;
         IDictionary * propiedades;
         Usuario * loggeado;
+        Departamento * departamentoActual;
+        Zona * zonaActual;
+        Edificio * edificioActual;
+        Propiedad * propiedadActual;
+        Conversacion * conversacionActual;
     public:
         void iniciarSesion(char*);
         bool crearContrasenia(string, string);
@@ -58,8 +63,8 @@ class Sistema{
         void cerrarSesion();
         ICollection * listarDepartamentos();
         bool elegirDepartamento(char *);
-        ICollection * listarZonasDepartamento(Departamento *);
-        bool elegirZona(Departamento *, int);
+        ICollection * listarZonasDepartamento();
+        bool elegirZona(int);
         void altaInmobiliaria(char*, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int, Zona*);
@@ -67,23 +72,25 @@ class Sistema{
         void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
         DTTipoProp modificarPropiedad(int);
-        void mensajeInmobiliaria(string, DTFecha *, Inmobiliaria *, Conversacion *);
+        // void mensajeInmobiliaria(string, DTFecha *);
         void eliminarPropiedad(int);
-        ICollection * listarPropiedades(Zona *);
-        DTPropiedadDetallada * verDetallesPropiedad(Zona *, int);
-        ICollection * listarChatProp(Zona *);
+        ICollection * listarPropiedades();
+        DTPropiedadDetallada * verDetallesPropiedad(int);
+        ICollection * listarChatProp();
+        ICollection * listarChatsInmo();
+        Conversacion * seleccionarConversacionInmo(int);
         // ICollection * seleccionarPropiedadMensajes(int, Zona *);
-        Propiedad * seleccionarPropiedad(int, Zona *);
-        Conversacion * getConversacion(Propiedad *);
-        ICollection * getUltimosMensajes(Conversacion *);
+        Propiedad * seleccionarPropiedad(int);
+        Conversacion * getConversacionInteresado();
+        ICollection * getUltimosMensajes();
         Propiedad * seleccionarPropiedadInmobiliaria(int);
         DTTipoProp getDTTipoPropInmo(int);
-        void modificarCasa(Casa *, int, int, int, bool, DTDir *, float, float);
-        void modificarApartamento(Apartamento *, int, int, int, bool, DTDir *, float);
-        Conversacion * nuevoChat(Propiedad *);
-        void nuevoMensaje(Conversacion *, string, DTFecha *);
-        int ponerEnVenta(float valor, Propiedad* p);
-        int ponerEnAlquiler(float valor, Propiedad* p);
+        void modificarCasa(int, int, int, bool, DTDir *, float, float);
+        void modificarApartamento(int, int, int, bool, DTDir *, float);
+        Conversacion * nuevoChat();
+        void nuevoMensaje(string, DTFecha *);
+        int ponerEnVenta(float valor);
+        int ponerEnAlquiler(float valor);
         // void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
         // void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
         void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*);
