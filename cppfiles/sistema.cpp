@@ -17,16 +17,44 @@ ICollection * Sistema::listarDepartamentos(){
     return departamentos;
 }
 
-ICollection * Sistema::seleccionarPropiedadMensajes(int codProp, Zona * zona){
+// ICollection * Sistema::seleccionarPropiedadMensajes(int codProp, Zona * zona){
     
-    if(zona->seleccionarPropiedad(codProp) != NULL){
-        Propiedad * prop = zona->seleccionarPropiedad(codProp);
-        return zona->getUltimosMensajes();
-    }
+//     if(zona->seleccionarPropiedad(codProp) != NULL){
+//         Propiedad * prop = zona->seleccionarPropiedad(codProp);
+//         return zona->getUltimosMensajes();
+//     }
+// }
+
+Propiedad * Sistema::seleccionarPropiedad(int codigoProp, Zona * zona){
+    return zona->seleccionarPropiedad(codigoProp);
 }
 
-void Sistema::nuevoChat(Propiedad * prop){
-    prop->nuevoChat();
+Conversacion * Sistema::getConversacion(Propiedad * prop){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Interesado * interesado = (Interesado *) this->loggeado;
+    if (interesado == NULL){
+        throw runtime_error("El usuario ingresado no es Interesado");
+    }
+    Conversacion * con = prop->getConversacion(this->loggeado->getCorreoEletronico());
+    return con;
+}
+
+ICollection * Sistema::getUltimosMensajes(Conversacion * conversacion){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Interesado * interesado = (Interesado *) this->loggeado;
+    if (interesado == NULL){
+        throw runtime_error("El usuario ingresado no es Interesado");
+    }
+    return conversacion->getUltimosMensajes();
+}
+
+Conversacion * Sistema::nuevoChat(Propiedad * prop){
+    Interesado * usuario = (Interesado *) this->loggeado;
+    return prop->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
 }
 
 void Sistema::nuevoMensaje(Conversacion * conver, string mensaje, DTFecha * fecha){
@@ -47,8 +75,19 @@ ICollection * Sistema::listarZonasDepartamento(Departamento * depa){
     return depa->listarZonasDepartamento();
 }
 
-ICollection * Sistema::listarChatProp(Zona * zona, char * email){
-    return zona->listarChatPropiedad(email);
+ICollection * Sistema::listarChatProp(Zona * zona){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Interesado * interesado = (Interesado *) this->loggeado;
+    if (interesado == NULL){
+        throw runtime_error("El usuario ingresado no es Interesado");
+    }
+    ICollection * lista = zona->listarChatPropiedad(this->loggeado->getCorreoEletronico());
+    if (lista->isEmpty()){
+        throw runtime_error("El usuario especificado no tiene conversaciones");
+    }
+    return lista;
 }
 
 bool Sistema::elegirZona(Departamento * depa, int codigo){
