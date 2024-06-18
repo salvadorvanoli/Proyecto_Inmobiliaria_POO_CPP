@@ -331,8 +331,14 @@ void manejarConsultarPropiedad(){
 
 }
 
-void modificarPropiedad(){
-
+void manejarmodificarPropiedad(Sistema sistema){
+    //feli
+    system("clear");
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema.getLoggeado();
+    if(inmo == NULL){
+        throw invalid_argument("El usuario no es inmobiliaria");
+    }
+    
 }
 
 void eliminarPropiedad(int){
@@ -344,7 +350,8 @@ void manejarEnviarMensajeInteresado(){
 }
 
 void manejarEnviarMensajeInmobiliaria(){
-
+    //feli
+    system("clear");
 }
 
 void manejarReporte(Sistema * sistema){

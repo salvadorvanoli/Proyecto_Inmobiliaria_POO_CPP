@@ -51,7 +51,6 @@ class Sistema{
         IDictionary * departamentos;
         IDictionary * propiedades;
         Usuario * loggeado;
-        
     public:
         void iniciarSesion(char*);
         bool crearContrasenia(string, string);
