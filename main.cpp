@@ -333,7 +333,7 @@ void manejarAltaEdificio(Sistema * sistema){
     cin >> optint;
 
     try{
-
+        sistema->elegirZona(optint);
     } catch(const exception& e){
         system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
@@ -359,7 +359,10 @@ void manejarAltaEdificio(Sistema * sistema){
     cin >> gastosComunes;
 
     try{
-        sistema->altaEdificio(nombre, cantPisos, gastosComunes, zona); // No sé de dónde sacar la zona
+        sistema->altaEdificio(nombre, cantPisos, gastosComunes, sistema->getZonaActual());
+        sistema->setDepartamentoActual(NULL);
+        sistema->setZonaActual(NULL);
+
     } catch (const exception& e){
         system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
