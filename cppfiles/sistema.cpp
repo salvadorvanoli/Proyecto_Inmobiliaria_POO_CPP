@@ -620,7 +620,7 @@ void Sistema:: AltaPropiedad() {
                     cout << "Ingresar metros cuadrados edificados:" << endl;
                     cin >> m2t;
                     system("clear");
-                    especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, edificio, zona);
+                    especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, this->edificioActual, this->zonaActual);
                 }
             }
             else if (opcion == 1) {
@@ -661,7 +661,7 @@ void Sistema:: AltaPropiedad() {
                 cout << "Ingresar metros cuadrados verdes:" << endl;
                 cin >> m2v;
                 system("clear");
-                especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, zona, m2v);
+                especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, this->zonaActual, m2v);
             }
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
