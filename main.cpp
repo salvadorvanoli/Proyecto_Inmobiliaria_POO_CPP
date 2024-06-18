@@ -402,9 +402,18 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
                 string mensaje;
                 cout<<"Ingrese el Mensaje"<<endl;
                 getline(cin, mensaje);
-                Conversacion * conver;
-    }
+                Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
+                IIterator *  it = sistema->getPropiedadActual()->getConversaciones();
+                bool encontro = false;
+                while(it->hasCurrent()){
+                    conver = (Conversacion *) it->getCurrent();
+                    if(conver->getInteresado() == sistema->getLoggeado()){
+                        conver->nuevoMensaje(fecha, mensaje);
+                        encontro = true;
+                        break;
+                    }
             }
+        }
             
 /*system("clear");
     ICollection * depar = sistema->listarDepartamentos(); 
@@ -443,6 +452,7 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
             }
         }
     }*/
+    }
 }
 
 void manejarEnviarMensajeInmobiliaria(){
