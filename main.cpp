@@ -327,6 +327,17 @@ void manejarAltaEdificio(Sistema * sistema){
    
     cout << "Elija una de las zonas listadas debajo" << endl;
     imprimirZonasDepto(sistema->getDepartamentoActual()->getZonas());
+    
+    int optint;
+
+    cin >> optint;
+
+    try{
+
+    } catch(const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+    }
 
     cout << "Elija uno de los departamentos listados abajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
