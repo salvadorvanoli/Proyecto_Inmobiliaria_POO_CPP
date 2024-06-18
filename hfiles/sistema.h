@@ -64,7 +64,7 @@ class Sistema{
         void altaInmobiliaria(char*, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int, Zona*);
-        void obtenerReporte();
+        ICollection* obtenerReporte();
         void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
         DTTipoProp modificarPropiedad(int);
@@ -97,6 +97,7 @@ class Sistema{
         void enlazarPropiedad(Propiedad *);
         void desvincularPropiedad(int);
         Usuario * getLoggeado();
+        IDictionary * getUsuarios();
 };
 
 #endif

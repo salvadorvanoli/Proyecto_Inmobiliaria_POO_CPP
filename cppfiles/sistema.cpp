@@ -292,7 +292,7 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona
 
 /* FUNCIONES PARA DAR UN REPORTE*/
 
-void Sistema::obtenerReporte(){
+ICollection * Sistema::obtenerReporte(){
     if(this->loggeado == NULL){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
@@ -314,6 +314,7 @@ void Sistema::obtenerReporte(){
         it->next();
     }
     delete it;
+    return reportes;
 }
 
 /* FIN DE LAS FUNCIONES PARA DAR UN REPORTE*/
@@ -632,4 +633,8 @@ void Sistema::desvincularPropiedad(int codigoProp){
 
 Usuario * Sistema::getLoggeado(){
     return this->loggeado;
+}
+
+IDictionary * Sistema::getUsuarios(){
+    return this->usuarios;
 }
