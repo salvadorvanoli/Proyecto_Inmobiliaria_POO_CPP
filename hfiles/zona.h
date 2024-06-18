@@ -58,17 +58,15 @@ class Zona : public ICollectible {
 
         void agregarEdificio(Edificio *);
         void quitarEdificio(int);
-        void agregarPropiedad(Propiedad *);
-        void quitarPropiedad(int);
         
         // Métodos de Zona (DCD)
 
         DTZona * getDTZona();
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
-        void enlazarPropiedad(Propiedad *);      // ES LO MISMO QUE AGREGAR PROPIEDAD
+        void enlazarPropiedad(Propiedad *);
         Casa * crearCasa(int, int, int, float, DTDir*, bool, float);
-        void desvincularPropiedad(Propiedad *);  // ES LO MISMO QUE QUITAR PROPIEDAD
+        void desvincularPropiedad(int);
         ICollection * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();

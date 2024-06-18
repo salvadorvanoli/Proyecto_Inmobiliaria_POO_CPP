@@ -1,23 +1,6 @@
-
+#include "../hfiles/sistema.h"
 #include <iostream>
 using namespace std;
-
-#include "../ICollection/interfaces/ICollectible.h"
-#include "../ICollection/interfaces/ICollection.h"
-#include "../ICollection/interfaces/OrderedKey.h"
-#include "../ICollection/interfaces/IKey.h"
-#include "../ICollection/interfaces/IDictionary.h"
-#include "../ICollection/interfaces/IIterator.h"
-#include "../ICollection/collections/List.h"
-#include "../ICollection/collections/OrderedDictionary.h"
-#include "../ICollection/interfaces/OrderedKey.h"
-#include "../ICollection/collections/List.h"
-#include "../ICollection/Integer.h"
-#include "../ICollection/String.h"
-#include "../hfiles/sistema.h"
-#include "../hfiles/departamento.h"
-#include "../hfiles/inmobiliaria.h"
-#include "../cppfiles/departamento.cpp"
 
 ICollection * Sistema::listarDepartamentos(){
     ICollection * departamentos = new List();
@@ -116,12 +99,24 @@ void Sistema::mensajeInteresado(Departamento * depa, Interesado * user, DTFecha 
 
 }
 
-DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
-//feli
-    IKey * key = new Integer(codigoProp);
-    Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
-    return p->getDTTipoProp();
+DTTipoProp Sistema::modificarPropiedad(int codigoProp){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    if (inmo == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    Propiedad * prop = inmo->seleccionarPropiedad(codigoProp);
+    
 }
+
+// DTTipoProp Sistema::modificarPropiedad(int codigoProp, Inmobiliaria * inmo){
+// //feli
+//     IKey * key = new Integer(codigoProp);
+//     Propiedad * p = (Propiedad *) inmo->getPropiedades()->find(key);
+//     return p->getDTTipoProp();
+// }
 
 void Sistema::mensajeInmobiliaria(string contenido, DTFecha * fecha, Inmobiliaria * inmo, Conversacion * c){
     //feli
@@ -323,25 +318,40 @@ int Sistema::ponerEnAlquiler(float valor, Propiedad* p) {
     return p->getCodigo();
 }
 
-
-
-void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
-    Apartamento* apartamento = (Apartamento*) propiedad;
-    apartamento = edificio->crearApartamento(cantAmb, cantBanos, cantDorm, garage, dir, m2e);
-    edificio->agregarApartamento(apartamento);
-    zona->agregarPropiedad(apartamento);
-    return;
-    //propiedad->vincularZona(zona); ??
-    //propiedad->vincularEdificio(edificio); ??
+void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona){
+    Apartamento * apartamento = NULL;
+    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
+    edificio->enlazarPropiedad(apartamento);
+    zona->enlazarPropiedad(apartamento);
+    this->enlazarPropiedad(apartamento);
+    //return apartamento
 }
 
-void Sistema::especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v, Propiedad* propiedad, Zona* zona) {
-    Casa* casa = (Casa*) propiedad;
-    casa = zona->crearCasa(cantAmb, cantBanos,cantDorm, garage,dir, m2e, m2v);
-    zona->agregarPropiedad(casa);
-    return;
-    //propiedad->vincularZona(zona) ??
+// void Sistema::especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona) {
+//     // Apartamento* apartamento = (Apartamento*) propiedad;
+//     apartamento = edificio->crearApartamento(cantAmb, cantBanos, cantDorm, garage, dir, m2e);
+//     edificio->enlazarPropiedad(apartamento);
+//     zona->agregarPropiedad(apartamento);
+//     return;
+//     //propiedad->vincularZona(zona); ??
+//     //propiedad->vincularEdificio(edificio); ??
+// }
+
+void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v){
+    Casa * casa = NULL;
+    casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
+    zona->enlazarPropiedad(casa);
+    this->enlazarPropiedad(casa);
+    //return casa;
 }
+
+// void Sistema::especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v, Propiedad* propiedad, Zona* zona) {
+//     Casa* casa = (Casa*) propiedad;
+//     casa = zona->crearCasa(cantAmb, cantBanos,cantDorm, garage,dir, m2e, m2v);
+//     zona->agregarPropiedad(casa);
+//     return;
+//     //propiedad->vincularZona(zona) ??
+// }
 
 
 ICollection* Sistema::listarEdificio(Zona * zona) {
@@ -380,13 +390,15 @@ void Sistema:: AltaPropiedad() { //sería para el main?
     cout << "Ingresar identificación del departamento:" << endl;
     cin >> letraDepa;
     system("clear");
-    if (elegirDepartamento(letraDepa, departamento)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
+    // if (elegirDepartamento(letraDepa, departamento)){
+    if (elegirDepartamento(letraDepa)){ //HABRIA QUE MODIFICAR elegirDepartamento. devuelve true si letraDepa existe y en ese caso incializa departamento
         ICollection * listaZonas = listarZonasDepartamento(departamento); //departamento lista sus zonas
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
         system("clear");
-        if(this->elegirZona(numZona, departamento, zona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
+        // if(this->elegirZona(numZona, departamento, zona)){ asi estaba antes
+        if(this->elegirZona(departamento, numZona)){ // HABRIA QUE MODIFICAR elegirZona. devuelve true si numZona existe en las zonas de departamento e inicializa zona
             cout << "Ingrese tipo de propiedad" << endl;
             cout << "1. Casa" << endl;
             cout << "2. Apartamento" << endl;
@@ -421,7 +433,8 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cin >> numEdificio;
                 system("clear");
                 if (seleccionarEdificio(numEdificio, zona, edificio)) { //devuelve true si el edificio existe e inicializa edificio
-                    int cantAmb, cantBanos, cantDorm, m2t, numero;
+                    int cantAmb, cantBanos, cantDorm, numero;
+                    float m2t;
                     string calle, ciudad;
                     bool garage = false;
                     int opcion;
@@ -458,7 +471,8 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 }
             }
             else if (opcion == 1) {
-                int cantAmb, cantBanos, cantDorm, m2e, numero, m2v;
+                int cantAmb, cantBanos, cantDorm, numero;
+                float m2v, m2e;
                 string ciudad, calle;
                 bool garage = false;
                 int opcion;
@@ -494,7 +508,7 @@ void Sistema:: AltaPropiedad() { //sería para el main?
                 cout << "Ingresar metros cuadrados verdes:" << endl;
                 cin >> m2v;
                 system("clear");
-                especificacionesCasa(cantAmb, cantBanos, cantDorm, garage, dir, m2e, m2v, propiedad, zona);
+                especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, zona, m2v);
             }
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
@@ -572,3 +586,31 @@ DTPropiedadDetallada * Sistema::verDetallesPropiedad(Zona * zona, int codigoProp
 }
 
 /* FIN DE FUNCIONES PARA CONSULTAR PROPIEDAD */
+
+/* OPERACIONES DEL SISTEMA (FUERA DE LOS DIAGRAMAS DE COMUNICACION) */
+
+void Sistema::enlazarPropiedad(Propiedad * propiedad){
+    IKey * nuevaKey = new Integer (propiedad->getCodigo());
+    if (!this->propiedades->member(nuevaKey)){
+        ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
+        this->propiedades->add(nuevaKey, nuevaPropiedad);
+        // this->cantPropiedades++;
+        cout << "La propiedad fue agregado exitosamente!" << endl;
+    } else {
+        delete nuevaKey;
+        throw invalid_argument("La propiedad ya fue agregado con anterioridad");
+    }
+}
+
+void Sistema::desvincularPropiedad(int codigoProp){
+    IKey * clave = new Integer (codigoProp);
+    if (this->propiedades->member(clave)){
+        this->propiedades->remove(clave);
+        // this->cantPropiedades--;
+        delete clave;
+        cout << "La propiedad fue removida de manera exitosa!" << endl;
+    } else {
+        delete clave;
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
+    }
+}

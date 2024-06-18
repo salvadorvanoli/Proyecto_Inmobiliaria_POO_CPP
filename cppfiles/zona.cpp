@@ -133,7 +133,7 @@ Edificio * Zona::seleccionarEdificio(int codigoEdificio){
 void Zona::enlazarPropiedad(Propiedad * propiedad){
     
     IKey * nuevaKey = new Integer (propiedad->getCodigo());
-    if (!this->edificios->member(nuevaKey)){
+    if (!this->propiedades->member(nuevaKey)){
         ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
         this->propiedades->add(nuevaKey, nuevaPropiedad);
         this->cantPropiedades++;
@@ -151,9 +151,9 @@ Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, f
 }
 
 // ES LO MISMO QUE QUITAR PROPIEDAD
-void Zona::desvincularPropiedad(Propiedad * propiedad){
+void Zona::desvincularPropiedad(int codigoProp){
 
-    IKey * clave = new Integer (propiedad->getCodigo());
+    IKey * clave = new Integer (codigoProp);
     if (this->propiedades->member(clave)){
         this->propiedades->remove(clave);
         this->cantPropiedades--;

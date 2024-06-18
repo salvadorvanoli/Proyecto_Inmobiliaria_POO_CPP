@@ -73,7 +73,7 @@ void Edificio::setZona(Zona * zona){
 
 // Agregar-Quitar
 
-void Edificio::agregarApartamento(Apartamento * apartamento){
+void Edificio::enlazarPropiedad(Apartamento * apartamento){
 
     IKey * nuevaKey = new Integer (apartamento->getCodigo());
     if (!this->apartamentos->member(nuevaKey)){
@@ -88,9 +88,9 @@ void Edificio::agregarApartamento(Apartamento * apartamento){
     // ES CON ICOLLECTION
 }
 
-void Edificio::quitarApartamento(int codigoApartamento){
+void Edificio::desvincularPropiedad(int codigo){
 
-    IKey * clave = new Integer (codigoApartamento);
+    IKey * clave = new Integer (codigo);
     if (this->apartamentos->member(clave)){
         this->apartamentos->remove(clave);
         delete clave;

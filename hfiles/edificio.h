@@ -50,14 +50,13 @@ class Edificio: public ICollectible {
 
         // Agregar-Quitar (Creo que esta mal)
 
-        void agregarApartamento(Apartamento *);
-        void quitarApartamento(int);
+        void enlazarPropiedad(Apartamento *);
 
         // Métodos de Edificio (DCD)
 
         DTEdificio * getDTEdifico();
         Apartamento * crearApartamento(int, int, int, float, DTDir *, bool);
-        void desvincularPropiedad(Apartamento *);
+        void desvincularPropiedad(int);
 };
 
 #endif

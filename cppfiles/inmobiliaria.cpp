@@ -186,3 +186,14 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     DTReporte * reporte = new DTReporte(inmo, lineas);
     return reporte;
 }
+
+Propiedad * Inmobiliaria::seleccionarPropiedad(int codigoProp){
+    IKey * key = new Integer(codigoProp);
+    Propiedad * prop = (Propiedad *) this->propiedades->find(key);
+    delete key;
+    if (prop != NULL){
+        return prop;
+    } else {
+        throw invalid_argument("La propiedad especificada no se encuentra en la inmobiliaria actual");
+    }
+}

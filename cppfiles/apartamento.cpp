@@ -20,7 +20,7 @@ Edificio * Apartamento::getEdificio(){
 }
 
 void Apartamento::desvincularDeEdificio(){
-    this->edificio->desvincularPropiedad(this);
+    this->edificio->desvincularPropiedad(this->getCodigo());
 }
 
 DTTipoProp Apartamento::getDTTipoProp(){

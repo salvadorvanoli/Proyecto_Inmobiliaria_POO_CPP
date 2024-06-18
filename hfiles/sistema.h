@@ -14,11 +14,36 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/interfaces/OrderedKey.h"
 #include "../ICollection/Integer.h"
-#include "../hfiles/inmobiliaria.h"
-#include "../hfiles/usuario.h"
+#include "../ICollection/String.h"
 #include "../hfiles/administrador.h"
-#include "../hfiles/interesado.h"
+#include "../hfiles/alquiler.h"
+#include "../hfiles/apartamento.h"
+#include "../hfiles/casa.h"
+#include "../hfiles/conversacion.h"
+#include "../hfiles/departamento.h"
+#include "../hfiles/dtchatprop.h"
+#include "../hfiles/dtdepartamento.h"
+#include "../hfiles/dtdir.h"
+#include "../hfiles/dtedificio.h"
+#include "../hfiles/dtestadoprop.h"
+#include "../hfiles/dtfecha.h"
+#include "../hfiles/dthora.h"
+#include "../hfiles/dtinmobiliaria.h"
+#include "../hfiles/dtlineareporte.h"
+#include "../hfiles/dtmensaje.h"
+#include "../hfiles/dtpropiedad.h"
 #include "../hfiles/dtpropiedaddetallada.h"
+#include "../hfiles/dtreporte.h"
+#include "../hfiles/dttipoprop.h"
+#include "../hfiles/dtzona.h"
+#include "../hfiles/edificio.h"
+#include "../hfiles/inmobiliaria.h"
+#include "../hfiles/interesado.h"
+#include "../hfiles/mensaje.h"
+#include "../hfiles/propiedad.h"
+#include "../hfiles/usuario.h"
+#include "../hfiles/venta.h"
+#include "../hfiles/zona.h"
 
 class Sistema{
     private:
@@ -43,7 +68,8 @@ class Sistema{
         void obtenerReporte();
         void altaPropiedad();
         void mensajeInteresado(Departamento *, Interesado *, DTFecha *);
-        DTTipoProp modificarPropiedad(int, Inmobiliaria *);
+        // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
+        DTTipoProp modificarPropiedad(int);
         void mensajeInmobiliaria(string, DTFecha *, Inmobiliaria *, Conversacion *);
         void eliminarPropiedad(int);
         ICollection * listarPropiedades(Zona *);
@@ -54,11 +80,18 @@ class Sistema{
         void nuevoMensaje(Conversacion *, string, DTFecha *);
         int ponerEnVenta(float valor, Propiedad* p);
         int ponerEnAlquiler(float valor, Propiedad* p);
-        void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
-        void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
+        // void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
+        // void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
+        void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*);
+        void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float);
         ICollection* listarEdificio(Zona * zona);
         bool seleccionarEdificio(int numEdificio, Zona* zona, Edificio* edificio);
         void AltaPropiedad();
+
+        // Operaciones del sistema (fuera de los diagramas de comunicacion)
+        void enlazarPropiedad(Propiedad *);
+        void desvincularPropiedad(int);
+
 };
 
 #endif

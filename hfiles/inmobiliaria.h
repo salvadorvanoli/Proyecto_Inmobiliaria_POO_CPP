@@ -78,6 +78,7 @@ class Inmobiliaria : public Usuario {
         void destruirVenta(Propiedad*);
         void destruirAlquiler(Propiedad*);
         DTReporte* obtenerReporteInmobiliaria();
+        Propiedad * seleccionarPropiedad(int);
 };
 
 #endif
