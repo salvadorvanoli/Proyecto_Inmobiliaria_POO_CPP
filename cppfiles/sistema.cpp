@@ -130,25 +130,7 @@ void Sistema::iniciarSesion(char* email){
     Usuario * user = (Usuario*) this->usuarios->find(key);
     delete key;
     if(user != NULL){
-        Administrador * esAdmin = (Administrador*) user;
-        Interesado * esInteresado = (Interesado*) user;
-        Inmobiliaria * esInmobiliaria = (Inmobiliaria*) user;
-        if(esAdmin != NULL){
-            this->tipoUsr = "Admin";
-            this->loggeado = esAdmin;
-        } else if(esInteresado != NULL) {
-            this->tipoUsr = "Interesado";
-            this->loggeado = esInteresado;
-        } else if(esInmobiliaria != NULL) {
-            this->tipoUsr = "Inmobiliaria";
-            this->loggeado = esInmobiliaria;
-        } else {
-            this->loggeado = NULL;
-            this->tipoUsr = "";
-            system("clear");
-            throw runtime_error("No se encuentra el tipo de usuario");
-            return;
-        }
+        this->loggeado = user;
         return;
     } else {
         system("clear");
@@ -161,7 +143,8 @@ bool Sistema::crearContrasenia(string pwd, string pwd2){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr == "Admin"){
+    Administrador * admin = (Administrador*) this->loggeado;
+    if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario administrador ya tiene una contraseña establecida, consulte con el encargado");
     }
@@ -201,7 +184,6 @@ void Sistema::cerrarSesion(){
         throw runtime_error("No hay un usuario en el sistema");
     } else {
         this->loggeado = NULL;
-        this->tipoUsr = "";
     }
     return;
 }
@@ -215,7 +197,8 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr != "Admin"){
+    Administrador * admin = (Administrador*) this->loggeado;
+    if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
@@ -240,7 +223,8 @@ void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr != "Admin"){
+    Administrador * admin = (Administrador*) this->loggeado;
+    if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
@@ -266,11 +250,12 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes, Zona
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr != "Inmobiliaria"){
+    Inmobiliaria * inmo = (Inmobiliaria*) this->loggeado;
+    if(inmo == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, zona); // NO SÉ QUÉ CÓDIGO PONERLE, PORQUE EN TEORÍA ES AUTOGENERADO
+    Edificio * ed = new Edificio(zona->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, zona);
     zona->agregarEdificio(ed);
     return true;
 }
@@ -284,7 +269,8 @@ void Sistema::obtenerReporte(){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr != "Admin"){
+    Administrador * admin = (Administrador*) this->loggeado;
+    if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
@@ -380,7 +366,8 @@ void Sistema:: AltaPropiedad() { //sería para el main?
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    if(this->tipoUsr != "Inmobiliaria"){
+    Inmobiliaria * inmo = (Inmobiliaria*) this->loggeado;
+    if(inmo == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
