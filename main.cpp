@@ -641,7 +641,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
     int optint;
 
     while (true){
-        cout << "Ingrese el código de la zona: ";
+        cout << "Ingrese el código de la zona: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
