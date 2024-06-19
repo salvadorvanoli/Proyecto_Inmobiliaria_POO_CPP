@@ -378,7 +378,7 @@ void manejarAltaEdificio(ISistema * sistema){
     }
 }
 
-void manejarAltaPropiedad(Sistema* s){
+void manejarAltaPropiedad(ISistema * s){
     system("cls");
 
     
