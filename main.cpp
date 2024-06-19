@@ -698,7 +698,25 @@ void manejarConsultarPropiedad(ISistema * sistema){
         }
 
         cout << "---Propiedad Detallada---" << endl << endl;
-        cout << sistema->verDetallesPropiedad(optint);
+        DTPropiedadDetallada * prop = sistema->verDetallesPropiedad(optint);
+
+        string garaje;
+        if (prop->getTieneGaraje()){
+            garaje = "Si";
+        } else {
+            garaje = "No";
+        }
+
+        string estado;
+        if (prop->getEstado() == DTEstadoProp::alquiler){
+            estado = "En alquiler";
+        } else if(prop->getEstado() == DTEstadoProp::venta) {
+            estado = "En venta";
+        } else {
+            estado = "En alquiler y en venta";
+        }
+
+        cout << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
         system("pause");
         system("cls");
 
@@ -1477,12 +1495,13 @@ int main() {
     
     Departamento * dep1 = new Departamento("A", "Canelones");
     Departamento * dep2 = new Departamento("S", "Montevideo");
-    // Departamento * dep3 = new Departamento()
+    Departamento * dep3 = new Departamento("M", "San Jose");
 
-    Zona* zona = new Zona(1, "Santa Lucia", "A");
-    ICollectible * zonacol = (ICollectible*) zona;
+    Zona* zona1 = new Zona(1, "Santa Lucia", "A");
+    Zona* zona2 = NULL;
+    ICollectible * zonacol = (ICollectible*) zona1;
     IKey * keyzona = new Integer(1);
-    dep1->getZonas()->add(keyzona, zona);
+    dep1->getZonas()->add(keyzona, zona1);
     IKey * keydepa = new String(dep1->getLetra());
     char* email = "s";
     sistema->getDepartamentos()->add(keydepa, dep1);
