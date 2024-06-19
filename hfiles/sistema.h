@@ -89,7 +89,7 @@ class Sistema{
         Conversacion * getConversacionInteresado();
         ICollection * getUltimosMensajes();
         Propiedad * seleccionarPropiedadInmobiliaria(int);
-        DTTipoProp getDTTipoPropInmo(int);
+        DTTipoProp getDTTipoProp();
         void modificarCasa(int, int, int, bool, DTDir *, float, float);
         void modificarApartamento(int, int, int, bool, DTDir *, float);
         Conversacion * nuevoChat();
