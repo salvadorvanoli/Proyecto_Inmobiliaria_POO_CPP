@@ -2,9 +2,8 @@
 using namespace std;
 
 #include "hfiles/sistema.h"
-#include <string>
+#include <string> 
 #include <ctime>
-
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
 // void iniciarSesion(){
@@ -1125,7 +1124,7 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
     IIterator *  it = (IIterator *) sistema->getPropiedadActual()->getConversaciones()->getIterator();
     bool encontro = false;
-    DTFecha * FECHA; //SUPONGAMOS Q ACA VA LA FECHA DE LA COMPU O LO Q SEA
+    DTFecha * FECHA = getDTFechaActual();
     while(it->hasCurrent()){
         conver = (Conversacion *) it->getCurrent();
         if(conver->getInteresado() == sistema->getLoggeado()){
