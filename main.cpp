@@ -139,7 +139,7 @@ void imprimirPropsDetalladas(ICollection * col){
     delete it;
 }
 
-void imprimirDTChatProps(ICollection * col){
+void imprimirDTChatProps(IDictionary * col){
     IIterator * it = col->getIterator();
     DTChatProp * dtchatprop;
     while (it->hasCurrent()){
@@ -516,7 +516,7 @@ void manejarAltaPropiedad(Sistema* s){
         system("cls");
         cout << "Ingresar si tiene garage:" << endl;
         cout << "1. Si" << endl;
-        cout << "2. No"; << endl;
+        cout << "2. No" << endl;
         cin >> opcion;
         system("cls");
         if (opcion == 1) 
@@ -1151,7 +1151,8 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
         return;
     }
 
-    ICollection * chatProp = sistema->listarChatProp();
+
+    IDictionary * chatProp = sistema->listarChatProp();
     int codProp;
     cout<<"Ingrese el codigo de la Propiedad"<<endl;
     cin >> codProp;
