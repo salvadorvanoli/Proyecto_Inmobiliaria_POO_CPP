@@ -364,7 +364,7 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
-    IKey * key = new String(email); // No sé cómo hacer que el nombre también sea una key
+    IKey * key = new String(email);
     if(this->usuarios->member(key)){
         delete key;
         throw invalid_argument("Ya existe un usuario con ese correo");

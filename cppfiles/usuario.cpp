@@ -42,6 +42,7 @@ void Usuario::agregarContrasenia(string contrasenia){
     if(this->primeraVez){
         if(contrasenia.length() >= 8){
             this->contrasenia = contrasenia;
+            this->primeraVez = false;
         } else {
             throw invalid_argument("La contraseña no supera el mínimo de caracteres");
         }
