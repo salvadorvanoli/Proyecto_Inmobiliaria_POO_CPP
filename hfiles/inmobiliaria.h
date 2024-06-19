@@ -86,6 +86,7 @@ class Inmobiliaria : public Usuario {
         // Funciones aparte
 
         int generarCodigoConversacion();
+        ICollection * listarPropiedades();
 };
 
 #endif

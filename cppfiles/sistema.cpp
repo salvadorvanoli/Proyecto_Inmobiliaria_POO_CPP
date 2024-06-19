@@ -27,6 +27,9 @@ ICollection * Sistema::listarDepartamentos(){
         it->next();
     }
     delete it;
+    if (departamentos->isEmpty()){
+        throw runtime_error("No hay Departamentos registrados en el sistema");
+    }
     return departamentos;
 }
 
@@ -125,7 +128,11 @@ ICollection * Sistema::listarChatsInmo(){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     // Podemos lanzar un error en caso de que la lista este vacía
-    return usuario->listarConversaciones();
+    ICollection * lista = usuario->listarConversaciones();
+    if (lista->isEmpty()){
+        throw runtime_error("La Inmobiliaria actual no tiene ninguna conversación relacionada");
+    }
+    return lista; 
 }
 
 Conversacion * Sistema::seleccionarConversacionInmo(int codigoCon){
@@ -156,7 +163,13 @@ bool Sistema::elegirDepartamento(char * letraDepartamento){
 }
 
 ICollection * Sistema::listarZonasDepartamento(){
-    return this->departamentoActual->listarZonasDepartamento();
+    if (this->departamentoActual == NULL){
+        throw runtime_error("No se eligió un Departamento previamente");
+    }
+    ICollection * zonas = this->departamentoActual->listarZonasDepartamento();
+    if (zonas->isEmpty()){
+        
+    }
 }
 
 ICollection * Sistema::listarChatProp(){
@@ -206,8 +219,13 @@ Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
-    this->propiedadActual = inmo->seleccionarPropiedad(codigoProp);
-    return this->propiedadActual;
+    try {
+        this->propiedadActual = inmo->seleccionarPropiedad(codigoProp);
+        return this->propiedadActual;
+    } catch(const std::exception& e) {
+        throw invalid_argument("La propiedad especificada no se encuentra en la Inmobiliaria actual");
+    }
+
 }
 
 DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
@@ -733,6 +751,7 @@ void Sistema::eliminarPropiedad(int codigoProp){
     IKey * key = new Integer(codigoProp);
     if (inmo->getPropiedades()->member(key)){
         Propiedad * prop = (Propiedad * ) inmo->getPropiedades()->find(key);
+        inmo->getPropiedades()->remove(key);
         delete key;
         // prop->desvincularDeZona();
         // Apartamento * ap = (Apartamento *) prop;
@@ -754,11 +773,32 @@ void Sistema::eliminarPropiedad(int codigoProp){
 /* FUNCIONES PARA CONSULTAR PROPIEDAD */
 
 ICollection * Sistema::listarPropiedades(){
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió un Departamento previamente");
+    }
     return this->zonaActual->listarPropiedades();
 }
 
+ICollection * Sistema::listarPropiedadesInmo(){
+    if (this->loggeado == NULL){
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    if (inmo == NULL){
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+    ICollection * lista = inmo->listarPropiedades();
+    if (lista->isEmpty()){
+        throw runtime_error("La Inmobiliaria actual no tiene ninguna propiedad en su posesión");
+    }
+}
+
 DTPropiedadDetallada * Sistema::verDetallesPropiedad(int codigoProp){
-    return this->zonaActual->verDetallesPropiedad(codigoProp);
+    try {
+        return this->zonaActual->verDetallesPropiedad(codigoProp);
+    } catch(const std::exception& e) {
+        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
+    }
 }
 
 /* FIN DE FUNCIONES PARA CONSULTAR PROPIEDAD */
