@@ -240,7 +240,7 @@ DTPropiedadDetallada * Zona::verDetallesPropiedad(int codigoProp){
     IKey * key = new Integer(codigoProp);
     Propiedad * prop;
     if (this->propiedades->member(key)){
-        prop = (Propiedad *) this->propiedades->find(key);
+        prop = dynamic_cast<Propiedad*> (this->propiedades->find(key)); // Cambie esto
         delete key;
         return prop->getDTPropiedadDetallada();
     } else {
