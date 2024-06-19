@@ -1243,6 +1243,7 @@ void menu(Sistema * sistema){
         bool sesionCorrecta;
         do{
             sesionCorrecta = manejarIniciarSesion(sistema);
+            system("pause");
         } while(!sesionCorrecta);
 
         if(sesionCorrecta){
