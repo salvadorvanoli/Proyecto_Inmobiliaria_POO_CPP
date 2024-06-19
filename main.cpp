@@ -698,7 +698,25 @@ void manejarConsultarPropiedad(ISistema * sistema){
         }
 
         cout << "---Propiedad Detallada---" << endl << endl;
-        cout << sistema->verDetallesPropiedad(optint);
+        DTPropiedadDetallada * prop = sistema->verDetallesPropiedad(optint);
+
+        string garaje;
+        if (prop->getTieneGaraje()){
+            garaje = "Si";
+        } else {
+            garaje = "No";
+        }
+
+        string estado;
+        if (prop->getEstado() == DTEstadoProp::alquiler){
+            estado = "En alquiler";
+        } else if(prop->getEstado() == DTEstadoProp::venta) {
+            estado = "En venta";
+        } else {
+            estado = "En alquiler y en venta";
+        }
+
+        cout << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
         system("pause");
         system("cls");
 
@@ -1134,101 +1152,151 @@ void manejarEliminarPropiedad(ISistema * sistema){
 
 }
 
+// TIENE QUE SER CON TODO TRY-CATCHS
 void manejarEnviarMensajeInteresado(ISistema * sistema){
     system("cls");
+
     try {
-
-        imprimirDepto(sistema->listarDepartamentos()); // Antes hacía un try-catch con esto
-
-        char * letraDepa = new char[100];
-        cout << "Ingrese la letra del Departamento: ";
-        cin >> letraDepa;
-
-        sistema->elegirDepartamento(letraDepa); // Antes hacía un try-catch con esto
-
-        system("cls");
-
-        imprimirZonasDepto(sistema->listarZonasDepartamento()); // Antes hacía un try-catch con esto
-
-        string opcion;
-        int numZona;
-
-        while (true){
-            cout << "Ingrese el codigo de la Zona: ";
-            cin >> opcion;
-            try {
-                numZona = stoi(opcion);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
-                system("pause");
-            }
-        }
-
-        system("cls");
-
-        sistema->elegirZona(numZona); // Antes hacía un try-catch con esto
-
-        imprimirDTChatProps(sistema->listarChatProp()); // Antes hacía un try-catch con esto
-
-        int codProp;
-
-        while (true){
-            cout << "Ingrese el codigo de la Propiedad: ";
-            cin >> opcion;
-            try {
-                codProp = stoi(opcion);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
-                system("pause");
-            }
-        }
-        
-        sistema->seleccionarPropiedad(codProp); // Antes hacía un try-catch con esto
-
-        Conversacion * conver;
-
-        try{
-            sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
-        } catch(const std::exception& e) {
-            sistema->nuevoChat();
-        }
-
-        system("cls");
-
-        cout << "---Ultimos mensajes---" << endl;
-        imprimirDTMensajes(sistema->getUltimosMensajes()); // Antes hacía un try-catch con esto
-
-        string mensaje;
-        do{
-            cin.ignore();
-            cout << "Ingrese un Mensaje no vacio" << endl;
-            getline(cin, mensaje);
-        } while(mensaje == ""); //agregar bucle en caso de q el mensaje sea vacio
-
-        DTFecha * FECHA = getDTFechaActual();
-        
-        sistema->nuevoMensaje(mensaje, FECHA);
-
-        system("cls");
-        cout << "El mensaje se envió de manera exitosa!" << endl;
-        system("pause");
-
-        // sistema->setConversacionActual(NULL); // No es necesario
-        // sistema->setDepartamentoActual(NULL);
-        // sistema->setEdificioActual(NULL);
-        // sistema->setPropiedadActual(NULL);
-        // sistema->setZonaActual(NULL);
-
+        imprimirDepto(sistema->listarDepartamentos());
     } catch(const std::exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    char * letraDepa = new char[100];
+    cout << "Ingrese la letra del Departamento: ";
+    cin >> letraDepa;
+
+    try {
+        sistema->elegirDepartamento(letraDepa);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+
+    try {
+        imprimirZonasDepto(sistema->listarZonasDepartamento());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    string opcion;
+    int numZona;
+
+    while (true){
+        cout << "Ingrese el codigo de la Zona: ";
+        cin >> opcion;
+        try {
+            numZona = stoi(opcion);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
+            system("pause");
+        }
+    }
+
+    system("cls");
+
+    try {
+        sistema->elegirZona(numZona);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    try {
+        imprimirDTChatProps(sistema->listarChatProp());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    int codProp;
+
+    while (true){
+        cout << "Ingrese el codigo de la Propiedad: ";
+        cin >> opcion;
+        try {
+            codProp = stoi(opcion);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
+            system("pause");
+        }
+    }
+    
+    try {
+        sistema->seleccionarPropiedad(codProp);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    Conversacion * conver;
+
+    try{
+        sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
+    } catch(const exception& e) {
+        sistema->nuevoChat();
+    }
+
+    system("cls");
+
+    cout << "---Ultimos mensajes---" << endl;
+
+    try {
+        imprimirDTMensajes(sistema->getUltimosMensajes());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    string mensaje;
+    do{
+        cin.ignore();
+        cout << "Ingrese un Mensaje no vacio" << endl;
+        getline(cin, mensaje);
+    } while(mensaje == ""); //agregar bucle en caso de q el mensaje sea vacio
+
+    DTFecha * FECHA = getDTFechaActual();
+    
+    try {
+        sistema->nuevoMensaje(mensaje, FECHA);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+    cout << "El mensaje se envió de manera exitosa!" << endl;
+    system("pause");
+
+    // sistema->setConversacionActual(NULL); // No es necesario
+    // sistema->setDepartamentoActual(NULL);
+    // sistema->setEdificioActual(NULL);
+    // sistema->setPropiedadActual(NULL);
+    // sistema->setZonaActual(NULL);
 
 }
 
@@ -1477,12 +1545,13 @@ int main() {
     
     Departamento * dep1 = new Departamento("A", "Canelones");
     Departamento * dep2 = new Departamento("S", "Montevideo");
-    // Departamento * dep3 = new Departamento()
+    Departamento * dep3 = new Departamento("M", "San Jose");
 
-    Zona* zona = new Zona(1, "Santa Lucia", "A");
-    ICollectible * zonacol = (ICollectible*) zona;
+    Zona* zona1 = new Zona(1, "Santa Lucia", "A");
+    Zona* zona2 = NULL;
+    ICollectible * zonacol = (ICollectible*) zona1;
     IKey * keyzona = new Integer(1);
-    dep1->getZonas()->add(keyzona, zona);
+    dep1->getZonas()->add(keyzona, zona1);
     IKey * keydepa = new String(dep1->getLetra());
     char* email = "s";
     sistema->getDepartamentos()->add(keydepa, dep1);
