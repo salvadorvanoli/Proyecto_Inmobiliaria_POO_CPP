@@ -649,7 +649,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     
     char* opt = new char[100];
 
-    cout << "Elija uno de los departamentos listados debabajo" << endl;
+    cout << "Elija uno de los departamentos listados debajo" << endl;
 
     try {
         imprimirDepto(sistema->listarDepartamentos());
@@ -1343,7 +1343,7 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     system("cls");
 
     try{
-        imprimirDTChatProps(sistema->listarChatProp());
+        imprimirDTChatProps(sistema->listarChatsInmo());
     } catch(const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
@@ -1604,7 +1604,16 @@ int main() {
     Zona* zona5 = new Zona(8, "Prado", "S");
     Zona* zona6 = new Zona(9, "Ciudad Vieja", "S");
 
-    ICollectible * zonacol = (ICollectible*) zona1;
+    ICollectible * zonacol1 = (ICollectible*) zona1;
+    ICollectible * zonacol2 = (ICollectible*) zona2;
+    ICollectible * zonacol3 = (ICollectible*) zona3;
+    ICollectible * zonacol4 = (ICollectible*) zona4;
+    ICollectible * zonacol5 = (ICollectible*) zona5;
+    ICollectible * zonacol6 = (ICollectible*) zona6;
+    ICollectible * zonacol4 = (ICollectible*) zona4;
+    ICollectible * zonacol5 = (ICollectible*) zona5;
+    ICollectible * zonacol6 = (ICollectible*) zona6;
+
     IKey * keyzona = new Integer(1);
     dep1->getZonas()->add(keyzona, zona1);
     IKey * keydepa = new String(dep1->getLetra());
