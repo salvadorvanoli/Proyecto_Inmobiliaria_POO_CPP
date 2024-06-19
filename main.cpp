@@ -381,6 +381,7 @@ void manejarConsultarPropiedad(){
 
 }
 
+//m2verdes, dormitorios y baños puede ser = 0 | ningun int o float puede ser menor a 0
 void manejarmodificarPropiedad(Sistema sistema){
     //feli
     system("clear");
@@ -398,6 +399,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("El codigo ingresado no es un numero");
     }
+    if(cod <= 0){
+        throw invalid_argument("Codigo no puede ser menor a 1");
+    }
     system("clear");
     IKey * key = new Integer(cod);
     if(inmo->getPropiedades()->isEmpty()){
@@ -409,10 +413,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     }
     delete key;
     sistema.setPropiedadActual(prop);
-    prop->getDTTipoProp(); //no  se si para que xd
-    Apartamento * apto = (Apartamento *) prop;
+    DTTipoProp tipoprop = prop->getDTTipoProp(); //no  se si para que xd
     int cantAmbiente, cantDormitorio, cantBanios;
-    float m2Edificios;
+    float m2Edificados;
     bool tieneGaraje;
     DTDir * direccion;
     cout<<"Ingrese la cantidad Ambiente"<<endl;
@@ -423,6 +426,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
     }
+    if(cantAmbiente <= 0){
+        throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+    }
     system("clear");
     cout<<"Ingrese la cantidad de Dormitorios"<<endl;
     getline(cin, linea);
@@ -431,6 +437,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     }
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(cantDormitorio <= -1){
+        throw invalid_argument("Cantidad de Dormitorios no puede ser menor a 0");
     }
     system("clear");
     cout<<"Ingrese la cantidad de Banios"<<endl;
@@ -441,14 +450,20 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
     }
+    if(cantBanios <= -1){
+        throw invalid_argument("Cantidad de Banios no puede ser menor a 0");
+    }
     system("clear");
     cout<<"Ingrese los m2 de Edificio"<<endl;
     getline(cin, linea);
     try{
-        m2Edificios = stof(linea);
+        m2Edificados = stof(linea);
     }
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(m2Edificados <= 0){
+        throw invalid_argument("los m2 edificados no pueden ser menor a 1");
     }
     system("clear");
     cout<<"¿La propiedad tiene garaje?"<<endl;
@@ -477,10 +492,13 @@ void manejarmodificarPropiedad(Sistema sistema){
     cout<<"ingresa el numero de direccion"<<endl;
     getline(cin, linea);
     try{
-        respuesta = stoi(linea);
+        numero = stoi(linea);
     }
     catch(const exception& e){
         throw invalid_argument("El numero ingresado no es un numero");
+    }
+    if(numero <= 0){
+        throw invalid_argument("El codigo de direccion no puede ser menor a 1");
     }
     system("clear");
     cout<<"ingresa la calle de la direccion"<<endl;
@@ -492,14 +510,7 @@ void manejarmodificarPropiedad(Sistema sistema){
     ciudad = linea;
     system("clear");
     DTDir * dir = new DTDir(calle, numero, calle);
-    prop->setCantAmbiente(cantAmbiente);
-    prop->setCantDormitorios(cantDormitorio);
-    prop->setCantBanios(cantBanios);
-    prop->setM2Edificios(m2Edificios);
-    prop->setTieneGaraje(tieneGaraje);
-    prop->setDireccion(dir);
-    if(apto == NULL){
-        delete apto;
+    if(tipoprop == DTTipoProp::casa){
         int m2Verdes;
         cout<<"Ingrese los m2 Verdes"<<endl;
         getline(cin, linea);
@@ -509,9 +520,27 @@ void manejarmodificarPropiedad(Sistema sistema){
         catch(const exception& e){
             throw invalid_argument("La cantidad ingresada no es un numero");
         }
+        if(m2Verdes <= 0){
+            throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+        }
         system("clear");
+        sistema.modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
         return;
     }
+    int m2Totales;
+    cout<<"Ingrese los m2 Totales"<<endl;
+    getline(cin, linea);
+    try{
+        m2Totales = stof(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(m2Totales <= 0){
+        throw invalid_argument("Los m2 totales no puede ser menor a 1");
+    }
+    system("clear");
+    sistema.modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
 void eliminarPropiedad(int){
