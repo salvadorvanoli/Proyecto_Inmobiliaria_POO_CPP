@@ -83,7 +83,7 @@ class Sistema : public ISistema{
         ICollection * listarPropiedadesInmo();
         DTPropiedadDetallada * verDetallesPropiedad(int);
         IDictionary * listarChatProp();
-        ICollection * listarChatsInmo();
+        IDictionary * listarChatsInmo();
         Conversacion * seleccionarConversacionInmo(int);
         // ICollection * seleccionarPropiedadMensajes(int, Zona *);
         Propiedad * seleccionarPropiedad(int);

@@ -81,7 +81,7 @@ class ISistema{
         virtual ICollection * listarPropiedadesInmo() = 0;
         virtual DTPropiedadDetallada * verDetallesPropiedad(int) = 0;
         virtual IDictionary * listarChatProp();
-        virtual ICollection * listarChatsInmo();
+        virtual IDictionary * listarChatsInmo();
         virtual Conversacion * seleccionarConversacionInmo(int) = 0;
         virtual Propiedad * seleccionarPropiedad(int) = 0;
         virtual Conversacion * getConversacionInteresado() = 0;

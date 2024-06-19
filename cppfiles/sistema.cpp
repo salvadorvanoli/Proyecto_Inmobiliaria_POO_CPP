@@ -85,7 +85,11 @@ ICollection * Sistema::getUltimosMensajes(){
     if (this->conversacionActual == NULL){
         throw runtime_error("No se eligió una conversación previamente");
     }
-    return this->conversacionActual->getUltimosMensajes();
+    ICollection * mensajes = this->conversacionActual->getUltimosMensajes();
+    if (mensajes->isEmpty()){
+        throw runtime_error("Esta conversación esta vacía");
+    }
+    return mensajes;
 }
 
 Conversacion * Sistema::nuevoChat(){
@@ -119,7 +123,7 @@ void Sistema::nuevoMensaje(string mensaje, DTFecha * fecha){
     // this->conversacionActual = NULL;
 }
 
-ICollection * Sistema::listarChatsInmo(){
+IDictionary * Sistema::listarChatsInmo(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -128,7 +132,7 @@ ICollection * Sistema::listarChatsInmo(){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     // Podemos lanzar un error en caso de que la lista este vacía
-    ICollection * lista = usuario->listarConversaciones();
+    IDictionary * lista = usuario->listarConversaciones();
     if (lista->isEmpty()){
         throw runtime_error("La Inmobiliaria actual no tiene ninguna conversación relacionada");
     }
