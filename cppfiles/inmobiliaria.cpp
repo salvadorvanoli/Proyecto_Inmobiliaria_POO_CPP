@@ -205,11 +205,13 @@ Propiedad * Inmobiliaria::seleccionarPropiedad(int codigoProp){
 }
 
 // Devuelve un ICollection que contiene un DTChatProp por cada conversación de cada propiedad relacionada
-ICollection * Inmobiliaria::listarConversaciones(){
-    ICollection * lista = new List();
+IDictionary * Inmobiliaria::listarConversaciones(){
+    IDictionary * lista = new OrderedDictionary();
     IIterator * it = this->propiedades->getIterator();
+    OrderedKey * key = NULL;
     Propiedad * prop = NULL;
-    ICollection * col = NULL;
+    DTChatProp * dtchat = NULL;
+    IDictionary * col = NULL;
     ICollectible * item = NULL;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
@@ -217,7 +219,9 @@ ICollection * Inmobiliaria::listarConversaciones(){
         IIterator * aux = col->getIterator();
         while (aux->hasCurrent()){
             item = aux->getCurrent();
-            lista->add(item);
+            dtchat = (DTChatProp *) item;
+            key = new Integer(dtchat->getValorKey());
+            lista->add(key, item);
             aux->next();
         }
         delete aux;
