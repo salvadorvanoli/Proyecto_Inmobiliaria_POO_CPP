@@ -517,7 +517,7 @@ void manejarAltaPropiedad(Sistema* s){
         system("cls");
         cout << "Ingresar si tiene garage:" << endl;
         cout << "1. Si" << endl;
-        cout << "2. No";
+        cout << "2. No"; << endl;
         cin >> opcion;
         system("cls");
         if (opcion == 1) 
@@ -586,8 +586,8 @@ void manejarAltaPropiedad(Sistema* s){
                 cout << "Ingrese metros cuadrados verdes" << endl << endl;
                 cin >> m2v;
             } while(m2v < 0);
-            system("cls");
-            s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
+                system("cls");
+                s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
             }
 
 
