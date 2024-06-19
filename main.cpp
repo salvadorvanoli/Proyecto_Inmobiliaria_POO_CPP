@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "hfiles/sistema.h"
+#include "hfiles/sistemafactory.h"
 #include <string> 
 #include <ctime>
 
@@ -169,7 +170,7 @@ DTFecha * getDTFechaActual(){
     return new DTFecha(dia, mes, anio, dthora);
 }
 
-bool manejarIniciarSesion(Sistema * sistema){
+bool manejarIniciarSesion(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     bool emailCorrecto;
@@ -222,7 +223,7 @@ bool manejarIniciarSesion(Sistema * sistema){
     }
 }
 
-void manejarAltaInmobiliaria(Sistema * sistema){
+void manejarAltaInmobiliaria(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     string nombre;
@@ -271,7 +272,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
 }
 
 
-void manejarAltaInteresado(Sistema * sistema){
+void manejarAltaInteresado(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     string nombre;
@@ -311,7 +312,7 @@ void manejarAltaInteresado(Sistema * sistema){
     }
 }
 
-void manejarAltaEdificio(Sistema * sistema){
+void manejarAltaEdificio(ISistema * sistema){
     system("cls");
     string nombre;
     int cantPisos;
@@ -615,7 +616,7 @@ void manejarAltaPropiedad(Sistema* s){
     s->setEdificioActual(NULL);
 }
 
-void manejarConsultarPropiedad(Sistema * sistema){
+void manejarConsultarPropiedad(ISistema * sistema){
     system("cls");
     char* opt = new char[100];
 
@@ -695,7 +696,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
 
 }
 
-// void manejarModificarPropiedad(Sistema * sistema){
+// void manejarModificarPropiedad(ISistema * sistema){
 //     //feli
 //     system("cls");
 //     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
@@ -856,7 +857,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
 //     sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
 // }
 
-void manejarModificarPropiedad(Sistema * sistema){
+void manejarModificarPropiedad(ISistema * sistema){
     //vale
     system("cls");
 
@@ -1082,7 +1083,7 @@ void manejarModificarPropiedad(Sistema * sistema){
     }
 }
 
-void manejarEliminarPropiedad(Sistema * sistema){
+void manejarEliminarPropiedad(ISistema * sistema){
     system("cls");
     ICollection * props = sistema->listarPropiedadesInmo();
     cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
@@ -1115,7 +1116,7 @@ void manejarEliminarPropiedad(Sistema * sistema){
     }
 }
 
-void manejarEnviarMensajeInteresado(Sistema * sistema){
+void manejarEnviarMensajeInteresado(ISistema * sistema){
     system("cls");
     ICollection * depar = sistema->listarDepartamentos();
     char * letraDepa;
@@ -1191,7 +1192,7 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
 }
 
 
-void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
+void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     //feli
     system("cls");
 
@@ -1249,7 +1250,7 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
 
 }
 
-void manejarReporte(Sistema * sistema){
+void manejarReporte(ISistema * sistema){
     system("cls");
     ICollection * reportes;
     try {
@@ -1280,7 +1281,7 @@ void manejarReporte(Sistema * sistema){
     }
 }
 
-void menu(Sistema * sistema){
+void menu(ISistema * sistema){
     string opt;
     do{
 
@@ -1429,7 +1430,7 @@ void menu(Sistema * sistema){
 
 int main() {
 
-    Sistema * sistema = new Sistema();
+    ISistema * sistema = (new Factory())->getISistema();
     
     Zona* zona = new Zona(1, "santa", "c");
     ICollectible * zonacol = (ICollectible*) zona;

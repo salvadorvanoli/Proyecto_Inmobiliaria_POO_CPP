@@ -44,8 +44,9 @@ using namespace std;
 #include "usuario.h"
 #include "venta.h"
 #include "zona.h"
+#include "isistema.h"
 
-class Sistema{
+class Sistema : public ISistema{
     private:
         IDictionary * usuarios;
         IDictionary * departamentos;
