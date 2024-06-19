@@ -1282,25 +1282,29 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
         return;
     }
 
-    Conversacion * conver;
-
-    try{
-        sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
-    } catch(const exception& e) {
+    Conversacion * cons = sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
+    if (cons == NULL){
         sistema->nuevoChat();
     }
 
     system("cls");
 
-    cout << "---Ultimos mensajes---" << endl;
+    ICollection * col;
 
     try {
-        imprimirDTMensajes(sistema->getUltimosMensajes());
-    } catch(const std::exception& e) {
+        col = sistema->getUltimosMensajes();
+    } catch(const exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
+    }
+
+    if (!col->isEmpty()){
+        cout << "---Ultimos mensajes---" << endl;
+        imprimirDTMensajes(col);
+    } else {
+        cout << "No hay mensajes anteriores para mostrar";
     }
 
     string mensaje;
@@ -1585,8 +1589,21 @@ int main() {
     Departamento * dep2 = new Departamento("S", "Montevideo");
     Departamento * dep3 = new Departamento("M", "San Jose");
 
+    // Zonas de dep1
     Zona* zona1 = new Zona(1, "Santa Lucia", "A");
-    Zona* zona2 = NULL;
+    Zona* zona2 = new Zona(2, "Canelones", "A");
+    Zona* zona3 = new Zona(3, "Juanico", "A");
+
+    // Zonas de dep2
+    Zona* zona4 = new Zona(4, "Malvin Norte", "S");
+    Zona* zona5 = new Zona(5, "Prado", "S");
+    Zona* zona6 = new Zona(6, "Ciudad Vieja", "S");
+
+    // Zonas de dep3
+    Zona* zona4 = new Zona(7, "Malvin Norte", "S");
+    Zona* zona5 = new Zona(8, "Prado", "S");
+    Zona* zona6 = new Zona(9, "Ciudad Vieja", "S");
+
     ICollectible * zonacol = (ICollectible*) zona1;
     IKey * keyzona = new Integer(1);
     dep1->getZonas()->add(keyzona, zona1);

@@ -195,7 +195,7 @@ Conversacion * Propiedad::getConversacion(char * email){
         it->next();
     }
     delete it;
-    throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
+    return NULL;
 }
 
 //crea una conversacion y la añade a la coleccion
