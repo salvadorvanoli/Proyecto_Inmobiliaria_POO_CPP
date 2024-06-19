@@ -20,6 +20,7 @@ using namespace std;
 #include "hfiles/zona.h"
 #include "hfiles/sistema.h"
 #include <string>
+#include <ctime>
 
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
@@ -99,8 +100,6 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
     }
 
 }*/
-
-#include <ctime>
 
 void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();
@@ -568,10 +567,10 @@ void manejarConsultarPropiedad(){
 
 }
 
-void manejarmodificarPropiedad(Sistema sistema){
+void manejarmodificarPropiedad(Sistema * sistema){
     //feli
     system("clear");
-    Inmobiliaria * inmo = (Inmobiliaria *) sistema.getLoggeado();
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
     if(inmo == NULL){
         throw invalid_argument("El usuario logeado no es Inmobiliaria");
     }
@@ -585,6 +584,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("El codigo ingresado no es un numero");
     }
+    if(cod <= 0){
+        throw invalid_argument("Codigo no puede ser menor a 1");
+    }
     system("clear");
     IKey * key = new Integer(cod);
     if(inmo->getPropiedades()->isEmpty()){
@@ -595,11 +597,10 @@ void manejarmodificarPropiedad(Sistema sistema){
         throw invalid_argument("No existe una Propiedad con ese codigo");
     }
     delete key;
-    sistema.setPropiedadActual(prop);
-    prop->getDTTipoProp(); //no  se si para que xd
-    Apartamento * apto = (Apartamento *) prop;
+    sistema->setPropiedadActual(prop);
+    DTTipoProp tipoprop = prop->getDTTipoProp(); 
     int cantAmbiente, cantDormitorio, cantBanios;
-    float m2Edificios;
+    float m2Edificados;
     bool tieneGaraje;
     DTDir * direccion;
     cout<<"Ingrese la cantidad Ambiente"<<endl;
@@ -610,6 +611,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
     }
+    if(cantAmbiente <= 0){
+        throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+    }
     system("clear");
     cout<<"Ingrese la cantidad de Dormitorios"<<endl;
     getline(cin, linea);
@@ -618,6 +622,9 @@ void manejarmodificarPropiedad(Sistema sistema){
     }
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(cantDormitorio <= -1){
+        throw invalid_argument("Cantidad de Dormitorios no puede ser menor a 0");
     }
     system("clear");
     cout<<"Ingrese la cantidad de Banios"<<endl;
@@ -628,14 +635,20 @@ void manejarmodificarPropiedad(Sistema sistema){
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
     }
+    if(cantBanios <= -1){
+        throw invalid_argument("Cantidad de Banios no puede ser menor a 0");
+    }
     system("clear");
     cout<<"Ingrese los m2 de Edificio"<<endl;
     getline(cin, linea);
     try{
-        m2Edificios = stof(linea);
+        m2Edificados = stof(linea);
     }
     catch(const exception& e){
         throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(m2Edificados <= 0){
+        throw invalid_argument("los m2 edificados no pueden ser menor a 1");
     }
     system("clear");
     cout<<"¿La propiedad tiene garaje?"<<endl;
@@ -664,10 +677,13 @@ void manejarmodificarPropiedad(Sistema sistema){
     cout<<"ingresa el numero de direccion"<<endl;
     getline(cin, linea);
     try{
-        respuesta = stoi(linea);
+        numero = stoi(linea);
     }
     catch(const exception& e){
         throw invalid_argument("El numero ingresado no es un numero");
+    }
+    if(numero <= 0){
+        throw invalid_argument("El codigo de direccion no puede ser menor a 1");
     }
     system("clear");
     cout<<"ingresa la calle de la direccion"<<endl;
@@ -679,14 +695,7 @@ void manejarmodificarPropiedad(Sistema sistema){
     ciudad = linea;
     system("clear");
     DTDir * dir = new DTDir(calle, numero, calle);
-    prop->setCantAmbiente(cantAmbiente);
-    prop->setCantDormitorios(cantDormitorio);
-    prop->setCantBanios(cantBanios);
-    prop->setM2Edificios(m2Edificios);
-    prop->setTieneGaraje(tieneGaraje);
-    prop->setDireccion(dir);
-    if(apto == NULL){
-        delete apto;
+    if(tipoprop == DTTipoProp::casa){
         int m2Verdes;
         cout<<"Ingrese los m2 Verdes"<<endl;
         getline(cin, linea);
@@ -696,9 +705,27 @@ void manejarmodificarPropiedad(Sistema sistema){
         catch(const exception& e){
             throw invalid_argument("La cantidad ingresada no es un numero");
         }
+        if(m2Verdes <= -1){
+            throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+        }
         system("clear");
+        sistema->modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
         return;
     }
+    int m2Totales;
+    cout<<"Ingrese los m2 Totales"<<endl;
+    getline(cin, linea);
+    try{
+        m2Totales = stof(linea);
+    }
+    catch(const exception& e){
+        throw invalid_argument("La cantidad ingresada no es un numero");
+    }
+    if(m2Totales <= 0){
+        throw invalid_argument("Los m2 totales no puede ser menor a 1");
+    }
+    system("clear");
+    sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
 void eliminarPropiedad(int){
@@ -753,9 +780,43 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     sistema->setZonaActual(NULL);
 }
 
-void manejarEnviarMensajeInmobiliaria(){
+void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     //feli
     system("clear");
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
+    sistema->listarChatProp();
+    cout<<"Ingrese codigo de la conversacion que desee seleccionar"<<endl;
+    string respuesta;
+    int codigo;
+    getline(cin, respuesta);
+    try{
+        codigo = stoi(respuesta);
+    }
+    catch(const exception& e){
+        throw invalid_argument("El codigo ingresado no es un numero");
+    }
+    Conversacion * conver = sistema->seleccionarConversacionInmo(codigo);
+    cout<<"ingresa el contenido del Mensaje"<<endl;
+    getline(cin, respuesta);
+
+    time_t t = std::time(nullptr);
+    tm* now = std::localtime(&t);
+
+    // Obtener el día, mes y año actuales
+    int dia = now->tm_mday;
+    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
+    int anio = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+
+    // Obtener la hora, minuto y segundo actuales
+    int hora = now->tm_hour;
+    int minuto = now->tm_min;
+    int segundo = now->tm_sec;
+
+    DTHora * dthora = new DTHora(hora, minuto, segundo);
+    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
+    
+    DTFecha * dtfecha = new DTFecha(day, month, year, dthora);
+    conver->nuevoMensaje(dtfecha, respuesta);
 }
 
 void manejarReporte(Sistema * sistema){
