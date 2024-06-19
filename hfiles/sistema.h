@@ -79,6 +79,7 @@ class Sistema{
         // void mensajeInmobiliaria(string, DTFecha *);
         void eliminarPropiedad(int);
         ICollection * listarPropiedades();
+        ICollection * listarPropiedadesInmo();
         DTPropiedadDetallada * verDetallesPropiedad(int);
         ICollection * listarChatProp();
         ICollection * listarChatsInmo();
