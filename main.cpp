@@ -185,6 +185,7 @@ bool manejarIniciarSesion(Sistema * sistema){
             system("cls");
             cout << "Error de ejecución: " << e.what() << endl;
             emailCorrecto = false;
+            system("pause");
         }
     } while(!emailCorrecto);
     if(sistema->getLoggeado()->getPrimeraVez() == true){
@@ -201,6 +202,7 @@ bool manejarIniciarSesion(Sistema * sistema){
         } catch (const exception& e){
             system("cls");
             cout << "Error de ejecución: " << e.what() << endl;
+            system("pause");
         }
     }
     system("cls");
@@ -214,6 +216,7 @@ bool manejarIniciarSesion(Sistema * sistema){
     } catch (const exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return false;
     }
 }
@@ -260,6 +263,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
     }
 }
 
@@ -298,6 +302,7 @@ void manejarAltaInteresado(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
     }
 }
 
@@ -316,7 +321,9 @@ void manejarAltaEdificio(Sistema * sistema){
     try{
         sistema->elegirDepartamento(opt);
     } catch(const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
    
@@ -331,7 +338,9 @@ void manejarAltaEdificio(Sistema * sistema){
         sistema->elegirZona(optint);
     } catch(const exception& e){
         system("cls");
-        cout << "Error de ejecución: " << e.what() << endl; // Faltó return
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
 
     cout << "Elija uno de los departamentos listados abajo" << endl; // ??? Dos veces preguntas por los departamentos
@@ -363,6 +372,7 @@ void manejarAltaEdificio(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
     }
 }
 
@@ -389,7 +399,9 @@ void manejarAltaPropiedad(Sistema* s){
     try{
         s->elegirDepartamento(opt);
     } catch(const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
     system("cls");
@@ -403,8 +415,10 @@ void manejarAltaPropiedad(Sistema* s){
     try{
         s->elegirZona(numZona);
     } catch(const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         s->setDepartamentoActual(NULL);
+        system("pause");
         return;
     }
 
@@ -459,9 +473,11 @@ void manejarAltaPropiedad(Sistema* s){
             try{
                 s->seleccionarEdificio(numEdificio); 
             } catch(const exception& e) {
+                system("cls");
                 cout << "Error de ejecución: " << e.what() << endl;
                 s->setDepartamentoActual(NULL);
                 s->setZonaActual(NULL);
+                system("pause");
             return;
             }
         }
@@ -635,7 +651,9 @@ void manejarConsultarPropiedad(Sistema * sistema){
             optint = stoi(optstr);
             break;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingrese un código de zona válido" << endl;
+            system("pause");
         }
     }
 
@@ -660,7 +678,9 @@ void manejarConsultarPropiedad(Sistema * sistema){
             optint = stoi(optstr);
             break;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+            system("pause");
         }
     }
 
@@ -857,7 +877,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             codigoProp = stoi(optstr);
             break;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+            system("pause");        
         }
     }
 
@@ -893,7 +915,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de ambientes válida (mayor a 0)" << endl;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            system("pause");
         }
     }
 
@@ -909,7 +933,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de dormitorios válida (0 o más)" << endl;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            system("pause");
         }
     }
 
@@ -925,7 +951,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de baños válida (0 o más)" << endl;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            system("pause");
         }
     }
 
@@ -941,7 +969,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             }
             cout << endl << "Por favor, ingresa una opción válida (1 o 2)" << endl;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa un valor numérico" << endl;
+            system("pause");
         }
     }
 
@@ -965,7 +995,9 @@ void manejarModificarPropiedad(Sistema * sistema){
             }
             cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa un valor numérico" << endl;
+            system("pause");
         }
     }
 
@@ -986,7 +1018,9 @@ void manejarModificarPropiedad(Sistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
             } catch(const exception& e) {
+                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+                system("pause");
             }
         }
 
@@ -1014,7 +1048,9 @@ void manejarModificarPropiedad(Sistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
             } catch(const exception& e) {
+                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+                system("pause");
             }
         }
 
@@ -1030,7 +1066,9 @@ void manejarModificarPropiedad(Sistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor o igual a 0)" << endl;
             } catch(const exception& e) {
+                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+                system("pause");
             }
         }
 
@@ -1062,7 +1100,9 @@ void manejarEliminarPropiedad(Sistema * sistema){
             codigoNumerico = stoi(codigoProp);
             break;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingresa un código numérico" << endl;
+            system("pause");
         }
     }
     
@@ -1072,7 +1112,9 @@ void manejarEliminarPropiedad(Sistema * sistema){
         cout << "La propiedad fue removida exitosamente!" << endl;
         system("pause");
     } catch(const exception& e) {
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
 }
@@ -1088,7 +1130,9 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
         sistema->elegirDepartamento(letraDepa);
          
     }catch(const exception& e){
+        system("cls");
         cout << "El Departamento ingresado no es valido." << endl;
+        system("pause");
         return;
     }
 
@@ -1100,7 +1144,9 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     try{
         sistema->elegirZona(numZona);
     }catch(const exception& e){
+        system("cls");
         cout << "La Zona ingresada no es valida." << endl;
+        system("pause");
         return;
     }
 
@@ -1111,7 +1157,9 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     try{
         sistema->seleccionarPropiedad(codProp);
     }catch(const exception& e){
+        system("cls");
         cout << "La zona ingresada no es valida." << endl;
+        system("pause");
         return;
     }
 
@@ -1170,7 +1218,9 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
             codigo = stoi(respuesta);
             break;
         } catch(const exception& e) {
+            system("cls");
             cout << endl << "Por favor, ingrese un código de coinversación válido" << endl;
+            system("pause");
         }
     }
 
@@ -1206,7 +1256,9 @@ void manejarReporte(Sistema * sistema){
     try {
         reportes = sistema->obtenerReporte();
     } catch (const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
     }
     int i = 1;
     IIterator * it = reportes->getIterator();
@@ -1304,7 +1356,9 @@ void menu(Sistema * sistema){
                 } else if (opt == "exit"){
                     return;
                 } else {
-                    throw invalid_argument("No se encontró una opción válida");
+                    system("cls");
+                    cout<<"No se encontró una opción válida"<<endl;
+                    system("pause");
                 }
             } else if (interesado != NULL){
                 do{
@@ -1325,7 +1379,9 @@ void menu(Sistema * sistema){
                 } else if (opt == "exit"){
                     return;
                 } else {
-                    throw invalid_argument("No se encontró una opción válida");
+                    system("cls");
+                    cout<<"No se encontró una opción válida"<<endl;
+                    system("pause");
                 }
             }
         }
