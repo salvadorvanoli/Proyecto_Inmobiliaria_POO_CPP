@@ -185,7 +185,6 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     for(int i=0; i<99; i++){
         if(zonas[i] != 0){
             DTLineaReporte * linea = new DTLineaReporte(zonas[i], departamentos[i], apartamentos[i], casas[i]);
-            system("pause");
             ICollectible * item = (ICollectible *) linea;
             lineas->add(item);
         } else {
