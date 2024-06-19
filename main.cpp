@@ -233,6 +233,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
     string ciudad;
     cout << "Va a ingresar un usuario inmobiliaria en el sistema" << endl << endl;
     cout << "Ingrese el email" << endl << endl;
+    cin >> email;
     IKey * key = new String(email);
     if(sistema->getUsuarios()->member(key)){
         cout << "Ya existe un usuario con ese correo" << endl;
