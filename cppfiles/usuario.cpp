@@ -50,3 +50,10 @@ void Usuario::agregarContrasenia(string contrasenia){
     }
 }
 
+void Usuario::setPrimeraVez(bool opt){
+    this->primeraVez = opt;
+}
+
+bool Usuario::getPrimeraVez(){
+    return this->primeraVez;
+}
