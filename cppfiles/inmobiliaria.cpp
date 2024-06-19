@@ -215,11 +215,7 @@ IDictionary * Inmobiliaria::listarConversaciones(){
     ICollectible * item = NULL;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
-<<<<<<< HEAD
         col = prop->listarConversaciones();
-=======
-        col =  prop->listarConversaciones();
->>>>>>> main
         IIterator * aux = col->getIterator();
         while (aux->hasCurrent()){
             item = aux->getCurrent();
