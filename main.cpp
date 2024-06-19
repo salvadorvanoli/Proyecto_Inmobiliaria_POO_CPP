@@ -1324,11 +1324,13 @@ void manejarReporte(ISistema * sistema){
         cout << "Inmobiliaria: " << reporte->getInmo() << endl << endl;
         IIterator * it2 = reporte->getLineas()->getIterator();
         while(it2->hasCurrent()){
-            DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
+            DTLineaReporte * linea = (DTLineaReporte*) it2->getCurrent();
+            // cout << linea << endl << endl;
             cout << "Departamento: " << linea->getLetraDep() << endl;
             cout << "Código de la zona: " << linea->getCodigoZona() << endl;
             cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
             cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
+            it2->next();
         }
         i++;
         it->next();

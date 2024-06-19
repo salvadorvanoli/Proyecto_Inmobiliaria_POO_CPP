@@ -162,9 +162,10 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
                 if(ca != NULL){
                     casas[i]++;
                 }
-                departamentos[i] = zona->getLetraDepa();
+                break;
             } else if(zonas[i] == 0){
                 zonas[i] = zona->getCodigo();
+                departamentos[i] = zona->getLetraDepa();
                 Apartamento * ap = dynamic_cast<Apartamento*>(prop);
                 Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
@@ -173,6 +174,7 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
                 if(ca != NULL){
                     casas[i]++;
                 }
+                break;
             }
         }
         it->next();
@@ -183,6 +185,7 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     for(int i=0; i<99; i++){
         if(zonas[i] != 0){
             DTLineaReporte * linea = new DTLineaReporte(zonas[i], departamentos[i], apartamentos[i], casas[i]);
+            system("pause");
             ICollectible * item = (ICollectible *) linea;
             lineas->add(item);
         } else {
