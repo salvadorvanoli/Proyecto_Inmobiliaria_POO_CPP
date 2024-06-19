@@ -81,7 +81,7 @@ class Sistema{
         ICollection * listarPropiedades();
         ICollection * listarPropiedadesInmo();
         DTPropiedadDetallada * verDetallesPropiedad(int);
-        ICollection * listarChatProp();
+        IDictionary * listarChatProp();
         ICollection * listarChatsInmo();
         Conversacion * seleccionarConversacionInmo(int);
         // ICollection * seleccionarPropiedadMensajes(int, Zona *);

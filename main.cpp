@@ -165,9 +165,8 @@ DTFecha * getDTFechaActual(){
     int segundo = now->tm_sec;
 
     DTHora * dthora = new DTHora(hora, minuto, segundo);
-    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
     
-    return new DTFecha(day, month, year, dthora);
+    return new DTFecha(dia, mes, anio, dthora);
 }
 
 bool manejarIniciarSesion(Sistema * sistema){

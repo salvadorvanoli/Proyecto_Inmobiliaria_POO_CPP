@@ -173,7 +173,7 @@ ICollection * Sistema::listarZonasDepartamento(){
     return zonas;
 }
 
-ICollection * Sistema::listarChatProp(){
+IDictionary * Sistema::listarChatProp(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
@@ -181,7 +181,7 @@ ICollection * Sistema::listarChatProp(){
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
-    ICollection * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
+    IDictionary * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
     if (lista->isEmpty()){
         throw runtime_error("El usuario especificado no tiene conversaciones");
     }
@@ -512,6 +512,7 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
     edificio->enlazarPropiedad(apartamento);
     zona->enlazarPropiedad(apartamento);
     this->enlazarPropiedad(apartamento);
+    this->propiedadActual = apartamento;
     //return apartamento
 }
 
@@ -523,6 +524,7 @@ void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, boo
     casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
     zona->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
+    this->propiedadActual = casa;
     //return casa;
 }
 
@@ -812,7 +814,7 @@ void Sistema::enlazarPropiedad(Propiedad * propiedad){
         ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
         this->propiedades->add(nuevaKey, nuevaPropiedad);
         // this->cantPropiedades++;
-        cout << "La propiedad fue agregado exitosamente!" << endl;
+        // cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
         throw invalid_argument("La propiedad ya fue agregado con anterioridad");

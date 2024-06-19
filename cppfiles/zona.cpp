@@ -71,7 +71,7 @@ void Zona::agregarEdificio(Edificio * edificio){
         ICollectible * nuevoEdificio = (ICollectible *) edificio;
         this->edificios->add(nuevaKey, nuevoEdificio);
         this->cantEdificios++;
-        cout << "El edificio fue agregado exitosamente!" << endl;
+        // cout << "El edificio fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
         throw invalid_argument("El edificio ya fue agregado con anterioridad");
@@ -87,7 +87,7 @@ void Zona::quitarEdificio(int codigoEdificio){
         this->edificios->remove(clave);
         this->cantEdificios--;
         delete clave;
-        cout << "El edificio fue removido de manera exitosa!" << endl;
+        // cout << "El edificio fue removido de manera exitosa!" << endl;
     } else {
         delete clave;
         throw invalid_argument("El edificio especificado no se encuentra en la zona actual");
@@ -138,7 +138,7 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
         ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
         this->propiedades->add(nuevaKey, nuevaPropiedad);
         this->cantPropiedades++;
-        cout << "La propiedad fue agregado exitosamente!" << endl;
+        // cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
         throw invalid_argument("La propiedad ya fue agregado con anterioridad");
@@ -159,7 +159,7 @@ void Zona::desvincularPropiedad(int codigoProp){
         this->propiedades->remove(clave);
         this->cantPropiedades--;
         delete clave;
-        cout << "La propiedad fue removida de manera exitosa!" << endl;
+        // cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
         delete clave;
         throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
@@ -167,18 +167,20 @@ void Zona::desvincularPropiedad(int codigoProp){
     // ES CON ICOLLECTION
 }
 
-ICollection * Zona::listarChatPropiedad(char * email){
+IDictionary * Zona::listarChatPropiedad(char * email){
     IIterator * it = this->propiedades->getIterator();
-    ICollection * lista = new List();
+    IDictionary * lista = new OrderedDictionary();
     Propiedad * prop;
     DTChatProp * dt;
+    OrderedKey * key;
     ICollectible * item;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
         dt = prop->getDTChatProp(email);
         if (dt != NULL){
+            key = new Integer (dt->getValorKey());
             item = (ICollectible *) dt;
-            lista->add(item);
+            lista->add(key, item);
         }
         it->next();
     }

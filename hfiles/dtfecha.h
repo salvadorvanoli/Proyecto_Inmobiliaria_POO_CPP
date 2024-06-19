@@ -10,17 +10,17 @@ class DTHora;
 
 class DTFecha{
     private:
-      string dia;
-      string mes;
-      string anio;
+      int dia;
+      int mes;
+      int anio;
       DTHora * hora;
     public:
       DTFecha();
-      DTFecha(string, string, string, DTHora *);
+      DTFecha(int, int, int, DTHora *);
       ~DTFecha();
-      string getDia();
-      string getMes();
-      string getAnio();
+      int getDia();
+      int getMes();
+      int getAnio();
       DTHora * getHora();
       friend ostream& operator << (ostream &, DTFecha *);
 };
