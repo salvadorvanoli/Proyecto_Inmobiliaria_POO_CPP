@@ -1290,6 +1290,12 @@ void menu(Sistema * sistema){
     do{
 
         do{
+            opt = "";
+            sistema->setConversacionActual(NULL);
+            sistema->setDepartamentoActual(NULL);
+            sistema->setEdificioActual(NULL);
+            sistema->setPropiedadActual(NULL);
+            sistema->setZonaActual(NULL);
             system("cls");
             cout << "Necesita iniciar sesión en el sistema" << endl << endl;
             cout << "1-Iniciar sesión" << endl;
@@ -1313,6 +1319,12 @@ void menu(Sistema * sistema){
                     do{
                         do{
                             system("cls");
+                            opt = "";
+                            sistema->setConversacionActual(NULL);
+                            sistema->setDepartamentoActual(NULL);
+                            sistema->setEdificioActual(NULL);
+                            sistema->setPropiedadActual(NULL);
+                            sistema->setZonaActual(NULL);
                             cout << "Elija una función del sistema" << endl << endl;
                             cout << "1-Cerrar sesión" << endl;
                             cout << "2-Alta inmobiliaria" << endl;
@@ -1341,6 +1353,12 @@ void menu(Sistema * sistema){
                     do{
                         do{
                             system("cls");
+                            opt = "";
+                            sistema->setConversacionActual(NULL);
+                            sistema->setDepartamentoActual(NULL);
+                            sistema->setEdificioActual(NULL);
+                            sistema->setPropiedadActual(NULL);
+                            sistema->setZonaActual(NULL);
                             cout << "Elija una función del sistema" << endl << endl;
                             cout << "1-Cerrar sesión" << endl;
                             cout << "2-Alta edificio" << endl;
@@ -1381,6 +1399,12 @@ void menu(Sistema * sistema){
                     do{
                         do{
                             system("cls");
+                            opt = "";
+                            sistema->setConversacionActual(NULL);
+                            sistema->setDepartamentoActual(NULL);
+                            sistema->setEdificioActual(NULL);
+                            sistema->setPropiedadActual(NULL);
+                            sistema->setZonaActual(NULL);
                             cout << "Elija una función del sistema" << endl << endl;
                             cout << "1-Cerrar sesión" << endl;
                             cout << "2-Consultar propiedad" << endl;
