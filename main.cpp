@@ -569,7 +569,7 @@ void manejarAltaPropiedad(ISistema * s){
             system("cls");
             cout << "Ingresar si tiene garage:" << endl;
             cout << "1. Si" << endl;
-            cout << "2. No";
+            cout << "2. No" << endl;
             cin >> opcion;
             system("cls");
             if (opcion == 1) 
