@@ -569,7 +569,7 @@ void manejarAltaPropiedad(ISistema * s){
             system("cls");
             cout << "Ingresar si tiene garage:" << endl;
             cout << "1. Si" << endl;
-            cout << "2. No";
+            cout << "2. No" << endl;
             cin >> opcion;
             system("cls");
             if (opcion == 1) 
@@ -686,7 +686,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     imprimirProps(sistema->listarPropiedades());
 
     while (true){
-        cout << "Ingrese el código de la propiedad: ";
+        cout << "Ingrese el código de la propiedad: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
@@ -992,10 +992,10 @@ void manejarModificarPropiedad(ISistema * sistema){
     system("cls");
 
     cout << "Dirección de la propiedad" << endl << "Especifica la ciudad: ";
-    cin >> ciudad;
+    getline(cin, ciudad);
 
     cout << endl << "Especifica la calle: ";
-    cin >> calle;
+    getline(cin, calle);;
 
     cout << endl;
 
@@ -1135,37 +1135,74 @@ void manejarEliminarPropiedad(ISistema * sistema){
 
 void manejarEnviarMensajeInteresado(ISistema * sistema){
     system("cls");
-    ICollection * depar = sistema->listarDepartamentos();
-    char * letraDepa;
-    cout<<"Ingrese la letra del Departamento"<<endl;
-    cin >> letraDepa;
 
     try{
-        sistema->elegirDepartamento(letraDepa);
-         
-    }catch(const exception& e){
+        imprimirDepto(sistema->listarDepartamentos());
+    } catch(const exception& e){
         system("cls");
         cout << "El Departamento ingresado no es valido." << endl;
         system("pause");
         return;
     }
 
-    ICollection * zona = sistema->listarZonasDepartamento();
+    char * letraDepa;
+    cout << "Ingrese la letra del Departamento: ";
+    cin >> letraDepa;
+
+    try{
+        sistema->elegirDepartamento(letraDepa);
+    } catch(const exception& e){
+        system("cls");
+        cout << "El Departamento ingresado no es valido." << endl;
+        system("pause");
+        return;
+    }
+
+    try{
+        imprimirZonasDepto(sistema->listarZonasDepartamento());
+    } catch(const exception& e){
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    string opcion;
+
     int numZona;
-    cout<<"Ingrese el numero de la Zona"<<endl;
-    cin >> numZona;
+
+
+    while (true){
+        cout << "Ingrese el codigo de la Zona: ";
+        cin >> opcion;
+        try {
+            numZona = stoi(opcion);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
+            system("pause");
+        }
+    }
 
     try{
         sistema->elegirZona(numZona);
     }catch(const exception& e){
         system("cls");
-        cout << "La Zona ingresada no es valida." << endl;
+        cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
 
+    try{
+        imprimirDTChatProps(sistema->listarChatProp());
+    } catch(const exception& e){
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
 
-    IDictionary * chatProp = sistema->listarChatProp();
     int codProp;
     cout<<"Ingrese el codigo de la Propiedad"<<endl;
     cin >> codProp;
@@ -1234,7 +1271,7 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
             break;
         } catch(const exception& e) {
             system("cls");
-            cout << endl << "Por favor, ingrese un código de coinversación válido" << endl;
+            cout << endl << "Por favor, ingrese un código de conversación válido" << endl;
             system("pause");
         }
     }
