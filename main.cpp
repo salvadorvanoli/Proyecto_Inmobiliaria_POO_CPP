@@ -1600,9 +1600,9 @@ int main() {
     Zona* zona6 = new Zona(6, "Ciudad Vieja", "S");
 
     // Zonas de dep3
-    Zona* zona4 = new Zona(7, "Malvin Norte", "S");
-    Zona* zona5 = new Zona(8, "Prado", "S");
-    Zona* zona6 = new Zona(9, "Ciudad Vieja", "S");
+    Zona* zona7 = new Zona(7, "Malvin Norte", "S");
+    Zona* zona8 = new Zona(8, "Prado", "S");
+    Zona* zona9 = new Zona(9, "Ciudad Vieja", "S");
 
     ICollectible * zonacol1 = (ICollectible*) zona1;
     ICollectible * zonacol2 = (ICollectible*) zona2;
@@ -1613,6 +1613,9 @@ int main() {
     ICollectible * zonacol4 = (ICollectible*) zona4;
     ICollectible * zonacol5 = (ICollectible*) zona5;
     ICollectible * zonacol6 = (ICollectible*) zona6;
+    ICollectible * zonacol7 = (ICollectible*) zona7;
+    ICollectible * zonacol8 = (ICollectible*) zona8;
+    ICollectible * zonacol9 = (ICollectible*) zona9;
 
     IKey * keyzona = new Integer(1);
     dep1->getZonas()->add(keyzona, zona1);
