@@ -90,7 +90,7 @@ class Propiedad : public ICollectible{
         Conversacion * getConversacion(char *);
         ICollection * getUltimosMensajes(char *);
         Conversacion * nuevoChat(Interesado *);
-        ICollection * listarConversaciones();
+        IDictionary * listarConversaciones();
 };
 
 #endif

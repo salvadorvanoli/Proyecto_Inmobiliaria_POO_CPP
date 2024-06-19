@@ -66,3 +66,15 @@ void Conversacion::nuevoMensaje(DTFecha * fecha, string contenido){
     Mensaje * mensaje = new Mensaje(fecha, contenido);
     this->mensajes->add(mensaje);
 }
+
+DTFecha * Conversacion::getFechaUltimoMensaje(){
+    IIterator * it = this->mensajes->getIterator();
+    Mensaje * men;
+    while (it->hasCurrent()){
+        men = (Mensaje *) it->getCurrent();
+        delete it;
+        return men->getFecha();
+    }
+    delete it;
+    return NULL;
+}
