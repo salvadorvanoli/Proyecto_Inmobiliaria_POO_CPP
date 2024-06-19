@@ -3,6 +3,7 @@
 #include "../hfiles/alquiler.h"
 #include "../hfiles/propiedad.h"
 #include "../hfiles/apartamento.h"
+#include "../hfiles/casa.h"
 #include "../hfiles/edificio.h"
 #include <iostream>
 using namespace std;
@@ -153,8 +154,8 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
         Zona* zona = prop->getZona();
         for(int i=0; i<99; i++){
             if(zona->getCodigo() == zonas[i]){
-                Apartamento * ap = (Apartamento*) prop;
-                Casa * ca = (Casa*) prop;
+                Apartamento * ap = dynamic_cast<Apartamento*>(prop);
+                Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
                     apartamentos[i]++;
                 }
@@ -164,8 +165,8 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
                 departamentos[i] = zona->getLetraDepa();
             } else if(zonas[i] == 0){
                 zonas[i] = zona->getCodigo();
-                Apartamento * ap = (Apartamento*) prop;
-                Casa * ca = (Casa*) prop;
+                Apartamento * ap = dynamic_cast<Apartamento*>(prop);
+                Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
                     apartamentos[i]++;
                 }
@@ -182,7 +183,8 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     for(int i=0; i<99; i++){
         if(zonas[i] != 0){
             DTLineaReporte * linea = new DTLineaReporte(zonas[i], departamentos[i], apartamentos[i], casas[i]);
-            lineas->add(linea);
+            ICollectible * item = (ICollectible *) linea;
+            lineas->add(item);
         } else {
             break;
         }
