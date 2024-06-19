@@ -1610,18 +1610,40 @@ int main() {
     ICollectible * zonacol4 = (ICollectible*) zona4;
     ICollectible * zonacol5 = (ICollectible*) zona5;
     ICollectible * zonacol6 = (ICollectible*) zona6;
-    ICollectible * zonacol4 = (ICollectible*) zona4;
-    ICollectible * zonacol5 = (ICollectible*) zona5;
-    ICollectible * zonacol6 = (ICollectible*) zona6;
     ICollectible * zonacol7 = (ICollectible*) zona7;
     ICollectible * zonacol8 = (ICollectible*) zona8;
     ICollectible * zonacol9 = (ICollectible*) zona9;
 
-    IKey * keyzona = new Integer(1);
-    dep1->getZonas()->add(keyzona, zona1);
-    IKey * keydepa = new String(dep1->getLetra());
+    IKey * keyzona1 = new Integer(1);
+    IKey * keyzona2 = new Integer(2);
+    IKey * keyzona3 = new Integer(3);
+    IKey * keyzona4 = new Integer(4);
+    IKey * keyzona5 = new Integer(5);
+    IKey * keyzona6 = new Integer(6);
+    IKey * keyzona7 = new Integer(7);
+    IKey * keyzona8 = new Integer(8);
+    IKey * keyzona9 = new Integer(9);
+
+    dep1->getZonas()->add(keyzona1, zona1);
+    dep1->getZonas()->add(keyzona2, zona2);
+    dep1->getZonas()->add(keyzona3, zona3);
+    dep2->getZonas()->add(keyzona4, zona4);
+    dep2->getZonas()->add(keyzona5, zona5);
+    dep2->getZonas()->add(keyzona6, zona6);
+    dep3->getZonas()->add(keyzona7, zona7);
+    dep3->getZonas()->add(keyzona8, zona8);
+    dep3->getZonas()->add(keyzona9, zona9);
+
+    IKey * keydepa1 = new String(dep1->getLetra());
+    IKey * keydepa2 = new String(dep2->getLetra());
+    IKey * keydepa3 = new String(dep3->getLetra());
+
+
+
     char* email = "s";
-    sistema->getDepartamentos()->add(keydepa, dep1);
+    sistema->getDepartamentos()->add(keydepa1, dep1);
+    sistema->getDepartamentos()->add(keydepa2, dep2);
+    sistema->getDepartamentos()->add(keydepa3, dep3);
 
     Administrador * nuevoAdmin = new Administrador(email, "abc");
     ICollectible * nuevo = (ICollectible*) nuevoAdmin;
