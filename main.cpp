@@ -1366,10 +1366,8 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
 
     system("cls");
 
-    Conversacion * conver;
-
     try{
-        conver = sistema->seleccionarConversacionInmo(codigo);
+        sistema->seleccionarConversacionInmo(codigo);
     } catch(const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
@@ -1384,7 +1382,14 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
 
     DTFecha * fecha = getDTFechaActual();
 
-    conver->nuevoMensaje(fecha, respuesta);
+    try{
+        sistema->nuevoMensaje(respuesta, fecha);
+    } catch(const exception& e){
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
 
     cout << "El mensaje fue agregado de manera exitosa!" << endl;
 
