@@ -172,7 +172,7 @@ DTFecha * getDTFechaActual(){
 }
 
 bool manejarIniciarSesion(Sistema * sistema){
-    system("clear");
+    system("cls");
     char* email = new char[100];
     bool emailCorrecto;
     do{
@@ -1149,12 +1149,12 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
 
 void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     //feli
-    system("clear");
+    system("cls");
 
     try{
         imprimirDTChatProps(sistema->listarChatProp());
     } catch(const exception& e){
-        system("clear");
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -1182,7 +1182,7 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     try{
         conver = sistema->seleccionarConversacionInmo(codigo);
     } catch(const exception& e){
-        system("clear");
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
