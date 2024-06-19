@@ -251,3 +251,17 @@ int Inmobiliaria::generarCodigoConversacion(){
     this->cantConversaciones++;
     return this->cantConversaciones;
 }
+
+ICollection * Inmobiliaria::listarPropiedades(){
+    ICollection * lista = new List();
+    IIterator * it = this->propiedades->getIterator();
+    Propiedad * prop;
+    ICollectible * item;
+    while (it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        item = (ICollectible *) prop->getDTPropiedad();
+        lista->add(item);
+    }
+    delete it;
+    return lista;
+}
