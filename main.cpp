@@ -516,7 +516,7 @@ void manejarAltaPropiedad(Sistema* s){
         system("cls");
         cout << "Ingresar si tiene garage:" << endl;
         cout << "1. Si" << endl;
-        cout << "2. No"; << endl;
+        cout << "2. No" << endl;
         cin >> opcion;
         system("cls");
         if (opcion == 1) 
@@ -595,22 +595,17 @@ void manejarAltaPropiedad(Sistema* s){
             int option;
             cin >> option;
             system("cls");
-            if (option == 1) {
-                float valor;
-                cout << "Ingrese valor" << endl;
-                cin >> valor;
+            if (option == 3) {
+                float valorA;
+                float valorV;
+                cout << "Ingrese valor de la venta" << endl;
+                cin >> valorV;
                 system("cls");
-                int codigo = s->ponerEnVenta(valor);
-                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
-                return;
-            }
-            if (option == 2) {
-                float valor;
-                cout << "Ingrese valor" << endl;
-                cin >> valor;
-                system("cls");
-                int codigo = s->ponerEnAlquiler(valor);
-                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
+                cout << "Ingrese valor del alquiler" << endl;
+                cin >> valorA;
+                s->ponerEnAlquiler(valorA);
+                s->ponerEnVenta(valorV);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
                 return;
             }
            
