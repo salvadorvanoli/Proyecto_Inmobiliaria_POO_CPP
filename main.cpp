@@ -22,6 +22,7 @@ using namespace std;
 #include <string> 
 
 
+
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
 // void iniciarSesion(){
 //     system("clear");
@@ -102,7 +103,7 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
 
 #include <ctime>
 
-void imprimirZonasDepto(IDictionary * col){
+void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();
     DTZona * zona;
     while (it->hasCurrent()){
@@ -124,71 +125,20 @@ void imprimirDepto(ICollection * col){
     delete it;
 }
 
-int main() {
-    // Obtener la hora actual del sistema
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
-
-    // Obtener el día, mes y año actuales
-    int dia = now->tm_mday;
-    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
-    int año = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
-
-    // Obtener la hora, minuto y segundo actuales
-    int hora = now->tm_hour;
-    int minuto = now->tm_min;
-    int segundo = now->tm_sec;
-
-    // Imprimir los resultados
-    std::cout << "Fecha actual: " << dia << "/" << mes << "/" << año << std::endl;
-    std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
-
-    Departamento * dep1 = new Departamento("A", "Canelones");
-    Zona * zona1 = new Zona(1, "SantaLu");
-    Zona * zona2 = new Zona(2, "SanJo");
-    Zona * zona3 = new Zona(3, "CaneLondon");
-
-    cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
-    cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;
-    cout << "Zona 3 es: " << endl << zona3->getDTZona() << endl;
-
-    dep1->agregarZona(zona1);
-
-    cout << "Probamos listar zonas con una zona" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona2);
-    
-    cout << "Probamos listar zonas con dos zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona3);
-
-    cout << "Probamos listar zonas con tres zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->quitarZona(2);
-
-    cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    delete zona1;
-    delete zona2;
-    delete zona3;
-    delete dep1;
-
-    cout << "hola mundo" << endl;
-    system("pause");
-    return 0;
+void imprimirEdificio(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTEdificio * edificio;
+    while (it->hasCurrent()){
+        edificio = (DTEdificio *) it->getCurrent();
+        cout << edificio << endl;
+        it->next();
+    }
+    delete it;
 }
 
 void manejarIniciarSesion(Sistema * sistema){
     system("clear");
-    char* email;
+    char* email = new char[100];
     cout << "Inicie sesión con una cuenta" << endl << endl;
     cout << "Ingrese email" << endl << endl;
     cin >> email;
@@ -198,6 +148,8 @@ void manejarIniciarSesion(Sistema * sistema){
         system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
     }
+    cout << "pinga";
+    system("pause");
     if(sistema->getLoggeado()->getPrimeraVez() == true){
         try{
             system("clear");
@@ -229,8 +181,8 @@ void manejarIniciarSesion(Sistema * sistema){
 
 void manejarAltaInmobiliaria(Sistema * sistema){
     system("clear");
-    char* email;
-    char* nombre;
+    char* email = new char[100];
+    char* nombre = new char[100];
     DTDir* dir;
     string calle;
     int numero;
@@ -274,7 +226,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
 
 void manejarAltaInteresado(Sistema * sistema){
     system("clear");
-    char* email;
+    char* email = new char[100];
     string nombre;
     string apellido;
     int edad;
@@ -316,9 +268,9 @@ void manejarAltaEdificio(Sistema * sistema){
     int gastosComunes;
     Zona* zona;
 
-    char* opt;
+    char* opt = new char[100];
 
-    cout << "Elija uno de los departamentos listados debabajo" << endl;
+    cout << "Elija uno de los departamentos listados debababaajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
     cin >> opt;
     try{
@@ -329,7 +281,7 @@ void manejarAltaEdificio(Sistema * sistema){
     }
    
     cout << "Elija una de las zonas listadas debajo" << endl;
-    imprimirZonasDepto(sistema->getDepartamentoActual()->getZonas());
+    imprimirZonasDepto(sistema->listarZonasDepartamento());
     
     int optint;
 
@@ -374,9 +326,244 @@ void manejarAltaEdificio(Sistema * sistema){
     }
 }
 
-void manejarAltaPropiedad(){
+void manejarAltaPropiedad(Sistema* s){
+    system("clear");
 
+    
+   //chequear usuario
+    if(s->getLoggeado() == NULL){
+        system("clear");
+        throw runtime_error("No hay un usuario en el sistema");
+    }
+    Inmobiliaria * inmo = (Inmobiliaria*) s->getLoggeado();
+    if(inmo == NULL){
+        system("clear");
+        throw runtime_error("El usuario ingresado no es Inmobiliaria");
+    }
+
+    //elegir departamento
+    imprimirDepto(s->listarDepartamentos());
+    char* opt = new char[100];
+    cout << "Eliga un departamento:" << endl;
+    cin >> opt;
+    try{
+        s->elegirDepartamento(opt);
+    } catch(const exception& e){
+        cout << "Error de ejecución: " << e.what() << endl;
+        return;
+    }
+    system("clear");
+   
+
+    //elegir zona
+    imprimirZonasDepto(s->listarZonasDepartamento()); 
+    cout << "Ingresar identificación de la zona:" << endl;
+    int numZona;
+    cin >> numZona;
+    try{
+        s->elegirZona(numZona);
+    } catch(const exception& e){
+        cout << "Error de ejecución: " << e.what() << endl;
+        s->setDepartamentoActual(NULL);
+        return;
+    }
+
+    cout << "Ingrese tipo de propiedad" << endl;
+    cout << "1. Casa" << endl;
+    cout << "2. Apartamento" << endl;
+    int opcion;
+    cin >> opcion;
+    system("clear");
+
+    //si es apartamento
+    if (opcion == 2) {
+        imprimirEdificio(s->listarEdificio());
+        cout << "¿Desea seleccionar un nuevo edificio?" << endl;
+        cout << "1. Si" << endl;
+        cout << "2. No" << endl;
+        int opcion;
+        cin >> opcion;
+
+
+        //agrega edificio
+        if (opcion == 1) {
+            system("clear");
+            string nombre;
+            int pisos, gastosC;
+            cout << "Ingrese nombre del edificio" << endl;
+            cin >> nombre;
+            system("clear");
+            do {
+                system("clear");
+                cout << "Ingrese la cantidad de pisos" << endl << endl;
+                cin >> pisos;
+            } while(pisos <= 0);
+
+            do {
+                system("clear");
+                cout << "Ingrese los gastos comunes" << endl << endl;
+                cin >> gastosC;
+            } while(gastosC <= 0);
+            system("clear");
+            s->altaEdificio(nombre, pisos, gastosC);         
+        }
+
+        else if (opcion == 2) {
+            //seleccionar edificio
+            system("clear");
+            imprimirEdificio(s->listarEdificio());
+            cout << "Ingresar identificación del edificio:" << endl;
+            int numEdificio;
+            cin >> numEdificio;
+        
+            try{
+                s->seleccionarEdificio(numEdificio); 
+            } catch(const exception& e) {
+            cout << "Error de ejecución: " << e.what() << endl;
+            s->setDepartamentoActual(NULL);
+            s->setZonaActual(NULL);
+            return;
+            }
+        }
+        int cantAmb, cantBanos, cantDorm, numero;
+        float m2t;
+        string calle, ciudad;
+        bool garage = false;
+        int opcion;
+        cout << "Ingresar calle:" << endl;
+        cin >> calle; 
+        system("clear");
+        cout << "Ingresar numero:" << endl;
+        cin >> numero;
+        system("clear");
+        cout << "Ingresar ciudad:" << endl;
+        cin >> ciudad;
+        system("clear");
+        DTDir* dir = new DTDir(calle, numero, ciudad);
+       do {
+                system("clear");
+                cout << "Ingrese la cantidad de ambientes" << endl << endl;
+                cin >> cantAmb;
+            } while(cantAmb <= 1);
+        
+        do {
+                system("clear");
+                cout << "Ingrese la cantidad de banos" << endl << endl;
+                cin >> cantBanos;
+            } while(cantBanos <= 0);
+        do {
+                system("clear");
+                cout << "Ingrese la cantidad de dormitorios" << endl << endl;
+                cin >> cantDorm;
+            } while(cantDorm <= 0);
+        system("clear");
+        cout << "Ingresar si tiene garage:" << endl;
+        cout << "1. Si" << endl;
+        cout << "2. No";
+        cin >> opcion;
+        system("clear");
+        if (opcion == 1) 
+            garage = true;
+            do {
+                system("clear");
+                cout << "Ingrese metros cuadrados edificados" << endl << endl;
+                cin >> m2t;
+            } while(m2t <= 0);
+            system("clear");
+            s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, s->getEdificioActual(), s->getZonaActual());
+        }
+
+        //si es casa
+        else if (opcion == 1) {
+            int cantAmb, cantBanos, cantDorm, numero;
+            float m2v, m2e;
+            string ciudad, calle;
+            bool garage = false;
+            int opcion;
+            cout << "Ingresar calle:" << endl;
+            cin >> calle;
+            system("clear");
+            cout << "Ingresar numero:" << endl;
+            cin >> numero;
+            system("clear");
+            cout << "Ingresar ciudad:" << endl;
+            cin >> ciudad;
+            system("clear");
+            DTDir* dir = new DTDir(calle, numero, ciudad);
+            do {
+                system("clear");
+                cout << "Ingrese la cantidad de ambientes" << endl << endl;
+                cin >> cantAmb;
+            } while(cantAmb <= 1);
+        
+            do {
+                system("clear");
+                cout << "Ingrese la cantidad de banos" << endl << endl;
+                cin >> cantBanos;
+            } while(cantBanos <= 0);
+
+            do {
+                system("clear");
+                cout << "Ingrese la cantidad de dormitorios" << endl << endl;
+                cin >> cantDorm;
+            } while(cantDorm <= 0);
+
+            system("clear");
+            cout << "Ingresar si tiene garage:" << endl;
+            cout << "1. Si" << endl;
+            cout << "2. No";
+            cin >> opcion;
+            system("clear");
+            if (opcion == 1) 
+                garage = true;
+
+            do {
+                system("clear");
+                cout << "Ingrese metros cuadrados edificados" << endl << endl;
+                cin >> m2e;
+            } while(m2e <= 0);
+
+            do {
+                system("clear");
+                cout << "Ingrese metros cuadrados verdes" << endl << endl;
+                cin >> m2v;
+            } while(m2v < 0);
+            system("clear");
+            s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
+            }
+
+
+            cout << "1. Poner en venta" << endl;
+            cout << "2. Poner en alquiler" << endl;
+            int option;
+            cin >> option;
+            system("clear");
+            if (option == 1) {
+                float valor;
+                cout << "Ingrese valor" << endl;
+                cin >> valor;
+                system("clear");
+                int codigo = s->ponerEnVenta(valor);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
+                return;
+            }
+            if (option == 2) {
+                float valor;
+                cout << "Ingrese valor" << endl;
+                cin >> valor;
+                system("clear");
+                int codigo = s->ponerEnAlquiler(valor);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
+                return;
+            }
+           
+    s->setPropiedadActual(NULL);
+    s->setDepartamentoActual(NULL);
+    s->setZonaActual(NULL);
+    s->setEdificioActual(NULL);
 }
+
+
 
 void manejarConsultarPropiedad(){
 
@@ -547,8 +734,52 @@ void eliminarPropiedad(int){
 
 }
 
-void manejarEnviarMensajeInteresado(){
-
+void manejarEnviarMensajeInteresado(Sistema * sistema){
+    system("clear");
+    ICollection * depar = sistema->listarDepartamentos();
+    char * letraDepa;
+    cout<<"Ingrese la letra del Departamento"<<endl;
+    cin >> letraDepa;
+    if (sistema->elegirDepartamento(letraDepa)){
+        ICollection * zona = sistema->listarZonasDepartamento();
+        int numZona;
+        cout<<"Ingrese el numero de la Zona"<<endl;
+        cin >> numZona;
+        if(sistema->elegirZona(numZona)){
+            ICollection * chatProp = sistema->listarChatProp();
+            int codProp;
+            cout<<"Ingrese el codigo de la Propiedad"<<endl;
+            cin >> codProp;
+            if (sistema->seleccionarPropiedad(codProp)){ //si la propiedad existe
+                string mensaje;
+                cout<<"Ingrese el Mensaje"<<endl;
+                getline(cin, mensaje);
+                Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
+                IIterator *  it = (IIterator *) sistema->getPropiedadActual()->getConversaciones()->getIterator();
+                bool encontro = false;
+                DTFecha * FECHA; //SUPONGAMOS Q ACA VA LA FECHA DE LA COMPU O LO Q SEA
+                while(it->hasCurrent()){
+                    conver = (Conversacion *) it->getCurrent();
+                    if(conver->getInteresado() == sistema->getLoggeado()){
+                        conver->nuevoMensaje(FECHA, mensaje);
+                        encontro = true;
+                        break;
+                    }
+                    it->next();
+                }
+                if(!encontro){
+                    Interesado * inter = (Interesado *) sistema->getLoggeado();
+                    sistema->getPropiedadActual()->nuevoChat(inter)->nuevoMensaje(FECHA, mensaje);
+                }
+            }
+            
+        }
+    }
+    sistema->setConversacionActual(NULL);
+    sistema->setDepartamentoActual(NULL);
+    sistema->setEdificioActual(NULL);
+    sistema->setPropiedadActual(NULL);
+    sistema->setZonaActual(NULL);
 }
 
 void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
@@ -621,9 +852,9 @@ void menu(Sistema * sistema){
     string opt;
     do{
         system("clear");
-        string opt;
         cout << "Necesita iniciar sesión en el sistema" << endl << endl;
         cout << "1-Iniciar sesión" << endl << endl;
+        cin >> opt;
     } while (opt != "1");
 
     manejarIniciarSesion(sistema);
@@ -674,4 +905,103 @@ void menu(Sistema * sistema){
             cout << "3-Enviar mensaje interesado" << endl << endl;
         } while(opt != "1" && opt != "2" && opt != "3");
     }
+}
+
+
+int main() {
+
+    system("pause");
+
+    Sistema * sistema = new Sistema();
+
+    char* email = "s";
+
+    Administrador * nuevoAdmin = new Administrador(email, "abc");
+    ICollectible * nuevo = (ICollectible*) nuevoAdmin;
+
+    cout << nuevoAdmin->getCorreoEletronico() << endl;
+    cout << nuevoAdmin->getContrasenia() << endl;
+
+    IKey * key = new String(nuevoAdmin->getCorreoEletronico());
+
+    sistema->getUsuarios()->add(key, nuevo);
+
+    system("pause");
+
+    menu(sistema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    // Obtener la hora actual del sistema
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+
+    // Obtener el día, mes y año actuales
+    int dia = now->tm_mday;
+    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
+    int año = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+
+    // Obtener la hora, minuto y segundo actuales
+    int hora = now->tm_hour;
+    int minuto = now->tm_min;
+    int segundo = now->tm_sec;
+
+    // Imprimir los resultados
+    std::cout << "Fecha actual: " << dia << "/" << mes << "/" << año << std::endl;
+    std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
+
+    Departamento * dep1 = new Departamento("A", "Canelones");
+    Zona * zona1 = new Zona(1, "SantaLu", "A");
+    Zona * zona2 = new Zona(2, "SanJo", "A");
+    Zona * zona3 = new Zona(3, "CaneLondon", "A");
+
+    cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
+    cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;
+    cout << "Zona 3 es: " << endl << zona3->getDTZona() << endl;
+
+    dep1->agregarZona(zona1);
+
+    cout << "Probamos listar zonas con una zona" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->agregarZona(zona2);
+    
+    cout << "Probamos listar zonas con dos zonas" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->agregarZona(zona3);
+
+    cout << "Probamos listar zonas con tres zonas" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    dep1->quitarZona(2);
+
+    cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
+
+    // imprimirZonasDepto(dep1->listarZonasDepartamento());
+
+    delete zona1;
+    delete zona2;
+    delete zona3;
+    delete dep1;
+
+    */
+
+    cout << "hola mundo" << endl;
+    system("pause");
+    return 0;
 }

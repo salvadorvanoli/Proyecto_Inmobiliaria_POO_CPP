@@ -2,6 +2,19 @@
 #include <iostream>
 using namespace std;
 
+Sistema::Sistema(){
+    this->usuarios = new OrderedDictionary();
+    this->departamentos = new OrderedDictionary();
+    this->propiedades = new OrderedDictionary();
+    this->loggeado = NULL;
+    this->departamentoActual = NULL;
+    this->zonaActual = NULL;
+    this->propiedadActual = NULL;
+    this->edificioActual = NULL;
+    this->conversacionActual = NULL;
+
+}
+
 ICollection * Sistema::listarDepartamentos(){
     ICollection * departamentos = new List();
     IIterator * it = this->departamentos->getIterator();
@@ -339,7 +352,8 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
         throw invalid_argument("Ya existe un usuario con ese correo");
     }
     Inmobiliaria * nuevaInmo = new Inmobiliaria(email, nombre, dir);
-    this->usuarios->add(key, nuevaInmo);
+    ICollectible * inmoCasteada = (ICollectible*) nuevaInmo;
+    this->usuarios->add(key, inmoCasteada);
     system("clear");
     cout << "Usuario creado con éxito" << endl << endl;
     return;
@@ -366,7 +380,8 @@ void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
         throw invalid_argument("Ya existe un usuario con ese correo");
     }
     Interesado * nuevoInteresado = new Interesado(email, nom, ape, edad);
-    this->usuarios->add(key, nuevoInteresado);
+    ICollectible * interesadoCasteado = (ICollectible*) nuevoInteresado;
+    this->usuarios->add(key, interesadoCasteado);
     system("clear");
     cout << "Usuario creado con éxito" << endl << endl;
     return;
