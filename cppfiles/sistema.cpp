@@ -58,7 +58,7 @@ Conversacion * Sistema::getConversacionInteresado(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Interesado * interesado = (Interesado *) this->loggeado;
+    Interesado * interesado = dynamic_cast<Interesado*> (this->loggeado);
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
@@ -78,7 +78,7 @@ ICollection * Sistema::getUltimosMensajes(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Interesado * interesado = (Interesado *) this->loggeado;
+    Interesado * interesado = dynamic_cast<Interesado*> (this->loggeado);
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
@@ -92,7 +92,7 @@ Conversacion * Sistema::nuevoChat(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Interesado * usuario = (Interesado *) this->loggeado;
+    Interesado * usuario = dynamic_cast<Interesado*> (this->loggeado);
     if (usuario == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
@@ -123,7 +123,7 @@ ICollection * Sistema::listarChatsInmo(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * usuario = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (usuario == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
@@ -139,7 +139,7 @@ Conversacion * Sistema::seleccionarConversacionInmo(int codigoCon){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * usuario = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * usuario = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (usuario == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
@@ -158,7 +158,7 @@ bool Sistema::elegirDepartamento(char * letraDepartamento){
         this->departamentoActual = depa;
         return true;
     } else {
-        throw invalid_argument("El Departamento especificado no se encuentra en el Sistema.");
+        throw invalid_argument("El Departamento especificado no se encuentra en el Sistema");
     }
 }
 
@@ -168,15 +168,16 @@ ICollection * Sistema::listarZonasDepartamento(){
     }
     ICollection * zonas = this->departamentoActual->listarZonasDepartamento();
     if (zonas->isEmpty()){
-        
+        throw runtime_error("No existen Zonas establecidas en el Departamento actual");
     }
+    return zonas;
 }
 
 ICollection * Sistema::listarChatProp(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Interesado * interesado = (Interesado *) this->loggeado;
+    Interesado * interesado = dynamic_cast<Interesado*> (this->loggeado);
     if (interesado == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
@@ -215,7 +216,7 @@ Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
@@ -249,14 +250,14 @@ void Sistema::modificarCasa(int cantAmbientes, int cantDormitorios, int cantBani
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     if (this->propiedadActual == NULL){
         throw runtime_error("No se eligió una propiedad previamente");
     }
-    Casa * casa = (Casa *) this->propiedadActual;
+    Casa * casa = dynamic_cast<Casa*> (this->propiedadActual);
     // this->propiedadActual = NULL;
     casa->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, m2Verdes);
 }
@@ -265,14 +266,14 @@ void Sistema::modificarApartamento(int cantAmbientes, int cantDormitorios, int c
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     if (this->propiedadActual == NULL){
         throw runtime_error("No se eligió una propiedad previamente");
     }
-    Apartamento * apartamento = (Apartamento *) this->propiedadActual;
+    Apartamento * apartamento = dynamic_cast<Apartamento*> (this->propiedadActual);
     // this->propiedadActual = NULL;
     apartamento->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, m2Totales, dir, tieneGaraje);
 }
@@ -302,7 +303,7 @@ bool Sistema::crearContrasenia(string pwd, string pwd2){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Administrador * admin = (Administrador*) this->loggeado;
+    Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario administrador ya tiene una contraseña establecida, consulte con el encargado");
@@ -359,7 +360,7 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Administrador * admin = (Administrador*) this->loggeado;
+    Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
@@ -386,7 +387,7 @@ void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Administrador * admin = (Administrador*) this->loggeado;
+    Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
@@ -414,7 +415,7 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria*) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if(inmo == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
@@ -436,7 +437,7 @@ ICollection * Sistema::obtenerReporte(){
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Administrador * admin = (Administrador*) this->loggeado;
+    Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Administrador");
@@ -445,7 +446,7 @@ ICollection * Sistema::obtenerReporte(){
     Inmobiliaria * user;
     ICollection * reportes = new List();
     while(it->hasCurrent()){
-        user = (Inmobiliaria *) it->getCurrent();
+        user = dynamic_cast<Inmobiliaria*> (it->getCurrent()); // Este tengo dudas
         if(user != NULL){
             ICollectible * reporte = (ICollectible*) user->obtenerReporteInmobiliaria();
             reportes->add(reporte);
@@ -464,7 +465,7 @@ int Sistema::ponerEnVenta(float valor) {
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
+    Inmobiliaria* user = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (user == NULL){
         throw runtime_error("El usuario ingresado no es Administrador");
     }
@@ -479,7 +480,7 @@ int Sistema::ponerEnAlquiler(float valor) {
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria* user = (Inmobiliaria*) this->loggeado;
+    Inmobiliaria* user = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (user == NULL){
         throw runtime_error("El usuario ingresado no es Administrador");
     }
@@ -566,7 +567,7 @@ void Sistema:: AltaPropiedad() {
         system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria*) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if(inmo == NULL){
         system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
@@ -744,7 +745,7 @@ void Sistema::eliminarPropiedad(int codigoProp){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
@@ -783,7 +784,7 @@ ICollection * Sistema::listarPropiedadesInmo(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Inmobiliaria * inmo = (Inmobiliaria *) this->loggeado;
+    Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
@@ -877,4 +878,8 @@ Propiedad* Sistema::getPropiedadActual(){
 
 Conversacion* Sistema::getConversacionActual(){
     return this->conversacionActual;
+}
+
+IDictionary* Sistema::getDepartamentos(){
+    return this->departamentos;
 }
