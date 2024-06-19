@@ -311,7 +311,7 @@ void manejarAltaEdificio(Sistema * sistema){
 
     char* opt = new char[100];
 
-    cout << "Elija uno de los departamentos listados debababaajo" << endl;
+    cout << "Elija uno de los departamentos listados debajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
     cin >> opt;
     try{
@@ -1337,8 +1337,15 @@ void menu(Sistema * sistema){
 int main() {
 
     Sistema * sistema = new Sistema();
-
+    
+    Zona* zona = new Zona(1, "santa", "c");
+    ICollectible * zonacol = (ICollectible*) zona;
+    IKey * keyzona = new Integer(1);
+    Departamento* depa = new Departamento("c", "canelones");
+    depa->getZonas()->add(keyzona, zona);
+    IKey * keydepa = new String(depa->getLetra());
     char* email = "s";
+    sistema->getDepartamentos()->add(keydepa, depa);
 
     Administrador * nuevoAdmin = new Administrador(email, "abc");
     ICollectible * nuevo = (ICollectible*) nuevoAdmin;

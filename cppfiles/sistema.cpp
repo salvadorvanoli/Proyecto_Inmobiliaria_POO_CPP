@@ -878,3 +878,7 @@ Propiedad* Sistema::getPropiedadActual(){
 Conversacion* Sistema::getConversacionActual(){
     return this->conversacionActual;
 }
+
+IDictionary* Sistema::getDepartamentos(){
+    return this->departamentos;
+}
