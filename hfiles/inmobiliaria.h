@@ -25,6 +25,7 @@ using namespace std;
 // #include "apartamento.h"
 // #include "edificio.h"
 #include "mensaje.h"
+#include "Conversacion.h"
 
 class DTDir;
 class ICollectible;

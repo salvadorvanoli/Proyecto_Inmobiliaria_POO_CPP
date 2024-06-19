@@ -150,6 +150,26 @@ void imprimirDTChatProps(ICollection * col){
     delete it;
 }
 
+DTFecha * getDTFechaActual(){
+    time_t t = time(nullptr);
+    tm* now = localtime(&t);
+
+    // Obtener el día, mes y año actuales
+    int dia = now->tm_mday;
+    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
+    int anio = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+
+    // Obtener la hora, minuto y segundo actuales
+    int hora = now->tm_hour;
+    int minuto = now->tm_min;
+    int segundo = now->tm_sec;
+
+    DTHora * dthora = new DTHora(hora, minuto, segundo);
+    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
+    
+    return new DTFecha(day, month, year, dthora);
+}
+
 void manejarIniciarSesion(Sistema * sistema){
     system("clear");
     char* email = new char[100];
@@ -434,9 +454,9 @@ void manejarAltaPropiedad(Sistema* s){
             try{
                 s->seleccionarEdificio(numEdificio); 
             } catch(const exception& e) {
-            cout << "Error de ejecución: " << e.what() << endl;
-            s->setDepartamentoActual(NULL);
-            s->setZonaActual(NULL);
+                cout << "Error de ejecución: " << e.what() << endl;
+                s->setDepartamentoActual(NULL);
+                s->setZonaActual(NULL);
             return;
             }
         }
@@ -585,6 +605,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
     cout << "Elija uno de los departamentos listados debabajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
     cin >> opt;
+    
     try{
         sistema->elegirDepartamento(opt);
     } catch(const exception& e){
@@ -1261,40 +1282,55 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
 void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     //feli
     system("clear");
-    Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
-    sistema->listarChatProp();
-    cout<<"Ingrese codigo de la conversacion que desee seleccionar"<<endl;
+
+    try{
+        imprimirDTChatProps(sistema->listarChatProp());
+    } catch(const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+    
     string respuesta;
     int codigo;
     getline(cin, respuesta);
+
+    while (true){
+        cout << "Ingrese el código de la conversación que desee seleccionar: ";
+        cin >> respuesta;
+        try {
+            codigo = stoi(respuesta);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingrese un código de coinversación válido" << endl;
+        }
+    }
+
+    system("cls");
+
+    Conversacion * conver;
+
     try{
-        codigo = stoi(respuesta);
+        conver = sistema->seleccionarConversacionInmo(codigo);
+    } catch(const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
-    catch(const exception& e){
-        throw invalid_argument("El codigo ingresado no es un numero");
-    }
-    Conversacion * conver = sistema->seleccionarConversacionInmo(codigo);
-    cout<<"ingresa el contenido del Mensaje"<<endl;
+
+    system("cls");
+
+    cout << "Ingresa el contenido del Mensaje: " << endl;
     getline(cin, respuesta);
 
-    time_t t = std::time(nullptr);
-    tm* now = std::localtime(&t);
+    DTFecha * fecha = getDTFechaActual();
 
-    // Obtener el día, mes y año actuales
-    int dia = now->tm_mday;
-    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
-    int anio = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+    conver->nuevoMensaje(fecha, respuesta);
 
-    // Obtener la hora, minuto y segundo actuales
-    int hora = now->tm_hour;
-    int minuto = now->tm_min;
-    int segundo = now->tm_sec;
 
-    DTHora * dthora = new DTHora(hora, minuto, segundo);
-    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
-    
-    DTFecha * dtfecha = new DTFecha(day, month, year, dthora);
-    conver->nuevoMensaje(dtfecha, respuesta);
+
 }
 
 void manejarReporte(Sistema * sistema){
