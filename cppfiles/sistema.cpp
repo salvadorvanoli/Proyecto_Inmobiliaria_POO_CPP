@@ -152,7 +152,8 @@ Conversacion * Sistema::seleccionarConversacionInmo(int codigoCon){
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     try {
-        return usuario->seleccionarConversacion(codigoCon);
+        this->conversacionActual = usuario->seleccionarConversacion(codigoCon);
+        return this->conversacionActual;
     } catch(const exception& e) {
         throw invalid_argument("No existe una conversación con ese código vinculada a la Inmobiliaria actual");
     }
@@ -184,10 +185,6 @@ ICollection * Sistema::listarZonasDepartamento(){
 IDictionary * Sistema::listarChatProp(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
-    }
-    Interesado * interesado = dynamic_cast<Interesado*> (this->loggeado);
-    if (interesado == NULL){
-        throw runtime_error("El usuario ingresado no es Interesado");
     }
     IDictionary * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
     if (lista->isEmpty()){
