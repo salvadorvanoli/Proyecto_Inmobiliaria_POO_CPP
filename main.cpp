@@ -416,7 +416,7 @@ void manejarAltaPropiedad(Sistema* s){
             cin >> numEdificio;
         
             try{
-                s->seleccionarEdificio(numEdificio) 
+                s->seleccionarEdificio(numEdificio); 
             } catch(const exception& e) {
             cout << "Error de ejecución: " << e.what() << endl;
             s->setDepartamentoActual(NULL);
@@ -469,7 +469,7 @@ void manejarAltaPropiedad(Sistema* s){
                 cin >> m2t;
             } while(m2t <= 0);
             system("clear");
-            s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, this->edificioActual, this->zonaActual);
+            s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, s->getEdificioActual(), s->getZonaActual());
         }
 
         //si es casa
