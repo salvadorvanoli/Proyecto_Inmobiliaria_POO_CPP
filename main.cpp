@@ -378,7 +378,7 @@ void manejarAltaEdificio(ISistema * sistema){
     }
 }
 
-void manejarAltaPropiedad(Sistema* s){
+void manejarAltaPropiedad(ISistema * s){
     system("cls");
 
     
@@ -642,7 +642,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     int optint;
 
     while (true){
-        cout << "Ingrese el código de la zona: ";
+        cout << "Ingrese el código de la zona: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
@@ -669,7 +669,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     imprimirProps(sistema->listarPropiedades());
 
     while (true){
-        cout << "Ingrese el código de la propiedad: ";
+        cout << "Ingrese el código de la propiedad: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
