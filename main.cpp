@@ -280,7 +280,7 @@ void manejarAltaEdificio(Sistema * sistema){
     }
    
     cout << "Elija una de las zonas listadas debajo" << endl;
-    imprimirZonasDepto(sistema->getDepartamentoActual()->getZonas());
+    imprimirZonasDepto(sistema->listarZonasDepartamento());
     
     int optint;
 
