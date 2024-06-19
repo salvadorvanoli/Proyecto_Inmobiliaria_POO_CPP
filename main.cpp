@@ -162,7 +162,7 @@ void manejarIniciarSesion(Sistema * sistema){
         system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
     }
-    cout << "pinga";
+    cout << "pinga"; // Hay que borrar esto
     system("pause");
     if(sistema->getLoggeado()->getPrimeraVez() == true){
         try{
@@ -599,15 +599,19 @@ void manejarConsultarPropiedad(Sistema * sistema){
     cout << "Elija una de las zonas listadas debajo" << endl;
     imprimirZonasDepto(sistema->listarZonasDepartamento());
     
+    string optstr;
     int optint;
 
-    do {
+    while (true){
         cout << "Ingrese el código de la zona: ";
-        cin >> optint;
-        if (cin.fail()){
-            cout << "Por favor, ingrese un código de zona válido";
+        cin >> optstr;
+        try {
+            optint = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingrese un código de zona válido" << endl;
         }
-    } while (cin.fail());
+    }
 
     try{
         sistema->elegirZona(optint);
@@ -623,13 +627,16 @@ void manejarConsultarPropiedad(Sistema * sistema){
     cout << "Elija una de las propiedades listadas debajo" << endl;
     imprimirProps(sistema->listarPropiedades());
 
-    do {
+    while (true){
         cout << "Ingrese el código de la propiedad: ";
-        cin >> optint;
-        if (cin.fail()){
-            cout << "Por favor, ingrese un código de propiedad válido";
+        cin >> optstr;
+        try {
+            optint = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
         }
-    } while (cin.fail());
+    }
 
     try{
         cout << "---Propiedad Detallada---" << endl << endl;
@@ -646,9 +653,376 @@ void manejarConsultarPropiedad(Sistema * sistema){
 
 }
 
+// void manejarModificarPropiedad(Sistema * sistema){
+//     //feli
+//     system("clear");
+//     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
+//     if(inmo == NULL){
+//         throw invalid_argument("El usuario logeado no es Inmobiliaria");
+//     }
+//     cout<<"Ingrese el codigo de la Propiedad"<<endl;
+//     string linea;
+//     getline(cin, linea);
+//     int cod;
+//     try{
+//         cod = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("El codigo ingresado no es un numero");
+//     }
+//     if(cod <= 0){
+//         throw invalid_argument("Codigo no puede ser menor a 1");
+//     }
+//     system("clear");
+//     IKey * key = new Integer(cod);
+//     if(inmo->getPropiedades()->isEmpty()){
+//         throw invalid_argument("El usuario logeado no tiene Propiedades");
+//     }
+//     Propiedad * prop = (Propiedad *) inmo->getPropiedades()->find(key);
+//     if(prop == NULL){
+//         throw invalid_argument("No existe una Propiedad con ese codigo");
+//     }
+//     delete key;
+//     sistema->setPropiedadActual(prop);
+//     DTTipoProp tipoprop = prop->getDTTipoProp(); 
+//     int cantAmbiente, cantDormitorio, cantBanios;
+//     float m2Edificados;
+//     bool tieneGaraje;
+//     DTDir * direccion;
+//     cout<<"Ingrese la cantidad Ambiente"<<endl;
+//     getline(cin, linea);
+//     try{
+//         cantAmbiente = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("La cantidad ingresada no es un numero");
+//     }
+//     if(cantAmbiente <= 0){
+//         throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+//     }
+//     system("clear");
+//     cout<<"Ingrese la cantidad de Dormitorios"<<endl;
+//     getline(cin, linea);
+//     try{
+//         cantDormitorio = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("La cantidad ingresada no es un numero");
+//     }
+//     if(cantDormitorio <= -1){
+//         throw invalid_argument("Cantidad de Dormitorios no puede ser menor a 0");
+//     }
+//     system("clear");
+//     cout<<"Ingrese la cantidad de Banios"<<endl;
+//     getline(cin, linea);
+//     try{
+//         cantBanios = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("La cantidad ingresada no es un numero");
+//     }
+//     if(cantBanios <= -1){
+//         throw invalid_argument("Cantidad de Banios no puede ser menor a 0");
+//     }
+//     system("clear");
+//     cout<<"Ingrese los m2 de Edificio"<<endl;
+//     getline(cin, linea);
+//     try{
+//         m2Edificados = stof(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("La cantidad ingresada no es un numero");
+//     }
+//     if(m2Edificados <= 0){
+//         throw invalid_argument("los m2 edificados no pueden ser menor a 1");
+//     }
+//     system("clear");
+//     cout<<"¿La propiedad tiene garaje?"<<endl;
+//     cout<<"1)Si        2)No"<<endl;
+//     int respuesta;
+//     getline(cin, linea);
+//     try{
+//         respuesta = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("El codigo ingresado no es un numero");
+//     }
+//     switch(respuesta){
+//         case 1:
+//             tieneGaraje = true;
+//             break;
+//         case 2:
+//             tieneGaraje = false;
+//             break;
+//         default:
+//             throw invalid_argument("El numero ingresado no es una opcion");
+//     }
+//     system("clear");
+//     int numero;
+//     string calle, ciudad;
+//     cout<<"ingresa el numero de direccion"<<endl;
+//     getline(cin, linea);
+//     try{
+//         numero = stoi(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("El numero ingresado no es un numero");
+//     }
+//     if(numero <= 0){
+//         throw invalid_argument("El codigo de direccion no puede ser menor a 1");
+//     }
+//     system("clear");
+//     cout<<"ingresa la calle de la direccion"<<endl;
+//     getline(cin, linea);
+//     calle = linea;
+//     system("clear");
+//     cout<<"ingresa el ciudad de la direccion"<<endl;
+//     getline(cin, linea);
+//     ciudad = linea;
+//     system("clear");
+//     DTDir * dir = new DTDir(calle, numero, calle);
+//     if(tipoprop == DTTipoProp::casa){
+//         int m2Verdes;
+//         cout<<"Ingrese los m2 Verdes"<<endl;
+//         getline(cin, linea);
+//         try{
+//             m2Verdes = stof(linea);
+//         }
+//         catch(const exception& e){
+//             throw invalid_argument("La cantidad ingresada no es un numero");
+//         }
+//         if(m2Verdes <= -1){
+//             throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
+//         }
+//         system("clear");
+//         sistema->modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
+//         return;
+//     }
+//     int m2Totales;
+//     cout<<"Ingrese los m2 Totales"<<endl;
+//     getline(cin, linea);
+//     try{
+//         m2Totales = stof(linea);
+//     }
+//     catch(const exception& e){
+//         throw invalid_argument("La cantidad ingresada no es un numero");
+//     }
+//     if(m2Totales <= 0){
+//         throw invalid_argument("Los m2 totales no puede ser menor a 1");
+//     }
+//     system("clear");
+//     sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
+// }
+
 void manejarModificarPropiedad(Sistema * sistema){
-    //feli
+    //vale
     system("clear");
+
+    cout << "Selecciona una de las siguientes propiedades para modificarla" << endl;
+    imprimirProps(sistema->listarPropiedadesInmo());
+
+    string optstr;
+    int codigoProp;
+
+    while (true){
+        cout << "Ingresa el código de la propiedad: ";
+        cin >> optstr;
+        try {
+            codigoProp = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+        }
+    }
+
+    try{
+        sistema->seleccionarPropiedadInmobiliaria(codigoProp);
+    } catch(const exception& e){
+        system("clear");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    DTTipoProp tipoProp = sistema->getDTTipoProp();
+
+    int cantAmbientes, cantDormitorios, cantBanios;
+    bool tieneGaraje;
+
+    // Para la dirección
+    DTDir * direccion;
+    string calle, ciudad;
+    int numero;
+
+
+    system("clear");
+
+    while (true){
+        cout << "Ingresa la cantidad de ambientes: ";
+        cin >> optstr;
+        try {
+            cantAmbientes = stoi(optstr);
+            if (cantAmbientes >= 1){
+                break;
+            }
+            cout << endl << "Por favor, ingresa una cantidad de ambientes válida (mayor a 0)" << endl;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+        }
+    }
+
+    system("clear");
+
+    while (true){
+        cout << "Ingresa la cantidad de dormitorios: ";
+        cin >> optstr;
+        try {
+            cantDormitorios = stoi(optstr);
+            if (cantDormitorios >= 0){
+                break;
+            }
+            cout << endl << "Por favor, ingresa una cantidad de dormitorios válida (0 o más)" << endl;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+        }
+    }
+
+    system("clear");
+
+    while (true){
+        cout << "Ingresa la cantidad de baños: ";
+        cin >> optstr;
+        try {
+            cantBanios = stoi(optstr);
+            if (cantBanios >= 0){
+                break;
+            }
+            cout << endl << "Por favor, ingresa una cantidad de baños válida (0 o más)" << endl;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+        }
+    }
+
+    system("clear");
+
+    while (true){
+        cout << "Indica a continuación si la propiedad tiene garaje" << endl << "1 - No tiene garaje" << endl << "2 - Tiene Garaje" << endl << endl << "Ingresa tu opción: ";
+        cin >> optstr;
+        try {
+            tieneGaraje = stoi(optstr)-1;
+            if (tieneGaraje == 0 || tieneGaraje == 1){
+                break;
+            }
+            cout << endl << "Por favor, ingresa una opción válida (1 o 2)" << endl;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa un valor numérico" << endl;
+        }
+    }
+
+    system("clear");
+
+    cout << "Dirección de la propiedad" << endl << "Especifica la ciudad: ";
+    cin >> ciudad;
+
+    cout << endl << "Especifica la calle: ";
+    cin >> calle;
+
+    cout << endl;
+
+    while (true){
+        cout << "Especifica el número: ";
+        cin >> optstr;
+        try {
+            numero = stoi(optstr);
+            if (numero > 0){
+                break;
+            }
+            cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa un valor numérico" << endl;
+        }
+    }
+
+    direccion = new DTDir(calle, numero, ciudad);
+
+    system("clear");
+
+    if (tipoProp == DTTipoProp::apartamento){
+        float m2Totales;
+        
+        while (true){
+            cout << "Introduce los m2Totales: ";
+            cin >> optstr;
+            try {
+                m2Totales = stof(optstr);
+                if (m2Totales > 0){
+                    break;
+                }
+                cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
+            } catch(const exception& e) {
+                cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            }
+        }
+
+        try{
+            sistema->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, tieneGaraje, direccion, m2Totales);
+        } catch(const exception& e){
+            system("clear");
+            cout << "Error de ejecución: " << e.what() << endl;
+            system("pause");
+            return;
+        }
+
+        cout << "Apartamento modificado de manera exitosa!" << endl;
+
+    } else {
+        float m2Edificados, m2Verdes;
+
+        while (true){
+            cout << "Introduce los m2Edificados: ";
+            cin >> optstr;
+            try {
+                m2Edificados = stof(optstr);
+                if (m2Edificados > 0){
+                    break;
+                }
+                cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
+            } catch(const exception& e) {
+                cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            }
+        }
+
+        system("clear");
+
+        while (true){
+            cout << "Introduce los m2Verdes: ";
+            cin >> optstr;
+            try {
+                m2Verdes = stof(optstr);
+                if (m2Verdes >= 0){
+                    break;
+                }
+                cout << endl << "Por favor, ingresa un valor válido (mayor o igual a 0)" << endl;
+            } catch(const exception& e) {
+                cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
+            }
+        }
+
+        try{
+            sistema->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, tieneGaraje, direccion, m2Edificados, m2Verdes);
+        } catch(const exception& e){
+            system("clear");
+            cout << "Error de ejecución: " << e.what() << endl;
+            system("pause");
+            return;
+        }
+
+        cout << "Casa modificada de manera exitosa!" << endl;
+
+    }
+
+
+
     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
     if(inmo == NULL){
         throw invalid_argument("El usuario logeado no es Inmobiliaria");
@@ -811,18 +1185,22 @@ void manejarEliminarPropiedad(Sistema * sistema){
     system("clear");
     ICollection * props = sistema->listarPropiedadesInmo();
     cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
-    int codigoProp;
-    
-    do {
+    string codigoProp;
+    int codigoNumerico;
+
+    while (true){
         cout << "Ingresa el código de la misma: ";
         cin >> codigoProp;
-        if (cin.fail()){
-            cout << endl << "Por favor ingresa un código numérico";
+        try {
+            codigoNumerico = stoi(codigoProp);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingresa un código numérico" << endl;
         }
-    } while (cin.fail()); // Capaz no anda como espero
+    }
     
     try {
-        sistema->eliminarPropiedad(codigoProp);
+        sistema->eliminarPropiedad(codigoNumerico);
         system("clear");
         cout << "La propiedad fue removida exitosamente!" << endl;
         system("pause");

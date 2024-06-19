@@ -228,7 +228,7 @@ Propiedad * Sistema::seleccionarPropiedadInmobiliaria(int codigoProp){
 
 }
 
-DTTipoProp Sistema::getDTTipoPropInmo(int codigoProp){
+DTTipoProp Sistema::getDTTipoProp(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
