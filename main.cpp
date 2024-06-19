@@ -669,7 +669,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     imprimirProps(sistema->listarPropiedades());
 
     while (true){
-        cout << "Ingrese el código de la propiedad: ";
+        cout << "Ingrese el código de la propiedad: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
