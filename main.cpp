@@ -19,6 +19,7 @@ using namespace std;
 #include "hfiles/departamento.h"
 #include "hfiles/zona.h"
 #include "hfiles/sistema.h"
+#include <string> 
 
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
@@ -556,26 +557,37 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
     sistema->listarChatProp();
     cout<<"Ingrese codigo de la conversacion que desee seleccionar"<<endl;
-    /*if(inmo == NULL){
-        throw invalid_argument("El usuario logeado no es Inmobiliiaria");
+    string respuesta;
+    int codigo;
+    getline(cin, respuesta);
+    try{
+        codigo = stoi(respuesta);
     }
-    if(inmo->getPropiedades()->isEmpty()){
-        throw invalid_argument("El usuario no tiene propiedades");
+    catch(const exception& e){
+        throw invalid_argument("El codigo ingresado no es un numero");
     }
-    IIterator * it = (IIterator *) inmo->getPropiedades()->getIterator();
-    IIterator * it2;
-    Propiedad * prop;
-    Conversacion * conver;
-    while(it->hasCurrent()){
-        prop = (Propiedad *) it->getCurrent();
-        it2 = (IIterator *) prop->getConversaciones();
-        while(it2->hasCurrent()){
-            conver = (Conversacion *) it2->getCurrent();
-            conver->getCantidadMensajes();
-            it2->next();
-        }
-        it->next();
-    }*/
+    Conversacion * conver = sistema->seleccionarConversacionInmo(codigo);
+    cout<<"ingresa el contenido del Mensaje"<<endl;
+    getline(cin, respuesta);
+
+    time_t t = std::time(nullptr);
+    tm* now = std::localtime(&t);
+
+    // Obtener el día, mes y año actuales
+    int dia = now->tm_mday;
+    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
+    int anio = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
+
+    // Obtener la hora, minuto y segundo actuales
+    int hora = now->tm_hour;
+    int minuto = now->tm_min;
+    int segundo = now->tm_sec;
+
+    DTHora * dthora = new DTHora(hora, minuto, segundo);
+    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
+    
+    DTFecha * dtfecha = new DTFecha(day, month, year, dthora);
+    conver->nuevoMensaje(dtfecha, respuesta);
 }
 
 void manejarReporte(Sistema * sistema){
