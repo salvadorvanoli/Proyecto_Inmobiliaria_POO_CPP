@@ -1152,101 +1152,151 @@ void manejarEliminarPropiedad(ISistema * sistema){
 
 }
 
+// TIENE QUE SER CON TODO TRY-CATCHS
 void manejarEnviarMensajeInteresado(ISistema * sistema){
     system("cls");
+
     try {
-
-        imprimirDepto(sistema->listarDepartamentos()); // Antes hacía un try-catch con esto
-
-        char * letraDepa = new char[100];
-        cout << "Ingrese la letra del Departamento: ";
-        cin >> letraDepa;
-
-        sistema->elegirDepartamento(letraDepa); // Antes hacía un try-catch con esto
-
-        system("cls");
-
-        imprimirZonasDepto(sistema->listarZonasDepartamento()); // Antes hacía un try-catch con esto
-
-        string opcion;
-        int numZona;
-
-        while (true){
-            cout << "Ingrese el codigo de la Zona: ";
-            cin >> opcion;
-            try {
-                numZona = stoi(opcion);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
-                system("pause");
-            }
-        }
-
-        system("cls");
-
-        sistema->elegirZona(numZona); // Antes hacía un try-catch con esto
-
-        imprimirDTChatProps(sistema->listarChatProp()); // Antes hacía un try-catch con esto
-
-        int codProp;
-
-        while (true){
-            cout << "Ingrese el codigo de la Propiedad: ";
-            cin >> opcion;
-            try {
-                codProp = stoi(opcion);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
-                system("pause");
-            }
-        }
-        
-        sistema->seleccionarPropiedad(codProp); // Antes hacía un try-catch con esto
-
-        Conversacion * conver;
-
-        try{
-            sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
-        } catch(const std::exception& e) {
-            sistema->nuevoChat();
-        }
-
-        system("cls");
-
-        cout << "---Ultimos mensajes---" << endl;
-        imprimirDTMensajes(sistema->getUltimosMensajes()); // Antes hacía un try-catch con esto
-
-        string mensaje;
-        do{
-            cin.ignore();
-            cout << "Ingrese un Mensaje no vacio" << endl;
-            getline(cin, mensaje);
-        } while(mensaje == ""); //agregar bucle en caso de q el mensaje sea vacio
-
-        DTFecha * FECHA = getDTFechaActual();
-        
-        sistema->nuevoMensaje(mensaje, FECHA);
-
-        system("cls");
-        cout << "El mensaje se envió de manera exitosa!" << endl;
-        system("pause");
-
-        // sistema->setConversacionActual(NULL); // No es necesario
-        // sistema->setDepartamentoActual(NULL);
-        // sistema->setEdificioActual(NULL);
-        // sistema->setPropiedadActual(NULL);
-        // sistema->setZonaActual(NULL);
-
+        imprimirDepto(sistema->listarDepartamentos());
     } catch(const std::exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    char * letraDepa = new char[100];
+    cout << "Ingrese la letra del Departamento: ";
+    cin >> letraDepa;
+
+    try {
+        sistema->elegirDepartamento(letraDepa);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+
+    try {
+        imprimirZonasDepto(sistema->listarZonasDepartamento());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    string opcion;
+    int numZona;
+
+    while (true){
+        cout << "Ingrese el codigo de la Zona: ";
+        cin >> opcion;
+        try {
+            numZona = stoi(opcion);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
+            system("pause");
+        }
+    }
+
+    system("cls");
+
+    try {
+        sistema->elegirZona(numZona);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    try {
+        imprimirDTChatProps(sistema->listarChatProp());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    int codProp;
+
+    while (true){
+        cout << "Ingrese el codigo de la Propiedad: ";
+        cin >> opcion;
+        try {
+            codProp = stoi(opcion);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
+            system("pause");
+        }
+    }
+    
+    try {
+        sistema->seleccionarPropiedad(codProp);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    Conversacion * conver;
+
+    try{
+        sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
+    } catch(const exception& e) {
+        sistema->nuevoChat();
+    }
+
+    system("cls");
+
+    cout << "---Ultimos mensajes---" << endl;
+
+    try {
+        imprimirDTMensajes(sistema->getUltimosMensajes());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    string mensaje;
+    do{
+        cin.ignore();
+        cout << "Ingrese un Mensaje no vacio" << endl;
+        getline(cin, mensaje);
+    } while(mensaje == ""); //agregar bucle en caso de q el mensaje sea vacio
+
+    DTFecha * FECHA = getDTFechaActual();
+    
+    try {
+        sistema->nuevoMensaje(mensaje, FECHA);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+    cout << "El mensaje se envió de manera exitosa!" << endl;
+    system("pause");
+
+    // sistema->setConversacionActual(NULL); // No es necesario
+    // sistema->setDepartamentoActual(NULL);
+    // sistema->setEdificioActual(NULL);
+    // sistema->setPropiedadActual(NULL);
+    // sistema->setZonaActual(NULL);
 
 }
 
