@@ -407,7 +407,7 @@ void manejarAltaPropiedad(ISistema * s){
     //elegir departamento
     imprimirDepto(s->listarDepartamentos());
     char* opt = new char[100];
-    cout << "Eliga un departamento:" << endl;
+    cout << "Elija un departamento:" << endl;
     cin >> opt;
     try{
         s->elegirDepartamento(opt);
@@ -646,86 +646,111 @@ void manejarAltaPropiedad(ISistema * s){
 
 void manejarConsultarPropiedad(ISistema * sistema){
     system("cls");
+    
+    char* opt = new char[100];
+
+    cout << "Elija uno de los departamentos listados debabajo" << endl;
+
     try {
-    
-        char* opt = new char[100];
-
-        cout << "Elija uno de los departamentos listados debabajo" << endl;
         imprimirDepto(sistema->listarDepartamentos());
-        cin >> opt;
-        
-        sistema->elegirDepartamento(opt);
-
-        system("cls");
-    
-        cout << "Elija una de las zonas listadas debajo" << endl;
-        imprimirZonasDepto(sistema->listarZonasDepartamento());
-        
-        string optstr;
-        int optint;
-
-        while (true){
-            cout << "Ingrese el código de la zona: "<<endl;
-            cin >> optstr;
-            try {
-                optint = stoi(optstr);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de zona válido" << endl;
-                system("pause");
-            }
-        }
-
-        sistema->elegirZona(optint);
-
-        system("cls");
-
-        cout << "Elija una de las propiedades listadas debajo" << endl;
-        imprimirProps(sistema->listarPropiedades());
-
-        while (true){
-            cout << "Ingrese el código de la propiedad: "<<endl;
-            cin >> optstr;
-            try {
-                optint = stoi(optstr);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
-                system("pause");
-            }
-        }
-
-        cout << "---Propiedad Detallada---" << endl << endl;
-        DTPropiedadDetallada * prop = sistema->verDetallesPropiedad(optint);
-
-        string garaje;
-        if (prop->getTieneGaraje()){
-            garaje = "Si";
-        } else {
-            garaje = "No";
-        }
-
-        string estado;
-        if (prop->getEstado() == DTEstadoProp::alquiler){
-            estado = "En alquiler";
-        } else if(prop->getEstado() == DTEstadoProp::venta) {
-            estado = "En venta";
-        } else {
-            estado = "En alquiler y en venta";
-        }
-
-        cout << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
-        system("pause");
-        system("cls");
-
     } catch(const std::exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    cin >> opt;
+    
+    try {
+        sistema->elegirDepartamento(opt);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+
+    cout << "Elija una de las zonas listadas debajo" << endl;
+
+    try {
+        imprimirZonasDepto(sistema->listarZonasDepartamento());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+    
+    string optstr;
+    int optint;
+
+    while (true){
+        cout << "Ingrese el código de la zona: "<<endl;
+        cin >> optstr;
+        try {
+            optint = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de zona válido" << endl;
+            system("pause");
+        }
+    }
+
+    try {
+        sistema->elegirZona(optint);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+
+    cout << "Elija una de las propiedades listadas debajo" << endl;
+
+    try {
+        imprimirProps(sistema->listarPropiedades());
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    while (true){
+        cout << "Ingrese el código de la propiedad: "<<endl;
+        cin >> optstr;
+        try {
+            optint = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+            system("pause");
+        }
+    }
+
+    cout << "---Propiedad Detallada---" << endl << endl;
+    DTPropiedadDetallada * prop;
+
+    try {
+        prop = sistema->verDetallesPropiedad(optint);
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    cout << prop;
+    
+    system("pause");
+    system("cls");
 
 }
 
@@ -1118,37 +1143,45 @@ void manejarModificarPropiedad(ISistema * sistema){
 
 void manejarEliminarPropiedad(ISistema * sistema){
     system("cls");
+    
     try {
-    
         imprimirProps(sistema->listarPropiedadesInmo());
-        cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
-        string codigoProp;
-        int codigoNumerico;
-
-        while (true){
-            cout << "Ingresa el código de la misma: ";
-            cin >> codigoProp;
-            try {
-                codigoNumerico = stoi(codigoProp);
-                break;
-            } catch(const exception& e) {
-                system("cls");
-                cout << endl << "Por favor, ingresa un código numérico" << endl;
-                system("pause");
-            }
-        }
-    
-        sistema->eliminarPropiedad(codigoNumerico);
-        system("cls");
-        cout << "La propiedad fue removida exitosamente!" << endl;
-        system("pause");
-
     } catch(const exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
+    string codigoProp;
+    int codigoNumerico;
+
+    while (true){
+        cout << "Ingresa el código de la misma: ";
+        cin >> codigoProp;
+        try {
+            codigoNumerico = stoi(codigoProp);
+            break;
+        } catch(const exception& e) {
+            system("cls");
+            cout << endl << "Por favor, ingresa un código numérico" << endl;
+            system("pause");
+        }
+    }
+
+    try {
+        sistema->eliminarPropiedad(codigoNumerico);
+    } catch(const exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
+
+    system("cls");
+    cout << "La propiedad fue removida exitosamente!" << endl;
+    system("pause");
 
 }
 
