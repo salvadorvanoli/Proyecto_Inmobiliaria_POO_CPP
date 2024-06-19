@@ -1084,40 +1084,60 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     char * letraDepa;
     cout<<"Ingrese la letra del Departamento"<<endl;
     cin >> letraDepa;
-    if (sistema->elegirDepartamento(letraDepa)){
-        ICollection * zona = sistema->listarZonasDepartamento();
-        int numZona;
-        cout<<"Ingrese el numero de la Zona"<<endl;
-        cin >> numZona;
-        if(sistema->elegirZona(numZona)){
-            ICollection * chatProp = sistema->listarChatProp();
-            int codProp;
-            cout<<"Ingrese el codigo de la Propiedad"<<endl;
-            cin >> codProp;
-            if (sistema->seleccionarPropiedad(codProp)){ //si la propiedad existe
-                string mensaje;
-                cout<<"Ingrese el Mensaje"<<endl;
-                getline(cin, mensaje);
-                Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
-                IIterator *  it = (IIterator *) sistema->getPropiedadActual()->getConversaciones()->getIterator();
-                bool encontro = false;
-                DTFecha * FECHA; //SUPONGAMOS Q ACA VA LA FECHA DE LA COMPU O LO Q SEA
-                while(it->hasCurrent()){
-                    conver = (Conversacion *) it->getCurrent();
-                    if(conver->getInteresado() == sistema->getLoggeado()){
-                        conver->nuevoMensaje(FECHA, mensaje);
-                        encontro = true;
-                        break;
-                    }
-                    it->next();
-                }
-                if(!encontro){
-                    Interesado * inter = (Interesado *) sistema->getLoggeado();
-                    sistema->getPropiedadActual()->nuevoChat(inter)->nuevoMensaje(FECHA, mensaje);
-                }
-            }
-            
-        }
+
+    try{
+        sistema->elegirDepartamento(letraDepa);
+         
+    }catch(const exception& e){
+        cout << "El Departamento ingresado no es valido." << endl;
+        return;
+    }
+
+    ICollection * zona = sistema->listarZonasDepartamento();
+    int numZona;
+    cout<<"Ingrese el numero de la Zona"<<endl;
+    cin >> numZona;
+
+    try{
+        sistema->elegirZona(numZona);
+    }catch(const exception& e){
+        cout << "La Zona ingresada no es valida." << endl;
+        return;
+    }
+
+    ICollection * chatProp = sistema->listarChatProp();
+    int codProp;
+    cout<<"Ingrese el codigo de la Propiedad"<<endl;
+    cin >> codProp;
+    try{
+        sistema->seleccionarPropiedad(codProp);
+    }catch(const exception& e){
+        cout << "La zona ingresada no es valida." << endl;
+        return;
+    }
+
+    string mensaje;
+    do{
+        cin.ignore();
+        cout<<"Ingrese un Mensaje no vacio"<<endl;
+        getline(cin, mensaje);
+    }while(mensaje == "");
+    Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
+    IIterator *  it = (IIterator *) sistema->getPropiedadActual()->getConversaciones()->getIterator();
+    bool encontro = false;
+    DTFecha * FECHA; //SUPONGAMOS Q ACA VA LA FECHA DE LA COMPU O LO Q SEA
+    while(it->hasCurrent()){
+        conver = (Conversacion *) it->getCurrent();
+        if(conver->getInteresado() == sistema->getLoggeado()){
+        conver->nuevoMensaje(FECHA, mensaje);
+        encontro = true;
+        break;
+    }
+    it->next();
+    }
+    if(!encontro){
+        Interesado * inter = (Interesado *) sistema->getLoggeado();
+        sistema->getPropiedadActual()->nuevoChat(inter)->nuevoMensaje(FECHA, mensaje);
     }
     sistema->setConversacionActual(NULL);
     sistema->setDepartamentoActual(NULL);
@@ -1125,6 +1145,7 @@ void manejarEnviarMensajeInteresado(Sistema * sistema){
     sistema->setPropiedadActual(NULL);
     sistema->setZonaActual(NULL);
 }
+
 
 void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     //feli
