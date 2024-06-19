@@ -1113,35 +1113,38 @@ void manejarModificarPropiedad(ISistema * sistema){
 
 void manejarEliminarPropiedad(ISistema * sistema){
     system("cls");
-    ICollection * props = sistema->listarPropiedadesInmo();
-    cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
-    string codigoProp;
-    int codigoNumerico;
-
-    while (true){
-        cout << "Ingresa el código de la misma: ";
-        cin >> codigoProp;
-        try {
-            codigoNumerico = stoi(codigoProp);
-            break;
-        } catch(const exception& e) {
-            system("cls");
-            cout << endl << "Por favor, ingresa un código numérico" << endl;
-            system("pause");
-        }
-    }
-    
     try {
+    
+        imprimirProps(sistema->listarPropiedadesInmo());
+        cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
+        string codigoProp;
+        int codigoNumerico;
+
+        while (true){
+            cout << "Ingresa el código de la misma: ";
+            cin >> codigoProp;
+            try {
+                codigoNumerico = stoi(codigoProp);
+                break;
+            } catch(const exception& e) {
+                system("cls");
+                cout << endl << "Por favor, ingresa un código numérico" << endl;
+                system("pause");
+            }
+        }
+    
         sistema->eliminarPropiedad(codigoNumerico);
         system("cls");
         cout << "La propiedad fue removida exitosamente!" << endl;
         system("pause");
+
     } catch(const exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
 }
 
 void manejarEnviarMensajeInteresado(ISistema * sistema){
