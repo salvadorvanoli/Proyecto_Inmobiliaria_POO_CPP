@@ -102,7 +102,7 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
 
 #include <ctime>
 
-void imprimirZonasDepto(IDictionary * col){
+void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();
     DTZona * zona;
     while (it->hasCurrent()){
@@ -119,6 +119,50 @@ void imprimirDepto(ICollection * col){
     while (it->hasCurrent()){
         departamento = (DTDepartamento *) it->getCurrent();
         cout << departamento << endl;
+        it->next();
+    }
+    delete it;
+}
+
+void imprimirEdificios(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTEdificio * edificio;
+    while (it->hasCurrent()){
+        edificio = (DTEdificio *) it->getCurrent();
+        cout << edificio << endl;
+        it->next();
+    }
+    delete it;
+}
+
+void imprimirProps(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTPropiedad * prop;
+    while (it->hasCurrent()){
+        prop = (DTPropiedad *) it->getCurrent();
+        cout << prop << endl;
+        it->next();
+    }
+    delete it;
+}
+
+void imprimirPropsDetalladas(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTPropiedadDetallada * propDetallada;
+    while (it->hasCurrent()){
+        propDetallada = (DTPropiedadDetallada *) it->getCurrent();
+        cout << propDetallada << endl;
+        it->next();
+    }
+    delete it;
+}
+
+void imprimirDTChatProps(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTChatProp * dtchatprop;
+    while (it->hasCurrent()){
+        dtchatprop = (DTChatProp *) it->getCurrent();
+        cout << dtchatprop << endl;
         it->next();
     }
     delete it;
@@ -319,7 +363,7 @@ void manejarAltaPropiedad(){
 }
 
 void manejarConsultarPropiedad(){
-
+    
 }
 
 void manejarmodificarPropiedad(Sistema sistema){
@@ -456,7 +500,8 @@ void manejarmodificarPropiedad(Sistema sistema){
 }
 
 void eliminarPropiedad(int){
-
+    system("clear");
+    
 }
 
 void manejarEnviarMensajeInteresado(Sistema * sistema){
