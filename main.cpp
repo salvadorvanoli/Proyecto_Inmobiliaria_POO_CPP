@@ -20,8 +20,7 @@ using namespace std;
 #include "hfiles/zona.h"
 #include "hfiles/sistema.h"
 #include <string> 
-
-
+#include <ctime>
 
 // No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
 // void iniciarSesion(){
@@ -100,8 +99,6 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
     }
 
 }*/
-
-#include <ctime>
 
 void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();

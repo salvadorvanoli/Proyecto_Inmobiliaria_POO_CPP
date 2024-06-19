@@ -101,19 +101,6 @@
     "xutility": "cpp",
     "list": "cpp",
     "numbers": "cpp",
-    "array": "cpp",
-    "*.tcc": "cpp",
-    "cwctype": "cpp",
-    "deque": "cpp",
-    "string": "cpp",
-    "unordered_map": "cpp",
-    "vector": "cpp",
-    "algorithm": "cpp",
-    "functional": "cpp",
-    "memory_resource": "cpp",
-    "numeric": "cpp",
-    "optional": "cpp",
-    "random": "cpp",
-    "string_view": "cpp"
+    "string": "cpp"
   }
 }
