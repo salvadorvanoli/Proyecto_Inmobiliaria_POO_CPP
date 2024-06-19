@@ -604,9 +604,26 @@ void manejarAltaPropiedad(ISistema * s){
 
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
+            cout << "3. Poner en venta y alquiler" << endl;
             int option;
             cin >> option;
             system("cls");
+            if (option == 1) {
+                float valorV;
+                cout << "Ingrese valor de la venta" << endl;
+                system("cls");
+                s->ponerEnVenta(valorV);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
+                return;
+            }
+            if (option == 2) {
+                float valorA;
+                cout << "Ingrese valor del alquiler" << endl;
+                system("cls");
+                s->ponerEnAlquiler(valorA);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
+                return;
+            }
             if (option == 3) {
                 float valorA;
                 float valorV;
