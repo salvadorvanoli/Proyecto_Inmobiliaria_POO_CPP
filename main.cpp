@@ -184,7 +184,9 @@ bool manejarIniciarSesion(Sistema * sistema){
         } catch (const exception& e){
             system("cls");
             cout << "Error de ejecución: " << e.what() << endl;
+            system("pause");
             emailCorrecto = false;
+            return;
         }
     } while(!emailCorrecto);
     if(sistema->getLoggeado()->getPrimeraVez() == true){
@@ -201,6 +203,8 @@ bool manejarIniciarSesion(Sistema * sistema){
         } catch (const exception& e){
             system("cls");
             cout << "Error de ejecución: " << e.what() << endl;
+            system("pause");
+            return;
         }
     }
     system("cls");
@@ -214,7 +218,8 @@ bool manejarIniciarSesion(Sistema * sistema){
     } catch (const exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
-        return false;
+        system("pause");
+        return;
     }
 }
 
@@ -260,6 +265,8 @@ void manejarAltaInmobiliaria(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
 }
 
@@ -298,6 +305,8 @@ void manejarAltaInteresado(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
 }
 
@@ -316,7 +325,9 @@ void manejarAltaEdificio(Sistema * sistema){
     try{
         sistema->elegirDepartamento(opt);
     } catch(const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
    
@@ -331,13 +342,10 @@ void manejarAltaEdificio(Sistema * sistema){
         sistema->elegirZona(optint);
     } catch(const exception& e){
         system("cls");
-        cout << "Error de ejecución: " << e.what() << endl; // Faltó return
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
-
-    cout << "Elija uno de los departamentos listados abajo" << endl; // ??? Dos veces preguntas por los departamentos
-    imprimirDepto(sistema->listarDepartamentos());
-    cin >> opt;
-    sistema->elegirDepartamento(opt);
 
     cout << "Va a ingresar un edificio en el sistema" << endl << endl;
     cout << "Ingrese ahora un nombre para el edificio" << endl << endl;
@@ -363,6 +371,8 @@ void manejarAltaEdificio(Sistema * sistema){
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
 }
 
@@ -389,7 +399,9 @@ void manejarAltaPropiedad(Sistema* s){
     try{
         s->elegirDepartamento(opt);
     } catch(const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
     system("cls");
@@ -403,8 +415,10 @@ void manejarAltaPropiedad(Sistema* s){
     try{
         s->elegirZona(numZona);
     } catch(const exception& e){
-        cout << "Error de ejecución: " << e.what() << endl;
+        system("cls");
         s->setDepartamentoActual(NULL);
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
 
@@ -459,10 +473,12 @@ void manejarAltaPropiedad(Sistema* s){
             try{
                 s->seleccionarEdificio(numEdificio); 
             } catch(const exception& e) {
+                system("cls");
                 cout << "Error de ejecución: " << e.what() << endl;
+                system("pause");
                 s->setDepartamentoActual(NULL);
                 s->setZonaActual(NULL);
-            return;
+                return;
             }
         }
         int cantAmb, cantBanos, cantDorm, numero;
@@ -1072,7 +1088,9 @@ void manejarEliminarPropiedad(Sistema * sistema){
         cout << "La propiedad fue removida exitosamente!" << endl;
         system("pause");
     } catch(const exception& e) {
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
         return;
     }
 }
@@ -1208,7 +1226,10 @@ void manejarReporte(Sistema * sistema){
     try {
         reportes = sistema->obtenerReporte();
     } catch (const exception& e){
+        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
     }
     int i = 1;
     IIterator * it = reportes->getIterator();

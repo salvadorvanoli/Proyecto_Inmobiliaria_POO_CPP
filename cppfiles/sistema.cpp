@@ -293,19 +293,19 @@ void Sistema::iniciarSesion(char* email){
         this->loggeado = user;
         return;
     } else {
-        system("clear");
+        system("cls");
         throw runtime_error("No existe el usuario");
     }
 }
 
 bool Sistema::crearContrasenia(string pwd, string pwd2){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
-    if(admin == NULL){
-        system("clear");
+    if(admin != NULL){
+        system("cls");
         throw runtime_error("El usuario administrador ya tiene una contraseña establecida, consulte con el encargado");
     }
     if(pwd == pwd2){
@@ -316,7 +316,7 @@ bool Sistema::crearContrasenia(string pwd, string pwd2){
             throw runtime_error("No se pudo agregar la contraseña correctamente");   
         }
     } else {
-        system("clear");
+        system("cls");
         cout << "Las contraseñas no coinciden" << endl << endl;
         return false;
     }
@@ -324,15 +324,15 @@ bool Sistema::crearContrasenia(string pwd, string pwd2){
 
 bool Sistema::ingresarContrasenia(string pwd){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     if(this->loggeado->esContraseniaCorrecta(pwd)){
-        system("clear");
+        system("cls");
         cout << "Sesión iniciada con éxito" << endl << endl;
         return true;
     } else {
-        system("clear");
+        system("cls");
         throw runtime_error("La contraseña introducida no es correcta");
     }
 }
@@ -343,7 +343,7 @@ bool Sistema::ingresarContrasenia(string pwd){
 
 void Sistema::cerrarSesion(){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     } else {
         this->loggeado = NULL;
@@ -357,12 +357,12 @@ void Sistema::cerrarSesion(){
 
 void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     IKey * key = new String(email);
@@ -373,7 +373,7 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
     Inmobiliaria * nuevaInmo = new Inmobiliaria(email, nombre, dir);
     ICollectible * inmoCasteada = (ICollectible*) nuevaInmo;
     this->usuarios->add(key, inmoCasteada);
-    system("clear");
+    system("cls");
     cout << "Usuario creado con éxito" << endl << endl;
     return;
 }
@@ -384,24 +384,24 @@ void Sistema::altaInmobiliaria(char* nombre, char* email, DTDir* dir){
 
 void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     IKey * key = new String(email);
     if(this->usuarios->member(key)){
         delete key;
-        system("clear");
+        system("cls");
         throw invalid_argument("Ya existe un usuario con ese correo");
     }
     Interesado * nuevoInteresado = new Interesado(email, nom, ape, edad);
     ICollectible * interesadoCasteado = (ICollectible*) nuevoInteresado;
     this->usuarios->add(key, interesadoCasteado);
-    system("clear");
+    system("cls");
     cout << "Usuario creado con éxito" << endl << endl;
     return;
 }
@@ -412,12 +412,12 @@ void Sistema::altaInteresado(char* email, string nom, string ape, int edad){
 
 bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if(inmo == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
     if (this->zonaActual == NULL){
@@ -434,12 +434,12 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes){
 
 ICollection * Sistema::obtenerReporte(){
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Administrador * admin = dynamic_cast<Administrador*> (this->loggeado);
     if(admin == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     IIterator * it = this->usuarios->getIterator();
@@ -560,16 +560,16 @@ bool Sistema::seleccionarEdificio(int numEdificio) {
 
 
 void Sistema:: AltaPropiedad() { 
-    system("clear");
+    system("cls");
 
    //chequear usuario
     if(this->loggeado == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if(inmo == NULL){
-        system("clear");
+        system("cls");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
 
@@ -578,7 +578,7 @@ void Sistema:: AltaPropiedad() {
     char * letraDepa;
     cout << "Ingresar identificación del departamento:" << endl;
     cin >> letraDepa;
-    system("clear");
+    system("cls");
    
     if (elegirDepartamento(letraDepa)){ 
         //elegir zona
@@ -586,7 +586,7 @@ void Sistema:: AltaPropiedad() {
         cout << "Ingresar identificación de la zona:" << endl;
         int numZona;
         cin >> numZona;
-        system("clear");
+        system("cls");
         
         if(this->elegirZona(numZona)){ 
             cout << "Ingrese tipo de propiedad" << endl;
@@ -594,7 +594,7 @@ void Sistema:: AltaPropiedad() {
             cout << "2. Apartamento" << endl;
             int opcion;
             cin >> opcion;
-            system("clear");
+            system("cls");
 
             //si es apartamento
             if (opcion == 2) {
@@ -604,7 +604,7 @@ void Sistema:: AltaPropiedad() {
                 cout << "2. No" << endl;
                 int opcion;
                 cin >> opcion;
-                system("clear");
+                system("cls");
 
                 //agrega edificio
                 if (opcion == 1) {
@@ -612,13 +612,13 @@ void Sistema:: AltaPropiedad() {
                     int pisos, gastosC;
                     cout << "Ingrese nombre del edificio" << endl;
                     cin >> nombre;
-                    system("clear");
+                    system("cls");
                     cout << "Ingrese la cantidad de pisos" << endl;
                     cin >> nombre;
-                    system("clear");
+                    system("cls");
                     cout << "Ingrese los gastos comunes" << endl;
                     cin >> nombre;
-                    system("clear");
+                    system("cls");
                     bool res = altaEdificio(nombre, pisos, gastosC); //Como es un bool no se que hacer
                 }
 
@@ -626,7 +626,7 @@ void Sistema:: AltaPropiedad() {
                 int numEdificio;
                 cout << "Ingresar identificación del edificio:" << endl;
                 cin >> numEdificio;
-                system("clear");
+                system("cls");
                 if (seleccionarEdificio(numEdificio)) { 
                     int cantAmb, cantBanos, cantDorm, numero;
                     float m2t;
@@ -635,33 +635,33 @@ void Sistema:: AltaPropiedad() {
                     int opcion;
                     cout << "Ingresar calle:" << endl;
                     cin >> calle; 
-                    system("clear");
+                    system("cls");
                     cout << "Ingresar numero:" << endl;
                     cin >> numero;
-                    system("clear");
+                    system("cls");
                     cout << "Ingresar ciudad:" << endl;
                     cin >> ciudad;
-                    system("clear");
+                    system("cls");
                     DTDir* dir = new DTDir(calle, numero, ciudad);
                     cout << "Ingresar cantidad de ambientes:" << endl;
                     cin >> cantAmb;
-                    system("clear");
+                    system("cls");
                     cout << "Ingresar cantidad de banos:" << endl;
                     cin >> cantBanos;
-                    system("clear");
+                    system("cls");
                     cout << "Ingresar cantidad de dormitorios:" << endl;
                     cin >> cantDorm;
-                    system("clear");
+                    system("cls");
                     cout << "Ingresar si tiene garage:" << endl;
                     cout << "1. Si" << endl;
                     cout << "2. No";
                     cin >> opcion;
-                    system("clear");
+                    system("cls");
                     if (opcion == 1) 
                         garage = true;
                     cout << "Ingresar metros cuadrados edificados:" << endl;
                     cin >> m2t;
-                    system("clear");
+                    system("cls");
                     especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, this->edificioActual, this->zonaActual);
                 }
             }
@@ -673,48 +673,48 @@ void Sistema:: AltaPropiedad() {
                 int opcion;
                 cout << "Ingresar calle:" << endl;
                 cin >> calle;
-                system("clear");
+                system("cls");
                 cout << "Ingresar numero:" << endl;
                 cin >> numero;
-                system("clear");
+                system("cls");
                 cout << "Ingresar ciudad:" << endl;
                 cin >> ciudad;
-                system("clear");
+                system("cls");
                 DTDir* dir = new DTDir(calle, numero, ciudad);
                 cout << "Ingresar cantidad de ambientes:" << endl;
                 cin >> cantAmb;
-                system("clear");
+                system("cls");
                 cout << "Ingresar cantidad de banos:" << endl;
                 cin >> cantBanos;
-                system("clear");
+                system("cls");
                 cout << "Ingresar cantidad de dormitorios:" << endl;
                 cin >> cantDorm;
-                system("clear");
+                system("cls");
                 cout << "Ingresar si tiene garage:" << endl;
                 cout << "1. Si" << endl;
                 cout << "2. No";
                 cin >> opcion;
-                system("clear");
+                system("cls");
                 if (opcion == 1) 
                     garage = true;
                 cout << "Ingresar metros cuadrados edificados:" << endl;
                 cin >> m2e;
-                system("clear");
+                system("cls");
                 cout << "Ingresar metros cuadrados verdes:" << endl;
                 cin >> m2v;
-                system("clear");
+                system("cls");
                 especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, this->zonaActual, m2v);
             }
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
             int option;
             cin >> option;
-            system("clear");
+            system("cls");
             if (option == 1) {
                 float valor;
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
-                system("clear");
+                system("cls");
                 int codigo = ponerEnVenta(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
                 return;
@@ -723,7 +723,7 @@ void Sistema:: AltaPropiedad() {
                 float valor;
                 cout << "Ingrese valor" << endl;
                 cin >> valor;
-                system("clear");
+                system("cls");
                 int codigo = ponerEnAlquiler(valor);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
                 return;
