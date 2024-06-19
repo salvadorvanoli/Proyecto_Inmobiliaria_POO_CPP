@@ -121,6 +121,7 @@ class Sistema{
         Edificio* getEdificioActual();
         Propiedad* getPropiedadActual();
         Conversacion* getConversacionActual();
+        IDictionary* getDepartamentos();
 };
 
 #endif
