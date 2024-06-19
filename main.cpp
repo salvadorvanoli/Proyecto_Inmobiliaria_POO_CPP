@@ -186,7 +186,6 @@ bool manejarIniciarSesion(Sistema * sistema){
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
             emailCorrecto = false;
-            return;
         }
     } while(!emailCorrecto);
     if(sistema->getLoggeado()->getPrimeraVez() == true){
@@ -204,7 +203,7 @@ bool manejarIniciarSesion(Sistema * sistema){
             system("cls");
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
-            return;
+            return false;
         }
     }
     system("cls");
@@ -219,14 +218,14 @@ bool manejarIniciarSesion(Sistema * sistema){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
-        return;
+        return false;
     }
 }
 
 void manejarAltaInmobiliaria(Sistema * sistema){
     system("cls");
     char* email = new char[100];
-    char* nombre = new char[100];
+    string nombre;
     DTDir* dir;
     string calle;
     int numero;
@@ -261,7 +260,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
     dir = new DTDir(calle, numero, ciudad);
 
     try{
-        sistema->altaInmobiliaria(email, nombre, dir);
+        sistema->altaInmobiliaria(nombre, email, dir);
     } catch (const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
@@ -279,6 +278,7 @@ void manejarAltaInteresado(Sistema * sistema){
     int edad;
     cout << "Va a ingresar un usuario interesado en el sistema" << endl << endl;
     cout << "Ingrese el email" << endl << endl;
+    cin >> email;
     IKey * key = new String(email);
     if(sistema->getUsuarios()->member(key)){
         cout << "Ya existe un usuario con ese correo" << endl;
@@ -1235,17 +1235,18 @@ void manejarReporte(Sistema * sistema){
     IIterator * it = reportes->getIterator();
     while(it->hasCurrent()){
         DTReporte * reporte = (DTReporte*) it->getCurrent();
-        cout << "Reporte: " << i << endl;
-        cout << "Inmobiliaria: " << reporte->getInmo()->getNombre() << endl << endl;
-        IIterator * it2 = reporte->getLineas()->getIterator();
-        while(it2->hasCurrent()){
-            DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
-            cout << "Departamento: " << linea->getLetraDep() << endl;
-            cout << "Código de la zona: " << linea->getCodigoZona() << endl;
-            cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
-            cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
-        }
-        i++;
+        cout << "[REPORTE " << i << "]" << endl;
+        cout << reporte << endl << endl;
+        // cout << "Inmobiliaria: " << reporte->getInmo() << endl << endl;
+        // IIterator * it2 = reporte->getLineas()->getIterator();
+        // while(it2->hasCurrent()){
+        //     DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
+        //     cout << "Departamento: " << linea->getLetraDep() << endl;
+        //     cout << "Código de la zona: " << linea->getCodigoZona() << endl;
+        //     cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
+        //     cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
+        // }
+        // i++;
         it->next();
     }
 }
@@ -1257,103 +1258,119 @@ void menu(Sistema * sistema){
         do{
             system("cls");
             cout << "Necesita iniciar sesión en el sistema" << endl << endl;
-            cout << "1-Iniciar sesión" << endl << endl;
+            cout << "1-Iniciar sesión" << endl;
+            cout << "exitsystem-Salir del sistema" << endl << endl;
             cin >> opt;
-        } while (opt != "1");
+        } while (opt != "1" && opt != "exitsystem");
 
-        bool sesionCorrecta;
-        do{
-            sesionCorrecta = manejarIniciarSesion(sistema);
-            system("pause");
-        } while(!sesionCorrecta);
+        if(opt != "exitsystem"){
+            bool sesionCorrecta;
+            do{
+                sesionCorrecta = manejarIniciarSesion(sistema);
+                system("pause");
+            } while(!sesionCorrecta);
 
-        if(sesionCorrecta){
-            Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*>(sistema->getLoggeado());
-            Administrador * admin = dynamic_cast<Administrador*>(sistema->getLoggeado());
-            Interesado* interesado = dynamic_cast<Interesado*>(sistema->getLoggeado());
+            if(sesionCorrecta){
+                Inmobiliaria * inmo = dynamic_cast<Inmobiliaria*>(sistema->getLoggeado());
+                Administrador * admin = dynamic_cast<Administrador*>(sistema->getLoggeado());
+                Interesado* interesado = dynamic_cast<Interesado*>(sistema->getLoggeado());
 
-            if(admin != NULL){
-                do{
-                    system("cls");
-                    cout << "Elija una función del sistema" << endl << endl;
-                    cout << "1-Cerrar sesión" << endl;
-                    cout << "2-Alta inmobiliaria" << endl;
-                    cout << "3-Alta interesado" << endl;
-                    cout << "4-Obtener reporte de inmobiliaria" << endl << endl;
-                    cout << "exit-Salir del programa" << endl << endl;
-                    cin >> opt;
-                } while(opt != "1" && opt != "2" && opt != "3"  && opt != "4" && opt != "exit");
-                if(opt == "1"){
-                    sistema->cerrarSesion();
-                } else if(opt == "2"){
-                    manejarAltaInmobiliaria(sistema);
-                    system("pause");
-                } else if (opt == "3"){
-                    manejarAltaInteresado(sistema);
-                } else if (opt == "4"){
-                    manejarReporte(sistema);
-                } else if (opt == "exit"){
-                    return;
-                } else {
-                    throw invalid_argument("No se encontró una opción válida");
-                }
-            } else if(inmo != NULL) {
-                do{
-                    system("cls");
-                    cout << "Elija una función del sistema" << endl << endl;
-                    cout << "1-Cerrar sesión" << endl;
-                    cout << "2-Alta edificio" << endl;
-                    cout << "3-Alta propiedad" << endl;
-                    cout << "4-Consultar propiedad" << endl;
-                    cout << "5-Modificar propiedad" << endl;
-                    cout << "6-Eliminar propiedad" << endl;
-                    cout << "7-Enviar mensaje inmobiliaria" << endl << endl;
-                    cout << "exit-Salir del programa" << endl << endl;
-                    cin >> opt;
-                } while(opt != "1" && opt != "2" && opt != "3" && opt != "4" && opt != "5" && opt != "6" && opt != "7" && opt != "exit");
-                if (opt == "1"){
-                    sistema->cerrarSesion();
-                } else if(opt == "2"){
-                    manejarAltaEdificio(sistema);
-                } else if (opt == "3"){
-                    manejarAltaPropiedad(sistema);
-                } else if (opt == "4"){
-                    manejarConsultarPropiedad(sistema);
-                } else if (opt == "5"){
-                    manejarModificarPropiedad(sistema);
-                } else if (opt == "6"){
-                    manejarEliminarPropiedad(sistema);
-                } else if (opt == "7"){
-                    manejarEnviarMensajeInmobiliaria(sistema);
-                } else if (opt == "exit"){
-                    return;
-                } else {
-                    throw invalid_argument("No se encontró una opción válida");
-                }
-            } else if (interesado != NULL){
-                do{
-                    system("cls");
-                    cout << "Elija una función del sistema" << endl << endl;
-                    cout << "1-Cerrar sesión" << endl;
-                    cout << "2-Consultar propiedad" << endl;
-                    cout << "3-Enviar mensaje interesado" << endl << endl;
-                    cout << "exit-Salir del programa" << endl << endl;
-                    cin >> opt;
-                } while(opt != "1" && opt != "2" && opt != "3" && opt != "exit");
-                if(opt == "1"){
-                    sistema->cerrarSesion();
-                } else if(opt == "2"){
-                    manejarConsultarPropiedad(sistema);
-                } else if (opt == "3"){
-                    manejarEnviarMensajeInteresado(sistema);
-                } else if (opt == "exit"){
-                    return;
-                } else {
-                    throw invalid_argument("No se encontró una opción válida");
+                if(admin != NULL){
+                    do{
+                        do{
+                            system("cls");
+                            cout << "Elija una función del sistema" << endl << endl;
+                            cout << "1-Cerrar sesión" << endl;
+                            cout << "2-Alta inmobiliaria" << endl;
+                            cout << "3-Alta interesado" << endl;
+                            cout << "4-Obtener reporte de inmobiliaria" << endl << endl;
+                            cin >> opt;
+                        } while(opt != "1" && opt != "2" && opt != "3"  && opt != "4");
+
+                        if(opt == "1"){
+                            sistema->cerrarSesion();
+                            continue;
+                        } else if(opt == "2"){
+                            manejarAltaInmobiliaria(sistema);
+                            system("pause");
+                        } else if (opt == "3"){
+                            manejarAltaInteresado(sistema);
+                            system("pause");
+                        } else if (opt == "4"){
+                            manejarReporte(sistema);
+                            system("pause");
+                        } else {
+                            throw invalid_argument("No se encontró una opción válida");
+                        }
+                    } while(opt != "1");
+                } else if(inmo != NULL) {
+                    do{
+                        do{
+                            system("cls");
+                            cout << "Elija una función del sistema" << endl << endl;
+                            cout << "1-Cerrar sesión" << endl;
+                            cout << "2-Alta edificio" << endl;
+                            cout << "3-Alta propiedad" << endl;
+                            cout << "4-Consultar propiedad" << endl;
+                            cout << "5-Modificar propiedad" << endl;
+                            cout << "6-Eliminar propiedad" << endl;
+                            cout << "7-Enviar mensaje inmobiliaria" << endl << endl;
+                            cin >> opt;
+                        } while(opt != "1" && opt != "2" && opt != "3" && opt != "4" && opt != "5" && opt != "6" && opt != "7");
+
+                        if (opt == "1"){
+                            sistema->cerrarSesion();
+                            continue;
+                        } else if(opt == "2"){
+                            manejarAltaEdificio(sistema);
+                            system("pause");
+                        } else if (opt == "3"){
+                            manejarAltaPropiedad(sistema);
+                            system("pause");
+                        } else if (opt == "4"){
+                            manejarConsultarPropiedad(sistema);
+                            system("pause");
+                        } else if (opt == "5"){
+                            manejarModificarPropiedad(sistema);
+                            system("pause");
+                        } else if (opt == "6"){
+                            manejarEliminarPropiedad(sistema);
+                            system("pause");
+                        } else if (opt == "7"){
+                            manejarEnviarMensajeInmobiliaria(sistema);
+                            system("pause");
+                        } else {
+                            throw invalid_argument("No se encontró una opción válida");
+                        }
+                    } while(opt != "1");
+                } else if (interesado != NULL){
+                    do{
+                        do{
+                            system("cls");
+                            cout << "Elija una función del sistema" << endl << endl;
+                            cout << "1-Cerrar sesión" << endl;
+                            cout << "2-Consultar propiedad" << endl;
+                            cout << "3-Enviar mensaje interesado" << endl << endl;
+                            cin >> opt;
+                        } while(opt != "1" && opt != "2" && opt != "3");
+
+                        if(opt == "1"){
+                            sistema->cerrarSesion();
+                            continue;
+                        } else if(opt == "2"){
+                            manejarConsultarPropiedad(sistema);
+                            system("pause");
+                        } else if (opt == "3"){
+                            manejarEnviarMensajeInteresado(sistema);
+                            system("pause");
+                        } else {
+                            throw invalid_argument("No se encontró una opción válida");
+                        }
+                    }while(opt != "1");
                 }
             }
         }
-    } while(opt != "exit");
+    } while(opt != "exitsystem");
 }
 
 

@@ -45,7 +45,7 @@ class Propiedad;
 
 class Inmobiliaria : public Usuario {
     private:
-        char* nombre;
+        string nombre;
         DTDir * direccion;
         IDictionary * ventas;
         IDictionary * alquileres;
@@ -55,7 +55,7 @@ class Inmobiliaria : public Usuario {
         int cantPropiedades;
         int cantConversaciones;
     public:
-        Inmobiliaria(char*, char*, DTDir*);
+        Inmobiliaria(char*, string, DTDir*);
         ~Inmobiliaria();
 
         //Setters

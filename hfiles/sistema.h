@@ -69,7 +69,7 @@ class Sistema{
         bool elegirDepartamento(char *);
         ICollection * listarZonasDepartamento();
         bool elegirZona(int);
-        void altaInmobiliaria(char*, char*, DTDir*);
+        void altaInmobiliaria(string, char*, DTDir*);
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int);
         ICollection* obtenerReporte();

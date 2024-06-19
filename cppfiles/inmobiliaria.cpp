@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-Inmobiliaria::Inmobiliaria(char* email, char* nombre, DTDir* direccion) : Usuario(email){
+Inmobiliaria::Inmobiliaria(char* email, string nombre, DTDir* direccion) : Usuario(email){
     this->contrasenia = "";
     this->nombre = nombre;
     this->direccion = direccion;
@@ -187,7 +187,8 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
             break;
         }
     }
-    DTInmobiliaria * inmo = new DTInmobiliaria(this->nombre, this->direccion);
+    string nombre = this->getNombre();
+    DTInmobiliaria * inmo = new DTInmobiliaria(nombre, this->direccion);
     DTReporte * reporte = new DTReporte(inmo, lineas);
     return reporte;
 }

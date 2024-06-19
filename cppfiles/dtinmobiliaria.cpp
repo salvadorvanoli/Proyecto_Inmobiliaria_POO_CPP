@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-DTInmobiliaria::DTInmobiliaria(char* nombre, DTDir * direccion){
+DTInmobiliaria::DTInmobiliaria(string nombre, DTDir * direccion){
     this->nombre = nombre;
     this->direccion = direccion;
 }
@@ -11,7 +11,7 @@ DTInmobiliaria::~DTInmobiliaria(){
 
 }
 
-char* DTInmobiliaria::getNombre(){
+string DTInmobiliaria::getNombre(){
     return this->nombre;
 }
 

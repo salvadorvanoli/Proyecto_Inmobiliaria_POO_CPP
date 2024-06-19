@@ -11,12 +11,12 @@ class DTDir;
 
 class DTInmobiliaria: public ICollectible{
     private:
-        char* nombre;
+        string nombre;
         DTDir * direccion;
     public:
-        DTInmobiliaria(char*, DTDir *);
+        DTInmobiliaria(string, DTDir *);
         ~DTInmobiliaria();
-        char* getNombre();
+        string getNombre();
         DTDir * getDireccion();
         friend ostream& operator << (ostream &, DTInmobiliaria *);
 };
