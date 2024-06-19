@@ -74,9 +74,7 @@ class Sistema : public ISistema{
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int);
         ICollection* obtenerReporte();
-        void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
-        DTTipoProp modificarPropiedad(int);
         // void mensajeInmobiliaria(string, DTFecha *);
         void eliminarPropiedad(int);
         ICollection * listarPropiedades();
@@ -103,7 +101,7 @@ class Sistema : public ISistema{
         void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float);
         ICollection* listarEdificio();
         bool seleccionarEdificio(int);
-        void AltaPropiedad();
+        // void AltaPropiedad();
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         void enlazarPropiedad(Propiedad *);

@@ -6,3 +6,5 @@ using namespace std;
 ISistema::ISistema(){
     
 }
+
+ISistema::~ISistema(){}
