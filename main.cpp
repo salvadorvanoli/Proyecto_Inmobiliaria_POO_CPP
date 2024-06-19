@@ -381,11 +381,10 @@ void manejarConsultarPropiedad(){
 
 }
 
-//m2verdes, dormitorios y baños puede ser = 0 | ningun int o float puede ser menor a 0
-void manejarmodificarPropiedad(Sistema sistema){
+void manejarmodificarPropiedad(Sistema * sistema){
     //feli
     system("clear");
-    Inmobiliaria * inmo = (Inmobiliaria *) sistema.getLoggeado();
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
     if(inmo == NULL){
         throw invalid_argument("El usuario logeado no es Inmobiliaria");
     }
@@ -412,8 +411,8 @@ void manejarmodificarPropiedad(Sistema sistema){
         throw invalid_argument("No existe una Propiedad con ese codigo");
     }
     delete key;
-    sistema.setPropiedadActual(prop);
-    DTTipoProp tipoprop = prop->getDTTipoProp(); //no  se si para que xd
+    sistema->setPropiedadActual(prop);
+    DTTipoProp tipoprop = prop->getDTTipoProp(); 
     int cantAmbiente, cantDormitorio, cantBanios;
     float m2Edificados;
     bool tieneGaraje;
@@ -520,11 +519,11 @@ void manejarmodificarPropiedad(Sistema sistema){
         catch(const exception& e){
             throw invalid_argument("La cantidad ingresada no es un numero");
         }
-        if(m2Verdes <= 0){
+        if(m2Verdes <= -1){
             throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
         }
         system("clear");
-        sistema.modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
+        sistema->modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
         return;
     }
     int m2Totales;
@@ -540,7 +539,7 @@ void manejarmodificarPropiedad(Sistema sistema){
         throw invalid_argument("Los m2 totales no puede ser menor a 1");
     }
     system("clear");
-    sistema.modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
+    sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
 }
 
 void eliminarPropiedad(int){
@@ -551,9 +550,32 @@ void manejarEnviarMensajeInteresado(){
 
 }
 
-void manejarEnviarMensajeInmobiliaria(){
+void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
     //feli
     system("clear");
+    Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
+    sistema->listarChatProp();
+    cout<<"Ingrese codigo de la conversacion que desee seleccionar"<<endl;
+    /*if(inmo == NULL){
+        throw invalid_argument("El usuario logeado no es Inmobiliiaria");
+    }
+    if(inmo->getPropiedades()->isEmpty()){
+        throw invalid_argument("El usuario no tiene propiedades");
+    }
+    IIterator * it = (IIterator *) inmo->getPropiedades()->getIterator();
+    IIterator * it2;
+    Propiedad * prop;
+    Conversacion * conver;
+    while(it->hasCurrent()){
+        prop = (Propiedad *) it->getCurrent();
+        it2 = (IIterator *) prop->getConversaciones();
+        while(it2->hasCurrent()){
+            conver = (Conversacion *) it2->getCurrent();
+            conver->getCantidadMensajes();
+            it2->next();
+        }
+        it->next();
+    }*/
 }
 
 void manejarReporte(Sistema * sistema){
