@@ -69,30 +69,19 @@ Conversacion * Sistema::getConversacionInteresado(){
     if (this->propiedadActual == NULL){
         throw runtime_error("No se eligió una propiedad previamente");
     }
-    try {
-        this->conversacionActual = this->propiedadActual->getConversacion(this->loggeado->getCorreoEletronico());
-        // this->propiedadActual = NULL;
-        return this->conversacionActual;
-    } catch(const std::exception& e) {
-        throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
-    }
+    this->conversacionActual = this->propiedadActual->getConversacion(this->loggeado->getCorreoEletronico());
+    // this->propiedadActual = NULL;
+    return this->conversacionActual;
 }
 
 ICollection * Sistema::getUltimosMensajes(){
     if (this->loggeado == NULL){
         throw runtime_error("No hay un usuario en el sistema");
     }
-    Interesado * interesado = dynamic_cast<Interesado*> (this->loggeado);
-    if (interesado == NULL){
-        throw runtime_error("El usuario ingresado no es Interesado");
-    }
     if (this->conversacionActual == NULL){
         throw runtime_error("No se eligió una conversación previamente");
     }
     ICollection * mensajes = this->conversacionActual->getUltimosMensajes();
-    if (mensajes->isEmpty()){
-        throw runtime_error("Esta conversación esta vacía");
-    }
     return mensajes;
 }
 
@@ -187,9 +176,6 @@ IDictionary * Sistema::listarChatProp(){
         throw runtime_error("No hay un usuario en el sistema");
     }
     IDictionary * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
-    if (lista->isEmpty()){
-        throw runtime_error("El usuario especificado no tiene conversaciones");
-    }
     return lista;
 }
 
