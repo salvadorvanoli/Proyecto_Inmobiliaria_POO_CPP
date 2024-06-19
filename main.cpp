@@ -1330,7 +1330,9 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
 
     conver->nuevoMensaje(fecha, respuesta);
 
+    cout << "El mensaje fue agregado de manera exitosa!" << endl;
 
+    system("pause");
 
 }
 
