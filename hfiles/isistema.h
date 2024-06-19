@@ -45,17 +45,6 @@ using namespace std;
 #include "venta.h"
 #include "zona.h"
 
-class ICollection;
-class DTPropiedadDetallada;
-class IDictionary;
-class Conversacion;
-class Propiedad;
-class Usuario;
-class Zona;
-class Departamento;
-class Edificio;
-class DTDir;
-class DTFecha;
 
 class ISistema{
     public:
@@ -74,14 +63,12 @@ class ISistema{
         virtual void altaInteresado(char*, string, string, int) = 0;
         virtual bool altaEdificio(string, int, int) = 0;
         virtual ICollection* obtenerReporte() = 0;
-        virtual void altaPropiedad() = 0;
-        virtual DTTipoProp modificarPropiedad(int) = 0;
         virtual void eliminarPropiedad(int) = 0;
         virtual ICollection * listarPropiedades() = 0;
         virtual ICollection * listarPropiedadesInmo() = 0;
         virtual DTPropiedadDetallada * verDetallesPropiedad(int) = 0;
-        virtual IDictionary * listarChatProp();
-        virtual IDictionary * listarChatsInmo();
+        virtual IDictionary * listarChatProp() = 0;
+        virtual IDictionary * listarChatsInmo() = 0;
         virtual Conversacion * seleccionarConversacionInmo(int) = 0;
         virtual Propiedad * seleccionarPropiedad(int) = 0;
         virtual Conversacion * getConversacionInteresado() = 0;
@@ -98,7 +85,7 @@ class ISistema{
         virtual void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float) = 0;
         virtual ICollection* listarEdificio() = 0;
         virtual bool seleccionarEdificio(int) = 0;
-        virtual void AltaPropiedad() = 0;
+        // virtual void AltaPropiedad() = 0;
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         virtual void enlazarPropiedad(Propiedad *) = 0;
