@@ -512,7 +512,7 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
         throw runtime_error("No se eligió un edificio previamente");
     }
     Apartamento *apartamento = NULL;
-    apartamento = this->edificioActual->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo->getCantConversaciones(), inmo->getDTInmobiliaria(), this->zonaActual->getCodigo(), this->departamentoActual->getLetra(), this->zonaActual);
+    apartamento = this->edificioActual->crearApartamento(this->zonaActual->generarCodigoPropiedad(), cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo->getCantConversaciones(), inmo->getDTInmobiliaria(), this->zonaActual->getCodigo(), this->departamentoActual->getLetra());
     this->edificioActual->enlazarPropiedad(apartamento);
     this->zonaActual->enlazarPropiedad(apartamento);
     this->enlazarPropiedad(apartamento);
@@ -772,6 +772,12 @@ void Sistema::eliminarPropiedad(int codigoProp){
         Propiedad * prop = (Propiedad * ) inmo->getPropiedades()->find(key);
         inmo->getPropiedades()->remove(key);
         delete key;
+        Apartamento * ap = (Apartamento *) prop;
+        Zona * zona = this->getZonaProp(prop->getCodigo());
+        if (ap != NULL){
+            this->getEdificioProp(zona, ap->getCodigo())->desvincularPropiedad(ap->getCodigo());
+        }
+        zona->desvincularPropiedad(prop->getCodigo());
         // prop->desvincularDeZona();
         // Apartamento * ap = (Apartamento *) prop;
         // if (ap != NULL){
@@ -785,6 +791,50 @@ void Sistema::eliminarPropiedad(int codigoProp){
         delete key;
         throw invalid_argument("No tienes una propiedad registrada con dicho código");
     }
+}
+
+Zona * Sistema::getZonaProp(int codigo){
+    IIterator * it = this->departamentos->getIterator();
+    IKey * key = new Integer(codigo);
+    Departamento * dep;
+    Zona * zona;
+    while (it->hasCurrent()){
+        dep = (Departamento *) it->getCurrent();
+        IIterator * it2 = dep->getZonas()->getIterator();
+        while (it2->hasCurrent()){
+            zona = (Zona *) it2->getCurrent();
+            if (zona->getPropiedades()->member(key)){
+                delete it;
+                delete it2;
+                delete key;
+                return zona;
+            }
+            it2->next();
+        }
+        delete it2;
+        it->next();
+    }
+    delete key;
+    delete it;
+    return NULL;
+}
+
+Edificio * Sistema::getEdificioProp(Zona * zona, int codigo){
+    IKey * key = new Integer(codigo);
+    Edificio * edi;
+    IIterator * it = zona->getEdificios()->getIterator();
+    while (it->hasCurrent()){
+        edi = (Edificio *) it->getCurrent();
+        if (edi->getApartamentos()->member(key)){
+            delete it;
+            delete key;
+            return edi;
+        }
+        it->next();
+    }
+    delete it;
+    delete key;
+    return NULL;
 }
 
 /* FIN DE ELIMINAR PROPIEDAD */

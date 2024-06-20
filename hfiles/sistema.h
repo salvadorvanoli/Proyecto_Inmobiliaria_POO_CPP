@@ -102,6 +102,8 @@ class Sistema : public ISistema{
         ICollection* listarEdificio();
         bool seleccionarEdificio(int);
         // void AltaPropiedad();
+        Zona * getZonaProp(int);
+        Edificio * getEdificioProp(Zona *, int);
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         void enlazarPropiedad(Propiedad *);

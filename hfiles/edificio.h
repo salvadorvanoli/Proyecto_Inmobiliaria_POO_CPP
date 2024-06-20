@@ -11,7 +11,6 @@ using namespace std;
 #include "../ICollection/Integer.h"
 #include "apartamento.h"
 #include "dtedificio.h"
-#include "zona.h"
 
 class ICollectible;
 class Apartamento;
@@ -37,7 +36,7 @@ class Edificio: public ICollectible {
         int getGastosComunes();
         int getCantApartamentos();
         IDictionary * getApartamentos();
-        Zona * getZona();
+        // Zona * getZona();
 
         // Setters
 
@@ -46,7 +45,7 @@ class Edificio: public ICollectible {
         void setCantPisos(int);
         void setGastosComunes(int);
         void setCantApartamentos(int);
-        void setZona(Zona *);
+        // void setZona(Zona *);
 
         // Agregar-Quitar (Creo que esta mal)
 
@@ -55,7 +54,7 @@ class Edificio: public ICollectible {
         // Métodos de Edificio (DCD)
 
         DTEdificio * getDTEdifico();
-        Apartamento * crearApartamento(int, int, int, float, DTDir *, bool, int, DTInmobiliaria*, int, char*, Zona*);
+        Apartamento * crearApartamento(int, int, int, int, float, DTDir *, bool, int, DTInmobiliaria*, int, char*);
         void desvincularPropiedad(int);
 };
 

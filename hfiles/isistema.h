@@ -86,6 +86,8 @@ class ISistema{
         virtual ICollection* listarEdificio() = 0;
         virtual bool seleccionarEdificio(int) = 0;
         // virtual void AltaPropiedad() = 0;
+        virtual Zona * getZonaProp(int) = 0;
+        virtual Edificio * getEdificioProp(Zona *, int) = 0;
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         virtual void enlazarPropiedad(Propiedad *) = 0;

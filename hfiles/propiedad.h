@@ -23,7 +23,6 @@ using namespace std;
 class DTMensaje;
 class Conversacion;
 class Propiedad;
-class Zona;
 class ICollectible;
 
 

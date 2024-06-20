@@ -135,6 +135,10 @@ int Propiedad::getCantConversacionesInmo(){
     return this->cantConversacionesInmo;
 }
 
+DTInmobiliaria * Propiedad::getDTInmobiliaria(){
+    return this->inmo;
+}
+
 //(en eliminar propiedad)
 //seria hacer un next en la colleccion(conversacion), destruir los mensajes 
 //y luego la propia conversacion
