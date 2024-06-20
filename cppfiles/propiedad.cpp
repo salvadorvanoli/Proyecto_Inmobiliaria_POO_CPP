@@ -51,6 +51,10 @@ void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
 }
 
+void Propiedad::setInmobiliaria(Inmobiliaria * inmo){
+    this->inmo = inmo;
+}
+
 void Propiedad :: agregarConversacion(Conversacion * _conver){
     IKey * key = new Integer(_conver->getCodigoConversacion());
     if(this->conversaciones->member(key)){

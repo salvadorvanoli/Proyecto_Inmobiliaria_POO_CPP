@@ -23,6 +23,10 @@ int DTChatProp::getCodigoProp() {
     return codigoProp;
 };
 
+int DTChatProp::getCodigoCon() {
+    return this->codigoCon;
+}
+
 DTDir* DTChatProp::getDir() {
     return direccion;
 };

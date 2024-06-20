@@ -93,10 +93,10 @@ Interesado.o: Usuario.o
 Mensaje.o: ICollectible.o DTFecha.o DTMensaje.o
 	g++ -c cppfiles/Mensaje.cpp
 
-Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje.o Mensaje.o Interesado.o
+Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje.o DTChatProp.o Mensaje.o Interesado.o
 	g++ -c cppfiles/Conversacion.cpp
 
-Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o Conversacion.o
+Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o
 	g++ -c cppfiles/Propiedad.cpp
 
 Casa.o: Propiedad.o
