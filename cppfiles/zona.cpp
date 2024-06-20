@@ -162,7 +162,7 @@ void Zona::desvincularPropiedad(int codigoProp){
         // cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
         delete clave;
-        throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
+        // throw invalid_argument("La propiedad especificada no se encuentra en la zona actual");
     }
     // ES CON ICOLLECTION
 }

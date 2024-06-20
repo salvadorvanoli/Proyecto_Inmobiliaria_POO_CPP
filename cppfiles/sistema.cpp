@@ -776,9 +776,10 @@ void Sistema::eliminarPropiedad(int codigoProp){
     if (inmo->getPropiedades()->member(key)){
         Propiedad * prop = (Propiedad * ) inmo->getPropiedades()->find(key);
         inmo->getPropiedades()->remove(key);
+        this->propiedades->remove(key);
         delete key;
         // prop->desvincularDeZona();
-        // Apartamento * ap = (Apartamento *) prop;
+        // Apartamento * ap = dynamic_cast <Apartamento *> (prop);
         // if (ap != NULL){
         //     ap->desvincularDeEdificio();
         // }

@@ -696,22 +696,17 @@ void manejarConsultarPropiedad(ISistema * sistema){
     system("cls");
 
     cout << "Elija una de las propiedades listadas debajo" << endl;
-    imprimirProps(sistema->listarPropiedades());
+    
+    try{
+        imprimirProps(sistema->listarPropiedades());
+    } catch(const exception& e){
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
 
     cin >> optint;
-
-    // while (true){
-    //     cout << "Ingrese el código de la propiedad: "<<endl;
-    //     cin >> optstr;
-    //     try {
-    //         optint = stoi(optstr);
-    //         break;
-    //     } catch(const exception& e) {
-    //         system("cls");
-    //         cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
-    //         system("pause");
-    //     }
-    // }
 
     try{
         cout << "---Propiedad Detallada---" << endl << endl;
@@ -1125,7 +1120,16 @@ void manejarModificarPropiedad(ISistema * sistema){
 
 void manejarEliminarPropiedad(ISistema * sistema){
     system("cls");
-    ICollection * props = sistema->listarPropiedadesInmo();
+
+    try {
+            imprimirProps(sistema->listarPropiedadesInmo());
+        } catch(const exception& e) {
+            system("cls");
+            cout << "Error: " << e.what() << endl;
+            system("pause");
+            return;
+        }
+    
     cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
     string codigoProp;
     int codigoNumerico;

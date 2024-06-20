@@ -108,10 +108,8 @@ void Inmobiliaria::destruirAlquiler(Propiedad * prop){
         delete alquiler;
         this->cantAlquileres--;
         delete key;
-        cout << "El alquiler fue destruido satisfactoriamente" << endl;
     } else {
         delete key;
-        throw invalid_argument("El alquiler proporcionado no existe");
     }
 }
 
@@ -123,10 +121,8 @@ void Inmobiliaria::destruirVenta(Propiedad * prop){
         delete venta;
         this->cantVentas--;
         delete key;
-        cout << "La venta fue destruida satisfactoriamente" << endl;
     } else {
         delete key;
-        throw invalid_argument("La venta proporcionada no existe");
     }
 }
 
