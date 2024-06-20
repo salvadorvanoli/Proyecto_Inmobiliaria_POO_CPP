@@ -5,21 +5,16 @@
 using namespace std;
 
 #include "propiedad.h"
-#include "edificio.h"
-
-class Edificio;
-class Zona;
 
 class Apartamento : public Propiedad{
     private:
-        Edificio * edificio;
+        int codigoEdificio;
     public:
-        Apartamento(int, int, int, int, float, DTDir*, bool, Zona *, Edificio *);
+        Apartamento(int, int, int, int, float, DTDir*, bool, int, char*, int, int, DTInmobiliaria *);
         ~Apartamento();
-        void setEdificio(Edificio *);
-        Edificio * getEdificio();
+        void setCodigoEdificio(int);
+        int getCodigoEdificio();
         DTTipoProp getDTTipoProp();
-        void desvincularDeEdificio();
         void modificarApartamento(int, int, int, float, DTDir*, bool);
 };
 

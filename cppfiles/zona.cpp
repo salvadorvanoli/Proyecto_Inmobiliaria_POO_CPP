@@ -1,8 +1,5 @@
 #include "../hfiles/zona.h"
 #include <iostream>
-#include "../hfiles/edificio.h"
-#include "../hfiles/propiedad.h"
-#include "../hfiles/casa.h"
 using namespace std;
 
 Zona::Zona(int codigo, string nombre, char* letradepa){
@@ -146,9 +143,9 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes){
+Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes, int cantCon, DTInmobiliaria * inmo, char * letraDep){
     int codigo = generarCodigoPropiedad();
-    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes);
+    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this->codigo, letraDep, m2Verdes, cantCon, inmo);
 }
 
 // ES LO MISMO QUE QUITAR PROPIEDAD

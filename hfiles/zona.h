@@ -11,9 +11,9 @@ using namespace std;
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/collections/List.h"
 #include "../ICollection/Integer.h"
-// #include "edificio.h"
-// #include "propiedad.h"
-// #include "casa.h"
+#include "edificio.h"
+#include "propiedad.h"
+#include "casa.h"
 #include "dtedificio.h"
 #include "dtdir.h"
 #include "dtchatprop.h"
@@ -68,7 +68,7 @@ class Zona : public ICollectible {
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
         void enlazarPropiedad(Propiedad *);
-        Casa * crearCasa(int, int, int, float, DTDir*, bool, float);
+        Casa * crearCasa(int, int, int, float, DTDir*, bool, float, int, DTInmobiliaria*, char*);
         void desvincularPropiedad(int);
         IDictionary * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);

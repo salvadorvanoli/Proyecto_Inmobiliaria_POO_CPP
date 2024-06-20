@@ -6,7 +6,6 @@ using namespace std;
 
 #include "dtmensaje.h"
 #include "conversacion.h"
-#include "zona.h"
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/OrderedKey.h"
@@ -20,7 +19,6 @@ using namespace std;
 #include "dtchatprop.h"
 #include "dtpropiedad.h"
 #include "dtpropiedaddetallada.h"
-#include "inmobiliaria.h"
 
 class DTMensaje;
 class Conversacion;
@@ -40,17 +38,20 @@ class Propiedad : public ICollectible{
         bool tieneGaraje;
         DTDir * direccion;
         IDictionary * conversaciones;
-        Zona * zona;
+        int codigoZona;
+        char * letraDep;
         DTEstadoProp estado;
-        Inmobiliaria * inmo;
+        DTInmobiliaria * inmo;
+        int cantConversacionesInmo;
     public:
-        Propiedad(int, int, int, int, float, DTDir*, bool, Zona *);
+        Propiedad(int, int, int, int, float, DTInmobiliaria*, DTDir*, bool, int, char*, int);
         Propiedad(){};
         virtual ~Propiedad();
 
         // Setters
 
-        void setZona(Zona *);
+        void setCodigoZona(int);
+        void setLetraDep(char*);
         void setM2Totales(float);
         void setM2Edificios(float);
         void setTieneGaraje(bool);
@@ -61,7 +62,7 @@ class Propiedad : public ICollectible{
         void setDireccion(DTDir *);
         void agregarConversacion(Conversacion *);
         void setEstadoProp(DTEstadoProp);
-        void setInmobiliaria(Inmobiliaria *);
+        void setDTInmobiliaria(DTInmobiliaria *);
 
         // Getters
 
@@ -73,16 +74,16 @@ class Propiedad : public ICollectible{
         int getCantBanios();
         float getM2Edificios();
         DTDir * getDireccion();
-        Zona * getZona();
+        int getCodigoZona();
+        char * getLetraDep();
         DTEstadoProp getEstadoProp();
-        Inmobiliaria * getInmobiliaria();
+        int getCantConversacionesInmo();
 
         DTInmobiliaria * getDTInmobiliaria();
         DTPropiedad * getDTPropiedad();
         DTPropiedadDetallada * getDTPropiedadDetallada();
         virtual DTTipoProp getDTTipoProp() = 0;
         IDictionary * getConversaciones();
-        void desvincularDeZona();
         void destruirConversaciones();
         ICollectible * getDTChatProp(char *);
         

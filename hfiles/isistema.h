@@ -81,8 +81,8 @@ class ISistema{
         virtual void nuevoMensaje(string, DTFecha *) = 0;
         virtual int ponerEnVenta(float valor) = 0;
         virtual int ponerEnAlquiler(float valor) = 0;
-        virtual void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*) = 0;
-        virtual void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float) = 0;
+        virtual void especificacionesApartamento(int, int, int, bool, float, DTDir*) = 0;
+        virtual void especificacionesCasa(int, int, int, bool, DTDir*, float, float) = 0;
         virtual ICollection* listarEdificio() = 0;
         virtual bool seleccionarEdificio(int) = 0;
         // virtual void AltaPropiedad() = 0;

@@ -23,10 +23,10 @@ class Edificio: public ICollectible {
         int cantPisos;
         int gastosComunes;
         IDictionary * apartamentos;
-        Zona * zona;
+        // Zona * zona;
         int cantApartamentos;
     public:
-        Edificio(int, string, int, int, Zona*);
+        Edificio(int, string, int, int);
         ~Edificio();
 
         // Getters
@@ -55,7 +55,7 @@ class Edificio: public ICollectible {
         // Métodos de Edificio (DCD)
 
         DTEdificio * getDTEdifico();
-        Apartamento * crearApartamento(int, int, int, float, DTDir *, bool);
+        Apartamento * crearApartamento(int, int, int, float, DTDir *, bool, int, DTInmobiliaria*, int, char*, Zona*);
         void desvincularPropiedad(int);
 };
 

@@ -549,7 +549,7 @@ void manejarAltaPropiedad(ISistema * s){
                 cin >> m2t;
             } while(m2t <= 0);
             system("cls");
-            s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, s->getEdificioActual(), s->getZonaActual());
+            s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir);
         }
 
         //si es casa
@@ -608,7 +608,7 @@ void manejarAltaPropiedad(ISistema * s){
                 cin >> m2v;
             } while(m2v <= 0);
                 system("cls");
-                s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
+                s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, m2v);
             }
 
 
@@ -1604,7 +1604,45 @@ void menu(ISistema * sistema){
 int main() {
 
     ISistema * sistema = (new Factory())->getISistema();
+
+    // DTs
+
+    // string calle, int numero, string ciudad
+    DTDir * dir1 = new DTDir("Rivera", 8, "Santa Lucia");
+    DTDir * dir2 = new DTDir("Sarandi", 232, "Santa Lucia");
+    DTDir * dir3 = new DTDir("Treinta y Tres", 403, "Canelones");
+    DTDir * dir4 = new DTDir("18 de Julio", 123, "Santa Lucia");
+    DTDir * dir5 = new DTDir("Rocha", 654, "Montevideo");
+    DTDir * dir6 = new DTDir("Miranda", 666, "Canelones");
+    DTDir * dir7 = new DTDir("Brum", 42, "Juanico");
     
+    // USUARIOS
+
+    // ADMINISTRADORES
+    char* email1 = "admin";
+    Administrador * nuevoAdmin = new Administrador(email1, "abc");
+    ICollectible * usr1 = (ICollectible*) nuevoAdmin;
+
+    IKey * keyusr1 = new String(nuevoAdmin->getCorreoEletronico());
+    sistema->getUsuarios()->add(keyusr1, usr1);
+
+    // INMOBILIARIAS
+    char * email2 = "inmo1";
+    char * email3 = "inmo2";
+    Inmobiliaria * inmo1 = new Inmobiliaria(email1, "Salva Enterprise", dir6);
+    Inmobiliaria * inmo2 = new Inmobiliaria(email2, "Tesla", dir7);
+
+    IKey * keyusr2 = new String(inmo1->getCorreoEletronico());
+    IKey * keyusr3 = new String(inmo2->getCorreoEletronico());
+
+    ICollectible * usr2 = (ICollectible*) inmo1;
+    ICollectible * usr3 = (ICollectible*) inmo2;
+
+    sistema->getUsuarios()->add(keyusr2, usr2);
+    sistema->getUsuarios()->add(keyusr3, usr3);
+
+    // DEPARTAMENTOS
+
     Departamento * dep1 = new Departamento("A", "Canelones");
     Departamento * dep2 = new Departamento("S", "Montevideo");
     Departamento * dep3 = new Departamento("M", "San Jose");
@@ -1664,12 +1702,12 @@ int main() {
 
     // Creamos edificios
     // int codigo, string nombre, int cantPisos, int gastosComunes, Zona* zona
-    Edificio* edi1 = new Edificio(1, "Hotel California", 10, 20000, zona1);
-    Edificio* edi2 = new Edificio(2, "Hotel Lamas", 2, 10000, zona1); // Vacio
-    Edificio* edi3 = new Edificio(1, "Motel Oasis", 3, 7500, zona2);
-    Edificio* edi4 = new Edificio(2, "Hotel Disney", 40, 100000, zona2); // Vacio
-    Edificio* edi5 = new Edificio(3, "Empire State", 100, 50000, zona2); // Vacio
-    Edificio* edi6 = new Edificio(1, "Luna y Mar", 9, 50000, zona3); // Vacio
+    Edificio* edi1 = new Edificio(1, "Hotel California", 10, 20000);
+    Edificio* edi2 = new Edificio(2, "Hotel Lamas", 2, 10000); // Vacio
+    Edificio* edi3 = new Edificio(1, "Motel Oasis", 3, 7500);
+    Edificio* edi4 = new Edificio(2, "Hotel Disney", 40, 100000); // Vacio
+    Edificio* edi5 = new Edificio(3, "Empire State", 100, 50000); // Vacio
+    Edificio* edi6 = new Edificio(1, "Luna y Mar", 9, 50000); // Vacio
 
     zona1->agregarEdificio(edi1);
     zona1->agregarEdificio(edi2);
@@ -1678,19 +1716,10 @@ int main() {
     zona2->agregarEdificio(edi5);
     zona3->agregarEdificio(edi6);
 
-    // string calle, int numero, string ciudad
-    DTDir * dir1 = new DTDir("Rivera", 8, "Santa Lucia");
-    DTDir * dir2 = new DTDir("Sarandi", 232, "Santa Lucia");
-    DTDir * dir3 = new DTDir("Treinta y Tres", 403, "Canelones");
-    DTDir * dir4 = new DTDir("18 de Julio", 123, "Santa Lucia");
-    DTDir * dir5 = new DTDir("Rocha", 654, "Montevideo");
-    DTDir * dir6 = new DTDir("Miranda", 666, "Canelones");
-    DTDir * dir7 = new DTDir("Brum", 42, "Juanico");
-
     // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, float _m2Verdes)
-    Casa * casa1 = new Casa (1, 2, 1, 1, 50, dir1, true, zona1, 20);
-    Casa * casa2 = new Casa (2, 4, 2, 2, 100, dir2, false, zona1, 40);
-    Casa * casa3 = new Casa (1, 3, 1, 2, 70, dir3, true, zona2, 30);
+    Casa * casa1 = new Casa (1, 2, 1, 1, 50, dir1, true, zona1->getCodigo(), dep1->getLetra(), 20, 0, inmo1->getDTInmobiliaria());
+    Casa * casa2 = new Casa (2, 4, 2, 2, 100, dir2, false, zona1->getCodigo(), dep1->getLetra(), 40, 0, inmo1->getDTInmobiliaria());
+    Casa * casa3 = new Casa (1, 3, 1, 2, 70, dir3, true, zona2->getCodigo(), dep1->getLetra(), 30, 0, inmo2->getDTInmobiliaria());
 
     // cout << casa1->getDTPropiedadDetallada();
 
@@ -1699,9 +1728,9 @@ int main() {
     zona2->enlazarPropiedad(casa3);
 
     // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, Edificio * _edificio
-    Apartamento * ap1 = new Apartamento (3, 2, 3, 2, 90, dir4, false, zona1, edi1);
-    Apartamento * ap2 = new Apartamento (4, 3, 2, 1, 70, dir4, false, zona1, edi1);
-    Apartamento * ap3 = new Apartamento (2, 1, 1, 1, 20, dir5, true, zona2, edi3);
+    Apartamento * ap1 = new Apartamento (3, 2, 3, 2, 90, dir4, false, zona1->getCodigo(), dep1->getLetra(), edi1->getCodigo(), 0, inmo1->getDTInmobiliaria());
+    Apartamento * ap2 = new Apartamento (4, 3, 2, 1, 70, dir4, false, zona2->getCodigo(), dep1->getLetra(), edi1->getCodigo(), 0, inmo2->getDTInmobiliaria());
+    Apartamento * ap3 = new Apartamento (2, 1, 1, 1, 20, dir5, true, zona2->getCodigo(), dep1->getLetra(), edi3->getCodigo(), 0, inmo2->getDTInmobiliaria());
 
     edi1->enlazarPropiedad(ap1);
     edi1->enlazarPropiedad(ap2);
@@ -1711,48 +1740,24 @@ int main() {
     zona1->enlazarPropiedad(ap2);
     zona2->enlazarPropiedad(ap3);
 
-    // USUARIOS
-
-    // ADMINISTRADORES
-    char* email1 = "admin";
-    Administrador * nuevoAdmin = new Administrador(email1, "abc");
-    ICollectible * usr1 = (ICollectible*) nuevoAdmin;
-
-    IKey * keyusr1 = new String(nuevoAdmin->getCorreoEletronico());
-    sistema->getUsuarios()->add(keyusr1, usr1);
-
-    // INMOBILIARIAS
-    char * email2 = "inmo1";
-    char * email3 = "inmo2";
-    Inmobiliaria * inmo1 = new Inmobiliaria(email1, "Salva Enterprise", dir6);
-    Inmobiliaria * inmo2 = new Inmobiliaria(email2, "Tesla", dir7);
-
-    IKey * keyusr2 = new String(inmo1->getCorreoEletronico());
-    IKey * keyusr3 = new String(inmo2->getCorreoEletronico());
-
-    ICollectible * usr2 = (ICollectible*) inmo1;
-    ICollectible * usr3 = (ICollectible*) inmo2;
-
-    sistema->getUsuarios()->add(keyusr2, usr2);
-    sistema->getUsuarios()->add(keyusr3, usr3);
 
     inmo1->agregarPropiedad(casa1);
-    casa1->setInmobiliaria(inmo1);
+    casa1->setDTInmobiliaria(inmo1->getDTInmobiliaria());
 
     inmo1->agregarPropiedad(casa2);
-    casa2->setInmobiliaria(inmo1);
+    casa2->setDTInmobiliaria(inmo1->getDTInmobiliaria());
 
     inmo2->agregarPropiedad(casa3);
-    casa3->setInmobiliaria(inmo2);
+    casa3->setDTInmobiliaria(inmo2->getDTInmobiliaria());
 
     inmo1->agregarPropiedad(ap1);
-    ap1->setInmobiliaria(inmo1);
+    ap1->setDTInmobiliaria(inmo1->getDTInmobiliaria());
 
     inmo2->agregarPropiedad(ap2);
-    ap2->setInmobiliaria(inmo2);
+    ap2->setDTInmobiliaria(inmo2->getDTInmobiliaria());
 
     inmo2->agregarPropiedad(ap3);
-    ap3->setInmobiliaria(inmo2);
+    ap3->setDTInmobiliaria(inmo2->getDTInmobiliaria());
 
     // INTERESADOS
     char * email4 = "int1";

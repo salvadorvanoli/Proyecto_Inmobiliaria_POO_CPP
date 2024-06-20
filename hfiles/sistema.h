@@ -97,8 +97,8 @@ class Sistema : public ISistema{
         int ponerEnAlquiler(float valor);
         // void especificacionesApartamento(int cantAmb, int cantBanos, int cantDorm, int m2e, bool garage, DTDir* dir, Propiedad* propiedad, Edificio* edificio, Zona*zona);
         // void especificacionesCasa(int cantAmb, int cantBanos, int cantDorm, bool garage, DTDir* dir, int m2e, int m2v,Propiedad* propiedad, Zona* zona);
-        void especificacionesApartamento(int, int, int, bool, float, DTDir*, Edificio*, Zona*);
-        void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float);
+        void especificacionesApartamento(int, int, int, bool, float, DTDir*);
+        void especificacionesCasa(int, int, int, bool, DTDir*, float, float);
         ICollection* listarEdificio();
         bool seleccionarEdificio(int);
         // void AltaPropiedad();

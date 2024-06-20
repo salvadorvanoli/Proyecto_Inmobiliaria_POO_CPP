@@ -2,20 +2,22 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTInmobiliaria* inmo, DTDir* dir, bool _tieneGaraje, int codZona, char* letraDep, int cantCon){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
     this->m2Edificios = _m2Edificios;
+    this->inmo = inmo;
     this->direccion = dir;
     this->tieneGaraje = _tieneGaraje;
     this->conversaciones = new OrderedDictionary();
-    this->zona = _zona;
+    this->codigoZona = codZona;
+    this->letraDep = letraDep;
+    this->cantConversacionesInmo = cantCon;
 }
 
 Propiedad :: ~Propiedad(){
-    this->desvincularDeZona();
     this->destruirConversaciones();
 }
 
@@ -51,7 +53,7 @@ void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
 }
 
-void Propiedad::setInmobiliaria(Inmobiliaria * inmo){
+void Propiedad::setDTInmobiliaria(DTInmobiliaria * inmo){
     this->inmo = inmo;
 }
 
@@ -65,8 +67,12 @@ void Propiedad :: agregarConversacion(Conversacion * _conver){
     this->conversaciones->add(key, conversacion);
 }
 
-void Propiedad :: setZona(Zona * _zona){
-    this->zona = _zona;
+void Propiedad :: setCodigoZona(int codZona){
+    this->codigoZona = codZona;
+}
+
+void Propiedad::setLetraDep(char * letra){
+    this->letraDep = letra;
 }
 
 void Propiedad::setEstadoProp(DTEstadoProp estado){
@@ -113,20 +119,20 @@ IDictionary * Propiedad :: getConversaciones(){
     return this->conversaciones;
 }
 
-Zona * Propiedad :: getZona(){
-    return this->zona;
+int Propiedad :: getCodigoZona(){
+    return this->codigoZona;
+}
+
+char * Propiedad :: getLetraDep(){
+    return this->letraDep;
 }
 
 DTEstadoProp Propiedad::getEstadoProp(){
     return this->estado;
 }
 
-Inmobiliaria * Propiedad::getInmobiliaria(){
-    return this->inmo;
-}
-
-void Propiedad :: desvincularDeZona(){
-    this->zona->desvincularPropiedad(this->getCodigo());
+int Propiedad::getCantConversacionesInmo(){
+    return this->cantConversacionesInmo;
 }
 
 //(en eliminar propiedad)
@@ -153,7 +159,7 @@ DTPropiedad * Propiedad::getDTPropiedad(){
 }
 
 DTPropiedadDetallada * Propiedad::getDTPropiedadDetallada(){
-    return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->inmo->getDTInmobiliaria());
+    return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->getDTInmobiliaria());
 }
 
 ICollectible * Propiedad :: getDTChatProp(char * email){
@@ -206,7 +212,7 @@ Conversacion * Propiedad::getConversacion(char * email){
 
 //crea una conversacion y la añade a la coleccion
 Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
-    int clave = this->inmo->generarCodigoConversacion();
+    int clave = this->getCantConversacionesInmo();
     IKey * key = new Integer(clave);
     Conversacion * c = new Conversacion(clave, interesado);
     if(!this->conversaciones->member(key)){

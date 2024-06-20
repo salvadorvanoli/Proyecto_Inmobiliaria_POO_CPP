@@ -414,7 +414,7 @@ bool Sistema::altaEdificio(string nombre, int cantPisos, int gastosComunes){
     if (this->zonaActual == NULL){
         throw runtime_error("No se eligió una zona previamente");
     }
-    this->edificioActual = new Edificio(this->zonaActual->generarCodigoEdificio(), nombre, cantPisos, gastosComunes, this->zonaActual);
+    this->edificioActual = new Edificio(this->zonaActual->generarCodigoEdificio(), nombre, cantPisos, gastosComunes);
     this->zonaActual->agregarEdificio(this->edificioActual);
     return true;
 }
@@ -494,7 +494,7 @@ int Sistema::ponerEnAlquiler(float valor) {
 //     //propiedad->vincularEdificio(edificio); ??
 // }
 
-void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir, Edificio* edificio, Zona*zona) {
+void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBanos, bool garage, float m2e, DTDir* dir) {
     if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0) {
         throw std::runtime_error("Los valores no pueden ser negativos");
     }
@@ -502,30 +502,42 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Administrador");
     }
+    if (this->departamentoActual == NULL){
+        throw runtime_error("No se eligió un departamento previamente");
+    }
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
+    if (this->edificioActual == NULL){
+        throw runtime_error("No se eligió un edificio previamente");
+    }
     Apartamento *apartamento = NULL;
-    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
-    edificio->enlazarPropiedad(apartamento);
-    zona->enlazarPropiedad(apartamento);
+    apartamento = this->edificioActual->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo->getCantConversaciones(), inmo->getDTInmobiliaria(), this->zonaActual->getCodigo(), this->departamentoActual->getLetra(), this->zonaActual);
+    this->edificioActual->enlazarPropiedad(apartamento);
+    this->zonaActual->enlazarPropiedad(apartamento);
     this->enlazarPropiedad(apartamento);
     inmo->agregarPropiedad(apartamento);
     this->propiedadActual = apartamento;
     //return apartamento
 }
 
-void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, Zona* zona, float m2v) {
+void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, bool garage, DTDir* dir, float m2e, float m2v) {
     if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0 || m2v < 0) {
-        throw std::runtime_error("Los valores no pueden ser negativos");
-    }
-    if (cantAmb < 0 || cantDorm < 0 || cantBanos < 0 || m2e < 0) {
-        throw std::runtime_error("Los valores no pueden ser negativos");
+        throw runtime_error("Los valores no pueden ser negativos");
     }
     Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*> (this->loggeado);
     if (inmo == NULL){
         throw runtime_error("El usuario ingresado no es Administrador");
     }
+    if (this->departamentoActual == NULL){
+        throw runtime_error("No se eligió un departamento previamente");
+    }
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
     Casa *casa = NULL;
-    casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
-    zona->enlazarPropiedad(casa);
+    casa = this->zonaActual->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v, inmo->getCantConversaciones(), inmo->getDTInmobiliaria(), this->departamentoActual->getLetra());
+    this->zonaActual->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
     inmo->agregarPropiedad(casa);
     this->propiedadActual = casa;

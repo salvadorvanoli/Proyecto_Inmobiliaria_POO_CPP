@@ -16,14 +16,14 @@ using namespace std;
 #include "../ICollection/Integer.h"
 #include "usuario.h"
 #include "dtdir.h"
-// #include "venta.h"
-// #include "alquiler.h"
-// #include "propiedad.h"
+#include "venta.h"
+#include "alquiler.h"
+#include "propiedad.h"
 #include "dtlineareporte.h"
 #include "dtreporte.h"
 // los incluyo el vale
-// #include "apartamento.h"
-// #include "edificio.h"
+#include "apartamento.h"
+#include "edificio.h"
 #include "mensaje.h"
 #include "Conversacion.h"
 
@@ -74,6 +74,7 @@ class Inmobiliaria : public Usuario {
         int getCantVentas();
         int getCantAlquileres();
         int getCantPropiedades();
+        int getCantConversaciones();
 
         //Métodos
         DTInmobiliaria * getDTInmobiliaria();

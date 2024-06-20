@@ -2,14 +2,14 @@
 #include <iostream>
 using namespace std;
 
-Edificio::Edificio(int codigo, string nombre, int cantPisos, int gastosComunes, Zona* zona){
+Edificio::Edificio(int codigo, string nombre, int cantPisos, int gastosComunes){
     this->codigo = codigo;
     this->nombre = nombre;
     this->cantPisos = cantPisos;
     this->gastosComunes = gastosComunes;
     this->apartamentos = new OrderedDictionary();
     this->cantApartamentos = 0;
-    this->zona = zona;
+    // this->zona = zona;
     // Falta especificar el ICollection
 }
 
@@ -41,9 +41,9 @@ IDictionary * Edificio::getApartamentos(){
     return this->apartamentos; // Capaz no es asi
 }
 
-Zona * Edificio::getZona(){
-    return this->zona;
-}
+// Zona * Edificio::getZona(){
+//     return this->zona;
+// }
 
 // Setters
 
@@ -67,9 +67,9 @@ void Edificio::setCantApartamentos(int cantApartamentos){
     this->cantApartamentos = cantApartamentos;
 }
 
-void Edificio::setZona(Zona * zona){
-    this->zona = zona;
-}
+// void Edificio::setZona(Zona * zona){
+//     this->zona = zona;
+// }
 
 // Agregar-Quitar
 
@@ -108,7 +108,7 @@ DTEdificio * Edificio::getDTEdifico(){
     return new DTEdificio(this->getCodigo(), this->getNombre(), this->getCantPisos(), this->getGastosComunes());
 }
 
-Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje){
-    int codigo = this->zona->generarCodigoPropiedad();
-    return new Apartamento(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this->zona, this);
+Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, int cantCon, DTInmobiliaria * inmo, int codZona, char * letraDep, Zona * zonaEdificio){
+    int codigo = zonaEdificio->generarCodigoPropiedad();
+    return new Apartamento(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, codZona, letraDep, this->getCodigo(), cantCon, inmo);
 }
