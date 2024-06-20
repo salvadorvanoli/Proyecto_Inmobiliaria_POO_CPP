@@ -72,7 +72,7 @@ DTInmobiliaria.o: ICollectible.o DTDir.o
 DTPropiedad.o: ICollectible.o DTDir.o
 	g++ -c cppfiles/DTPropiedad.cpp
 
-DTPropiedadDetallada.o: DTPropiedad.o DTInmobiliaria.o
+DTPropiedadDetallada.o: ICollectible.o DTPropiedad.o DTInmobiliaria.o
 	g++ -c cppfiles/DTPropiedadDetallada.cpp
 
 DTLineaReporte.o: ICollectible.o
@@ -84,43 +84,43 @@ DTReporte.o: ICollectible.o IIterator.o ICollection.o DTInmobiliaria.o DTLineaRe
 Usuario.o: ICollectible.o
 	g++ -c cppfiles/Usuario.cpp
 
-Administrador.o: Usuario.o
+Administrador.o: ICollectible.o Usuario.o
 	g++ -c cppfiles/Administrador.cpp
 
-Interesado.o: Usuario.o
+Interesado.o: ICollectible.o Usuario.o
 	g++ -c cppfiles/Interesado.cpp
 
-Mensaje.o: ICollectible.o DTFecha.o DTMensaje.o
+Mensaje.o: ICollectible.o DTHora.o DTFecha.o DTMensaje.o
 	g++ -c cppfiles/Mensaje.cpp
 
-Conversacion.o: ICollectible.o IIterator.o ICollection.o DTMensaje.o DTChatProp.o Mensaje.o Interesado.o
+Conversacion.o: ICollectible.o IIterator.o ICollection.o DTHora.o DTFecha.o DTMensaje.o DTChatProp.o Mensaje.o Interesado.o
 	g++ -c cppfiles/Conversacion.cpp
 
-Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o IDictionary.o DTDir.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o
+Propiedad.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o
 	g++ -c cppfiles/Propiedad.cpp
 
-Casa.o: Propiedad.o
+Casa.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o
 	g++ -c cppfiles/Casa.cpp
 
-Apartamento.o: Propiedad.o
+Apartamento.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o
 	g++ -c cppfiles/Apartamento.cpp
 
-Venta.o: ICollectible.o Propiedad.o
+Venta.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o
 	g++ -c cppfiles/Venta.cpp
 
-Alquiler.o: ICollectible.o Propiedad.o
+Alquiler.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o
 	g++ -c cppfiles/Alquiler.cpp
 
-Edificio.o: Integer.o ICollectible.o IDictionary.o OrderedDictionary.o DTEdificio.o Propiedad.o Apartamento.o
+Edificio.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o OrderedDictionary.o DTDir.o DTChatProp.o DTEdificio.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o Apartamento.o Zona.o
 	g++ -c cppfiles/Edificio.cpp
 
-Inmobiliaria.o: Integer.o IKey.o IDictionary.o OrderedDictionary.o DTDir.o Usuario.o Propiedad.o Apartamento.o Venta.o Alquiler.o Edificio.o
+Inmobiliaria.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDir.o DTChatProp.o DTEdificio.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o Apartamento.o Venta.o Alquiler.o Edificio.o
 	g++ -c cppfiles/Inmobiliaria.cpp
 
-Zona.o: Integer.o ICollectible.o IDictionary.o List.o OrderedDictionary.o DTZona.o Propiedad.o Edificio.o
+Zona.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDir.o DTChatProp.o DTZona.o DTEdificio.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o Casa.o Apartamento.o Edificio.o
 	g++ -c cppfiles/Zona.cpp
 
-Departamento.o: Integer.o ICollectible.o IKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDepartamento.o Zona.o
+Departamento.o: Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTDir.o DTChatProp.o DTDepartamento DTZona.o DTEdificio.o DTPropiedad.o DTPropiedadDetallada.o Conversacion.o Zona.o Propiedad.o Apartamento.o Edificio.o Zona.o
 	g++ -c cppfiles/Departamento.cpp
 
 ISistema.o: String.o Integer.o ICollectible.o IKey.o IIterator.o ICollection.o IDictionary.o List.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Venta.o Alquiler.o Inmobiliaria.o Casa.o Apartamento.o Edificio.o Zona.o Departamento.o
