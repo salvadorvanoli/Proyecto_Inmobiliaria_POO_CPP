@@ -2,13 +2,18 @@
 #include <iostream>
 using namespace std;
 
-Mensaje::Mensaje(DTFecha * fecha, string texto){
+Mensaje::Mensaje(int codigo, DTFecha * fecha, string texto){
+    this->codigoMen = codigo;
     this->fecha = fecha;
     this->texto = texto;
 }
 
 Mensaje::~Mensaje(){
     delete this->fecha;
+}
+
+int Mensaje::getCodigo(){
+    return this->codigoMen;
 }
 
 DTFecha * Mensaje::getFecha(){

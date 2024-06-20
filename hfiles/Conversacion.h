@@ -44,6 +44,7 @@ class Conversacion : public ICollectible{
         void nuevoMensaje(DTFecha *, string);
 
         DTFecha * getFechaUltimoMensaje();
+        int generarCodigoMensaje();
 };
 
 #endif

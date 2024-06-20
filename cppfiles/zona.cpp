@@ -180,7 +180,6 @@ IDictionary * Zona::listarChatPropiedad(char * email){
         item = prop->getDTChatProp(email);
         dt = dynamic_cast<DTChatProp *> (item);
         if (dt != NULL){
-            cout << "getValorKey: " << dt->getValorKey() << endl;
             key = new Integer (dt->getValorKey());
         } else {
             key = new Integer (count);

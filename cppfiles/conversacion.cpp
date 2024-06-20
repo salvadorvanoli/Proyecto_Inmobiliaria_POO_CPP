@@ -40,35 +40,48 @@ Conversacion::~Conversacion() {
    
 ICollection* Conversacion::getUltimosMensajes() {
     IIterator* it = this->mensajes->getIterator();
-    ICollection* ultimosMensajes = new List();
+    IDictionary* mensajes = new OrderedDictionary();
+    IKey * key;
     Mensaje * mens;
     ICollectible * item;
-    // while (it->hasCurrent()){
-    //     mens = dynamic_cast<Mensaje*>(it->getCurrent());
-    //     item = dynamic_cast<ICollectible*>(mens->getDTMensaje());
-    //     mensajes->add(item);
-    //     it->next();
-    // }
-    // delete it;
-    // IIterator * aux = mensajes->getIterator();
-    // ICollection * ultimosMensajes = new List();
-    // while (true){
-    //     while (aux->hasCurrent()){
-    //         aux->next();
-    //     }
-    // }
-    for(int i = 0; it->hasCurrent() && i<5; i++) {
+
+    while(it->hasCurrent()) {
         mens = (Mensaje*) it->getCurrent();
+        key = new Integer(mens->getCodigo());
         item = (ICollectible *) mens->getDTMensaje();
-        ultimosMensajes->add(item);
+        mensajes->add(key, item);
         it->next();
     }
+
     delete it;
+    IIterator * it2 = mensajes->getIterator();
+    ICollection * ultimosMensajes = new List();
+    DTMensaje * dtmen;
+
+    for(int i = 0;it2->hasCurrent() && i < 5; i++){
+        item = it2->getCurrent();
+        dtmen = (DTMensaje*) item;
+        ultimosMensajes->add(item);
+        it2->next();
+    }
+
+    delete it2;
+    // IIterator * it3 = mensajes->getIterator(); // Intento de eliminar la copia
+    // while (it3->hasCurrent()){
+    //     mens = (Mensaje*) it->getCurrent();
+    //     key = new Integer(mens->getCodigo());
+    //     it3->next();
+    //     mensajes->remove(key);
+    //     delete mens;
+    // }
+    // delete it3;
     return ultimosMensajes;
 }
 
 void Conversacion::destruirMensajes() {
     IIterator* it = mensajes->getIterator();
+    Mensaje * men;
+    ICollectible* eliminar;
     while(it->hasCurrent()) {
         ICollectible* eliminar = it->getCurrent();
         it->next();
@@ -79,8 +92,10 @@ void Conversacion::destruirMensajes() {
 }
 
 void Conversacion::nuevoMensaje(DTFecha * fecha, string contenido){
-    Mensaje * mensaje = new Mensaje(fecha, contenido);
-    this->mensajes->add(mensaje);
+    int codigo = this->generarCodigoMensaje();
+    Mensaje * mensaje = new Mensaje(codigo, fecha, contenido);
+    ICollectible * colmen = dynamic_cast<ICollectible*> (mensaje);
+    this->mensajes->add(colmen);
     this->cantMensajes++;
 }
 
@@ -96,4 +111,8 @@ DTFecha * Conversacion::getFechaUltimoMensaje(){
         return men->getFecha();
     }
     return NULL;
+}
+
+int Conversacion::generarCodigoMensaje(){
+    return this->cantMensajes+1;
 }

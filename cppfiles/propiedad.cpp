@@ -170,7 +170,7 @@ ICollectible * Propiedad :: getDTChatProp(char * email){
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
-            item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+            item = (ICollectible *) new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
             return item;
         }
         it->next();
@@ -237,10 +237,11 @@ IDictionary * Propiedad::listarConversaciones(){
     OrderedKey * key = NULL;
     while (it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
-        DTChatProp * dtcon = new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+        DTChatProp * dtcon = new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
         key = new Integer(dtcon->getValorKey());
         item = (ICollectible *) dtcon;
         lista->add(key, item);
+        it->next();
     }
     delete it;
     return lista;

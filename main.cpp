@@ -6,83 +6,7 @@ using namespace std;
 #include <string> 
 #include <ctime>
 
-// No está terminada, es porque lo estaba haciendo donde no era y quería guardar el código
-// void iniciarSesion(){
-//     system("cls");
-//     string opt;
-//     do{
-//         system("cls");
-//         cout << endl << endl << "El usuario no existe, elija un tipo e ingrese su email" << endl << endl;
-//         cout << "1-Administrador" << endl;
-//         cout << "2-Interesado" << endl;
-//         cout << "3-Inmobiliaria" << endl << endl;
-//         cin >> opt;
-//     } while(opt != "1" && opt != "2" && opt != "3");
-//     char* nuevoEmail;
-//     system("cls");
-//     cout << endl << endl << "Ahora elija su nuevo email" << endl << endl;
-//     cin >> nuevoEmail;
-//     IKey * searchKey = new String(nuevoEmail);
-//     if(this->usuarios->member(searchKey)){
-//         do{
-//             system("cls");
-//             cout << endl << "Este usuario ya estaba registrado, ingrese uno nuevo" << endl << endl;
-//             cin >> nuevoEmail;
-//             searchKey = new String(nuevoEmail);
-//         } while (this->usuarios->member(searchKey));
-//     }
-//     if(opt == "1"){
-        
-//     } else if(opt == "2"){
 
-//     } else if(opt == "3"){
-
-//     }
-// }
-
-/*
-
-SUPONGO QUE sistema SE LLAMA LA GLOBAL SISTEMA
-
-void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
-    ICollection * depar = sistema->listarDepartamentos(); 
-    char * letraDepa;
-    cout<<"Ingrese la letra del Departamento"<<endl;
-    cin >> letraDepa;
-    if (sistema->elegirDepartamento(letraDepa) != NULL){
-        ICollection * zona = sistema->listarZonasDepartamento(depa);
-        int numZona;
-        cout<<"Ingrese el numero de la Zona"<<endl;
-        cin >> numZona;
-        if(sistema->elegirZona(depa, numZona) != NULL){
-            ICollection * chatProp = sistema->listarChatProp(depa->elegirZona(numZona), sistema->user->getCorreoEletronico());
-            int codProp;
-            cout<<"Ingrese el codigo de la Propiedad"<<endl;
-            cin >> codProp;
-            if (!sistema->seleccionarPropiedad(codProp, sistema->depa->elegirZona(numZona))->isEmpty()){ //si la propiedad existe
-                string mensaje;
-                cout<<"Ingrese el Mensaje"<<endl;
-                cin >> mensaje;
-                Conversacion * conver;
-                IIterator *  it = sistema->depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->getConversaciones()->getIterator();
-                bool encontro = false;
-                while(it->hasCurrent()){
-                    conver = (Conversacion *) it->getCurrent();
-                    if(conver->getInteresado() == user){
-                        conver->nuevoMensaje(fecha, mensaje);
-                        encontro = true;
-                        break;
-                    }
-                    it->next();
-                }
-                if(!encontro){
-                    sistema->depa->elegirZona(numZona)->seleccionarPropiedad(codProp)->nuevoChat()->nuevoMensaje(fecha, mensaje);
-                }
-            }
-        }
-    }
-
-}*/
 
 void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();
@@ -674,9 +598,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
     try{
         sistema->elegirDepartamento(opt);
     } catch(const exception& e){
-        system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
-        system("pause");
         return;
     }
 
@@ -689,15 +611,13 @@ void manejarConsultarPropiedad(ISistema * sistema){
     int optint;
 
     while (true){
-        cout << "Ingrese el código de la zona: "<<endl;
+        cout << "Ingrese el código de la zona: ";
         cin >> optstr;
         try {
             optint = stoi(optstr);
             break;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingrese un código de zona válido" << endl;
-            system("pause");
         }
     }
 
@@ -743,166 +663,6 @@ void manejarConsultarPropiedad(ISistema * sistema){
 
 }
 
-// void manejarModificarPropiedad(ISistema * sistema){
-//     //feli
-//     system("cls");
-//     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
-//     if(inmo == NULL){
-//         throw invalid_argument("El usuario logeado no es Inmobiliaria");
-//     }
-//     cout<<"Ingrese el codigo de la Propiedad"<<endl;
-//     string linea;
-//     getline(cin, linea);
-//     int cod;
-//     try{
-//         cod = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("El codigo ingresado no es un numero");
-//     }
-//     if(cod <= 0){
-//         throw invalid_argument("Codigo no puede ser menor a 1");
-//     }
-//     system("cls");
-//     IKey * key = new Integer(cod);
-//     if(inmo->getPropiedades()->isEmpty()){
-//         throw invalid_argument("El usuario logeado no tiene Propiedades");
-//     }
-//     Propiedad * prop = (Propiedad *) inmo->getPropiedades()->find(key);
-//     if(prop == NULL){
-//         throw invalid_argument("No existe una Propiedad con ese codigo");
-//     }
-//     delete key;
-//     sistema->setPropiedadActual(prop);
-//     DTTipoProp tipoprop = prop->getDTTipoProp(); 
-//     int cantAmbiente, cantDormitorio, cantBanios;
-//     float m2Edificados;
-//     bool tieneGaraje;
-//     DTDir * direccion;
-//     cout<<"Ingrese la cantidad Ambiente"<<endl;
-//     getline(cin, linea);
-//     try{
-//         cantAmbiente = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("La cantidad ingresada no es un numero");
-//     }
-//     if(cantAmbiente <= 0){
-//         throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
-//     }
-//     system("cls");
-//     cout<<"Ingrese la cantidad de Dormitorios"<<endl;
-//     getline(cin, linea);
-//     try{
-//         cantDormitorio = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("La cantidad ingresada no es un numero");
-//     }
-//     if(cantDormitorio <= -1){
-//         throw invalid_argument("Cantidad de Dormitorios no puede ser menor a 0");
-//     }
-//     system("cls");
-//     cout<<"Ingrese la cantidad de Banios"<<endl;
-//     getline(cin, linea);
-//     try{
-//         cantBanios = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("La cantidad ingresada no es un numero");
-//     }
-//     if(cantBanios <= -1){
-//         throw invalid_argument("Cantidad de Banios no puede ser menor a 0");
-//     }
-//     system("cls");
-//     cout<<"Ingrese los m2 de Edificio"<<endl;
-//     getline(cin, linea);
-//     try{
-//         m2Edificados = stof(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("La cantidad ingresada no es un numero");
-//     }
-//     if(m2Edificados <= 0){
-//         throw invalid_argument("los m2 edificados no pueden ser menor a 1");
-//     }
-//     system("cls");
-//     cout<<"¿La propiedad tiene garaje?"<<endl;
-//     cout<<"1)Si        2)No"<<endl;
-//     int respuesta;
-//     getline(cin, linea);
-//     try{
-//         respuesta = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("El codigo ingresado no es un numero");
-//     }
-//     switch(respuesta){
-//         case 1:
-//             tieneGaraje = true;
-//             break;
-//         case 2:
-//             tieneGaraje = false;
-//             break;
-//         default:
-//             throw invalid_argument("El numero ingresado no es una opcion");
-//     }
-//     system("cls");
-//     int numero;
-//     string calle, ciudad;
-//     cout<<"ingresa el numero de direccion"<<endl;
-//     getline(cin, linea);
-//     try{
-//         numero = stoi(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("El numero ingresado no es un numero");
-//     }
-//     if(numero <= 0){
-//         throw invalid_argument("El codigo de direccion no puede ser menor a 1");
-//     }
-//     system("cls");
-//     cout<<"ingresa la calle de la direccion"<<endl;
-//     getline(cin, linea);
-//     calle = linea;
-//     system("cls");
-//     cout<<"ingresa el ciudad de la direccion"<<endl;
-//     getline(cin, linea);
-//     ciudad = linea;
-//     system("cls");
-//     DTDir * dir = new DTDir(calle, numero, calle);
-//     if(tipoprop == DTTipoProp::casa){
-//         int m2Verdes;
-//         cout<<"Ingrese los m2 Verdes"<<endl;
-//         getline(cin, linea);
-//         try{
-//             m2Verdes = stof(linea);
-//         }
-//         catch(const exception& e){
-//             throw invalid_argument("La cantidad ingresada no es un numero");
-//         }
-//         if(m2Verdes <= -1){
-//             throw invalid_argument("Cantidad de Ambientes no puede ser menor a 1");
-//         }
-//         system("cls");
-//         sistema->modificarCasa(cantAmbiente, cantDormitorio,  cantBanios,  m2Edificados,  dir,  tieneGaraje, m2Verdes);
-//         return;
-//     }
-//     int m2Totales;
-//     cout<<"Ingrese los m2 Totales"<<endl;
-//     getline(cin, linea);
-//     try{
-//         m2Totales = stof(linea);
-//     }
-//     catch(const exception& e){
-//         throw invalid_argument("La cantidad ingresada no es un numero");
-//     }
-//     if(m2Totales <= 0){
-//         throw invalid_argument("Los m2 totales no puede ser menor a 1");
-//     }
-//     system("cls");
-//     sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
-// }
 
 void manejarModificarPropiedad(ISistema * sistema){
     //vale
@@ -929,9 +689,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             codigoProp = stoi(optstr);
             break;
         } catch(const exception& e) {
-            system("cls");
-            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
-            system("pause");        
+            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;       
         }
     }
 
@@ -967,9 +725,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de ambientes válida (mayor a 0)" << endl;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-            system("pause");
         }
     }
 
@@ -985,9 +741,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de dormitorios válida (0 o más)" << endl;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-            system("pause");
         }
     }
 
@@ -1003,9 +757,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
             cout << endl << "Por favor, ingresa una cantidad de baños válida (0 o más)" << endl;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-            system("pause");
         }
     }
 
@@ -1021,19 +773,23 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
             cout << endl << "Por favor, ingresa una opción válida (1 o 2)" << endl;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa un valor numérico" << endl;
-            system("pause");
         }
     }
 
     system("cls");
 
     cout << "Dirección de la propiedad" << endl << "Especifica la ciudad: ";
-    getline(cin, ciudad);
+    do{
+        cin.ignore();
+        getline(cin, ciudad);
+    } while(ciudad == "");
 
     cout << endl << "Especifica la calle: ";
-    getline(cin, calle);;
+    do{
+        cin.ignore();
+        getline(cin, calle);
+    } while(calle == "");
 
     cout << endl;
 
@@ -1047,9 +803,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
             cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa un valor numérico" << endl;
-            system("pause");
         }
     }
 
@@ -1070,9 +824,7 @@ void manejarModificarPropiedad(ISistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
             } catch(const exception& e) {
-                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-                system("pause");
             }
         }
 
@@ -1100,9 +852,7 @@ void manejarModificarPropiedad(ISistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor a 0)" << endl;
             } catch(const exception& e) {
-                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-                system("pause");
             }
         }
 
@@ -1118,9 +868,7 @@ void manejarModificarPropiedad(ISistema * sistema){
                 }
                 cout << endl << "Por favor, ingresa un valor válido (mayor o igual a 0)" << endl;
             } catch(const exception& e) {
-                system("cls");
                 cout << endl << "Por favor, ingresa una cantidad numérica" << endl;
-                system("pause");
             }
         }
 
@@ -1161,9 +909,7 @@ void manejarEliminarPropiedad(ISistema * sistema){
             codigoNumerico = stoi(codigoProp);
             break;
         } catch(const exception& e) {
-            system("cls");
             cout << endl << "Por favor, ingresa un código numérico" << endl;
-            system("pause");
         }
     }
     
@@ -1206,9 +952,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
                 numZona = stoi(opcion);
                 break;
             } catch(const exception& e) {
-                system("cls");
                 cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
-                system("pause");
             }
         }
 
@@ -1227,9 +971,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
                 codProp = stoi(opcion);
                 break;
             } catch(const exception& e) {
-                system("cls");
                 cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
-                system("pause");
             }
         }
         
@@ -1287,58 +1029,52 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
 
 void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     //feli
-    system("cls");
-
     try{
+        system("cls");
+
         imprimirDTChatProps(sistema->listarChatsInmo());
-    } catch(const exception& e){
-        system("cls");
-        cout << "Error de ejecución: " << e.what() << endl;
-        system("pause");
-        return;
-    }
     
-    string respuesta;
-    int codigo;
+        string respuesta;
+        int codigo;
 
-    while (true){
-        cout << "Ingrese el código de la conversación que desee seleccionar: ";
-        cin >> respuesta;
-        try {
-            codigo = stoi(respuesta);
-            break;
-        } catch(const exception& e) {
-            system("cls");
-            cout << endl << "Por favor, ingrese un código de conversación válido" << endl;
-            system("pause");
+        while (true){
+            cout << "Ingrese el código de la conversación que desee seleccionar: ";
+            cin >> respuesta;
+            try {
+                codigo = stoi(respuesta);
+                break;
+            } catch(const exception& e) {
+                cout << endl << "Por favor, ingrese un código de conversación válido" << endl;
+            }
         }
-    }
 
-    system("cls");
+        system("cls");
 
-    Conversacion * conver;
+        sistema->seleccionarConversacionInmo(codigo);
 
-    try{
-        conver = sistema->seleccionarConversacionInmo(codigo);
+        cout << "---Ultimos mensajes---" << endl;
+        imprimirDTMensajes(sistema->getUltimosMensajes());
+
+        cout << "Ingresa el contenido del Mensaje: " << endl;
+        do{
+            cin.ignore();
+            cout << "Ingrese un Mensaje no vacio" << endl;
+            getline(cin, respuesta);
+        } while(respuesta == ""); //agregar bucle en caso de q el mensaje sea vacio
+
+        DTFecha * fecha = getDTFechaActual();
+        sistema->nuevoMensaje(respuesta, fecha);
+
+        system("cls");
+        cout << "El mensaje fue agregado de manera exitosa!" << endl;
+        system("pause");
+
     } catch(const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
-
-    system("cls");
-
-    cout << "Ingresa el contenido del Mensaje: " << endl;
-    getline(cin, respuesta);
-
-    DTFecha * fecha = getDTFechaActual();
-
-    conver->nuevoMensaje(fecha, respuesta);
-
-    cout << "El mensaje fue agregado de manera exitosa!" << endl;
-
-    system("pause");
 
 }
 
@@ -1480,7 +1216,6 @@ void menu(ISistema * sistema){
                             system("pause");
                         } else if (opt == "7"){
                             manejarEnviarMensajeInmobiliaria(sistema);
-                            system("pause");
                         } else {
                             throw invalid_argument("No se encontró una opción válida");
                         }
@@ -1697,88 +1432,8 @@ int main() {
     inmo2->agregarPropiedad(ap3);
 
 
-    // Zona* zona = new Zona(1, "santa", "c");
-    // ICollectible * zonacol = (ICollectible*) zona;
-    // IKey * keyzona = new Integer(1);
-    // Departamento* depa = new Departamento("c", "canelones");
-    // depa->getZonas()->add(keyzona, zona);
-    // IKey * keydepa = new String(depa->getLetra());
-    // char* email = "s";
-    // sistema->getDepartamentos()->add(keydepa, depa);
-
-
     menu(sistema);
 
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    // Obtener la hora actual del sistema
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
-
-    // Obtener el día, mes y año actuales
-    int dia = now->tm_mday;
-    int mes = now->tm_mon + 1; // Los meses van de 0 a 11, por eso se suma 1
-    int año = now->tm_year + 1900; // El año se cuenta desde 1900, por eso se suma 1900
-
-    // Obtener la hora, minuto y segundo actuales
-    int hora = now->tm_hour;
-    int minuto = now->tm_min;
-    int segundo = now->tm_sec;
-
-    // Imprimir los resultados
-    std::cout << "Fecha actual: " << dia << "/" << mes << "/" << año << std::endl;
-    std::cout << "Hora actual: " << hora << ":" << minuto << ":" << segundo << std::endl;
-
-    Departamento * dep1 = new Departamento("A", "Canelones");
-    Zona * zona1 = new Zona(1, "SantaLu", "A");
-    Zona * zona2 = new Zona(2, "SanJo", "A");
-    Zona * zona3 = new Zona(3, "CaneLondon", "A");
-
-    cout << "Zona 1 es: " << endl << zona1->getDTZona() << endl;
-    cout << "Zona 2 es: " << endl << zona2->getDTZona() << endl;
-    cout << "Zona 3 es: " << endl << zona3->getDTZona() << endl;
-
-    dep1->agregarZona(zona1);
-
-    cout << "Probamos listar zonas con una zona" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona2);
-    
-    cout << "Probamos listar zonas con dos zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->agregarZona(zona3);
-
-    cout << "Probamos listar zonas con tres zonas" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    dep1->quitarZona(2);
-
-    cout << "Probamos listar zonas con dos zonas (una eliminada)" << endl;
-
-    // imprimirZonasDepto(dep1->listarZonasDepartamento());
-
-    delete zona1;
-    delete zona2;
-    delete zona3;
-    delete dep1;
-
-    */
     system("pause");
     return 0;
 }

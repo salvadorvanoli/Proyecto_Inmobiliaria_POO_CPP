@@ -14,14 +14,15 @@ class DTMensaje;
 
 class Mensaje: public ICollectible{
     private:
-        DTHora * hora;
+        int codigoMen;
         DTFecha * fecha;
         string texto;
     public:
         Mensaje();
-        Mensaje(DTFecha *, string);
+        Mensaje(int, DTFecha *, string);
         ~Mensaje();
         DTMensaje * getDTMensaje();
+        int getCodigo();
         DTFecha * getFecha();
         string getTexto();
         void setFecha(DTFecha *);
