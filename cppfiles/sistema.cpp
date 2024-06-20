@@ -520,7 +520,7 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     Apartamento *apartamento = NULL;
-    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage);
+    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo);
     edificio->enlazarPropiedad(apartamento);
     zona->enlazarPropiedad(apartamento);
     this->enlazarPropiedad(apartamento);
@@ -541,7 +541,7 @@ void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, boo
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     Casa *casa = NULL;
-    casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v);
+    casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v, inmo);
     zona->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
     inmo->agregarPropiedad(casa);

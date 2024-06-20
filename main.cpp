@@ -611,6 +611,7 @@ void manejarAltaPropiedad(ISistema * s){
             if (option == 1) {
                 float valorV;
                 cout << "Ingrese valor de la venta" << endl;
+                cin >> valorV;
                 system("cls");
                 s->ponerEnVenta(valorV);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
@@ -619,6 +620,7 @@ void manejarAltaPropiedad(ISistema * s){
             if (option == 2) {
                 float valorA;
                 cout << "Ingrese valor del alquiler" << endl;
+                cin >> valorA;
                 system("cls");
                 s->ponerEnAlquiler(valorA);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
@@ -696,18 +698,20 @@ void manejarConsultarPropiedad(ISistema * sistema){
     cout << "Elija una de las propiedades listadas debajo" << endl;
     imprimirProps(sistema->listarPropiedades());
 
-    while (true){
-        cout << "Ingrese el código de la propiedad: "<<endl;
-        cin >> optstr;
-        try {
-            optint = stoi(optstr);
-            break;
-        } catch(const exception& e) {
-            system("cls");
-            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
-            system("pause");
-        }
-    }
+    cin >> optint;
+
+    // while (true){
+    //     cout << "Ingrese el código de la propiedad: "<<endl;
+    //     cin >> optstr;
+    //     try {
+    //         optint = stoi(optstr);
+    //         break;
+    //     } catch(const exception& e) {
+    //         system("cls");
+    //         cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+    //         system("pause");
+    //     }
+    // }
 
     try{
         cout << "---Propiedad Detallada---" << endl << endl;

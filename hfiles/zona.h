@@ -14,6 +14,7 @@ using namespace std;
 // #include "edificio.h"
 // #include "propiedad.h"
 // #include "casa.h"
+#include "inmobiliaria.h"
 #include "dtedificio.h"
 #include "dtdir.h"
 #include "dtchatprop.h"
@@ -68,7 +69,7 @@ class Zona : public ICollectible {
         ICollection * listarEdificios();
         Edificio * seleccionarEdificio(int);
         void enlazarPropiedad(Propiedad *);
-        Casa * crearCasa(int, int, int, float, DTDir*, bool, float);
+        Casa * crearCasa(int, int, int, float, DTDir*, bool, float, Inmobiliaria*);
         void desvincularPropiedad(int);
         IDictionary * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);

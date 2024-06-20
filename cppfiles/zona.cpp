@@ -146,9 +146,9 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes){
+Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes, Inmobiliaria* inmo){
     int codigo = generarCodigoPropiedad();
-    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes);
+    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes, inmo);
 }
 
 // ES LO MISMO QUE QUITAR PROPIEDAD

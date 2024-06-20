@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona){
+Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir* dir, bool _tieneGaraje, Zona * _zona, Inmobiliaria* inmo){
     this->codigo = _codigo;
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
@@ -12,6 +12,7 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->tieneGaraje = _tieneGaraje;
     this->conversaciones = new OrderedDictionary();
     this->zona = _zona;
+    this->inmo = inmo;
 }
 
 Propiedad :: ~Propiedad(){
@@ -230,4 +231,12 @@ IDictionary * Propiedad::listarConversaciones(){
     }
     delete it;
     return lista;
+}
+
+char* Propiedad::getNombreInmo(){
+    return this->emailInmo;
+}
+
+DTDir* Propiedad::getDirInmo(){
+    return this->dirInmo;
 }

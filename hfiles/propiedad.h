@@ -41,9 +41,11 @@ class Propiedad : public ICollectible{
         IDictionary * conversaciones;
         Zona * zona;
         DTEstadoProp estado;
+        DTDir* dirInmo;
+        char* emailInmo;
         Inmobiliaria * inmo;
     public:
-        Propiedad(int, int, int, int, float, DTDir*, bool, Zona *);
+        Propiedad(int, int, int, int, float, DTDir*, bool, Zona *, Inmobiliaria*);
         Propiedad(){};
         virtual ~Propiedad();
 
@@ -75,6 +77,8 @@ class Propiedad : public ICollectible{
         Zona * getZona();
         DTEstadoProp getEstadoProp();
         Inmobiliaria * getInmobiliaria();
+        char* getNombreInmo();
+        DTDir* getDirInmo();
 
         DTInmobiliaria * getDTInmobiliaria();
         DTPropiedad * getDTPropiedad();
