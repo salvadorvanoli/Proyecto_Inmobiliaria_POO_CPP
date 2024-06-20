@@ -105,7 +105,7 @@ void Edificio::desvincularPropiedad(int codigo){
 // Métodos de Edificio (DCD)
 
 DTEdificio * Edificio::getDTEdifico(){
-    return new DTEdificio(this->getCodigo(), this->getNombre(), this->getCantPisos(), this->getGastosComunes());
+    return new DTEdificio(this->getNombre(), this->getCantPisos(), this->getGastosComunes());
 }
 
 Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje){

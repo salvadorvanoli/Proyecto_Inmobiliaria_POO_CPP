@@ -81,7 +81,7 @@ class Inmobiliaria : public Usuario {
         void destruirAlquiler(Propiedad*);
         DTReporte* obtenerReporteInmobiliaria();
         Propiedad * seleccionarPropiedad(int);
-        IDictionary * listarConversaciones();
+        ICollection * listarConversaciones();
         Conversacion * seleccionarConversacion(int);
 
         // Funciones aparte

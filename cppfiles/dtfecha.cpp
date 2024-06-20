@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-DTFecha::DTFecha(int dia, int mes, int anio, DTHora * hora){
+DTFecha::DTFecha(string dia, string mes, string anio, DTHora * hora){
 this->dia = dia;
 this->mes = mes;
 this->anio = anio;
@@ -14,15 +14,15 @@ DTFecha::~DTFecha(){
 
 }
 
-int DTFecha::getDia(){
+string DTFecha::getDia(){
     return this->dia;
 }
 
-int DTFecha::getMes(){
+string DTFecha::getMes(){
     return this->mes;
 }
 
-int DTFecha::getAnio(){
+string DTFecha::getAnio(){
     return this->anio;
 }
 

@@ -22,13 +22,13 @@ ICollection * DTReporte::getLineas(){
 // DUDO QUE ESTE BIEN
 ostream& operator << (ostream & o, DTReporte * reporte){
     o << "Inmobiliaria: " << reporte->getInmo() << endl;
-    // IIterator * it = reporte->lineas->getIterator();
-    // DTLineaReporte * linea;
-    // while(it->hasCurrent()){
-    //     linea = (DTLineaReporte *) it->getCurrent();
-    //     o << linea << endl;
-    //     it->next();
-    // }
-    // delete it;
+    IIterator * it = reporte->lineas->getIterator();
+    DTLineaReporte * linea;
+    while(it->hasCurrent()){
+        linea = (DTLineaReporte *) it->getCurrent();
+        o << linea << endl;
+        it->next();
+    }
+    delete it;
     return o;
 }

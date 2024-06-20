@@ -51,10 +51,6 @@ void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
 }
 
-void Propiedad::setInmobiliaria(Inmobiliaria * inmo){
-    this->inmo = inmo;
-}
-
 void Propiedad :: agregarConversacion(Conversacion * _conver){
     IKey * key = new Integer(_conver->getCodigoConversacion());
     if(this->conversaciones->member(key)){
@@ -156,21 +152,19 @@ DTPropiedadDetallada * Propiedad::getDTPropiedadDetallada(){
     return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->inmo->getDTInmobiliaria());
 }
 
-ICollectible * Propiedad :: getDTChatProp(char * email){
+DTChatProp * Propiedad :: getDTChatProp(char * email){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con;
     while(it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
-            ICollectible *col = (ICollectible *) new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->direccion);
-            return col;
+            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
         }
         it->next();
     }
     delete it;
-    ICollectible *col = (ICollectible *) new DTPropiedad(this->codigo, this->direccion, this->estado);
-    return col;
+    return NULL;
     // throw
 }
 
@@ -201,7 +195,7 @@ Conversacion * Propiedad::getConversacion(char * email){
         it->next();
     }
     delete it;
-    return NULL;
+    throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
 }
 
 //crea una conversacion y la añade a la coleccion
@@ -221,18 +215,15 @@ Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
 }
 
 // Devuelve un ICollection que contiene un DTChatProp por cada conversación de la propiedad
-IDictionary * Propiedad::listarConversaciones(){
-    IDictionary * lista = new OrderedDictionary();
+ICollection * Propiedad::listarConversaciones(){
+    ICollection * lista = new List();
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con = NULL;
     ICollectible * item = NULL;
-    OrderedKey * key = NULL;
     while (it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
-        DTChatProp * dtcon = new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
-        key = new Integer(dtcon->getValorKey());
-        item = (ICollectible *) dtcon;
-        lista->add(key, item);
+        item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
+        lista->add(item);
     }
     delete it;
     return lista;

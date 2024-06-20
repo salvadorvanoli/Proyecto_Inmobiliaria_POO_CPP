@@ -70,7 +70,7 @@ class Zona : public ICollectible {
         void enlazarPropiedad(Propiedad *);
         Casa * crearCasa(int, int, int, float, DTDir*, bool, float);
         void desvincularPropiedad(int);
-        IDictionary * listarChatPropiedad(char *);
+        ICollection * listarChatPropiedad(char *);
         Propiedad * seleccionarPropiedad(int);
         ICollection * getUltimosMensajes();
         ICollection * listarPropiedades();
