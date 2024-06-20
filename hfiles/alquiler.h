@@ -5,18 +5,6 @@
 #include "propiedad.h"
 using namespace std;
 
-class Alquiler : public ICollectible {
-    private:
-        float precioAlquiler;
-        Propiedad * prop;
-    public:
-        Alquiler(Propiedad*, float);
-        bool existeAlquiler();
-        ~Alquiler();
 
-        //getters y setters
-        float getPrecioAlquiler();
-        void setPrecioAlquiler(float);
-};
 
 #endif

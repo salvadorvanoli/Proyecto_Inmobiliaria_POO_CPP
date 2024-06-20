@@ -9,16 +9,6 @@ using namespace std;
 
 class DTDir;
 
-class DTInmobiliaria: public ICollectible{
-    private:
-        string nombre;
-        DTDir * direccion;
-    public:
-        DTInmobiliaria(string, DTDir *);
-        ~DTInmobiliaria();
-        string getNombre();
-        DTDir * getDireccion();
-        friend ostream& operator << (ostream &, DTInmobiliaria *);
-};
+
 
 #endif

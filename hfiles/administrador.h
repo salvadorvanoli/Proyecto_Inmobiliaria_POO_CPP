@@ -21,9 +21,6 @@ class IIterator;
 class OrderedKey;
 class Usuario;
 
-class Administrador : public Usuario {
-    public:
-        Administrador(char*, string);
-};
+
 
 #endif

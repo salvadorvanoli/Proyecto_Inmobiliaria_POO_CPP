@@ -19,28 +19,5 @@ class IDictionary;
 class IIterator;
 class OrderedKey;
 
-class Usuario : public ICollectible {
-    protected:
-        char* correoElectronico;
-        string contrasenia;
-        bool primeraVez;
-    public:
-        Usuario(char*);
-        virtual ~Usuario();
-
-        // Métodos
-        void agregarContrasenia(string);
-        bool esContraseniaCorrecta(string);
-
-        // Setters
-        void setCorreoElectronico(char*);
-        void setContrasenia(string);
-        void setPrimeraVez(bool);
-
-        // Getters
-        char* getCorreoEletronico();
-        string getContrasenia();
-        bool getPrimeraVez();
-};
 
 #endif

@@ -3,9 +3,6 @@
 #include <iostream>
 using namespace std;
 
-enum class DTTipoProp {
-    casa,
-    apartamento
-};
+
 
 #endif

@@ -6,19 +6,6 @@
 
 using namespace std;
 
-class Venta: public ICollectible {
-    private:
-        float precioTotal;
-        Propiedad* prop;
-    public:
-        Venta(Propiedad*, float);
-        ~Venta();
-        bool existeVenta();
 
-        //getters y setters
-        float getPrecioTotal();
-        void setPrecioTotal(float);
-        Propiedad* getPropiedad();
-};
 
 #endif

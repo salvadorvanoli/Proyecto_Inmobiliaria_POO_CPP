@@ -20,42 +20,5 @@ class Zona;
 class DTZona;
 class DTDepartamento;
 
-class Departamento: public ICollectible {
-    private:
-        char * letra;
-        string nombre;
-        IDictionary * zonas;
-        int cantZonas;
-    public:
-        Departamento(char *, string);
-        ~Departamento();
-
-        // Getters
-
-        char * getLetra();
-        string getNombre();
-        int getCantZonas();
-        IDictionary * getZonas();
-
-        // Setters
-
-        void setLetra(char *);
-        void setNombre(string);
-        void setCantZonas(int);
-
-        // Agregar-Quitar (Creo que esta mal)
-
-        void agregarZona(Zona *);
-        void quitarZona(int);
-
-        // Métodos de Departamento (DCD)
-
-        DTDepartamento * getDTDepartamento();
-        ICollection * listarZonasDepartamento();
-        Zona * elegirZona(int);
-
-        // Otras funciones
-        int crearClaveZona();
-};
 
 #endif

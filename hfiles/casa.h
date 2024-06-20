@@ -8,16 +8,6 @@ using namespace std;
 
 class Zona;
 
-class Casa : public Propiedad{
-    private:
-        float m2Verdes;
-    public:
-        Casa(int, int, int, int, float, DTDir*, bool, Zona *, float);
-        void setM2Verdes(float);
-        float getM2Verdes();
-        DTTipoProp getDTTipoProp();
-        void modificarCasa(int, int, int, float, DTDir*, bool, float);
-};
 
 
 #endif

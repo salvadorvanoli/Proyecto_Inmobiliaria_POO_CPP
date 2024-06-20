@@ -43,51 +43,6 @@ class Venta;
 class Alquiler;
 class Propiedad;
 
-class Inmobiliaria : public Usuario {
-    private:
-        string nombre;
-        DTDir * direccion;
-        IDictionary * ventas;
-        IDictionary * alquileres;
-        IDictionary * propiedades;
-        int cantVentas;
-        int cantAlquileres;
-        int cantPropiedades;
-        int cantConversaciones;
-    public:
-        Inmobiliaria(char*, string, DTDir*);
-        ~Inmobiliaria();
 
-        //Setters
-        void setNombre(char*);
-        void setDireccion(DTDir*);
-        Venta* ponerEnVenta(Propiedad*, float);
-        Alquiler* ponerEnAlquiler(Propiedad*, float);
-        void agregarPropiedad(Propiedad*);
-
-        //Getters
-        string getNombre();
-        DTDir * getDireccion();
-        IDictionary* getVentas();
-        IDictionary* getAlquileres();
-        IDictionary* getPropiedades();
-        int getCantVentas();
-        int getCantAlquileres();
-        int getCantPropiedades();
-
-        //Métodos
-        DTInmobiliaria * getDTInmobiliaria();
-        void destruirVenta(Propiedad*);
-        void destruirAlquiler(Propiedad*);
-        DTReporte* obtenerReporteInmobiliaria();
-        Propiedad * seleccionarPropiedad(int);
-        IDictionary * listarConversaciones();
-        Conversacion * seleccionarConversacion(int);
-
-        // Funciones aparte
-
-        int generarCodigoConversacion();
-        ICollection * listarPropiedades();
-};
 
 #endif

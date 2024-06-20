@@ -14,24 +14,6 @@ class ICollectible;
 class DTInmobiliaria;
 class DTLineaReporte;
 
-class DTReporte : ICollectible{
-    private:
-        DTInmobiliaria * inmo;
-        ICollection * lineas;
-    public:
-        DTReporte(DTInmobiliaria *, ICollection * );
-        ~DTReporte();
-        
-        // Getters
-
-        DTInmobiliaria * getInmo();
-        ICollection * getLineas();
-
-        friend ostream& operator << (ostream &, DTReporte *);
-};
-
-
-
 
 
 #endif

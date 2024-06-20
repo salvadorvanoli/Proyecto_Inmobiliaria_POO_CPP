@@ -29,69 +29,6 @@ class Zona;
 class ICollectible;
 
 
-class Propiedad : public ICollectible{
-    protected:
-        int codigo;
-        int cantAmbiente;
-        int cantDormitorios;
-        int cantBanios;
-        float m2Edificios;
-        float m2Totales;
-        bool tieneGaraje;
-        DTDir * direccion;
-        IDictionary * conversaciones;
-        Zona * zona;
-        DTEstadoProp estado;
-        Inmobiliaria * inmo;
-    public:
-        Propiedad(int, int, int, int, float, DTDir*, bool, Zona *);
-        Propiedad(){};
-        virtual ~Propiedad();
 
-        // Setters
-
-        void setZona(Zona *);
-        void setM2Totales(float);
-        void setM2Edificios(float);
-        void setTieneGaraje(bool);
-        void setCantBanios(int);
-        void setCantDormitorios(int);
-        void setCantAmbiente(int);
-        void setCodigo(int);
-        void setDireccion(DTDir *);
-        void agregarConversacion(Conversacion *);
-        void setEstadoProp(DTEstadoProp);
-        void setInmobiliaria(Inmobiliaria *);
-
-        // Getters
-
-        bool getTieneGaraje();
-        float getm2Totales();
-        int getCodigo();
-        int getCantAmbiente();
-        int getCantDormitorios();
-        int getCantBanios();
-        float getM2Edificios();
-        DTDir * getDireccion();
-        Zona * getZona();
-        DTEstadoProp getEstadoProp();
-        Inmobiliaria * getInmobiliaria();
-
-        DTInmobiliaria * getDTInmobiliaria();
-        DTPropiedad * getDTPropiedad();
-        DTPropiedadDetallada * getDTPropiedadDetallada();
-        virtual DTTipoProp getDTTipoProp() = 0;
-        IDictionary * getConversaciones();
-        void desvincularDeZona();
-        void destruirConversaciones();
-        ICollectible * getDTChatProp(char *);
-        
-        // ICollection * getUltimosMensajes(Conversacion *);
-
-        Conversacion * getConversacion(char *);
-        ICollection * getUltimosMensajes(char *);
-        Conversacion * nuevoChat(Interesado *);
-        IDictionary * listarConversaciones();
-};
 
 #endif
