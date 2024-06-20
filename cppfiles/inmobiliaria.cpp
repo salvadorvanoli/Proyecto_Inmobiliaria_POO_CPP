@@ -143,15 +143,14 @@ int Inmobiliaria::getCantConversaciones(){
 DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     IIterator * it = this->propiedades->getIterator();
     Venta * venta;
-    char* departamentos[99]; // No puedo obtener los departamentos desde la zona, entonces por ahora son null todos
+    char* departamentos[99];
     int zonas[99] = {0};
     int apartamentos[99] = {0};
     int casas[99] = {0};
     while(it->hasCurrent()){
         Propiedad* prop = (Propiedad *) it->getCurrent();
-        Zona* zona = prop->getZona();
         for(int i=0; i<99; i++){
-            if(zona->getCodigo() == zonas[i]){
+            if(prop->getCodigoZona() == zonas[i]){
                 Apartamento * ap = dynamic_cast<Apartamento*>(prop);
                 Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
@@ -162,8 +161,8 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
                 }
                 break;
             } else if(zonas[i] == 0){
-                zonas[i] = zona->getCodigo();
-                departamentos[i] = zona->getLetraDepa();
+                zonas[i] = prop->getCodigoZona();
+                departamentos[i] = prop->getLetraDep();
                 Apartamento * ap = dynamic_cast<Apartamento*>(prop);
                 Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
