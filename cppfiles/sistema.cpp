@@ -444,7 +444,7 @@ ICollection * Sistema::obtenerReporte(){
     Inmobiliaria * user;
     ICollection * reportes = new List();
     while(it->hasCurrent()){
-        user = dynamic_cast<Inmobiliaria*> (it->getCurrent()); // Este tengo dudas
+        user = dynamic_cast<Inmobiliaria*> (it->getCurrent());
         if(user != NULL){
             ICollectible * reporte = (ICollectible*) user->obtenerReporteInmobiliaria();
             reportes->add(reporte);

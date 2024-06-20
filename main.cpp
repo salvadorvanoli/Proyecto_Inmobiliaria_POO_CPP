@@ -1094,12 +1094,10 @@ void manejarReporte(ISistema * sistema){
     while(it->hasCurrent()){
         DTReporte * reporte = (DTReporte*) it->getCurrent();
         cout << "[REPORTE " << i << "]" << endl;
-        // cout << reporte << endl << endl;
         cout << "Inmobiliaria: " << reporte->getInmo() << endl << endl;
         IIterator * it2 = reporte->getLineas()->getIterator();
         while(it2->hasCurrent()){
             DTLineaReporte * linea = (DTLineaReporte*) it2->getCurrent();
-            // cout << linea << endl << endl;
             cout << "Departamento: " << linea->getLetraDep() << endl;
             cout << "Código de la zona: " << linea->getCodigoZona() << endl;
             cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
@@ -1207,13 +1205,11 @@ void menu(ISistema * sistema){
                             system("pause");
                         } else if (opt == "4"){
                             manejarConsultarPropiedad(sistema);
-                            system("pause");
                         } else if (opt == "5"){
                             manejarModificarPropiedad(sistema);
                             system("pause");
                         } else if (opt == "6"){
                             manejarEliminarPropiedad(sistema);
-                            system("pause");
                         } else if (opt == "7"){
                             manejarEnviarMensajeInmobiliaria(sistema);
                         } else {
@@ -1242,10 +1238,8 @@ void menu(ISistema * sistema){
                             continue;
                         } else if(opt == "2"){
                             manejarConsultarPropiedad(sistema);
-                            system("pause");
                         } else if (opt == "3"){
                             manejarEnviarMensajeInteresado(sistema);
-                            system("pause");
                         } else {
                             throw invalid_argument("No se encontró una opción válida");
                         }
