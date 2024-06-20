@@ -184,7 +184,7 @@ IDictionary * Sistema::listarChatProp(){
     }
     IDictionary * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
     if (lista->isEmpty()){
-        throw runtime_error("No hay propiedades actualmente");
+        throw runtime_error("No hay propiedades en la Zona actual");
     }
     return lista;
 }

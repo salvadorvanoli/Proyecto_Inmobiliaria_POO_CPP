@@ -141,7 +141,7 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
         // cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
-        throw invalid_argument("La propiedad ya fue agregado con anterioridad");
+        throw invalid_argument("La propiedad ya fue agregada con anterioridad");
     }
     // ES CON ICOLLECTION
 }
@@ -170,16 +170,17 @@ void Zona::desvincularPropiedad(int codigoProp){
 IDictionary * Zona::listarChatPropiedad(char * email){
     IIterator * it = this->propiedades->getIterator();
     IDictionary * lista = new OrderedDictionary();
-    int count = 9999999;
+    int count = -100;
     Propiedad * prop;
     DTChatProp * dt;
     OrderedKey * key;
     ICollectible * item;
     while (it->hasCurrent()){
-        prop = (Propiedad *) it->getCurrent();
+        prop = dynamic_cast<Propiedad *>(it->getCurrent());
         item = prop->getDTChatProp(email);
-        dt = (DTChatProp *) item;
+        dt = dynamic_cast<DTChatProp *> (item);
         if (dt != NULL){
+            cout << "getValorKey: " << dt->getValorKey() << endl;
             key = new Integer (dt->getValorKey());
         } else {
             key = new Integer (count);
@@ -258,12 +259,9 @@ DTPropiedadDetallada * Zona::verDetallesPropiedad(int codigoProp){
 int Zona::generarCodigoPropiedad(){
     IIterator * it = this->propiedades->getIterator();
     Propiedad * prop = NULL;
-    while (it->hasCurrent()){
-        prop = (Propiedad *) it->getCurrent();
-        it->next();
-    }
-    delete it;
-    if (prop != NULL){
+    if (it->hasCurrent()){
+        prop = dynamic_cast<Propiedad *> (it->getCurrent());
+        delete it;
         return prop->getCodigo()+1;
     }
     return 1;
@@ -274,9 +272,6 @@ int Zona::generarCodigoEdificio(){
     Edificio * edi = NULL;
     while (it->hasCurrent()){
         edi = (Edificio *) it->getCurrent();
-        it->next();
-    }
-    if (edi != NULL){
         return edi->getCodigo()+1;
     }
     return 1;

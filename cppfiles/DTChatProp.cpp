@@ -60,5 +60,8 @@ int DTChatProp::generarClaveSegunFecha(){
     time_t tiempoComparar = mktime(&fechaHoraComparar);
 
     double segundos = difftime(tiempoActual, tiempoComparar);
-    return abs(segundos);
+    int segundosAbsolutos = abs(segundos);
+
+    int maxSegundosEnUnAnio = 365 * 24 * 60 * 60;
+    return maxSegundosEnUnAnio - segundosAbsolutos;
 }

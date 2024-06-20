@@ -1290,7 +1290,7 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     system("cls");
 
     try{
-        imprimirDTChatProps(sistema->listarChatProp());
+        imprimirDTChatProps(sistema->listarChatsInmo());
     } catch(const exception& e){
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
@@ -1526,21 +1526,186 @@ int main() {
 
     ISistema * sistema = (new Factory())->getISistema();
     
-    Zona* zona = new Zona(1, "santa", "c");
-    ICollectible * zonacol = (ICollectible*) zona;
-    IKey * keyzona = new Integer(1);
-    Departamento* depa = new Departamento("c", "canelones");
-    depa->getZonas()->add(keyzona, zona);
-    IKey * keydepa = new String(depa->getLetra());
-    char* email = "s";
-    sistema->getDepartamentos()->add(keydepa, depa);
 
-    Administrador * nuevoAdmin = new Administrador(email, "abc");
+    // DTs
+    // string calle, int numero, string ciudad
+    DTDir * dir1 = new DTDir("Rivera", 8, "Santa Lucia");
+    DTDir * dir2 = new DTDir("Sarandi", 232, "Santa Lucia");
+    DTDir * dir3 = new DTDir("Treinta y Tres", 403, "Canelones");
+    DTDir * dir4 = new DTDir("18 de Julio", 123, "Santa Lucia");
+    DTDir * dir5 = new DTDir("Rocha", 654, "Montevideo");
+    DTDir * dir6 = new DTDir("Miranda", 666, "Canelones");
+    DTDir * dir7 = new DTDir("Brum", 42, "Juanico");
+    DTDir * dir8 = new DTDir("Herrera", 69, "Durazno");
+    // USUARIOS
+
+    // ADMINISTRADORES
+    char* email1 = "a";
+    Administrador * nuevoAdmin = new Administrador(email1, "abc");
     ICollectible * nuevo = (ICollectible*) nuevoAdmin;
 
     IKey * key = new String(nuevoAdmin->getCorreoEletronico());
 
     sistema->getUsuarios()->add(key, nuevo);
+
+    // INMOBILIARIAS
+    char * email2 = "inmo1";
+    char * email3 = "inmo2";
+    Inmobiliaria * inmo1 = new Inmobiliaria(email2, "Salva Enterprise", dir6);
+    Inmobiliaria * inmo2 = new Inmobiliaria(email3, "Tesla", dir7);
+
+    IKey * keyusr2 = new String(inmo1->getCorreoEletronico());
+    IKey * keyusr3 = new String(inmo2->getCorreoEletronico());
+
+    ICollectible * usr2 = (ICollectible*) inmo1;
+    ICollectible * usr3 = (ICollectible*) inmo2;
+
+    sistema->getUsuarios()->add(keyusr2, usr2);
+    sistema->getUsuarios()->add(keyusr3, usr3);
+    
+    // INTERESADOS
+    char * email4 = "int1";
+    char * email5 = "int2";
+    Interesado * int1 = new Interesado(email4, "Nadia", "Gorría", 42);
+    Interesado * int2 = new Interesado(email5, "José", "Soto", 13);
+
+    IKey * keyusr4 = new String(int1->getCorreoEletronico());
+    IKey * keyusr5 = new String(int2->getCorreoEletronico());
+
+    ICollectible * usr4 = (ICollectible*) int1;
+    ICollectible * usr5 = (ICollectible*) int2;
+
+    sistema->getUsuarios()->add(keyusr4, usr4);
+    sistema->getUsuarios()->add(keyusr5, usr5);
+
+    // DEPARTAMENTOS
+    Departamento * dep1 = new Departamento("A", "Canelones");
+    Departamento * dep2 = new Departamento("S", "Montevideo");
+    Departamento * dep3 = new Departamento("M", "San Jose");
+
+    // ZONAS
+    // Zonas de dep1
+    Zona* zona1 = new Zona(1, "Santa Lucia", "A");
+    Zona* zona2 = new Zona(2, "Canelones", "A");
+    Zona* zona3 = new Zona(3, "Juanico", "A");
+
+    // Zonas de dep2
+    Zona* zona4 = new Zona(4, "Malvin Norte", "S"); // Vacio
+    Zona* zona5 = new Zona(5, "Prado", "S"); // Vacio
+    Zona* zona6 = new Zona(6, "Ciudad Vieja", "S"); // Vacio
+
+    // Zonas de dep3
+    Zona* zona7 = new Zona(7, "Rodriguez", "M"); // Vacio
+    Zona* zona8 = new Zona(8, "Prado", "M"); // Vacio
+    Zona* zona9 = new Zona(9, "Ciudad Vieja", "M"); // Vacio
+
+    ICollectible * zonacol1 = (ICollectible*) zona1;
+    ICollectible * zonacol2 = (ICollectible*) zona2;
+    ICollectible * zonacol3 = (ICollectible*) zona3;
+    ICollectible * zonacol4 = (ICollectible*) zona4;
+    ICollectible * zonacol5 = (ICollectible*) zona5;
+    ICollectible * zonacol6 = (ICollectible*) zona6;
+    ICollectible * zonacol7 = (ICollectible*) zona7;
+    ICollectible * zonacol8 = (ICollectible*) zona8;
+    ICollectible * zonacol9 = (ICollectible*) zona9;
+
+    IKey * keyzona1 = new Integer(1);
+    IKey * keyzona2 = new Integer(2);
+    IKey * keyzona3 = new Integer(3);
+    IKey * keyzona4 = new Integer(4);
+    IKey * keyzona5 = new Integer(5);
+    IKey * keyzona6 = new Integer(6);
+    IKey * keyzona7 = new Integer(7);
+    IKey * keyzona8 = new Integer(8);
+    IKey * keyzona9 = new Integer(9);
+
+    dep1->getZonas()->add(keyzona1, zona1);
+    dep1->getZonas()->add(keyzona2, zona2);
+    dep1->getZonas()->add(keyzona3, zona3);
+    dep2->getZonas()->add(keyzona4, zona4);
+    dep2->getZonas()->add(keyzona5, zona5);
+    dep2->getZonas()->add(keyzona6, zona6);
+    dep3->getZonas()->add(keyzona7, zona7);
+    dep3->getZonas()->add(keyzona8, zona8);
+    dep3->getZonas()->add(keyzona9, zona9);
+
+    IKey * keydepa1 = new String(dep1->getLetra());
+    IKey * keydepa2 = new String(dep2->getLetra());
+    IKey * keydepa3 = new String(dep3->getLetra());
+
+    sistema->getDepartamentos()->add(keydepa1, dep1);
+    sistema->getDepartamentos()->add(keydepa2, dep2);
+    sistema->getDepartamentos()->add(keydepa3, dep3);
+
+    // Creamos edificios
+    // int codigo, string nombre, int cantPisos, int gastosComunes, Zona* zona
+    Edificio* edi1 = new Edificio(1, "Hotel California", 10, 20000, zona1);
+    Edificio* edi2 = new Edificio(2, "Hotel Lamas", 2, 10000, zona1); // Vacio
+    Edificio* edi3 = new Edificio(1, "Motel Oasis", 3, 7500, zona2);
+    Edificio* edi4 = new Edificio(2, "Hotel Disney", 40, 100000, zona2); // Vacio
+    Edificio* edi5 = new Edificio(3, "Empire State", 100, 50000, zona2); // Vacio
+    Edificio* edi6 = new Edificio(1, "Luna y Mar", 9, 50000, zona3); // Vacio
+
+    zona1->agregarEdificio(edi1);
+    zona1->agregarEdificio(edi2);
+    zona2->agregarEdificio(edi3);
+    zona2->agregarEdificio(edi4);
+    zona2->agregarEdificio(edi5);
+    zona3->agregarEdificio(edi6);
+
+    // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, float _m2Verdes)
+
+    Casa * casa1 = zona1->crearCasa(2, 1, 1, 50, dir1, true, 20, inmo1);
+
+    zona1->enlazarPropiedad(casa1);
+
+    Casa * casa2 = zona1->crearCasa(4, 2, 2, 100, dir2, false, 40, inmo1);
+
+    zona1->enlazarPropiedad(casa2);
+
+    Casa * casa3 = zona2->crearCasa(3, 1, 2, 70, dir3, true, 30, inmo2);
+
+    zona2->enlazarPropiedad(casa3);
+
+    // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, Edificio * _edificio
+
+    Apartamento * ap1 = edi1->crearApartamento(2, 3, 2, 90, dir4, false, inmo1);
+
+    zona1->enlazarPropiedad(ap1);
+    edi1->enlazarPropiedad(ap1);
+
+    Apartamento * ap2 = edi1->crearApartamento(3, 2, 1, 70, dir8, false, inmo2);
+
+    zona1->enlazarPropiedad(ap2);
+    edi1->enlazarPropiedad(ap2);
+
+    Apartamento * ap3 = edi3->crearApartamento(1, 1, 1, 20, dir5, true, inmo2);
+    
+    zona2->enlazarPropiedad(ap3);
+    edi3->enlazarPropiedad(ap3);
+
+    inmo1->agregarPropiedad(casa1);
+
+    inmo1->agregarPropiedad(casa2);
+
+    inmo2->agregarPropiedad(casa3);
+
+    inmo1->agregarPropiedad(ap1);
+
+    inmo2->agregarPropiedad(ap2);
+
+    inmo2->agregarPropiedad(ap3);
+
+
+    // Zona* zona = new Zona(1, "santa", "c");
+    // ICollectible * zonacol = (ICollectible*) zona;
+    // IKey * keyzona = new Integer(1);
+    // Departamento* depa = new Departamento("c", "canelones");
+    // depa->getZonas()->add(keyzona, zona);
+    // IKey * keydepa = new String(depa->getLetra());
+    // char* email = "s";
+    // sistema->getDepartamentos()->add(keydepa, depa);
+
 
     menu(sistema);
 
