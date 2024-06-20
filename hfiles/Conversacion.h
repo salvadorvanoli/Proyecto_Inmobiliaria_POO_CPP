@@ -42,6 +42,8 @@ class Conversacion : public ICollectible{
         void destruirMensajes();
         ICollection* getUltimosMensajes();
         void nuevoMensaje(DTFecha *, string);
+
+        DTFecha * getFechaUltimoMensaje();
 };
 
 #endif

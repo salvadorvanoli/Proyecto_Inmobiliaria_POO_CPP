@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "hfiles/sistema.h"
+#include "hfiles/sistemafactory.h"
 #include <string> 
 #include <ctime>
 
@@ -139,12 +140,23 @@ void imprimirPropsDetalladas(ICollection * col){
     delete it;
 }
 
-void imprimirDTChatProps(ICollection * col){
+void imprimirDTChatProps(IDictionary * col){
     IIterator * it = col->getIterator();
     DTChatProp * dtchatprop;
     while (it->hasCurrent()){
         dtchatprop = (DTChatProp *) it->getCurrent();
         cout << dtchatprop << endl;
+        it->next();
+    }
+    delete it;
+}
+
+void imprimirDTMensajes(ICollection * col){
+    IIterator * it = col->getIterator();
+    DTMensaje * dtmensaje;
+    while (it->hasCurrent()){
+        dtmensaje = (DTMensaje *) it->getCurrent();
+        cout << dtmensaje << endl;
         it->next();
     }
     delete it;
@@ -165,12 +177,11 @@ DTFecha * getDTFechaActual(){
     int segundo = now->tm_sec;
 
     DTHora * dthora = new DTHora(hora, minuto, segundo);
-    string day = to_string(dia), month = to_string(mes), year = to_string(anio);
     
-    return new DTFecha(day, month, year, dthora);
+    return new DTFecha(dia, mes, anio, dthora);
 }
 
-bool manejarIniciarSesion(Sistema * sistema){
+bool manejarIniciarSesion(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     bool emailCorrecto;
@@ -223,7 +234,7 @@ bool manejarIniciarSesion(Sistema * sistema){
     }
 }
 
-void manejarAltaInmobiliaria(Sistema * sistema){
+void manejarAltaInmobiliaria(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     string nombre;
@@ -272,7 +283,7 @@ void manejarAltaInmobiliaria(Sistema * sistema){
 }
 
 
-void manejarAltaInteresado(Sistema * sistema){
+void manejarAltaInteresado(ISistema * sistema){
     system("cls");
     char* email = new char[100];
     string nombre;
@@ -312,7 +323,7 @@ void manejarAltaInteresado(Sistema * sistema){
     }
 }
 
-void manejarAltaEdificio(Sistema * sistema){
+void manejarAltaEdificio(ISistema * sistema){
     system("cls");
     string nombre;
     int cantPisos;
@@ -378,7 +389,7 @@ void manejarAltaEdificio(Sistema * sistema){
     }
 }
 
-void manejarAltaPropiedad(Sistema* s){
+void manejarAltaPropiedad(ISistema * s){
     system("cls");
 
     
@@ -517,7 +528,7 @@ void manejarAltaPropiedad(Sistema* s){
         system("cls");
         cout << "Ingresar si tiene garage:" << endl;
         cout << "1. Si" << endl;
-        cout << "2. No";
+        cout << "2. No" << endl;
         cin >> opcion;
         system("cls");
         if (opcion == 1) 
@@ -569,7 +580,7 @@ void manejarAltaPropiedad(Sistema* s){
             system("cls");
             cout << "Ingresar si tiene garage:" << endl;
             cout << "1. Si" << endl;
-            cout << "2. No";
+            cout << "2. No" << endl;
             cin >> opcion;
             system("cls");
             if (opcion == 1) 
@@ -586,32 +597,44 @@ void manejarAltaPropiedad(Sistema* s){
                 cout << "Ingrese metros cuadrados verdes" << endl << endl;
                 cin >> m2v;
             } while(m2v < 0);
-            system("cls");
-            s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
+                system("cls");
+                s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
             }
 
 
             cout << "1. Poner en venta" << endl;
             cout << "2. Poner en alquiler" << endl;
+            cout << "3. Poner en venta y alquiler" << endl;
             int option;
             cin >> option;
             system("cls");
             if (option == 1) {
-                float valor;
-                cout << "Ingrese valor" << endl;
-                cin >> valor;
+                float valorV;
+                cout << "Ingrese valor de la venta" << endl;
                 system("cls");
-                int codigo = s->ponerEnVenta(valor);
-                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es " << codigo << endl;
+                s->ponerEnVenta(valorV);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
                 return;
             }
             if (option == 2) {
-                float valor;
-                cout << "Ingrese valor" << endl;
-                cin >> valor;
+                float valorA;
+                cout << "Ingrese valor del alquiler" << endl;
                 system("cls");
-                int codigo = s->ponerEnAlquiler(valor);
-                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< codigo << endl;
+                s->ponerEnAlquiler(valorA);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
+                return;
+            }
+            if (option == 3) {
+                float valorA;
+                float valorV;
+                cout << "Ingrese valor de la venta" << endl;
+                cin >> valorV;
+                system("cls");
+                cout << "Ingrese valor del alquiler" << endl;
+                cin >> valorA;
+                s->ponerEnAlquiler(valorA);
+                s->ponerEnVenta(valorV);
+                cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
                 return;
             }
            
@@ -621,7 +644,7 @@ void manejarAltaPropiedad(Sistema* s){
     s->setEdificioActual(NULL);
 }
 
-void manejarConsultarPropiedad(Sistema * sistema){
+void manejarConsultarPropiedad(ISistema * sistema){
     system("cls");
     char* opt = new char[100];
 
@@ -647,7 +670,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
     int optint;
 
     while (true){
-        cout << "Ingrese el código de la zona: ";
+        cout << "Ingrese el código de la zona: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
@@ -674,7 +697,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
     imprimirProps(sistema->listarPropiedades());
 
     while (true){
-        cout << "Ingrese el código de la propiedad: ";
+        cout << "Ingrese el código de la propiedad: "<<endl;
         cin >> optstr;
         try {
             optint = stoi(optstr);
@@ -701,7 +724,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
 
 }
 
-// void manejarModificarPropiedad(Sistema * sistema){
+// void manejarModificarPropiedad(ISistema * sistema){
 //     //feli
 //     system("cls");
 //     Inmobiliaria * inmo = (Inmobiliaria *) sistema->getLoggeado();
@@ -862,7 +885,7 @@ void manejarConsultarPropiedad(Sistema * sistema){
 //     sistema->modificarApartamento(cantAmbiente, cantDormitorio, cantBanios, m2Totales, dir, tieneGaraje);
 // }
 
-void manejarModificarPropiedad(Sistema * sistema){
+void manejarModificarPropiedad(ISistema * sistema){
     //vale
     system("cls");
 
@@ -980,10 +1003,10 @@ void manejarModificarPropiedad(Sistema * sistema){
     system("cls");
 
     cout << "Dirección de la propiedad" << endl << "Especifica la ciudad: ";
-    cin >> ciudad;
+    getline(cin, ciudad);
 
     cout << endl << "Especifica la calle: ";
-    cin >> calle;
+    getline(cin, calle);;
 
     cout << endl;
 
@@ -1088,7 +1111,7 @@ void manejarModificarPropiedad(Sistema * sistema){
     }
 }
 
-void manejarEliminarPropiedad(Sistema * sistema){
+void manejarEliminarPropiedad(ISistema * sistema){
     system("cls");
     ICollection * props = sistema->listarPropiedadesInmo();
     cout << "¿Qué propiedad te gustaría eliminar?" << endl << endl;
@@ -1121,82 +1144,106 @@ void manejarEliminarPropiedad(Sistema * sistema){
     }
 }
 
-void manejarEnviarMensajeInteresado(Sistema * sistema){
+void manejarEnviarMensajeInteresado(ISistema * sistema){
     system("cls");
-    ICollection * depar = sistema->listarDepartamentos();
-    char * letraDepa;
-    cout<<"Ingrese la letra del Departamento"<<endl;
-    cin >> letraDepa;
+    try {
 
-    try{
-        sistema->elegirDepartamento(letraDepa);
-         
-    }catch(const exception& e){
+        imprimirDepto(sistema->listarDepartamentos()); // Antes hacía un try-catch con esto
+
+        char * letraDepa;
+        cout << "Ingrese la letra del Departamento: ";
+        cin >> letraDepa;
+
+        sistema->elegirDepartamento(letraDepa); // Antes hacía un try-catch con esto
+
         system("cls");
-        cout << "El Departamento ingresado no es valido." << endl;
+
+        imprimirZonasDepto(sistema->listarZonasDepartamento()); // Antes hacía un try-catch con esto
+
+        string opcion;
+        int numZona;
+
+        while (true){
+            cout << "Ingrese el codigo de la Zona: ";
+            cin >> opcion;
+            try {
+                numZona = stoi(opcion);
+                break;
+            } catch(const exception& e) {
+                system("cls");
+                cout << endl << "Por favor, ingrese un código de Zona válido" << endl;
+                system("pause");
+            }
+        }
+
+        system("cls");
+
+        sistema->elegirZona(numZona); // Antes hacía un try-catch con esto
+
+        imprimirDTChatProps(sistema->listarChatProp()); // Antes hacía un try-catch con esto
+
+        int codProp;
+
+        while (true){
+            cout << "Ingrese el codigo de la Propiedad: ";
+            cin >> opcion;
+            try {
+                codProp = stoi(opcion);
+                break;
+            } catch(const exception& e) {
+                system("cls");
+                cout << endl << "Por favor, ingrese un código de Propiedad válido" << endl;
+                system("pause");
+            }
+        }
+        
+        sistema->seleccionarPropiedad(codProp); // Antes hacía un try-catch con esto
+
+        Conversacion * conver;
+
+        try{
+            sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
+        } catch(const std::exception& e) {
+            sistema->nuevoChat();
+        }
+
+        system("cls");
+
+        cout << "---Ultimos mensajes---" << endl;
+        imprimirDTMensajes(sistema->getUltimosMensajes()); // Antes hacía un try-catch con esto
+
+        string mensaje;
+        do{
+            cin.ignore();
+            cout << "Ingrese un Mensaje no vacio" << endl;
+            getline(cin, mensaje);
+        } while(mensaje == ""); //agregar bucle en caso de q el mensaje sea vacio
+
+        DTFecha * FECHA = getDTFechaActual();
+        
+        sistema->nuevoMensaje(mensaje, FECHA);
+
+        system("cls");
+        cout << "El mensaje se envió de manera exitosa!" << endl;
+        system("pause");
+
+        // sistema->setConversacionActual(NULL); // No es necesario
+        // sistema->setDepartamentoActual(NULL);
+        // sistema->setEdificioActual(NULL);
+        // sistema->setPropiedadActual(NULL);
+        // sistema->setZonaActual(NULL);
+
+    } catch(const std::exception& e) {
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
 
-    ICollection * zona = sistema->listarZonasDepartamento();
-    int numZona;
-    cout<<"Ingrese el numero de la Zona"<<endl;
-    cin >> numZona;
-
-    try{
-        sistema->elegirZona(numZona);
-    }catch(const exception& e){
-        system("cls");
-        cout << "La Zona ingresada no es valida." << endl;
-        system("pause");
-        return;
-    }
-
-    ICollection * chatProp = sistema->listarChatProp();
-    int codProp;
-    cout<<"Ingrese el codigo de la Propiedad"<<endl;
-    cin >> codProp;
-    try{
-        sistema->seleccionarPropiedad(codProp);
-    }catch(const exception& e){
-        system("cls");
-        cout << "La zona ingresada no es valida." << endl;
-        system("pause");
-        return;
-    }
-
-    string mensaje;
-    do{
-        cin.ignore();
-        cout<<"Ingrese un Mensaje no vacio"<<endl;
-        getline(cin, mensaje);
-    }while(mensaje == "");
-    Conversacion * conver; //agregar bucle en caso de q el mensaje sea vacio
-    IIterator *  it = (IIterator *) sistema->getPropiedadActual()->getConversaciones()->getIterator();
-    bool encontro = false;
-    DTFecha * FECHA = getDTFechaActual();
-    while(it->hasCurrent()){
-        conver = (Conversacion *) it->getCurrent();
-        if(conver->getInteresado() == sistema->getLoggeado()){
-        conver->nuevoMensaje(FECHA, mensaje);
-        encontro = true;
-        break;
-    }
-    it->next();
-    }
-    if(!encontro){
-        Interesado * inter = (Interesado *) sistema->getLoggeado();
-        sistema->getPropiedadActual()->nuevoChat(inter)->nuevoMensaje(FECHA, mensaje);
-    }
-    sistema->setConversacionActual(NULL);
-    sistema->setDepartamentoActual(NULL);
-    sistema->setEdificioActual(NULL);
-    sistema->setPropiedadActual(NULL);
-    sistema->setZonaActual(NULL);
 }
 
 
-void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
+void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     //feli
     system("cls");
 
@@ -1221,7 +1268,7 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
             break;
         } catch(const exception& e) {
             system("cls");
-            cout << endl << "Por favor, ingrese un código de coinversación válido" << endl;
+            cout << endl << "Por favor, ingrese un código de conversación válido" << endl;
             system("pause");
         }
     }
@@ -1254,7 +1301,7 @@ void manejarEnviarMensajeInmobiliaria(Sistema * sistema){
 
 }
 
-void manejarReporte(Sistema * sistema){
+void manejarReporte(ISistema * sistema){
     system("cls");
     ICollection * reportes;
     try {
@@ -1270,22 +1317,24 @@ void manejarReporte(Sistema * sistema){
     while(it->hasCurrent()){
         DTReporte * reporte = (DTReporte*) it->getCurrent();
         cout << "[REPORTE " << i << "]" << endl;
-        cout << reporte << endl << endl;
-        // cout << "Inmobiliaria: " << reporte->getInmo() << endl << endl;
-        // IIterator * it2 = reporte->getLineas()->getIterator();
-        // while(it2->hasCurrent()){
-        //     DTLineaReporte * linea = (DTLineaReporte*) it->getCurrent();
-        //     cout << "Departamento: " << linea->getLetraDep() << endl;
-        //     cout << "Código de la zona: " << linea->getCodigoZona() << endl;
-        //     cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
-        //     cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
-        // }
-        // i++;
+        // cout << reporte << endl << endl;
+        cout << "Inmobiliaria: " << reporte->getInmo() << endl << endl;
+        IIterator * it2 = reporte->getLineas()->getIterator();
+        while(it2->hasCurrent()){
+            DTLineaReporte * linea = (DTLineaReporte*) it2->getCurrent();
+            // cout << linea << endl << endl;
+            cout << "Departamento: " << linea->getLetraDep() << endl;
+            cout << "Código de la zona: " << linea->getCodigoZona() << endl;
+            cout << "Cantidad de casas: " << linea->getCantCasas() << endl;
+            cout << "Cantidad de apartamentos: " << linea->getCantApartamentos() << endl << endl;
+            it2->next();
+        }
+        i++;
         it->next();
     }
 }
 
-void menu(Sistema * sistema){
+void menu(ISistema * sistema){
     string opt;
     do{
 
@@ -1434,7 +1483,7 @@ void menu(Sistema * sistema){
 
 int main() {
 
-    Sistema * sistema = new Sistema();
+    ISistema * sistema = (new Factory())->getISistema();
     
     Zona* zona = new Zona(1, "santa", "c");
     ICollectible * zonacol = (ICollectible*) zona;

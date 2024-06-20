@@ -1,7 +1,8 @@
 #include "../hfiles/dtedificio.h"
 #include <iostream>
 
-DTEdificio::DTEdificio(string nombre, int cantPisos, int gastosComunes){
+DTEdificio::DTEdificio(int codigo, string nombre, int cantPisos, int gastosComunes){
+    this->codigo = codigo;
     this->nombre = nombre;
     this->cantPisos = cantPisos;
     this->gastosComunes = gastosComunes;   
@@ -10,6 +11,10 @@ DTEdificio::DTEdificio(string nombre, int cantPisos, int gastosComunes){
 DTEdificio::~DTEdificio(){}
 
 // Getters
+
+int DTEdificio::getCodigo(){
+    return this->codigo;
+}
 
 string DTEdificio::getNombre(){
     return this->nombre;
@@ -24,6 +29,6 @@ int DTEdificio::getGastosComunes(){
 }
 
 ostream& operator << (ostream & o, DTEdificio * edi){
-    o << "Nombre: " << edi->getNombre() << endl << "Cantidad de pisos: " << edi->getCantPisos() << endl << "Gastos comunes: " << edi->getGastosComunes() << endl;
+    o << "Código: " << edi->getCodigo() << endl << "Nombre: " << edi->getNombre() << endl << "Cantidad de pisos: " << edi->getCantPisos() << endl << "Gastos comunes: " << edi->getGastosComunes() << endl;
     return o;
 }

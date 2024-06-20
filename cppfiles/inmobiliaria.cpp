@@ -3,6 +3,7 @@
 #include "../hfiles/alquiler.h"
 #include "../hfiles/propiedad.h"
 #include "../hfiles/apartamento.h"
+#include "../hfiles/casa.h"
 #include "../hfiles/edificio.h"
 #include <iostream>
 using namespace std;
@@ -153,25 +154,27 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
         Zona* zona = prop->getZona();
         for(int i=0; i<99; i++){
             if(zona->getCodigo() == zonas[i]){
-                Apartamento * ap = (Apartamento*) prop;
-                Casa * ca = (Casa*) prop;
+                Apartamento * ap = dynamic_cast<Apartamento*>(prop);
+                Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
                     apartamentos[i]++;
                 }
                 if(ca != NULL){
                     casas[i]++;
                 }
-                departamentos[i] = zona->getLetraDepa();
+                break;
             } else if(zonas[i] == 0){
                 zonas[i] = zona->getCodigo();
-                Apartamento * ap = (Apartamento*) prop;
-                Casa * ca = (Casa*) prop;
+                departamentos[i] = zona->getLetraDepa();
+                Apartamento * ap = dynamic_cast<Apartamento*>(prop);
+                Casa * ca = dynamic_cast<Casa*>(prop);
                 if(ap != NULL){
                     apartamentos[i]++;
                 }
                 if(ca != NULL){
                     casas[i]++;
                 }
+                break;
             }
         }
         it->next();
@@ -182,7 +185,9 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     for(int i=0; i<99; i++){
         if(zonas[i] != 0){
             DTLineaReporte * linea = new DTLineaReporte(zonas[i], departamentos[i], apartamentos[i], casas[i]);
-            lineas->add(linea);
+            system("pause");
+            ICollectible * item = (ICollectible *) linea;
+            lineas->add(item);
         } else {
             break;
         }
@@ -205,19 +210,23 @@ Propiedad * Inmobiliaria::seleccionarPropiedad(int codigoProp){
 }
 
 // Devuelve un ICollection que contiene un DTChatProp por cada conversación de cada propiedad relacionada
-ICollection * Inmobiliaria::listarConversaciones(){
-    ICollection * lista = new List();
+IDictionary * Inmobiliaria::listarConversaciones(){
+    IDictionary * lista = new OrderedDictionary();
     IIterator * it = this->propiedades->getIterator();
+    OrderedKey * key = NULL;
     Propiedad * prop = NULL;
-    ICollection * col = NULL;
+    DTChatProp * dtchat = NULL;
+    IDictionary * col = NULL;
     ICollectible * item = NULL;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
-        col = prop->listarConversaciones();
+        col =  prop->listarConversaciones();
         IIterator * aux = col->getIterator();
         while (aux->hasCurrent()){
             item = aux->getCurrent();
-            lista->add(item);
+            dtchat = (DTChatProp *) item;
+            key = new Integer(dtchat->getValorKey());
+            lista->add(key, item);
             aux->next();
         }
         delete aux;

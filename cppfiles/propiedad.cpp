@@ -159,7 +159,7 @@ DTChatProp * Propiedad :: getDTChatProp(char * email){
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
-            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
+            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
         }
         it->next();
     }
@@ -215,15 +215,18 @@ Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
 }
 
 // Devuelve un ICollection que contiene un DTChatProp por cada conversación de la propiedad
-ICollection * Propiedad::listarConversaciones(){
-    ICollection * lista = new List();
+IDictionary * Propiedad::listarConversaciones(){
+    IDictionary * lista = new OrderedDictionary();
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con = NULL;
     ICollectible * item = NULL;
+    OrderedKey * key = NULL;
     while (it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
-        item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), this->getDireccion());
-        lista->add(item);
+        DTChatProp * dtcon = new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+        key = new Integer(dtcon->getValorKey());
+        item = (ICollectible *) dtcon;
+        lista->add(key, item);
     }
     delete it;
     return lista;

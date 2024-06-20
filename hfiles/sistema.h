@@ -44,8 +44,9 @@ using namespace std;
 #include "usuario.h"
 #include "venta.h"
 #include "zona.h"
+#include "isistema.h"
 
-class Sistema{
+class Sistema : public ISistema{
     private:
         IDictionary * usuarios;
         IDictionary * departamentos;
@@ -73,16 +74,14 @@ class Sistema{
         void altaInteresado(char*, string, string, int);
         bool altaEdificio(string, int, int);
         ICollection* obtenerReporte();
-        void altaPropiedad();
         // DTTipoProp modificarPropiedad(int, Inmobiliaria *);
-        DTTipoProp modificarPropiedad(int);
         // void mensajeInmobiliaria(string, DTFecha *);
         void eliminarPropiedad(int);
         ICollection * listarPropiedades();
         ICollection * listarPropiedadesInmo();
         DTPropiedadDetallada * verDetallesPropiedad(int);
-        ICollection * listarChatProp();
-        ICollection * listarChatsInmo();
+        IDictionary * listarChatProp();
+        IDictionary * listarChatsInmo();
         Conversacion * seleccionarConversacionInmo(int);
         // ICollection * seleccionarPropiedadMensajes(int, Zona *);
         Propiedad * seleccionarPropiedad(int);
@@ -102,7 +101,7 @@ class Sistema{
         void especificacionesCasa(int, int, int, bool, DTDir*, float, Zona*, float);
         ICollection* listarEdificio();
         bool seleccionarEdificio(int);
-        void AltaPropiedad();
+        // void AltaPropiedad();
 
         // Operaciones del sistema (fuera de los diagramas de comunicacion)
         void enlazarPropiedad(Propiedad *);
