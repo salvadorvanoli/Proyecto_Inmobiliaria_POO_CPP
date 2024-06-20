@@ -141,7 +141,7 @@ int Inmobiliaria::getCantPropiedades(){
 DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     IIterator * it = this->propiedades->getIterator();
     Venta * venta;
-    char* departamentos[99]; // No puedo obtener los departamentos desde la zona, entonces por ahora son null todos
+    char* departamentos[99];
     int zonas[99] = {0};
     int apartamentos[99] = {0};
     int casas[99] = {0};
@@ -181,7 +181,6 @@ DTReporte* Inmobiliaria::obtenerReporteInmobiliaria(){
     for(int i=0; i<99; i++){
         if(zonas[i] != 0){
             DTLineaReporte * linea = new DTLineaReporte(zonas[i], departamentos[i], apartamentos[i], casas[i]);
-            system("pause");
             ICollectible * item = (ICollectible *) linea;
             lineas->add(item);
         } else {
