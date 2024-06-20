@@ -19,6 +19,7 @@ using namespace std;
 #include "dttipoprop.h"
 #include "dtchatprop.h"
 #include "dtpropiedad.h"
+#include "dtpropiedaddetallada.h"
 #include "inmobiliaria.h"
 
 class DTMensaje;
@@ -83,7 +84,7 @@ class Propiedad : public ICollectible{
         IDictionary * getConversaciones();
         void desvincularDeZona();
         void destruirConversaciones();
-        DTChatProp * getDTChatProp(char *);
+        ICollectible * getDTChatProp(char *);
         
         // ICollection * getUltimosMensajes(Conversacion *);
 

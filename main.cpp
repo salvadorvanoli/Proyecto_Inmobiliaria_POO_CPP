@@ -143,9 +143,19 @@ void imprimirPropsDetalladas(ICollection * col){
 void imprimirDTChatProps(IDictionary * col){
     IIterator * it = col->getIterator();
     DTChatProp * dtchatprop;
+    DTPropiedad * dtprop;
+    int i;
     while (it->hasCurrent()){
         dtchatprop = (DTChatProp *) it->getCurrent();
-        cout << dtchatprop << endl;
+        if (dtchatprop != NULL){
+            cout << "---Chat-Propiedad " << i << "---" << endl;
+            cout << dtchatprop << endl;
+        } else {
+            cout << "---Propiedad " << i << "---" << endl;
+            dtprop = (DTPropiedad *) it->getCurrent();
+            cout << dtprop << endl;
+        }
+        i++;
         it->next();
     }
     delete it;
@@ -1249,19 +1259,29 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
         return;
     }
 
+    IDictionary * dic;
+
     try {
-        imprimirDTChatProps(sistema->listarChatProp());
+        dic = sistema->listarChatProp();
     } catch(const std::exception& e) {
         system("cls");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+    
+    if (dic->isEmpty()){
+        cout << "Error de ejecución: No hay Propiedades en la zona elegida" << endl;
+        system("pause");
+        return;
+    }
+
+    imprimirDTChatProps(dic);
 
     int codProp;
 
     while (true){
-        cout << "Ingrese el codigo de la Propiedad: ";
+        cout << "Ingrese el codigo de la Propiedad para ingresar al chat o inicializar uno: ";
         cin >> opcion;
         try {
             codProp = stoi(opcion);
@@ -1600,9 +1620,9 @@ int main() {
     Zona* zona6 = new Zona(6, "Ciudad Vieja", "S");
 
     // Zonas de dep3
-    Zona* zona7 = new Zona(7, "Malvin Norte", "S");
-    Zona* zona8 = new Zona(8, "Prado", "S");
-    Zona* zona9 = new Zona(9, "Ciudad Vieja", "S");
+    Zona* zona7 = new Zona(7, "Rodriguez", "M");
+    Zona* zona8 = new Zona(8, "Prado", "M");
+    Zona* zona9 = new Zona(9, "Ciudad Vieja", "M");
 
     ICollectible * zonacol1 = (ICollectible*) zona1;
     ICollectible * zonacol2 = (ICollectible*) zona2;

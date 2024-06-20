@@ -1,8 +1,6 @@
 all: String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Edificio.o Inmobiliaria.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFactory.o main.o
 	g++ String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollection.o IDictionary.o ListNode.o ListIterator.o List.o OrderedDictionaryEntry.o OrderedDictionary.o DTHora.o DTFecha.o DTDir.o DTChatProp.o DTDepartamento.o DTZona.o DTEdificio.o DTMensaje.o DTInmobiliaria.o DTPropiedad.o DTPropiedadDetallada.o DTLineaReporte.o DTReporte.o Usuario.o Administrador.o Interesado.o Mensaje.o Conversacion.o Propiedad.o Casa.o Apartamento.o Venta.o Alquiler.o Edificio.o Inmobiliaria.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFactory.o main.o -o programa.exe
 
-# falta Sistema.o arriba
-
 # No puse el archivo DTTipoProp ni DTEstadoProp
 
 String.o:

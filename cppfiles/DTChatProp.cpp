@@ -3,8 +3,9 @@
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../hfiles/dtchatprop.h"
 
-DTChatProp::DTChatProp(int codigo, int cantMensajes, DTFecha * fechaUltimoMensaje, DTDir* direccion) {
-    this->codigo = codigo;
+DTChatProp::DTChatProp(int codigo, int codigoCon, int cantMensajes, DTFecha * fechaUltimoMensaje, DTDir* direccion) {
+    this->codigoProp = codigo;
+    this->codigoCon = codigoCon;
     this->cantMensajes = cantMensajes;
     this->fechaUltimoMensaje = fechaUltimoMensaje;
     this->direccion = direccion;
@@ -14,12 +15,12 @@ DTChatProp::DTChatProp(int codigo, int cantMensajes, DTFecha * fechaUltimoMensaj
 DTChatProp::~DTChatProp() {
 }
 
-int DTChatProp::getcantMensajes() {
+int DTChatProp::getCantMensajes() {
     return cantMensajes;
 };
 
-int DTChatProp::getCodigo() {
-    return codigo;
+int DTChatProp::getCodigoProp() {
+    return codigoProp;
 };
 
 DTDir* DTChatProp::getDir() {
@@ -35,7 +36,7 @@ int DTChatProp::getValorKey(){
 }
 
 ostream& operator << (ostream & o, DTChatProp * chat){
-    o << "Codigo: " << chat->getCodigo() << endl << "Cantidad de mensajes: " << chat->getcantMensajes() << "Fecha último mensaje: " << chat->getFechaUltimoMensaje() << endl << "Dirección de la propiedad:" << chat->getDir() << endl;
+    o << "Codigo de la propiedad: " << chat->getCodigoProp() << endl << "Codigo de la conversacion: " << chat->getCodigoCon() << endl << "Cantidad de mensajes: " << chat->getCantMensajes() << "Fecha último mensaje: " << chat->getFechaUltimoMensaje() << endl << "Dirección de la propiedad:" << chat->getDir() << endl;
     return o;
 }
 

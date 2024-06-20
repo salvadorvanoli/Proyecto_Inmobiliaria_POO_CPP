@@ -152,19 +152,21 @@ DTPropiedadDetallada * Propiedad::getDTPropiedadDetallada(){
     return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->inmo->getDTInmobiliaria());
 }
 
-DTChatProp * Propiedad :: getDTChatProp(char * email){
+ICollectible * Propiedad :: getDTChatProp(char * email){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con;
     while(it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
-            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+            ICollectible *col = (ICollectible *) new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->direccion);
+            return col;
         }
         it->next();
     }
     delete it;
-    return NULL;
+    ICollectible *col = (ICollectible *) new DTPropiedad(this->codigo, this->direccion, this->estado);
+    return col;
     // throw
 }
 
@@ -223,7 +225,7 @@ IDictionary * Propiedad::listarConversaciones(){
     OrderedKey * key = NULL;
     while (it->hasCurrent()){
         con = (Conversacion *) it->getCurrent();
-        DTChatProp * dtcon = new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+        DTChatProp * dtcon = new DTChatProp(this->codigo, con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
         key = new Integer(dtcon->getValorKey());
         item = (ICollectible *) dtcon;
         lista->add(key, item);

@@ -170,17 +170,21 @@ void Zona::desvincularPropiedad(int codigoProp){
 IDictionary * Zona::listarChatPropiedad(char * email){
     IIterator * it = this->propiedades->getIterator();
     IDictionary * lista = new OrderedDictionary();
+    int count = 99999999;
     Propiedad * prop;
-    DTChatProp * dt;
     OrderedKey * key;
     ICollectible * item;
     while (it->hasCurrent()){
         prop = (Propiedad *) it->getCurrent();
-        dt = prop->getDTChatProp(email);
+        item = prop->getDTChatProp(email);
+        DTChatProp * dt = dynamic_cast<DTChatProp*> (item);
         if (dt != NULL){
             key = new Integer (dt->getValorKey());
-            item = (ICollectible *) dt;
             lista->add(key, item);
+        } else {
+            key = new Integer (count);
+            lista->add(key, item);
+            count++;
         }
         it->next();
     }
