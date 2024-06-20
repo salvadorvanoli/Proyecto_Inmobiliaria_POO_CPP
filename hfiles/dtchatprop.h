@@ -19,7 +19,7 @@ class DTChatProp: public ICollectible {
         DTChatProp(int, int, DTFecha *, DTDir *);
         virtual ~DTChatProp();
         int getCodigo();
-        int getcantMensajes();
+        int getCantMensajes();
         DTDir* getDir();
         DTFecha * getFechaUltimoMensaje();
         int getValorKey();

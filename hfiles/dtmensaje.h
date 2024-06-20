@@ -18,6 +18,8 @@ class DTMensaje: public ICollectible{
         ~DTMensaje();
         string getContenido();
         DTFecha * getFecha();
+
+        friend ostream& operator << (ostream &, DTMensaje *);
 };
 
 #endif

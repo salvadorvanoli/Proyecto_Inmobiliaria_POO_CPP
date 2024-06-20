@@ -43,18 +43,26 @@ ICollection* Conversacion::getUltimosMensajes() {
     ICollection* ultimosMensajes = new List();
     Mensaje * mens;
     ICollectible * item;
-    while (it->hasCurrent()){
-        mens = dynamic_cast<Mensaje*>(it->getCurrent());
-        item = dynamic_cast<ICollectible*>(mens->getDTMensaje());
+    // while (it->hasCurrent()){
+    //     mens = dynamic_cast<Mensaje*>(it->getCurrent());
+    //     item = dynamic_cast<ICollectible*>(mens->getDTMensaje());
+    //     mensajes->add(item);
+    //     it->next();
+    // }
+    // delete it;
+    // IIterator * aux = mensajes->getIterator();
+    // ICollection * ultimosMensajes = new List();
+    // while (true){
+    //     while (aux->hasCurrent()){
+    //         aux->next();
+    //     }
+    // }
+    for(int i = 0; it->hasCurrent() && i<5; i++) {
+        mens = (Mensaje*) it->getCurrent();
+        item = (ICollectible *) mens->getDTMensaje();
         ultimosMensajes->add(item);
         it->next();
     }
-    // for(int i = 0; it->hasCurrent() && i<5; i++) {
-    //     mens = (Mensaje*) it->getCurrent();
-    //     item = (ICollectible *) mens->getDTMensaje();
-    //     ultimosMensajes->add(item);
-    //     it->next();
-    // }
     delete it;
     return ultimosMensajes;
 }
@@ -73,16 +81,19 @@ void Conversacion::destruirMensajes() {
 void Conversacion::nuevoMensaje(DTFecha * fecha, string contenido){
     Mensaje * mensaje = new Mensaje(fecha, contenido);
     this->mensajes->add(mensaje);
+    this->cantMensajes++;
 }
 
 DTFecha * Conversacion::getFechaUltimoMensaje(){
     IIterator * it = this->mensajes->getIterator();
-    Mensaje * men;
+    Mensaje * men = NULL;
     while (it->hasCurrent()){
         men = (Mensaje *) it->getCurrent();
-        delete it;
-        return men->getFecha();
+        it->next();
     }
     delete it;
+    if (men != NULL){
+        return men->getFecha();
+    }
     return NULL;
 }

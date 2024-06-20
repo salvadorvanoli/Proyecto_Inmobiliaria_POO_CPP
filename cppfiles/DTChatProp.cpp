@@ -14,7 +14,7 @@ DTChatProp::DTChatProp(int codigo, int cantMensajes, DTFecha * fechaUltimoMensaj
 DTChatProp::~DTChatProp() {
 }
 
-int DTChatProp::getcantMensajes() {
+int DTChatProp::getCantMensajes() {
     return cantMensajes;
 };
 
@@ -35,7 +35,7 @@ int DTChatProp::getValorKey(){
 }
 
 ostream& operator << (ostream & o, DTChatProp * chat){
-    o << "Codigo: " << chat->getCodigo() << endl << "Cantidad de mensajes: " << chat->getcantMensajes() << "Fecha último mensaje: " << chat->getFechaUltimoMensaje() << endl << "Dirección de la propiedad:" << chat->getDir() << endl;
+    o << "Codigo de la conversación: " << chat->getCodigo() << endl << "Cantidad de mensajes: " << chat->getCantMensajes() << endl << "Fecha último mensaje: " << endl << chat->getFechaUltimoMensaje() << "Dirección de la propiedad:" << endl << chat->getDir() << endl;
     return o;
 }
 

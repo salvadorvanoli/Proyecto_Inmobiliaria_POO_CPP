@@ -31,6 +31,6 @@ DTHora * DTFecha::getHora(){
 }
 
 ostream& operator << (ostream & o, DTFecha * fecha){
-    o << "Fecha: " << fecha->getDia() << '/' << fecha->getMes() << '/' << fecha->getAnio() << endl << fecha->getHora();
+    o << "    Fecha: " << fecha->getDia() << '/' << fecha->getMes() << '/' << fecha->getAnio() << endl << fecha->getHora();
     return o;
 }

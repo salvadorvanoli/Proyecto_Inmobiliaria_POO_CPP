@@ -87,9 +87,11 @@ void mensajeInteresado(Departamento * depa, Interesado * user, DTFecha * fecha){
 void imprimirZonasDepto(ICollection * col){
     IIterator * it = col->getIterator();
     DTZona * zona;
+    int i = 1;
     while (it->hasCurrent()){
         zona = (DTZona *) it->getCurrent();
-        cout << zona << endl;
+        cout << "[ZONA " << i << ']' << endl << zona << endl;
+        i++;
         it->next();
     }
     delete it;
@@ -99,9 +101,11 @@ void imprimirZonasDepto(ICollection * col){
 void imprimirDepto(ICollection * col){
     IIterator * it = col->getIterator();
     DTDepartamento * departamento;
+    int i = 1;
     while (it->hasCurrent()){
         departamento = (DTDepartamento *) it->getCurrent();
-        cout << departamento << endl;
+        cout << "[DEPARTAMENTO " << i << ']' << endl << departamento << endl;
+        i++;
         it->next();
     }
     delete it;
@@ -110,9 +114,11 @@ void imprimirDepto(ICollection * col){
 void imprimirEdificios(ICollection * col){
     IIterator * it = col->getIterator();
     DTEdificio * edificio;
+    int i = 1;
     while (it->hasCurrent()){
         edificio = (DTEdificio *) it->getCurrent();
-        cout << edificio << endl;
+        cout << "[EDIFICIO " << i << ']' << endl << edificio << endl;
+        i++;
         it->next();
     }
     delete it;
@@ -121,9 +127,11 @@ void imprimirEdificios(ICollection * col){
 void imprimirProps(ICollection * col){
     IIterator * it = col->getIterator();
     DTPropiedad * prop;
+    int i = 1;
     while (it->hasCurrent()){
         prop = (DTPropiedad *) it->getCurrent();
-        cout << prop << endl;
+        cout << "[PROPIEDAD " << i << ']' << endl << prop << endl;
+        i++;
         it->next();
     }
     delete it;
@@ -147,10 +155,10 @@ void imprimirDTChatProps(IDictionary * col){
     while (it->hasCurrent()){
         prop = dynamic_cast<DTPropiedad *> (it->getCurrent());
         if (prop != NULL){
-            cout << "---Propiedad---" << endl << prop << endl;
+            cout << "---PROPIEDAD---" << endl << prop << endl;
         } else {
             dtchatprop = dynamic_cast<DTChatProp *> (it->getCurrent());
-            cout << "------Chat------" << endl << dtchatprop << endl;
+            cout << "------CHAT------" << endl << dtchatprop << endl;
         }
         it->next();
     }
@@ -160,9 +168,11 @@ void imprimirDTChatProps(IDictionary * col){
 void imprimirDTMensajes(ICollection * col){
     IIterator * it = col->getIterator();
     DTMensaje * dtmensaje;
+    int i = 1;
     while (it->hasCurrent()){
-        dtmensaje = (DTMensaje *) it->getCurrent();
-        cout << dtmensaje << endl;
+        dtmensaje = dynamic_cast<DTMensaje *> (it->getCurrent());
+        cout << "[MENSAJE " << i << ']' << endl << dtmensaje << endl;
+        i++;
         it->next();
     }
     delete it;
@@ -658,6 +668,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
 
     cout << "Elija uno de los departamentos listados debabajo" << endl;
     imprimirDepto(sistema->listarDepartamentos());
+    cout << "Ingrese la letra correspondiente: ";
     cin >> opt;
     
     try{
@@ -712,7 +723,10 @@ void manejarConsultarPropiedad(ISistema * sistema){
         return;
     }
 
+    cout << "Ingrese el codigo de la propiedad: ";
     cin >> optint;
+
+    system("clear");
 
     try{
         cout << "---Propiedad Detallada---" << endl << endl;
@@ -1286,7 +1300,6 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     
     string respuesta;
     int codigo;
-    getline(cin, respuesta);
 
     while (true){
         cout << "Ingrese el código de la conversación que desee seleccionar: ";

@@ -54,6 +54,6 @@ ostream& operator << (ostream & o, DTPropiedadDetallada * prop){
     } else {
         estado = "En alquiler y en venta";
     }
-    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
+    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion:" << endl << prop->getDireccion() << "Cantidad de ambientes: " << prop->getCantAmbientes() << endl << "Cantidad de dormitorios: " << prop->getCantDormitorios() << endl << "Cantidad de baños: " << prop->getCantBanios() << endl << "Tiene garaje: " << garaje << endl << "M2 Totales: " << prop->getM2Totales() << endl << "Inmobiliaria: " << endl << prop->getInmo();
     return o;
 }

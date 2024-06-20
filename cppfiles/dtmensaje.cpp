@@ -18,3 +18,8 @@ string DTMensaje::getContenido(){
 DTFecha * DTMensaje::getFecha(){
     return this->fecha;
 }
+
+ostream& operator << (ostream & o, DTMensaje * men){
+    o << "Mensaje: " << men->getContenido() << endl << "Enviado el: " << endl << men->getFecha() << endl;
+    return o;
+}

@@ -167,7 +167,6 @@ ICollectible * Propiedad :: getDTChatProp(char * email){
     Conversacion * con;
     ICollectible * item;
     while(it->hasCurrent()){
-        cout << "entre al iterador" << endl;
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
@@ -176,7 +175,6 @@ ICollectible * Propiedad :: getDTChatProp(char * email){
         }
         it->next();
     }
-    cout << "no entre ni al conio de tu abuela" << endl;
     delete it;
     item = (ICollectible *) new DTPropiedad(this->codigo, this->direccion, this->getEstadoProp());
     return item;

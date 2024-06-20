@@ -89,9 +89,6 @@ ICollection * Sistema::getUltimosMensajes(){
     if (this->conversacionActual == NULL){
         throw runtime_error("No se eligió una conversación previamente");
     }
-    cout << "Previo a la llamada de conversacionActual->getUltimosMensajes" << endl;
-    cout << "Codigo de conversacion actual: " << this->conversacionActual->getCodigoConversacion() << endl;
-    system("pause");
     ICollection * mensajes = this->conversacionActual->getUltimosMensajes();
     // if (mensajes->isEmpty()){
     //     throw runtime_error("Esta conversación esta vacía");
@@ -555,7 +552,14 @@ void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, boo
 
 
 ICollection* Sistema::listarEdificio() {
-    return this->zonaActual->listarEdificios();
+    if (this->zonaActual == NULL){
+        throw runtime_error("No se eligió una zona previamente");
+    }
+    ICollection * edificios = this->zonaActual->listarEdificios();
+    if (edificios->isEmpty()){
+        throw runtime_error("Aún no existen edificios en la Zona actual");
+    }
+    return edificios;
 }
 
 bool Sistema::seleccionarEdificio(int numEdificio) {
@@ -795,9 +799,13 @@ void Sistema::eliminarPropiedad(int codigoProp){
 
 ICollection * Sistema::listarPropiedades(){
     if (this->zonaActual == NULL){
-        throw runtime_error("No se eligió un Departamento previamente");
+        throw runtime_error("No se eligió una zona previamente");
     }
-    return this->zonaActual->listarPropiedades();
+    ICollection * propiedades = this->zonaActual->listarPropiedades();
+    if (propiedades->isEmpty()){
+        throw runtime_error("Aún no existen propiedades en la Zona actual");
+    }
+    return propiedades;
 }
 
 ICollection * Sistema::listarPropiedadesInmo(){

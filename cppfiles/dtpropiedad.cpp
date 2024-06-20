@@ -33,6 +33,6 @@ ostream& operator << (ostream & o, DTPropiedad * prop){
     } else {
         estado = "En alquiler y en venta";
     }
-    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion: " << prop->getDireccion() << endl;
+    o << "Codigo: " << prop->getCodigoProp() << endl << "Estado: " << estado << endl << "Direccion:" << endl << prop->getDireccion();
     return o;
 }
