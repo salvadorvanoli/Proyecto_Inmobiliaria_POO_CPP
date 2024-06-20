@@ -54,7 +54,7 @@ Propiedad * Sistema::seleccionarPropiedad(int codigoProp){
         // this->zonaActual = NULL;
         return this->propiedadActual;
     } catch(const std::exception& e) {
-        throw invalid_argument("No se eligió una zona previamente");
+        throw invalid_argument("No se encontró a la Propiedad especificada en la Zona actual");
     }
 }
 
@@ -74,7 +74,7 @@ Conversacion * Sistema::getConversacionInteresado(){
         // this->propiedadActual = NULL;
         return this->conversacionActual;
     } catch(const std::exception& e) {
-        throw invalid_argument("No existen conversaciones registradas con dicho usuario en esta propiedad");
+        return NULL;
     }
 }
 
@@ -89,10 +89,13 @@ ICollection * Sistema::getUltimosMensajes(){
     if (this->conversacionActual == NULL){
         throw runtime_error("No se eligió una conversación previamente");
     }
+    cout << "Previo a la llamada de conversacionActual->getUltimosMensajes" << endl;
+    cout << "Codigo de conversacion actual: " << this->conversacionActual->getCodigoConversacion() << endl;
+    system("pause");
     ICollection * mensajes = this->conversacionActual->getUltimosMensajes();
-    if (mensajes->isEmpty()){
-        throw runtime_error("Esta conversación esta vacía");
-    }
+    // if (mensajes->isEmpty()){
+    //     throw runtime_error("Esta conversación esta vacía");
+    // }
     return mensajes;
 }
 
@@ -104,16 +107,9 @@ Conversacion * Sistema::nuevoChat(){
     if (usuario == NULL){
         throw runtime_error("El usuario ingresado no es Interesado");
     }
-    if (this->conversacionActual == NULL){
-        throw runtime_error("No se eligió una conversación previamente");
-    }
-    try {
-        this->conversacionActual = this->propiedadActual->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
-        // this->propiedadActual = NULL;
-        return this->conversacionActual;
-    } catch(const std::exception& e) {
-        throw runtime_error("La conversacion ya fue agregado con anterioridad");
-    }
+    this->conversacionActual = this->propiedadActual->nuevoChat(usuario); // CAMBIE ESTO (LE AGREUGUE EL INTERESADO POR PARAMETRO)
+    // this->propiedadActual = NULL;
+    return this->conversacionActual;
 }
 
 void Sistema::nuevoMensaje(string mensaje, DTFecha * fecha){
@@ -191,7 +187,7 @@ IDictionary * Sistema::listarChatProp(){
     }
     IDictionary * lista = this->zonaActual->listarChatPropiedad(this->loggeado->getCorreoEletronico());
     if (lista->isEmpty()){
-        throw runtime_error("El usuario especificado no tiene conversaciones");
+        throw runtime_error("No hay propiedades actualmente");
     }
     return lista;
 }

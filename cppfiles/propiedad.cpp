@@ -7,6 +7,7 @@ Propiedad :: Propiedad(int _codigo, int _cantAmbiente, int _cantDormitorios, int
     this->cantAmbiente =_cantAmbiente;
     this->cantDormitorios = _cantDormitorios;
     this->cantBanios = _cantBanios;
+    this->cantConversaciones = 0;
     this->m2Edificios = _m2Edificios;
     this->direccion = dir;
     this->tieneGaraje = _tieneGaraje;
@@ -50,6 +51,10 @@ void Propiedad::setDireccion(DTDir * dir){
 
 void Propiedad :: setCodigo(int _codigo){
     this->codigo = _codigo;
+}
+
+void Propiedad::setCantConversaciones(int cant){
+    this->cantConversaciones = cant;
 }
 
 void Propiedad :: agregarConversacion(Conversacion * _conver){
@@ -122,6 +127,10 @@ Inmobiliaria * Propiedad::getInmobiliaria(){
     return this->inmo;
 }
 
+int Propiedad::getCantConversaciones(){
+    return this->cantConversaciones;
+}
+
 void Propiedad :: desvincularDeZona(){
     this->zona->desvincularPropiedad(this->getCodigo());
 }
@@ -153,19 +162,24 @@ DTPropiedadDetallada * Propiedad::getDTPropiedadDetallada(){
     return new DTPropiedadDetallada(this->codigo, this->direccion, this->estado, this->cantAmbiente, this->cantDormitorios, this->cantBanios, this->tieneGaraje, this->m2Totales, this->inmo->getDTInmobiliaria());
 }
 
-DTChatProp * Propiedad :: getDTChatProp(char * email){
+ICollectible * Propiedad :: getDTChatProp(char * email){
     IIterator * it = this->conversaciones->getIterator();
     Conversacion * con;
+    ICollectible * item;
     while(it->hasCurrent()){
+        cout << "entre al iterador" << endl;
         con = (Conversacion *) it->getCurrent();
         if (con->getInteresado()->getCorreoEletronico() == email){
             delete it;
-            return new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+            item = (ICollectible *) new DTChatProp(con->getCodigoConversacion(), con->getCantidadMensajes(), con->getFechaUltimoMensaje(), this->getDireccion());
+            return item;
         }
         it->next();
     }
+    cout << "no entre ni al conio de tu abuela" << endl;
     delete it;
-    return NULL;
+    item = (ICollectible *) new DTPropiedad(this->codigo, this->direccion, this->getEstadoProp());
+    return item;
     // throw
 }
 
@@ -206,6 +220,7 @@ Conversacion * Propiedad :: nuevoChat(Interesado * interesado){
     Conversacion * c = new Conversacion(clave, interesado);
     if(!this->conversaciones->member(key)){
         ICollectible * nuevoChat = (ICollectible *) c;
+        this->cantConversaciones++;
         this->conversaciones->add(key, nuevoChat);
         return c;
     }else{

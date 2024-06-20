@@ -31,22 +31,30 @@ void Conversacion::setInteresado(Interesado* nuevoInteresado) {
 Conversacion::Conversacion(int nuevoCodigo, Interesado * interesado) {
     this->codigoConversacion = nuevoCodigo;
     this->interesado = interesado;
+    this->cantMensajes = 0;
+    this->mensajes = new List();
 }
 
 Conversacion::~Conversacion() {
 }
    
 ICollection* Conversacion::getUltimosMensajes() {
-    IIterator* it = mensajes->getIterator();
+    IIterator* it = this->mensajes->getIterator();
     ICollection* ultimosMensajes = new List();
     Mensaje * mens;
     ICollectible * item;
-    for(int i = 0; it->hasCurrent() && i<5; i++) {
-        mens = (Mensaje*) it->getCurrent();
-        item = (ICollectible *) mens->getDTMensaje();
+    while (it->hasCurrent()){
+        mens = dynamic_cast<Mensaje*>(it->getCurrent());
+        item = dynamic_cast<ICollectible*>(mens->getDTMensaje());
         ultimosMensajes->add(item);
         it->next();
     }
+    // for(int i = 0; it->hasCurrent() && i<5; i++) {
+    //     mens = (Mensaje*) it->getCurrent();
+    //     item = (ICollectible *) mens->getDTMensaje();
+    //     ultimosMensajes->add(item);
+    //     it->next();
+    // }
     delete it;
     return ultimosMensajes;
 }

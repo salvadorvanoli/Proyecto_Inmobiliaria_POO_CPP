@@ -28,5 +28,5 @@ void Mensaje::setTexto(string texto){
 }
 
 DTMensaje * Mensaje::getDTMensaje(){
-    return new DTMensaje(this->getTexto(), this->getFecha());
+    return new DTMensaje(this->texto, this->fecha);
 }

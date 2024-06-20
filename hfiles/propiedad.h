@@ -34,6 +34,7 @@ class Propiedad : public ICollectible{
         int cantAmbiente;
         int cantDormitorios;
         int cantBanios;
+        int cantConversaciones;
         float m2Edificios;
         float m2Totales;
         bool tieneGaraje;
@@ -63,6 +64,7 @@ class Propiedad : public ICollectible{
         void agregarConversacion(Conversacion *);
         void setEstadoProp(DTEstadoProp);
         void setInmobiliaria(Inmobiliaria *);
+        void setCantConversaciones(int);
 
         // Getters
 
@@ -79,6 +81,7 @@ class Propiedad : public ICollectible{
         Inmobiliaria * getInmobiliaria();
         char* getNombreInmo();
         DTDir* getDirInmo();
+        int getCantConversaciones();
 
         DTInmobiliaria * getDTInmobiliaria();
         DTPropiedad * getDTPropiedad();
@@ -87,7 +90,7 @@ class Propiedad : public ICollectible{
         IDictionary * getConversaciones();
         void desvincularDeZona();
         void destruirConversaciones();
-        DTChatProp * getDTChatProp(char *);
+        ICollectible * getDTChatProp(char *);
         
         // ICollection * getUltimosMensajes(Conversacion *);
 

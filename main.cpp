@@ -143,9 +143,15 @@ void imprimirPropsDetalladas(ICollection * col){
 void imprimirDTChatProps(IDictionary * col){
     IIterator * it = col->getIterator();
     DTChatProp * dtchatprop;
+    DTPropiedad * prop;
     while (it->hasCurrent()){
-        dtchatprop = (DTChatProp *) it->getCurrent();
-        cout << dtchatprop << endl;
+        prop = dynamic_cast<DTPropiedad *> (it->getCurrent());
+        if (prop != NULL){
+            cout << "---Propiedad---" << endl << prop << endl;
+        } else {
+            dtchatprop = dynamic_cast<DTChatProp *> (it->getCurrent());
+            cout << "------Chat------" << endl << dtchatprop << endl;
+        }
         it->next();
     }
     delete it;
@@ -1166,7 +1172,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
 
         imprimirDepto(sistema->listarDepartamentos()); // Antes hacía un try-catch con esto
 
-        char * letraDepa;
+        char * letraDepa = new char[100];
         cout << "Ingrese la letra del Departamento: ";
         cin >> letraDepa;
 
@@ -1217,16 +1223,22 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
 
         Conversacion * conver;
 
-        try{
-            sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
-        } catch(const std::exception& e) {
+        conver = sistema->getConversacionInteresado(); // Antes hacía un try-catch con esto
+        
+        if (conver == NULL){
             sistema->nuevoChat();
         }
 
         system("cls");
 
-        cout << "---Ultimos mensajes---" << endl;
-        imprimirDTMensajes(sistema->getUltimosMensajes()); // Antes hacía un try-catch con esto
+        ICollection * mensajes = sistema->getUltimosMensajes();
+
+        if (mensajes->isEmpty()){
+            cout << "Aún no hay mensajes en esta conversación." << endl << "Sé el primero en participar!" << endl;
+        } else {
+            cout << "---Ultimos mensajes---" << endl;
+            imprimirDTMensajes(mensajes);
+        }
 
         string mensaje;
         do{
