@@ -271,6 +271,7 @@ ICollection * Inmobiliaria::listarPropiedades(){
         prop = (Propiedad *) it->getCurrent();
         item = (ICollectible *) prop->getDTPropiedad();
         lista->add(item);
+        it->next();
     }
     delete it;
     return lista;

@@ -894,7 +894,15 @@ void manejarModificarPropiedad(ISistema * sistema){
     system("cls");
 
     cout << "Selecciona una de las siguientes propiedades para modificarla" << endl;
-    imprimirProps(sistema->listarPropiedadesInmo());
+    
+    try{
+        imprimirProps(sistema->listarPropiedadesInmo());
+    } catch(const exception& e){
+        system("cls");
+        cout << "Error de ejecución: " << e.what() << endl;
+        system("pause");
+        return;
+    }
 
     string optstr;
     int codigoProp;

@@ -815,6 +815,7 @@ ICollection * Sistema::listarPropiedadesInmo(){
     if (lista->isEmpty()){
         throw runtime_error("La Inmobiliaria actual no tiene ninguna propiedad en su posesión");
     }
+    return lista;
 }
 
 DTPropiedadDetallada * Sistema::verDetallesPropiedad(int codigoProp){
