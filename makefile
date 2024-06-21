@@ -143,5 +143,5 @@ clean:
 run:
 	make clean
 	make
-	cls
-	programa.exe
+	clear
+	./programa
