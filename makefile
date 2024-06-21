@@ -5,12 +5,6 @@ all: String.o Integer.o ICollectible.o IKey.o IIterator.o OrderedKey.o ICollecti
 
 # No puse el archivo DTTipoProp ni DTEstadoProp
 
-String.o:
-	g++ -c ICollection/String.cpp
-
-Integer.o:
-	g++ -c ICollection/Integer.cpp
-
 ICollectible.o:
 	g++ -c ICollection/interfaces/ICollectible.cpp
 
@@ -22,6 +16,12 @@ IIterator.o: ICollectible.o
 
 OrderedKey.o: IKey.o
 	g++ -c ICollection/interfaces/OrderedKey.cpp
+
+String.o: ICollectible.o OrderedKey.o
+	g++ -c ICollection/String.cpp
+
+Integer.o: ICollectible.o OrderedKey.o
+	g++ -c ICollection/Integer.cpp
 
 ICollection.o: IIterator.o
 	g++ -c ICollection/interfaces/ICollection.cpp
