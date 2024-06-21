@@ -57,6 +57,7 @@ class Sistema : public ISistema{
         Edificio * edificioActual;
         Propiedad * propiedadActual;
         Conversacion * conversacionActual;
+        int cantPropiedades;
     public:
 
         Sistema();
@@ -121,6 +122,8 @@ class Sistema : public ISistema{
         Propiedad* getPropiedadActual();
         Conversacion* getConversacionActual();
         IDictionary* getDepartamentos();
+        int getCantPropiedades();
+        void setCantPropiedades(int);
 };
 
 #endif

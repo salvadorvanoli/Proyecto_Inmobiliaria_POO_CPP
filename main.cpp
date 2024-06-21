@@ -122,7 +122,7 @@ DTFecha * getDTFechaActual(){
 }
 
 bool manejarIniciarSesion(ISistema * sistema){
-    system("cls");
+    system("clear");
     char* email = new char[100];
     bool emailCorrecto;
     do{
@@ -133,7 +133,7 @@ bool manejarIniciarSesion(ISistema * sistema){
             sistema->iniciarSesion(email);
             emailCorrecto = true;
         } catch (const exception& e){
-            system("cls");
+            system("clear");
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
             emailCorrecto = false;
@@ -142,7 +142,7 @@ bool manejarIniciarSesion(ISistema * sistema){
     } while(!emailCorrecto);
     if(sistema->getLoggeado()->getPrimeraVez() == true){
         try{
-            system("cls");
+            system("clear");
             string pwd1;
             string pwd2;
             cout << "Es su primera vez iniciando sesión" << endl;
@@ -152,13 +152,13 @@ bool manejarIniciarSesion(ISistema * sistema){
             cin >> pwd2;
             sistema->crearContrasenia(pwd1, pwd2);
         } catch (const exception& e){
-            system("cls");
+            system("clear");
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
             return false;
         }
     }
-    system("cls");
+    system("clear");
     string pwd;
     cout << "Inicie sesión con su contraseña" << endl << endl;
     cin >> pwd;
@@ -167,7 +167,7 @@ bool manejarIniciarSesion(ISistema * sistema){
         cout << "Sesión iniciada con éxito";
         return true;
     } catch (const exception& e) {
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return false;
@@ -175,7 +175,7 @@ bool manejarIniciarSesion(ISistema * sistema){
 }
 
 void manejarAltaInmobiliaria(ISistema * sistema){
-    system("cls");
+    system("clear");
     char* email = new char[100];
     string nombre;
     DTDir* dir;
@@ -190,22 +190,22 @@ void manejarAltaInmobiliaria(ISistema * sistema){
         cout << "Ya existe un usuario con ese correo" << endl;
         return;
     }
-    system("cls");
+    system("clear");
 
     cout << "Ingrese ahora un nombre para la inmobiliaria" << endl << endl;
     cin >> nombre;
 
-    system("cls");
+    system("clear");
 
     cout << "Ingrese calle" << endl << endl;
     cin >> calle;
 
-    system("cls");
+    system("clear");
 
     cout << "Ingrese numero" << endl << endl;
     cin >> numero;
 
-    system("cls");
+    system("clear");
 
     cout << "Ingrese ciudad" << endl << endl;
     cin >> ciudad;
@@ -215,7 +215,7 @@ void manejarAltaInmobiliaria(ISistema * sistema){
     try{
         sistema->altaInmobiliaria(nombre, email, dir);
     } catch (const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -224,7 +224,7 @@ void manejarAltaInmobiliaria(ISistema * sistema){
 
 
 void manejarAltaInteresado(ISistema * sistema){
-    system("cls");
+    system("clear");
     char* email = new char[100];
     string nombre;
     string apellido;
@@ -237,18 +237,18 @@ void manejarAltaInteresado(ISistema * sistema){
         cout << "Ya existe un usuario con ese correo" << endl;
         return;
     }
-    system("cls");
+    system("clear");
 
     cout << "Ingrese ahora un nombre para el interesado" << endl << endl;
     cin >> nombre;
 
-    system("cls");
+    system("clear");
 
     cout << "Ingrese un apellido" << endl << endl;
     cin >> apellido;
 
     do {
-        system("cls");
+        system("clear");
         cout << "Ingrese la edad" << endl << endl;
         cin >> edad;
     } while(edad <= 0);
@@ -256,7 +256,7 @@ void manejarAltaInteresado(ISistema * sistema){
     try{
         sistema->altaInteresado(email, nombre, apellido, edad);
     } catch (const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -264,7 +264,7 @@ void manejarAltaInteresado(ISistema * sistema){
 }
 
 void manejarAltaEdificio(ISistema * sistema){
-    system("cls");
+    system("clear");
     string nombre;
     int cantPisos;
     int gastosComunes;
@@ -278,11 +278,13 @@ void manejarAltaEdificio(ISistema * sistema){
     try{
         sistema->elegirDepartamento(opt);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    system("clear"); // Agregado por vale
    
     cout << "Elija una de las zonas listadas debajo" << endl;
     imprimirZonasDepto(sistema->listarZonasDepartamento()); // Valentin cambió esto
@@ -294,24 +296,26 @@ void manejarAltaEdificio(ISistema * sistema){
     try{
         sistema->elegirZona(optint);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
+
+    system("clear"); // Agregado por vale
 
     cout << "Va a ingresar un edificio en el sistema" << endl << endl;
     cout << "Ingrese ahora un nombre para el edificio" << endl << endl;
     cin >> nombre;
 
     do {
-        system("cls");
+        system("clear");
         cout << "Ingrese la cantidad de pisos" << endl << endl;
         cin >> cantPisos;
     } while(cantPisos <= 0);
 
     do {
-        system("cls");
+        system("clear");
         cout << "Ingrese los gastos comunes" << endl << endl;
         cin >> gastosComunes;
     } while(gastosComunes <= 0);
@@ -322,7 +326,7 @@ void manejarAltaEdificio(ISistema * sistema){
         sistema->setZonaActual(NULL);
 
     } catch (const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -330,17 +334,17 @@ void manejarAltaEdificio(ISistema * sistema){
 }
 
 void manejarAltaPropiedad(ISistema * s){
-    system("cls");
+    system("clear");
 
     
    //chequear usuario
     if(s->getLoggeado() == NULL){
-        system("cls");
+        system("clear");
         throw runtime_error("No hay un usuario en el sistema");
     }
     Inmobiliaria * inmo = (Inmobiliaria*) s->getLoggeado();
     if(inmo == NULL){
-        system("cls");
+        system("clear");
         throw runtime_error("El usuario ingresado no es Inmobiliaria");
     }
 
@@ -352,12 +356,12 @@ void manejarAltaPropiedad(ISistema * s){
     try{
         s->elegirDepartamento(opt);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
-    system("cls");
+    system("clear");
    
 
     //elegir zona
@@ -368,7 +372,7 @@ void manejarAltaPropiedad(ISistema * s){
     try{
         s->elegirZona(numZona);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         s->setDepartamentoActual(NULL);
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
@@ -380,7 +384,7 @@ void manejarAltaPropiedad(ISistema * s){
     cout << "2. Apartamento" << endl;
     int opcion;
     cin >> opcion;
-    system("cls");
+    system("clear");
 
     //si es apartamento
     if (opcion == 2) {
@@ -394,30 +398,30 @@ void manejarAltaPropiedad(ISistema * s){
 
         //agrega edificio
         if (opcion == 1) {
-            system("cls");
+            system("clear");
             string nombre;
             int pisos, gastosC;
             cout << "Ingrese nombre del edificio" << endl;
             cin >> nombre;
-            system("cls");
+            system("clear");
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de pisos" << endl << endl;
                 cin >> pisos;
             } while(pisos <= 0);
 
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese los gastos comunes" << endl << endl;
                 cin >> gastosC;
             } while(gastosC <= 0);
-            system("cls");
+            system("clear");
             s->altaEdificio(nombre, pisos, gastosC);         
         }
 
         else if (opcion == 2) {
             //seleccionar edificio
-            system("cls");
+            system("clear");
             imprimirEdificios(s->listarEdificio());
             cout << "Ingresar identificación del edificio:" << endl;
             int numEdificio;
@@ -426,7 +430,7 @@ void manejarAltaPropiedad(ISistema * s){
             try{
                 s->seleccionarEdificio(numEdificio); 
             } catch(const exception& e) {
-                system("cls");
+                system("clear");
                 cout << "Error de ejecución: " << e.what() << endl;
                 system("pause");
                 s->setDepartamentoActual(NULL);
@@ -441,44 +445,44 @@ void manejarAltaPropiedad(ISistema * s){
         int opcion;
         cout << "Ingresar calle:" << endl;
         cin >> calle; 
-        system("cls");
+        system("clear");
         cout << "Ingresar numero:" << endl;
         cin >> numero;
-        system("cls");
+        system("clear");
         cout << "Ingresar ciudad:" << endl;
         cin >> ciudad;
-        system("cls");
+        system("clear");
         DTDir* dir = new DTDir(calle, numero, ciudad);
        do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de ambientes" << endl << endl;
                 cin >> cantAmb;
             } while(cantAmb <= 1);
         
         do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de banos" << endl << endl;
                 cin >> cantBanos;
             } while(cantBanos <= 0);
         do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de dormitorios" << endl << endl;
                 cin >> cantDorm;
             } while(cantDorm <= 0);
-        system("cls");
+        system("clear");
         cout << "Ingresar si tiene garage:" << endl;
         cout << "1. Si" << endl;
         cout << "2. No" << endl;
         cin >> opcion;
-        system("cls");
+        system("clear");
         if (opcion == 1) 
             garage = true;
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese metros cuadrados edificados" << endl << endl;
                 cin >> m2t;
             } while(m2t <= 0);
-            system("cls");
+            system("clear");
             s->especificacionesApartamento(cantAmb, cantBanos, cantDorm, m2t, garage, dir, s->getEdificioActual(), s->getZonaActual());
         }
 
@@ -491,53 +495,53 @@ void manejarAltaPropiedad(ISistema * s){
             int opcion;
             cout << "Ingresar calle:" << endl;
             cin >> calle;
-            system("cls");
+            system("clear");
             cout << "Ingresar numero:" << endl;
             cin >> numero;
-            system("cls");
+            system("clear");
             cout << "Ingresar ciudad:" << endl;
             cin >> ciudad;
-            system("cls");
+            system("clear");
             DTDir* dir = new DTDir(calle, numero, ciudad);
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de ambientes" << endl << endl;
                 cin >> cantAmb;
             } while(cantAmb <= 1);
         
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de banos" << endl << endl;
                 cin >> cantBanos;
             } while(cantBanos <= 0);
 
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese la cantidad de dormitorios" << endl << endl;
                 cin >> cantDorm;
             } while(cantDorm <= 0);
 
-            system("cls");
+            system("clear");
             cout << "Ingresar si tiene garage:" << endl;
             cout << "1. Si" << endl;
             cout << "2. No" << endl;
             cin >> opcion;
-            system("cls");
+            system("clear");
             if (opcion == 1) 
                 garage = true;
 
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese metros cuadrados edificados" << endl << endl;
                 cin >> m2e;
             } while(m2e <= 0);
 
             do {
-                system("cls");
+                system("clear");
                 cout << "Ingrese metros cuadrados verdes" << endl << endl;
                 cin >> m2v;
             } while(m2v < 0);
-                system("cls");
+                system("clear");
                 s->especificacionesCasa(cantAmb, cantDorm, cantBanos, garage, dir, m2e, s->getZonaActual(), m2v);
             }
 
@@ -547,12 +551,12 @@ void manejarAltaPropiedad(ISistema * s){
             cout << "3. Poner en venta y alquiler" << endl;
             int option;
             cin >> option;
-            system("cls");
+            system("clear");
             if (option == 1) {
                 float valorV;
                 cout << "Ingrese valor de la venta" << endl;
                 cin >> valorV;
-                system("cls");
+                system("clear");
                 s->ponerEnVenta(valorV);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
                 return;
@@ -561,7 +565,7 @@ void manejarAltaPropiedad(ISistema * s){
                 float valorA;
                 cout << "Ingrese valor del alquiler" << endl;
                 cin >> valorA;
-                system("cls");
+                system("clear");
                 s->ponerEnAlquiler(valorA);
                 cout << "La propiedad ha sido ingresada exitosamente, su codigo de propiedad es "<< s->getPropiedadActual()->getCodigo() << endl;
                 return;
@@ -571,7 +575,7 @@ void manejarAltaPropiedad(ISistema * s){
                 float valorV;
                 cout << "Ingrese valor de la venta" << endl;
                 cin >> valorV;
-                system("cls");
+                system("clear");
                 cout << "Ingrese valor del alquiler" << endl;
                 cin >> valorA;
                 s->ponerEnAlquiler(valorA);
@@ -587,7 +591,7 @@ void manejarAltaPropiedad(ISistema * s){
 }
 
 void manejarConsultarPropiedad(ISistema * sistema){
-    system("cls");
+    system("clear");
     char* opt = new char[100];
 
     cout << "Elija uno de los departamentos listados debabajo" << endl;
@@ -602,7 +606,7 @@ void manejarConsultarPropiedad(ISistema * sistema){
         return;
     }
 
-    system("cls");
+    system("clear");
    
     cout << "Elija una de las zonas listadas debajo" << endl;
     imprimirZonasDepto(sistema->listarZonasDepartamento());
@@ -624,27 +628,35 @@ void manejarConsultarPropiedad(ISistema * sistema){
     try{
         sistema->elegirZona(optint);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
 
-    system("cls");
+    system("clear");
 
     cout << "Elija una de las propiedades listadas debajo" << endl;
     
     try{
         imprimirProps(sistema->listarPropiedades());
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
 
-    cout << "Ingrese el codigo de la propiedad: ";
-    cin >> optint;
+    while (true){
+        cout << "Ingrese el codigo de la propiedad: ";
+        cin >> optstr;
+        try {
+            optint = stoi(optstr);
+            break;
+        } catch(const exception& e) {
+            cout << endl << "Por favor, ingrese un código de propiedad válido" << endl;
+        }
+    }
 
     system("clear");
 
@@ -653,27 +665,27 @@ void manejarConsultarPropiedad(ISistema * sistema){
         cout << sistema->verDetallesPropiedad(optint);
         system("pause");
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
     }
 
-    system("cls");
+    system("clear");
 
 }
 
 
 void manejarModificarPropiedad(ISistema * sistema){
     //vale
-    system("cls");
+    system("clear");
 
     cout << "Selecciona una de las siguientes propiedades para modificarla" << endl;
     
     try{
         imprimirProps(sistema->listarPropiedadesInmo());
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -696,7 +708,7 @@ void manejarModificarPropiedad(ISistema * sistema){
     try{
         sistema->seleccionarPropiedadInmobiliaria(codigoProp);
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -713,7 +725,7 @@ void manejarModificarPropiedad(ISistema * sistema){
     int numero;
 
 
-    system("cls");
+    system("clear");
 
     while (true){
         cout << "Ingresa la cantidad de ambientes: ";
@@ -729,7 +741,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         }
     }
 
-    system("cls");
+    system("clear");
 
     while (true){
         cout << "Ingresa la cantidad de dormitorios: ";
@@ -745,7 +757,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         }
     }
 
-    system("cls");
+    system("clear");
 
     while (true){
         cout << "Ingresa la cantidad de baños: ";
@@ -761,7 +773,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         }
     }
 
-    system("cls");
+    system("clear");
 
     while (true){
         cout << "Indica a continuación si la propiedad tiene garaje" << endl << "1 - No tiene garaje" << endl << "2 - Tiene Garaje" << endl << endl << "Ingresa tu opción: ";
@@ -777,7 +789,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         }
     }
 
-    system("cls");
+    system("clear");
 
     cout << "Dirección de la propiedad" << endl << "Especifica la ciudad: ";
     do{
@@ -809,7 +821,7 @@ void manejarModificarPropiedad(ISistema * sistema){
 
     direccion = new DTDir(calle, numero, ciudad);
 
-    system("cls");
+    system("clear");
 
     if (tipoProp == DTTipoProp::apartamento){
         float m2Totales;
@@ -831,7 +843,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         try{
             sistema->modificarApartamento(cantAmbientes, cantDormitorios, cantBanios, tieneGaraje, direccion, m2Totales);
         } catch(const exception& e){
-            system("cls");
+            system("clear");
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
             return;
@@ -856,7 +868,7 @@ void manejarModificarPropiedad(ISistema * sistema){
             }
         }
 
-        system("cls");
+        system("clear");
 
         while (true){
             cout << "Introduce los m2Verdes: ";
@@ -875,7 +887,7 @@ void manejarModificarPropiedad(ISistema * sistema){
         try{
             sistema->modificarCasa(cantAmbientes, cantDormitorios, cantBanios, tieneGaraje, direccion, m2Edificados, m2Verdes);
         } catch(const exception& e){
-            system("cls");
+            system("clear");
             cout << "Error de ejecución: " << e.what() << endl;
             system("pause");
             return;
@@ -887,12 +899,12 @@ void manejarModificarPropiedad(ISistema * sistema){
 }
 
 void manejarEliminarPropiedad(ISistema * sistema){
-    system("cls");
+    system("clear");
 
     try {
             imprimirProps(sistema->listarPropiedadesInmo());
         } catch(const exception& e) {
-            system("cls");
+            system("clear");
             cout << "Error: " << e.what() << endl;
             system("pause");
             return;
@@ -915,11 +927,11 @@ void manejarEliminarPropiedad(ISistema * sistema){
     
     try {
         sistema->eliminarPropiedad(codigoNumerico);
-        system("cls");
+        system("clear");
         cout << "La propiedad fue removida exitosamente!" << endl;
         system("pause");
     } catch(const exception& e) {
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -927,7 +939,7 @@ void manejarEliminarPropiedad(ISistema * sistema){
 }
 
 void manejarEnviarMensajeInteresado(ISistema * sistema){
-    system("cls");
+    system("clear");
     try {
 
         imprimirDepto(sistema->listarDepartamentos()); // Antes hacía un try-catch con esto
@@ -938,7 +950,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
 
         sistema->elegirDepartamento(letraDepa); // Antes hacía un try-catch con esto
 
-        system("cls");
+        system("clear");
 
         imprimirZonasDepto(sistema->listarZonasDepartamento()); // Antes hacía un try-catch con esto
 
@@ -956,7 +968,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
             }
         }
 
-        system("cls");
+        system("clear");
 
         sistema->elegirZona(numZona); // Antes hacía un try-catch con esto
 
@@ -985,7 +997,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
             sistema->nuevoChat();
         }
 
-        system("cls");
+        system("clear");
 
         ICollection * mensajes = sistema->getUltimosMensajes();
 
@@ -1007,7 +1019,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
         
         sistema->nuevoMensaje(mensaje, FECHA);
 
-        system("cls");
+        system("clear");
         cout << "El mensaje se envió de manera exitosa!" << endl;
         system("pause");
 
@@ -1018,7 +1030,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
         // sistema->setZonaActual(NULL);
 
     } catch(const std::exception& e) {
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -1030,7 +1042,7 @@ void manejarEnviarMensajeInteresado(ISistema * sistema){
 void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
     //feli
     try{
-        system("cls");
+        system("clear");
 
         imprimirDTChatProps(sistema->listarChatsInmo());
     
@@ -1048,7 +1060,7 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
             }
         }
 
-        system("cls");
+        system("clear");
 
         sistema->seleccionarConversacionInmo(codigo);
 
@@ -1065,12 +1077,12 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
         DTFecha * fecha = getDTFechaActual();
         sistema->nuevoMensaje(respuesta, fecha);
 
-        system("cls");
+        system("clear");
         cout << "El mensaje fue agregado de manera exitosa!" << endl;
         system("pause");
 
     } catch(const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -1079,12 +1091,12 @@ void manejarEnviarMensajeInmobiliaria(ISistema * sistema){
 }
 
 void manejarReporte(ISistema * sistema){
-    system("cls");
+    system("clear");
     ICollection * reportes;
     try {
         reportes = sistema->obtenerReporte();
     } catch (const exception& e){
-        system("cls");
+        system("clear");
         cout << "Error de ejecución: " << e.what() << endl;
         system("pause");
         return;
@@ -1120,7 +1132,7 @@ void menu(ISistema * sistema){
             sistema->setEdificioActual(NULL);
             sistema->setPropiedadActual(NULL);
             sistema->setZonaActual(NULL);
-            system("cls");
+            system("clear");
             cout << "Necesita iniciar sesión en el sistema" << endl << endl;
             cout << "1-Iniciar sesión" << endl;
             cout << "exitsystem-Salir del sistema" << endl << endl;
@@ -1142,7 +1154,7 @@ void menu(ISistema * sistema){
                 if(admin != NULL){
                     do{
                         do{
-                            system("cls");
+                            system("clear");
                             opt = "";
                             sistema->setConversacionActual(NULL);
                             sistema->setDepartamentoActual(NULL);
@@ -1176,7 +1188,7 @@ void menu(ISistema * sistema){
                 } else if(inmo != NULL) {
                     do{
                         do{
-                            system("cls");
+                            system("clear");
                             opt = "";
                             sistema->setConversacionActual(NULL);
                             sistema->setDepartamentoActual(NULL);
@@ -1219,7 +1231,7 @@ void menu(ISistema * sistema){
                 } else if (interesado != NULL){
                     do{
                         do{
-                            system("cls");
+                            system("clear");
                             opt = "";
                             sistema->setConversacionActual(NULL);
                             sistema->setDepartamentoActual(NULL);
@@ -1384,32 +1396,33 @@ int main() {
 
     // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, float _m2Verdes)
 
-    Casa * casa1 = zona1->crearCasa(2, 1, 1, 50, dir1, true, 20, inmo1);
-
+    Casa * casa1 = zona1->crearCasa(sistema->getCantPropiedades(), 2, 1, 1, 50, dir1, true, 20, inmo1);
+    sistema->enlazarPropiedad(casa1);
     zona1->enlazarPropiedad(casa1);
 
-    Casa * casa2 = zona1->crearCasa(4, 2, 2, 100, dir2, false, 40, inmo1);
-
+    Casa * casa2 = zona1->crearCasa(sistema->getCantPropiedades(), 4, 2, 2, 100, dir2, false, 40, inmo1);
+    sistema->enlazarPropiedad(casa2);
     zona1->enlazarPropiedad(casa2);
 
-    Casa * casa3 = zona2->crearCasa(3, 1, 2, 70, dir3, true, 30, inmo2);
-
+    Casa * casa3 = zona2->crearCasa(sistema->getCantPropiedades(), 3, 1, 2, 70, dir3, true, 30, inmo2);
+    sistema->enlazarPropiedad(casa3);
     zona2->enlazarPropiedad(casa3);
 
     // int _codigo, int _cantAmbiente, int _cantDormitorios, int _cantBanios, float _m2Edificios, DTDir * dir, bool _tieneGaraje, Zona * _zona, Edificio * _edificio
 
-    Apartamento * ap1 = edi1->crearApartamento(2, 3, 2, 90, dir4, false, inmo1);
+    Apartamento * ap1 = edi1->crearApartamento(sistema->getCantPropiedades(), 2, 3, 2, 90, dir4, false, inmo1);
+    sistema->enlazarPropiedad(ap1);
 
     zona1->enlazarPropiedad(ap1);
     edi1->enlazarPropiedad(ap1);
 
-    Apartamento * ap2 = edi1->crearApartamento(3, 2, 1, 70, dir8, false, inmo2);
-
+    Apartamento * ap2 = edi1->crearApartamento(sistema->getCantPropiedades(), 3, 2, 1, 70, dir8, false, inmo2);
+    sistema->enlazarPropiedad(ap2);
     zona1->enlazarPropiedad(ap2);
     edi1->enlazarPropiedad(ap2);
 
-    Apartamento * ap3 = edi3->crearApartamento(1, 1, 1, 20, dir5, true, inmo2);
-    
+    Apartamento * ap3 = edi3->crearApartamento(sistema->getCantPropiedades(), 1, 1, 1, 20, dir5, true, inmo2);
+    sistema->enlazarPropiedad(ap3);
     zona2->enlazarPropiedad(ap3);
     edi3->enlazarPropiedad(ap3);
 

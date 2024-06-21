@@ -146,9 +146,9 @@ void Zona::enlazarPropiedad(Propiedad * propiedad){
     // ES CON ICOLLECTION
 }
 
-Casa * Zona::crearCasa(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes, Inmobiliaria* inmo){
-    int codigo = generarCodigoPropiedad();
-    return new Casa(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes, inmo);
+Casa * Zona::crearCasa(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, float m2Verdes, Inmobiliaria* inmo){
+    int codProp = codigo + 1;
+    return new Casa(codProp, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this, m2Verdes, inmo);
 }
 
 // ES LO MISMO QUE QUITAR PROPIEDAD
@@ -255,16 +255,16 @@ DTPropiedadDetallada * Zona::verDetallesPropiedad(int codigoProp){
 
 // Generar codigo
 
-int Zona::generarCodigoPropiedad(){
-    IIterator * it = this->propiedades->getIterator();
-    Propiedad * prop = NULL;
-    if (it->hasCurrent()){
-        prop = dynamic_cast<Propiedad *> (it->getCurrent());
-        delete it;
-        return prop->getCodigo()+1;
-    }
-    return 1;
-}
+// int Zona::generarCodigoPropiedad(){
+//     IIterator * it = this->propiedades->getIterator();
+//     Propiedad * prop = NULL;
+//     if (it->hasCurrent()){
+//         prop = dynamic_cast<Propiedad *> (it->getCurrent());
+//         delete it;
+//         return prop->getCodigo()+1;
+//     }
+//     return 1;
+// }
 
 int Zona::generarCodigoEdificio(){
     IIterator * it = this->edificios->getIterator();

@@ -108,7 +108,7 @@ DTEdificio * Edificio::getDTEdifico(){
     return new DTEdificio(this->getCodigo(), this->getNombre(), this->getCantPisos(), this->getGastosComunes());
 }
 
-Apartamento * Edificio::crearApartamento(int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, Inmobiliaria* inmo){
-    int codigo = this->zona->generarCodigoPropiedad();
-    return new Apartamento(codigo, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this->zona, this, inmo);
+Apartamento * Edificio::crearApartamento(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, float m2Edificados, DTDir * dir, bool tieneGaraje, Inmobiliaria* inmo){
+    int codProp = codigo + 1;
+    return new Apartamento(codProp, cantAmbientes, cantDormitorios, cantBanios, m2Edificados, dir, tieneGaraje, this->zona, this, inmo);
 }

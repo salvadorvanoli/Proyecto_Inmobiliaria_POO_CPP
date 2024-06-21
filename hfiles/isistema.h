@@ -105,6 +105,8 @@ class ISistema{
         virtual Propiedad* getPropiedadActual() = 0;
         virtual Conversacion* getConversacionActual() = 0;
         virtual IDictionary* getDepartamentos() = 0;
+        virtual int getCantPropiedades() = 0;
+        virtual void setCantPropiedades(int) = 0;
 };
 
 #endif

@@ -12,7 +12,7 @@ Sistema::Sistema(){
     this->propiedadActual = NULL;
     this->edificioActual = NULL;
     this->conversacionActual = NULL;
-
+    this->cantPropiedades = 0;
 }
 
 Sistema::~Sistema(){
@@ -510,7 +510,7 @@ void Sistema::especificacionesApartamento(int cantAmb, int cantDorm, int cantBan
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     Apartamento *apartamento = NULL;
-    apartamento = edificio->crearApartamento(cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo);
+    apartamento = edificio->crearApartamento(this->cantPropiedades, cantAmb, cantDorm, cantBanos, m2e, dir, garage, inmo);
     edificio->enlazarPropiedad(apartamento);
     zona->enlazarPropiedad(apartamento);
     this->enlazarPropiedad(apartamento);
@@ -531,7 +531,7 @@ void Sistema::especificacionesCasa(int cantAmb, int cantDorm, int cantBanos, boo
         throw runtime_error("El usuario ingresado no es Administrador");
     }
     Casa *casa = NULL;
-    casa = zona->crearCasa(cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v, inmo);
+    casa = zona->crearCasa(this->cantPropiedades, cantAmb, cantDorm, cantBanos, m2e, dir, garage, m2v, inmo);
     zona->enlazarPropiedad(casa);
     this->enlazarPropiedad(casa);
     inmo->agregarPropiedad(casa);
@@ -837,7 +837,7 @@ void Sistema::enlazarPropiedad(Propiedad * propiedad){
     if (!this->propiedades->member(nuevaKey)){
         ICollectible * nuevaPropiedad = (ICollectible *) propiedad;
         this->propiedades->add(nuevaKey, nuevaPropiedad);
-        // this->cantPropiedades++;
+        this->cantPropiedades++;
         // cout << "La propiedad fue agregado exitosamente!" << endl;
     } else {
         delete nuevaKey;
@@ -849,7 +849,7 @@ void Sistema::desvincularPropiedad(int codigoProp){
     IKey * clave = new Integer (codigoProp);
     if (this->propiedades->member(clave)){
         this->propiedades->remove(clave);
-        // this->cantPropiedades--;
+        this->cantPropiedades--;
         delete clave;
         cout << "La propiedad fue removida de manera exitosa!" << endl;
     } else {
@@ -908,4 +908,12 @@ Conversacion* Sistema::getConversacionActual(){
 
 IDictionary* Sistema::getDepartamentos(){
     return this->departamentos;
+}
+
+int Sistema::getCantPropiedades(){
+    return this->cantPropiedades;
+}
+
+void Sistema::setCantPropiedades(int cant){
+    this->cantPropiedades = cant;
 }
